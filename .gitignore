@@ -1,0 +1,29 @@
+# ignore all of these
+#
+#
+#
+#
+
+### Java ###
+*.class
+
+### Local conf
+local.properties
+
+### Gradle ###
+.gradle/
+build/
+bin/
+gen/
+
+
+### Eclipse ###
+.classpath
+.project
+.settings/
+
+### Intellij ###
+.idea/
+*.iml
+*.ipr
+*.iws
