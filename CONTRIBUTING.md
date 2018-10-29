@@ -79,6 +79,7 @@ git clone https://github.com/lhrb/swec8.git
 ```
 
 ### Wichtig niemals im master branch arbeiten!!!
+Ein Merge in den Master Branch findet erst nach dem Code Review statt.
 
 #### Erstelle einen Feature Branch
 
@@ -144,16 +145,16 @@ ausführen. Das Projekt kann dann in die entsprechende IDE importiert werden.
 Für weitere Hilfestellung benutzt eine [Suchmaschine](https://duckduckgo.com/ "DuckDuckGo") eurer Wahl
 
 ### Dependencies
-Falls ihr externe dependencies verwenden wollt/müsst, sucht das entsprechende Artifact auf 
+Falls ihr externe Dependencies verwenden wollt/müsst, sucht das entsprechende Artifact auf 
 [MavenCentral](https://mvnrepository.com/ "MavenCentral")
-Das Code snippet welches ihr zur [build.gradle](build.gradle) unter dependecies { ... } hinzufügen müsst 
-könnt ihr direkt von Maven Repository kopieren. 
+Das Code snippet, welches ihr zur [build.gradle](build.gradle), unter dependecies { ... }, hinzufügen müsst, 
+könnt ihr direkt von der Seite Maven Repository kopieren. 
 
 Falls ihr eine der oben genannten IDE's benutzt müsst ihr nocheinmal zb den "gradle eclipse" task ausführen
 und ggf. eure IDE aktualieren (F5)
 
 ### Testing
-eure unit test könnt ihr mit dem task
+eure Unit Tests könnt ihr mit dem Task
 ```
 gradle test
 ```
