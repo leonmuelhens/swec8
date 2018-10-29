@@ -1,3 +1,3 @@
 # SWE C8 Projekt
 
-[Wichtig](CONTRIBUTING.md)
+## [Wichtig](CONTRIBUTING.md)
