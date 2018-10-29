@@ -20,15 +20,15 @@ plugins {
 project.ext.lwjglVersion = "3.2.0"
 
 switch ( OperatingSystem.current() ) {
-		case OperatingSystem.WINDOWS:
-			project.ext.lwjglNatives = "natives-windows"
-			break
-		case OperatingSystem.LINUX:
-			project.ext.lwjglNatives = "natives-linux"
-			break
-		case OperatingSystem.MAC_OS:
-			project.ext.lwjglNatives = "natives-macos"
-			break
+    case OperatingSystem.WINDOWS:
+        project.ext.lwjglNatives = "natives-windows"
+        break
+    case OperatingSystem.LINUX:
+        project.ext.lwjglNatives = "natives-linux"
+        break
+    case OperatingSystem.MAC_OS:
+        project.ext.lwjglNatives = "natives-macos"
+        break
 }
 
 // Define the main class for the application
@@ -60,8 +60,6 @@ dependencies {
     // Other required packages
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.7'
-
-
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
