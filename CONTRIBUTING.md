@@ -53,6 +53,7 @@ src/main/java/com/github/lhrb/myshooter/paketname/ClassName.java
 die Test Klassen unter
 ```
 src/test/gleicherPfadWieDieZuTestendeKlasse/TestKlasse
+zb.
 src/test/java/com/github/lhrb/myshooter/paketname/TestClassName.java
 ```
 Resourcen wie zb. Bilder werden im Wurzelverzeichnis unter
