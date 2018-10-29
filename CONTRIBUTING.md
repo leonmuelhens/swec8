@@ -46,6 +46,28 @@ Es gibt noch viel mehr [javadoc tags](https://www.tutorialspoint.com/java/java_d
 - Es sollte mindestens ein Test Case dargestellt werden 
 - Die Test Klassn/Methoden haben den gleichen Namen mit dem Präfix "Test" zb. TestKlassenName
 
+## Exception Handling
+Exceptions sind in Java "teuer", deshalb versuchen Exceptions mittels Kontrollabfrage auszuschließen
+```java
+//good practice
+if(obj != null){
+  obj.operation();
+  //....
+}
+//bad practice
+try{
+  obj.operation();
+}catch(NullPointerException e){
+  //...
+}
+```
+- "Behandelbare" Exceptions so früh wie möglich beheben! 
+- Alle anderen mittels "throw" weiterleiten
+- Exceptions sind <b>nicht</b> als Kontrollfluß Elemente zu Missbrauchen!!!
+- Aussagekräftige Exceptions verwenden [Exception](https://docs.oracle.com/javase/10/docs/api/java/lang/Exception.html) 
+[RuntimeException](https://docs.oracle.com/javase/10/docs/api/java/lang/RuntimeException.html)
+- Eigene Exceptions sind im gleichen Paket, wie die Klasse, die diese wirft abzulegen 
+
 ## Filestructure
 Source code ablegen unter
 ```
