@@ -78,7 +78,7 @@ git config --global user.email "your_email@whatever.com"
 git clone https://github.com/lhrb/swec8.git
 ```
 
-### Wichtig niemals im master branch arbeiten
+### Wichtig niemals im master branch arbeiten!!!
 
 #### Erstelle einen Feature Branch
 
@@ -157,4 +157,4 @@ eure unit test könnt ihr mit dem task
 ```
 gradle test
 ```
-ausführen. Es wird dann ein Webinterface mit den ergebnissen angelegt.  
+ausführen. Es wird dann ein Webinterface mit den Ergebnissen angelegt.  
