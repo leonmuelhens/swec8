@@ -179,7 +179,7 @@ gradle run
 ### IDE einrichten
 Es können im moment nur für Eclipse und IntellJ alle benötigten Dateien erstellt werden.
 Solltet ihr noch eine andere IDE benutzten achtet bitte darauf, die von diesem Program evtl erstellten Dateien
-in der [.gitignore](.gitignore) anzugeben
+in der [.gitignore](.gitignore) anzugeben.
 Um diese zu erstellen einfach
 ```
 gradle eclipse
@@ -191,8 +191,8 @@ Für weitere Hilfestellung benutzt eine [Suchmaschine](https://duckduckgo.com/ "
 
 ### Dependencies
 Falls ihr externe Dependencies verwenden wollt/müsst, sucht das entsprechende Artifact auf 
-[MavenCentral](https://mvnrepository.com/ "MavenCentral")
-Das Code snippet, welches ihr zur [build.gradle](build.gradle), unter dependecies { ... }, hinzufügen müsst, 
+[MavenCentral](https://mvnrepository.com/ "MavenCentral").
+Das Code snippet, welches ihr zur [build.gradle](build.gradle) unter dependecies { ... }, hinzufügen müsst, 
 könnt ihr direkt von der Seite Maven Repository kopieren. 
 
 Falls ihr eine der oben genannten IDE's benutzt müsst ihr nocheinmal zb den "gradle eclipse" task ausführen
