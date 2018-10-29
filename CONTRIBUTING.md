@@ -115,7 +115,22 @@ git push origin branch_name
 ```
 branch_name ist der name eures feature branch ;)
 
+#### Update
+Euer Repo kann mittels
+```
+git pull
+```
+auf den neusten Stand gerbacht werden
 
+#### Branching
+In einen anderen Branch wechseln 
+```
+git checkout branchname
+```
+Branch löschen
+```
+git branch -d branchname 
+```
 #### Zum weiterlesen
 - (https://rogerdudler.github.io/git-guide/)
 - (https://githowto.com/)
