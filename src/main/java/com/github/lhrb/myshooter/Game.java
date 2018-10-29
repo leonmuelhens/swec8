@@ -17,9 +17,7 @@ public class Game implements Runnable{
   Config myConfig = new Config();
   int width = (Integer) myConfig.getSetting("resolution_width");
   int height = (Integer) myConfig.getSetting("resolution_height");
-
-  static final String gamename = "myShooter";
-
+  String gameName = (String) myConfig.getSetting("gameName");
   private Thread thread;
   private boolean running = false;
 
@@ -27,7 +25,7 @@ public class Game implements Runnable{
 
   public void start() {
     running = true;
-    thread = new Thread(this, gamename);
+    thread = new Thread(this, gameName);
     thread.start();
   }
 
@@ -37,7 +35,7 @@ public class Game implements Runnable{
       // we have to handle this
     }
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-    window = glfwCreateWindow(width, height, gamename, NULL, NULL);
+    window = glfwCreateWindow(width, height, gameName, NULL, NULL);
 
     if (window == 0) {
       // we have to handle this
