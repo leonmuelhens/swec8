@@ -131,6 +131,10 @@ git commit -m "Add ....
 Create ...
 Update ... "
 ```
+Commit mit Titel und Beschreibung
+```
+git commit -m "Titel" -m "Beschreibung"
+```
 #### Push
 Die Dateien zum Repository senden
 ```
