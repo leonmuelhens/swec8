@@ -3,14 +3,14 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
     // Apply the java plugin to add support for Java
-	id 'java'
+    id 'java'
 
     // Apply the application plugin to add support for building an application
     id 'application'
-    
-    
+
+
     // IDE plugins
-    
+
     //https://docs.gradle.org/current/userguide/eclipse_plugin.html
     id 'eclipse'
     //https://docs.gradle.org/current/userguide/idea_plugin.html
@@ -32,7 +32,7 @@ switch ( OperatingSystem.current() ) {
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'com.github.lhrb.myshooter.Game'
 
 
 // In this section you declare where to find the dependencies of your project
@@ -42,22 +42,27 @@ repositories {
 }
 
 dependencies {
-	
-	//The LWJGl core library BSD license
-	compile "org.lwjgl:lwjgl:$lwjglVersion"
-	compile "org.lwjgl:lwjgl-assimp:$lwjglVersion"
-	compile "org.lwjgl:lwjgl-glfw:$lwjglVersion"
-	compile "org.lwjgl:lwjgl-openal:$lwjglVersion"
-	compile "org.lwjgl:lwjgl-opengl:$lwjglVersion"
-	compile "org.lwjgl:lwjgl-stb:$lwjglVersion"
-	compile "org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives"
-	compile "org.lwjgl:lwjgl-assimp:$lwjglVersion:$lwjglNatives"
-	compile "org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives"
-	compile "org.lwjgl:lwjgl-openal:$lwjglVersion:$lwjglNatives"
-	compile "org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives"
-	compile "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
-	
-    
+
+    //The LWJGl core library BSD license
+    compile "org.lwjgl:lwjgl:$lwjglVersion"
+    compile "org.lwjgl:lwjgl-assimp:$lwjglVersion"
+    compile "org.lwjgl:lwjgl-glfw:$lwjglVersion"
+    compile "org.lwjgl:lwjgl-openal:$lwjglVersion"
+    compile "org.lwjgl:lwjgl-opengl:$lwjglVersion"
+    compile "org.lwjgl:lwjgl-stb:$lwjglVersion"
+    compile "org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives"
+    compile "org.lwjgl:lwjgl-assimp:$lwjglVersion:$lwjglNatives"
+    compile "org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives"
+    compile "org.lwjgl:lwjgl-openal:$lwjglVersion:$lwjglNatives"
+    compile "org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives"
+    compile "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
+
+    // Other required packages
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.7'
+
+
+
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
