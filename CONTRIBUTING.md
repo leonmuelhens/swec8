@@ -131,6 +131,11 @@ Branch löschen
 ```
 git branch -d branchname 
 ```
+
+#### .gitignore
+Bitte keine localen configs etc. in das repository pushen
+[zum weiterlesen](https://git-scm.com/docs/gitignore)
+
 #### Zum weiterlesen
 - (https://rogerdudler.github.io/git-guide/)
 - (https://githowto.com/)
@@ -150,6 +155,8 @@ gradle run
 
 ### IDE einrichten
 Es können im moment nur für Eclipse und IntellJ alle benötigten Dateien erstellt werden.
+Solltet ihr noch eine andere IDE benutzten achtet bitte darauf, die von diesem Program evtl erstellten Dateien
+in der [.gitignore](.gitignore) anzugeben
 Um diese zu erstellen einfach
 ```
 gradle eclipse
