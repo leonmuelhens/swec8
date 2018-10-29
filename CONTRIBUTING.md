@@ -21,7 +21,7 @@ zum erhöhen der Lesbarkeit
 Jede Klasse/Methode <b>muss</b> kommentiert werden!
 
 Im Kommentarblock über der Klasse/Methode muss angegeben, 
-welche funktionalität zur Verfügung gestellt wird. 
+welche Funktionalität zur Verfügung gestellt wird. 
 Also "<b>Was</b> macht die Klasse/Methode". 
 Das "Wie" kann, falls notwendig, mit inline Kommentaren beschrieben werden.
 ```java
