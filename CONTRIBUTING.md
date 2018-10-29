@@ -156,7 +156,7 @@ git branch -d branchname
 ```
 
 #### .gitignore
-Bitte keine localen configs etc. in das repository pushen
+sollte gepflegt werden. Bitte keine localen configs etc. in das repository pushen
 [zum weiterlesen](https://git-scm.com/docs/gitignore)
 
 #### Zum weiterlesen
