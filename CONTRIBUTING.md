@@ -86,7 +86,7 @@ Ein Merge in den Master Branch findet erst nach dem Code Review statt.
 ```
 git checkout -b feature_name
 ```
-Bitte den Präfix "feature" benutzen
+Bitte den Präfix "feature" benutzen, name sollte aussagekräftig sein
 
 #### Add
 nach der Bearbeitung einer Datei kann man diese mittels
