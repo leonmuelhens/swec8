@@ -54,6 +54,7 @@ if(obj != null){
   obj.operation();
   //....
 }
+
 //bad practice
 try{
   obj.operation();
