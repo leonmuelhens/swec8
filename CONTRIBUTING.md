@@ -6,6 +6,7 @@ zum erhöhen der Lesbarkeit
 - Nach ~80 Spalten einen Zeilenumbruch verwenden
 - keine Tabs nur Leerzeichen verwenden!
 - Mindestens 2 Leerzeichen zum einrücken verwenden (besser 4)
+- versuchen Englische Begriffe zu verwenden
 
 ## Bezeichnungen
 |Typ | Regel | Beispiel |
@@ -42,8 +43,24 @@ Es gibt noch viel mehr [javadoc tags](https://www.tutorialspoint.com/java/java_d
 - Zu jeder Klasse muss eine entsprechende JUnit Test Klasse angelegt werden!
 - Jede Methode braucht eine entsprechende Test Methode!
 - Es sollte mindestens ein Test Case dargestellt werden 
-# Git Tutorial
+- Die Test Klassn/Methoden haben den gleichen Namen mit dem Präfix "Test" zb. TestKlassenName
 
+## Filestructure
+Source code ablegen unter
+```
+src/main/java/com/github/lhrb/myshooter/paketname/ClassName.java
+```
+die Test Klassen unter
+```
+src/test/gleicherPfadWieDieZuTestendeKlasse/TestKlasse
+src/test/java/com/github/lhrb/myshooter/paketname/TestClassName.java
+```
+Resourcen wie zb. Bilder werden im Wurzelverzeichnis unter
+```
+resourcen/sinnvollerOrdnerName/
+```
+
+# Git Tutorial
 - Download & Install git
 - Erstelle eine account auf [github](https://github.com)
 
@@ -59,7 +76,7 @@ git config --global user.email "your_email@whatever.com"
 git clone https://github.com/lhrb/swec8.git
 ```
 
-### Wichtig nicht im master branch arbeiten
+### Wichtig niemals im master branch arbeiten
 
 #### Erstelle einen Feature Branch
 
