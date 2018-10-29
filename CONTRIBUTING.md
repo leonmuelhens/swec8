@@ -64,7 +64,7 @@ try{
 - "Behandelbare" Exceptions so früh wie möglich beheben! 
 - Alle anderen mittels "throw" weiterleiten
 - Exceptions sind <b>nicht</b> als Kontrollfluß Elemente zu Missbrauchen!!!
-- Aussagekräftige Exceptions verwenden [Exception](https://docs.oracle.com/javase/10/docs/api/java/lang/Exception.html) 
+- Aussagekräftige Exceptions verwenden [Exception](https://docs.oracle.com/javase/10/docs/api/java/lang/Exception.html), 
 [RuntimeException](https://docs.oracle.com/javase/10/docs/api/java/lang/RuntimeException.html)
 - Eigene Exceptions sind im gleichen Paket, wie die Klasse, die diese wirft abzulegen 
 
