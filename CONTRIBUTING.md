@@ -1,3 +1,12 @@
+# Contributing Guidelines
+bitte einmal komplett lesen :)
+
+## Generelle Konventionen
+zum erhöhen der Lesbarkeit
+- Nach ~80 Spalten einen Zeilenumbruch verwenden
+- keine Tabs nur Leerzeichen verwenden!
+- Mindestens 2 Leerzeichen zum einrücken verwenden (besser 4)
+
 ## Bezeichnungen
 |Typ | Regel | Beispiel |
 |----|:-----:|----------|
@@ -10,6 +19,7 @@
 
 ## Kommentare
 Jede Klasse/Methode <b>muss</b> kommentiert werden!
+
 Im Kommentarblock über der Klasse/Methode muss angegeben, 
 welche funktionalität zur Verfügung gestellt wird. 
 Also "<b>Was</b> macht die Klasse/Methode". 
