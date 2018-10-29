@@ -40,6 +40,7 @@ public int beispiel(int x) throws Exception{
 Es gibt noch viel mehr [javadoc tags](https://www.tutorialspoint.com/java/java_documentation.htm)
 
 ## Test Klassen
+[JUnit](https://junit.org/junit4/ "junit4") 
 - Zu jeder Klasse muss eine entsprechende JUnit Test Klasse angelegt werden!
 - Jede Methode braucht eine entsprechende Test Methode!
 - Es sollte mindestens ein Test Case dargestellt werden 
@@ -61,9 +62,9 @@ Resourcen wie zb. Bilder werden im Wurzelverzeichnis unter
 resourcen/sinnvollerOrdnerName/
 ```
 
-# Git Tutorial
+# Git 
 - Download & Install git
-- Erstelle eine account auf [github](https://github.com)
+- Erstelle eine account auf [github](https://github.com "github")
 
 #### User Config
 Run
@@ -119,4 +120,41 @@ branch_name ist der name eures feature branch ;)
 - (https://githowto.com/)
 - (https://git-scm.com/doc)
 
+# Gradle 
+[Download & Install](https://gradle.org/install/ "gradle") gradle
 
+#### Verfügbare tasks ansehen
+```
+gradle tasks
+```
+#### Das Project ausführen
+```
+gradle run
+```
+
+### IDE einrichten
+Es können im moment nur für Eclipse und IntellJ alle benötigten Dateien erstellt werden.
+Um diese zu erstellen einfach
+```
+gradle eclipse
+bzw.
+gradle idea
+```
+ausführen. Das Projekt kann dann in die entsprechende IDE importiert werden.
+Für weitere Hilfestellung benutzt eine [Suchmaschine](https://duckduckgo.com/ "DuckDuckGo") eurer Wahl
+
+### Dependencies
+Falls ihr externe dependencies verwenden wollt/müsst, sucht das entsprechende Artifact auf 
+[MavenCentral](https://mvnrepository.com/ "MavenCentral")
+Das Code snippet welches ihr zur [build.gradle](blob/master/build.gradle) unter dependecies { ... } hinzufügen müsst 
+könnt ihr direkt von Maven Repository kopieren. 
+
+Falls ihr eine der oben genannten IDE's benutzt müsst ihr nocheinmal zb den "gradle eclipse" task ausführen
+und ggf. eure IDE aktualieren (F5)
+
+### Testing
+eure unit test könnt ihr mit dem task
+```
+gradle test
+```
+ausführen. Es wird dann ein Webinterface mit den ergebnissen angelegt.  
