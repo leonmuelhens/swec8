@@ -82,7 +82,10 @@ src/test/java/com/github/lhrb/myshooter/paketname/TestClassName.java
 ```
 Resourcen wie zb. Bilder werden im Wurzelverzeichnis unter
 ```
-resourcen/sinnvollerOrdnerName/
+resources/sinnvollerOrdnerName/
+zb
+resources/img/
+resources/config/
 ```
 
 # Git 
