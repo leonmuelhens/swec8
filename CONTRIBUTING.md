@@ -80,7 +80,7 @@ Die Datei zum HEAD hinzufügen
 ```
 git commit -m "commit message"
 ```
-- Präfixe wie "Add, Delete, Update, Create" benutzen!
+- <b>Präfixe wie "Add, Delete, Update, Create" benutzen!</b>
 - Versuchen jede Änderung, wenn möglich, in einen einzelnen Commit
 - Einen mehrzeiligen Commit erstellt man, indem man die Anführungzeichen nicht schließt.
 ```
