@@ -146,7 +146,7 @@ Für weitere Hilfestellung benutzt eine [Suchmaschine](https://duckduckgo.com/ "
 ### Dependencies
 Falls ihr externe dependencies verwenden wollt/müsst, sucht das entsprechende Artifact auf 
 [MavenCentral](https://mvnrepository.com/ "MavenCentral")
-Das Code snippet welches ihr zur [build.gradle](blob/master/build.gradle) unter dependecies { ... } hinzufügen müsst 
+Das Code snippet welches ihr zur [build.gradle](build.gradle) unter dependecies { ... } hinzufügen müsst 
 könnt ihr direkt von Maven Repository kopieren. 
 
 Falls ihr eine der oben genannten IDE's benutzt müsst ihr nocheinmal zb den "gradle eclipse" task ausführen
