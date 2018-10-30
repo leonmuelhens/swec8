@@ -1,4 +1,4 @@
-package com.github.lhrb.myshooter.Config;
+package com.github.lhrb.myshooter;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWKeyCallback;

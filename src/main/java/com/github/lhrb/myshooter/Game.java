@@ -1,7 +1,6 @@
 package com.github.lhrb.myshooter;
 
-import com.github.lhrb.myshooter.Config.Config;
-import com.github.lhrb.myshooter.Config.Input;
+import com.github.lhrb.myshooter.Input.*;
 
 import org.lwjgl.glfw.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -11,17 +10,26 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Game implements Runnable {
     /* Config start */
-    private Config gameConfig = new Config();
-    private int windowWidth = (Integer) gameConfig.getSetting("resolution_width");
-    private int windowHeight = (Integer) gameConfig.getSetting("resolution_height");
-    private String gameName = (String) gameConfig.getSetting("gameName");
+    private static int WINDOW_WIDTH;
+    private static int WINDOW_HEIGHT;
+    private static String GAME_NAME ;
 
     private Thread gameThread;
 
     // While game is running, this should be true
-    private boolean running = false;
+    private boolean running;
     // This is the ID for the Window
-    private long gameWindow = 0;
+    private long gameWindow;
+
+    /**
+     * Default Constructor initializing static vars for our game
+     */
+    public Game () {
+        GAME_NAME = "myShooter";
+        WINDOW_WIDTH = 1024;
+        WINDOW_HEIGHT = 768;
+        gameWindow = 0;
+    }
 
 
     /**
@@ -29,7 +37,7 @@ public class Game implements Runnable {
      */
     public void start() {
         running = true;
-        gameThread = new Thread(this, gameName);
+        gameThread = new Thread(this, GAME_NAME);
         gameThread.start();
     }
 
@@ -42,7 +50,7 @@ public class Game implements Runnable {
             // TODO: we have to handle if glfw does not initiate correctly
         }
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-        gameWindow = glfwCreateWindow(windowWidth, windowHeight, gameName, NULL, NULL);
+        gameWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME, NULL, NULL);
 
         if (gameWindow == 0) {
             // TODO: we have to handle if glfw can not create a Window
@@ -52,7 +60,7 @@ public class Game implements Runnable {
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
         if (vidmode != null) {
-            glfwSetWindowPos(gameWindow, (vidmode.width() - windowWidth) / 2, (vidmode.height() - windowHeight) / 2);
+            glfwSetWindowPos(gameWindow, (vidmode.width() - WINDOW_WIDTH) / 2, (vidmode.height() - WINDOW_HEIGHT) / 2);
         } else {
             // TODO: we have to handle if if no Video Mode can be found
         }
@@ -64,9 +72,11 @@ public class Game implements Runnable {
         glfwShowWindow(gameWindow);
         GL.createCapabilities();
 
+
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glEnable(GL_DEPTH_TEST);
 
+        glfwFocusWindow(gameWindow);
         //System.out.println("OPENGL: "+ glGetString(GL_VERSION));
     }
 
