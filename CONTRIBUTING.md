@@ -166,6 +166,26 @@ git branch -d branchname
 sollte gepflegt werden. Bitte keine localen configs etc. in das repository pushen
 [zum weiterlesen](https://git-scm.com/docs/gitignore)
 
+#### Pull Konflikte
+Es gibt 3 Möglochkeiten
+
+Lokale änderungen verwerfen
+```
+git fetch --all 
+git reset --hard origin/branch_name
+```
+Lokale änderungen, die bereits im HEAD sind, in einem branch speichern
+```
+git checkout master
+git branch new-branch-to-save-current-commits
+git fetch --all
+git reset --hard origin/master
+```
+Uncommited Changes speichern
+```
+git stash
+```
+
 #### Zum weiterlesen
 - (https://rogerdudler.github.io/git-guide/)
 - (https://githowto.com/)
