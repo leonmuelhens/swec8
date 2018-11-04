@@ -1,6 +1,8 @@
 package com.github.lhrb.myshooter;
 
 import com.github.lhrb.myshooter.Input.*;
+import com.github.lhrb.myshooter.graphix.Texture;
+import com.github.lhrb.myshooter.graphix.TextureLoader;
 
 import org.lwjgl.glfw.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -20,6 +22,8 @@ public class Game implements Runnable {
     private boolean running;
     // This is the ID for the Window
     private long gameWindow;
+    
+    private Texture test;
 
     /**
      * Default Constructor initializing static vars for our game
@@ -73,10 +77,26 @@ public class Game implements Runnable {
         GL.createCapabilities();
 
 
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        glEnable(GL_DEPTH_TEST);
+        glClearColor(0f, 0f, 0f, 0f);
+        glEnable(GL_TEXTURE_2D);
+        // no need for OpenGL depth test since only 2D rendering is relevant
+        glDisable(GL_DEPTH_TEST);
+        
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        
+        glOrtho(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, -1, 1);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glViewport(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
+        
 
         glfwFocusWindow(gameWindow);
+        try {
+        test = TextureLoader.loadImage("resources/img/testE.png");
+        }catch(Exception e) {
+            
+        }
         //System.out.println("OPENGL: "+ glGetString(GL_VERSION));
     }
 
@@ -112,7 +132,12 @@ public class Game implements Runnable {
      */
     public void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        test.draw(150, 150);
         glfwSwapBuffers(gameWindow);
+
+        
     }
 
     /**
