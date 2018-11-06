@@ -22,6 +22,7 @@ public class TestTexture {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
+                   
     }
 
     /**
@@ -50,26 +51,8 @@ public class TestTexture {
      */
     @Test
     public void testTexture() {
-        Texture test = new Texture(1,2,3,4);
-        assertTrue(!test.equals(null));
-        assertTrue(test.getImgWidth() == 3);
-        assertTrue(test.getImgHeight() == 4);
+      
     }
-
-    /**
-     * Test method for {@link com.github.lhrb.myshooter.graphix.Texture#getImgWidth()}.
-     */
-    @Test
-    public void testGetImgWidth() {
-        assertTrue((new Texture(0,0,1,0).getImgWidth()) == 1);
-    }
-
-    /**
-     * Test method for {@link com.github.lhrb.myshooter.graphix.Texture#getImgHeight()}.
-     */
-    @Test
-    public void testGetImgHeight() {
-        assertTrue((new Texture(0,0,0,1).getImgHeight()) == 1);
-    }
+    
 
 }
