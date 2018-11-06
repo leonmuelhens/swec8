@@ -57,7 +57,8 @@ dependencies {
     compile "org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives"
     compile "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
 
-
+	// https://mvnrepository.com/artifact/org.l33tlabs.twl/pngdecoder
+	compile group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
