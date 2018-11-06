@@ -3,16 +3,44 @@
  */
 package com.github.lhrb.myshooter.graphix;
 
-import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_REPEAT;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengl.GL11.GL_UNPACK_ALIGNMENT;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glPixelStorei;
+import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
+import static org.lwjgl.opengl.GL46.GL_QUADS;
+import static org.lwjgl.opengl.GL46.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL46.glBegin;
+import static org.lwjgl.opengl.GL46.glBindTexture;
+import static org.lwjgl.opengl.GL46.glEnd;
+import static org.lwjgl.opengl.GL46.glPopMatrix;
+import static org.lwjgl.opengl.GL46.glPushMatrix;
+import static org.lwjgl.opengl.GL46.glTexCoord2f;
+import static org.lwjgl.opengl.GL46.glTranslatef;
+import static org.lwjgl.opengl.GL46.glVertex2f;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.ByteBuffer;
+
+import org.lwjgl.BufferUtils;
+
+import de.matthiasmann.twl.utils.PNGDecoder;
+
 
 /**
  * @author Lukas Block
@@ -23,63 +51,98 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
  */
 public class Texture {
     
-    //opengl target generally GL_TEXTURE_2D
-    private int target;
+    private final int target = GL_TEXTURE_2D;
     
     // OpenGL ID
-    private int textureId;
+    private final int texID;
     
-    //width of the tex image
-    private int imgWidth;
-    
-    //height of the tex image
-    private int imgHeight;
+    private int width;
+    private int height;
     
     /**
-     * Constructs a new Texture with given parameters
-     * @param target the opengl target 
-     * @param textureId the opengl id
-     * @param imgWidth widht of the image
-     * @param imgHeight height of the image
+     * Constructs a new Texture from a given path that has to point 
+     * to a png image
+     * @param filePath path to a png image
+     * @throws IllegalArgumentException gets thrown if either filePath is null or has length 0 
+     * @throws MalformedURLException gets thrown if URL construction from filePath failed 
+     * @throws IOException thrown either by stream or pngdecoder class
      */
-    public Texture(int target, int textureId, int imgWidth, int imgHeight) {
-        this.target = target;
-        this.textureId = textureId;
-        this.imgWidth = imgWidth;
-        this.imgHeight = imgHeight;
+    public Texture(String filePath) throws IllegalArgumentException,
+                                              MalformedURLException,
+                                                         IOException{
+        if(filePath == null | filePath.length() == 0) {
+            throw new IllegalArgumentException("The given path is not valid");
+        }
+        try {
+            URL pngFile = new File(filePath).toURI().toURL();
+            
+            final int bpp = 4; // bytes per pixel => RGBA format
+            ByteBuffer byteBuffer;
+            
+            //try with resources
+            try(InputStream input = pngFile.openStream()){
+                PNGDecoder decoder = new PNGDecoder(input);
+                
+                width = decoder.getWidth();
+                height = decoder.getHeight();
+                
+                byteBuffer = BufferUtils.createByteBuffer(bpp * width * height);
+                decoder.decode(byteBuffer, width * bpp, PNGDecoder.Format.RGBA);
+                input.close();
+            }catch(IOException e) {
+                throw e;
+            }
+            
+            //flip buffer into read mode 
+            byteBuffer.flip();
+            
+            //unnecessary ?
+            glEnable(target);
+            
+            texID = glGenTextures();
+            
+            bind();
+            
+            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+            /** 
+             * set texture parameters
+             * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexParameter.xhtml
+             */
+            glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            
+            /**
+             * pass to OpenGL
+             * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml    
+             */
+             glTexImage2D(target, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, byteBuffer);   
+            
+            
+        }catch(MalformedURLException e) {
+            //TO-DO costum exception?
+            throw e;
+        }
+        
     }
     
     /*
      * Binds opengl context to the texture
      */
     public void bind() {
-        glBindTexture(target, textureId);
+        glBindTexture(target, texID);
     }
     
-    /**
-     * @return the image width
-     */
-    public int getImgWidth() {
-        return imgWidth;
-    }
 
-    /**
-     * @return the image height
-     */
-    public int getImgHeight() {
-        return imgHeight;
-    }
-    
-    
     /*
      * this code is for test purposes and not meant to stay here
      */
-    public void draw(int x, int y) {
-        int width = imgWidth;
-        int height = imgHeight;
+    public void debugTex(int x, int y) {
         
         glPushMatrix();
-        glBindTexture(GL_TEXTURE_2D, textureId);
+        glBindTexture(GL_TEXTURE_2D, texID);
         glTranslatef(x,y,0);
         glBegin(GL_QUADS);
         {
