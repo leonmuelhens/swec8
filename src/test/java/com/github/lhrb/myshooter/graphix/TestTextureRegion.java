@@ -4,6 +4,7 @@
 package com.github.lhrb.myshooter.graphix;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,6 +17,8 @@ import org.junit.Test;
  *
  */
 public class TestTextureRegion {
+    Texture mockedTexture;
+    TextureRegion testTR;
 
     /**
      * @throws java.lang.Exception
@@ -36,6 +39,10 @@ public class TestTextureRegion {
      */
     @Before
     public void setUp() throws Exception {
+        mockedTexture = mock(com.github.lhrb.myshooter.graphix.Texture.class);
+        when(mockedTexture.getHeight()).thenReturn(128);
+        when(mockedTexture.getWidth()).thenReturn(64);
+        testTR = new TextureRegion(mockedTexture,0,1,2,3);
     }
 
     /**
@@ -43,6 +50,7 @@ public class TestTextureRegion {
      */
     @After
     public void tearDown() throws Exception {
+        testTR = null;
     }
 
     /**
@@ -50,15 +58,63 @@ public class TestTextureRegion {
      */
     @Test
     public void testTextureRegionTexture() {
-        fail("Not yet implemented");
+        try {
+            new TextureRegion(null);
+            fail("Exception not thrown");
+        }catch(Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
+        TextureRegion testTR1 = new TextureRegion(mockedTexture);
+        assertTrue(testTR1.getOriginX() == 0);
+        assertTrue(testTR1.getOriginY() == 0);
+        assertTrue(testTR1.getRegionHeight() == 128);
+        assertTrue(testTR1.getRegionWidth() == 64);
+        
     }
+    /**
+     * Test method for {@link com.github.lhrb.myshooter.graphix.TextureRegion#TextureRegion(com.github.lhrb.myshooter.graphix.Texture)}.
+     */
+    @Test
+    public void testTextureRegionTexture2() {
+        TextureRegion testTR1 = new TextureRegion(mockedTexture);
+        assertTrue(testTR1.getOriginX() == 0);
+        assertTrue(testTR1.getOriginY() == 0);
+        assertTrue(testTR1.getRegionHeight() == 128);
+        assertTrue(testTR1.getRegionWidth() == 64);
+        
+    }
+    
 
     /**
      * Test method for {@link com.github.lhrb.myshooter.graphix.TextureRegion#TextureRegion(com.github.lhrb.myshooter.graphix.Texture, int, int, int, int)}.
      */
     @Test
     public void testTextureRegionTextureIntIntIntInt() {
-        fail("Not yet implemented");
+        try {
+            new TextureRegion(null, 0,0,0,0);
+            fail("Exception not thrown");
+        }catch(Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
+        TextureRegion testTR = new TextureRegion(mockedTexture,0,1,2,3);
+        assertTrue(testTR.getTexture().equals(mockedTexture));
+        assertTrue(testTR.getOriginX() == 0);
+        assertTrue(testTR.getOriginY() == 1);
+        assertTrue(testTR.getRegionWidth() == 2);
+        assertTrue(testTR.getRegionHeight() == 3);
+    }
+    
+    /**
+     * Test method for {@link com.github.lhrb.myshooter.graphix.TextureRegion#TextureRegion(com.github.lhrb.myshooter.graphix.Texture, int, int, int, int)}.
+     */
+    @Test
+    public void testTextureRegionTextureIntIntIntInt2() {
+        TextureRegion testTR = new TextureRegion(mockedTexture,1,2,3,4);
+        assertTrue(testTR.getTexture().equals(mockedTexture));
+        assertTrue(testTR.getOriginX() == 1);
+        assertTrue(testTR.getOriginY() == 2);
+        assertTrue(testTR.getRegionWidth() == 3);
+        assertTrue(testTR.getRegionHeight() == 4);
     }
 
     /**
@@ -66,7 +122,7 @@ public class TestTextureRegion {
      */
     @Test
     public void testGetTexture() {
-        fail("Not yet implemented");
+        assertTrue(testTR.getTexture().equals(mockedTexture));
     }
 
     /**
@@ -74,7 +130,10 @@ public class TestTextureRegion {
      */
     @Test
     public void testSetTexture() {
-        fail("Not yet implemented");
+        Texture mockedTexture2 = mock(com.github.lhrb.myshooter.graphix.Texture.class);
+        assertTrue(!testTR.getTexture().equals(mockedTexture2));
+        testTR.setTexture(mockedTexture2);
+        assertTrue(testTR.getTexture().equals(mockedTexture2));
     }
 
     /**
@@ -82,7 +141,7 @@ public class TestTextureRegion {
      */
     @Test
     public void testGetOriginX() {
-        fail("Not yet implemented");
+        assertTrue(testTR.getOriginX() == 0);
     }
 
     /**
@@ -90,7 +149,8 @@ public class TestTextureRegion {
      */
     @Test
     public void testSetOriginX() {
-        fail("Not yet implemented");
+        testTR.setOriginX(10);
+        assertTrue(testTR.getOriginX() == 10);
     }
 
     /**
@@ -98,7 +158,7 @@ public class TestTextureRegion {
      */
     @Test
     public void testGetOriginY() {
-        fail("Not yet implemented");
+        assertTrue(testTR.getOriginY() == 1);
     }
 
     /**
@@ -106,7 +166,8 @@ public class TestTextureRegion {
      */
     @Test
     public void testSetOriginY() {
-        fail("Not yet implemented");
+        testTR.setOriginY(10);
+        assertTrue(testTR.getOriginY() == 10);
     }
 
     /**
@@ -114,7 +175,7 @@ public class TestTextureRegion {
      */
     @Test
     public void testGetRegionWidth() {
-        fail("Not yet implemented");
+        assertTrue(testTR.getRegionWidth() == 2);
     }
 
     /**
@@ -122,7 +183,8 @@ public class TestTextureRegion {
      */
     @Test
     public void testSetRegionWidth() {
-        fail("Not yet implemented");
+        testTR.setRegionWidth(30);
+        assertTrue(testTR.getRegionWidth() == 30);
     }
 
     /**
@@ -130,7 +192,7 @@ public class TestTextureRegion {
      */
     @Test
     public void testGetRegionHeight() {
-        fail("Not yet implemented");
+        assertTrue(testTR.getRegionHeight() == 3);  
     }
 
     /**
@@ -138,7 +200,8 @@ public class TestTextureRegion {
      */
     @Test
     public void testSetRegionHeight() {
-        fail("Not yet implemented");
+        testTR.setRegionHeight(20);
+        assertTrue(testTR.getRegionHeight() == 20);
     }
 
 }
