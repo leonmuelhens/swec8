@@ -59,7 +59,10 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/org.l33tlabs.twl/pngdecoder
 	compile group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
-
-    // Use JUnit test framework
+	
+	
+	// https://mvnrepository.com/artifact/org.mockito/mockito-all
+	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+	// Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
