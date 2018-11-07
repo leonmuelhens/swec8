@@ -19,16 +19,6 @@ import static org.lwjgl.opengl.GL11.glGenTextures;
 import static org.lwjgl.opengl.GL11.glPixelStorei;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
-import static org.lwjgl.opengl.GL46.GL_QUADS;
-import static org.lwjgl.opengl.GL46.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL46.glBegin;
-import static org.lwjgl.opengl.GL46.glBindTexture;
-import static org.lwjgl.opengl.GL46.glEnd;
-import static org.lwjgl.opengl.GL46.glPopMatrix;
-import static org.lwjgl.opengl.GL46.glPushMatrix;
-import static org.lwjgl.opengl.GL46.glTexCoord2f;
-import static org.lwjgl.opengl.GL46.glTranslatef;
-import static org.lwjgl.opengl.GL46.glVertex2f;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,12 +57,11 @@ public class Texture {
      * @throws MalformedURLException gets thrown if URL construction from filePath failed 
      * @throws IOException thrown either by stream or pngdecoder class
      */
-    public Texture(String filePath) throws IllegalArgumentException,
-                                              MalformedURLException,
-                                                         IOException{
-        if(filePath == null | filePath.length() == 0) {
-            throw new IllegalArgumentException("The given path is not valid");
-        }
+    public Texture(String filePath) throws MalformedURLException,
+                                                     IOException{
+        if(filePath == null) throw new NullPointerException("filePath seems to be null");
+        if(filePath.length() == 0) throw new 
+                                IllegalArgumentException("The given path is not valid");
         try {
             URL pngFile = new File(filePath).toURI().toURL();
             
@@ -135,34 +124,18 @@ public class Texture {
         glBindTexture(target, texID);
     }
     
-
-    /*
-     * this code is for test purposes and not meant to stay here
+    /**
+     * @return the width of the texture
      */
-    public void debugTex(int x, int y) {
-        
-        glPushMatrix();
-        glBindTexture(GL_TEXTURE_2D, texID);
-        glTranslatef(x,y,0);
-        glBegin(GL_QUADS);
-        {
-            glTexCoord2f(0,0);
-            glVertex2f(0,0);
-            
-            glTexCoord2f(0, height);
-            glVertex2f(0, height);
-            
-            glTexCoord2f(width,height);
-            glVertex2f(width,height);
-            
-            glTexCoord2f(width,0);
-            glVertex2f(width,0);            
-        }
-        glEnd();
-        glPopMatrix();      
-        
+    public int getWidth() {
+        return this.width;
     }
-
-
+    
+    /**
+     * @return height of the texture
+     */
+    public int getHeight() {
+        return this.height;
+    }
 
 }
