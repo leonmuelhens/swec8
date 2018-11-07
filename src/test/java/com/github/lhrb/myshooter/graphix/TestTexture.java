@@ -5,6 +5,8 @@ package com.github.lhrb.myshooter.graphix;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,11 +49,31 @@ public class TestTexture {
     }
 
     /**
-     * Test method for {@link com.github.lhrb.myshooter.graphix.Texture#Texture(int, int, int, int)}.
+     * Test method for {@link com.github.lhrb.myshooter.graphix.Texture#Texture(String)}.
      */
     @Test
     public void testTexture() {
-      
+        try {
+            Texture testT = new Texture(null);
+            fail("Exception not thrown");
+        }catch(Exception e) {
+           assertTrue(e instanceof NullPointerException); 
+        }
+        
+        try {
+            Texture testT = new Texture("");
+            fail("Exception not thrown");
+        }catch(Exception e) {
+           assertTrue(e instanceof IllegalArgumentException); 
+        }
+        
+        try {
+            Texture testT = new Texture("/");
+            fail("Exception not thrown");
+        }catch(Exception e) {
+           assertTrue(e instanceof IOException); 
+        }
+        
     }
     
 
