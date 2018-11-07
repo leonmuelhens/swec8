@@ -58,15 +58,28 @@ public class TestTexture {
             fail("Exception not thrown");
         }catch(Exception e) {
            assertTrue(e instanceof NullPointerException); 
-        }
-        
+        }        
+    }
+    
+    /**
+     * Test method for {@link com.github.lhrb.myshooter.graphix.Texture#Texture(String)}.
+     */
+    @Test
+    public void testTexture2() {
         try {
             Texture testT = new Texture("");
             fail("Exception not thrown");
         }catch(Exception e) {
            assertTrue(e instanceof IllegalArgumentException); 
         }
-        
+       
+    }
+    /**
+     * Test method for {@link com.github.lhrb.myshooter.graphix.Texture#Texture(String)}.
+     */
+    @Test
+    public void testTexture3() {
+
         try {
             Texture testT = new Texture("/");
             fail("Exception not thrown");
