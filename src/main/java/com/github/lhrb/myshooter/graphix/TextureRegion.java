@@ -23,9 +23,7 @@ public class TextureRegion {
      * @param texture 
      */
     public TextureRegion(Texture texture) {
-        if(texture == null) {
-            throw new IllegalArgumentException("Texture can not be null");
-        }
+        if(texture == null) throw new NullPointerException("Texture can not be null");
         this.texture = texture;
         this.originX = 0;
         this.originY = 0;
@@ -43,9 +41,7 @@ public class TextureRegion {
      * @param height of the region
      */
     public TextureRegion(Texture texture, int originX, int originY, int width, int height) {
-        if(texture == null) {
-            throw new IllegalArgumentException("Texture can not be null");
-        }
+        if(texture == null) throw new NullPointerException("Texture can not be null");
         this.texture = texture;
         this.originX = originX;
         this.originY = originY;
