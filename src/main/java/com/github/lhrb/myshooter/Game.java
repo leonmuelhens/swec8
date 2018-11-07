@@ -1,7 +1,5 @@
 package com.github.lhrb.myshooter;
 
-import com.github.lhrb.myshooter.graphix.Texture;
-
 import org.lwjgl.glfw.*;
 import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.opengl.GL;
@@ -20,8 +18,6 @@ public class Game implements Runnable {
     private boolean running;
     // This is the ID for the Window
     private long gameWindow;
-    
-    private Texture test;
 
     /**
      * Default Constructor initializing static vars for our game
@@ -98,11 +94,7 @@ public class Game implements Runnable {
         
 
         glfwFocusWindow(gameWindow);
-        try {
-        test = new Texture("resources/img/testE.png");
-        }catch(Exception e) {
-            
-        }
+  
         //System.out.println("OPENGL: "+ glGetString(GL_VERSION));
     }
 
@@ -133,7 +125,6 @@ public class Game implements Runnable {
         }
     }
 
-    private int x = 0, y= 0;
     /**
      * This is used to render the GameWindow.
      */
@@ -141,8 +132,6 @@ public class Game implements Runnable {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        x =  (x + 1) % WINDOW_WIDTH; 
-        test.debugTex(x, y);
         glfwSwapBuffers(gameWindow);
 
         
