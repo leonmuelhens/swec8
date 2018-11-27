@@ -5,7 +5,7 @@ package com.github.lhrb.nemo.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Simple player Implementation
@@ -14,13 +14,16 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Player extends ActorPrefab {
     
-    public Player() {
-        super();
+    public Player(float x, float y, Stage stage) {
+        super(x,y,stage);
+        setAnimation(loadTexture("player_laser.png"));
+        
+        setAcceleration(400);
+        setSpeedMax(800);
+        setDeceleration(400);
     }
     
-    public Player(Texture texture) {
-        super(texture);
-    }
+ 
     
     /**
      * input handling
@@ -30,21 +33,21 @@ public class Player extends ActorPrefab {
         super.act(delta);
         
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-            this.moveBy(-1, 0);
-            System.out.println(this.getX());
+            accelerationAtAngle(180);
         }
         if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            this.moveBy(1, 0);
-            System.out.println(this.getX());
+            accelerationAtAngle(0);
         }
         if(Gdx.input.isKeyPressed(Keys.UP)) {
-            this.moveBy(0, 1);
-            System.out.println("up key");
+            accelerationAtAngle(90);
         }
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-            this.moveBy(0, -1);
-            System.out.println("down key");
+            accelerationAtAngle(270);
         }
+        
+        applyPhysics(delta);
+        
+        
     }
 
 }
