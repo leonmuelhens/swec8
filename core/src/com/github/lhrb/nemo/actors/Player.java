@@ -47,6 +47,12 @@ public class Player extends ActorPrefab {
         
         applyPhysics(delta);
         
+        /**
+         * ATTENTION
+         * this method does not provide any security mechanism
+         */
+        setWorldBounds();
+        
         
     }
 

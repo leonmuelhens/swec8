@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,6 +36,8 @@ public class ActorPrefab extends Group {
     //test area
     private Vector2 velocity;
     private Vector2 accelerationVector;
+    
+    private Rectangle worldDimension; 
 
     
     public ActorPrefab(float x, float y, Stage stage) {
@@ -143,6 +146,33 @@ public class ActorPrefab extends Group {
     public void toggleAnimationPause() {
         animationPause = !animationPause;
     }
+    
+    
+    
+    public void setWorldDimension(float width, float height) {
+        worldDimension = new Rectangle(0,0, width, height);
+    }
+    
+    /**
+     * NO SECURITY MECHANISM IMPLEMENTED YET
+     * PAY ATTENTION USING THIS
+     */
+    public void setWorldBounds() {
+        if(getX() + getWidth() < 0) {
+            setX(worldDimension.width);
+        }
+        if(getX() > worldDimension.width) {
+            setX(-getWidth());
+        }
+        // bound Y
+        if(getY() < 0) {
+            setY(0);
+        }
+        if(getY() + getHeight() > worldDimension.height) {
+            setY(worldDimension.height - getHeight());
+        }
+    }
+    
     
     /**
      * sets opacity 
