@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
  * @author exa
@@ -37,7 +38,7 @@ public class TestStage extends Game {
         Player player = new Player(20,20, stage);
         // player.setWorldDimension(1200, 600); // should get reworked
         ActorPrefab explosion = new ActorPrefab(200,200,stage);
-        explosion.setAnimation(explosion.loadAnimation(
+        explosion.setAnimation(AnimationLoader.loadAnimation(
                                "explosion.png", 6, 6, 0.05f, true));
         
        
@@ -48,7 +49,6 @@ public class TestStage extends Game {
      */
     @Override
     public void render() {
-        
         float dt = Gdx.graphics.getDeltaTime();
 
         stage.act(dt);

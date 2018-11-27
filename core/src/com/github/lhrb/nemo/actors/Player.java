@@ -6,6 +6,7 @@ package com.github.lhrb.nemo.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
  * Simple player Implementation
@@ -16,7 +17,7 @@ public class Player extends ActorPrefab {
     
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
-        setAnimation(loadTexture("player_laser.png"));
+        setAnimation(AnimationLoader.loadTexture("player_laser.png"));
         
         setAcceleration(400);
         setSpeedMax(800);
