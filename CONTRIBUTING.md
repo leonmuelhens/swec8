@@ -3,7 +3,7 @@ bitte einmal komplett lesen :)
 
 ## Generelle Konventionen
 zum erhöhen der Lesbarkeit
-- Nach ~90 Spalten einen Zeilenumbruch verwenden
+- Nach ~80 Spalten einen Zeilenumbruch verwenden
 - keine Tabs nur Leerzeichen verwenden!
 - Mindestens 2 Leerzeichen zum einrücken verwenden (besser 4)
 - versuchen Englische Begriffe zu verwenden
