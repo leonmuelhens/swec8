@@ -24,9 +24,6 @@ public class TestStage extends Game {
 
     private Player player;
     private Stage stage;
-    SpriteBatch batch;
-    Texture img;
-    TextureRegion test;
 
     /* (non-Javadoc)
      * @see com.badlogic.gdx.ApplicationListener#create()
@@ -40,14 +37,8 @@ public class TestStage extends Game {
     }
     
     private void init() {
-        batch = new SpriteBatch();
-        player = new Player( );
-        img = new Texture( Gdx.files.internal("player_laser.png") );
-        test = new TextureRegion(img);
-        player.setTexture(img);
-        //player = new Player( new Texture("player_standart.png") );
-        player.setPosition(100, 100); 
-        stage.addActor(player);
+        player = new Player(20,20, stage);
+
        
     }
     
@@ -59,11 +50,13 @@ public class TestStage extends Game {
         
         float dt = Gdx.graphics.getDeltaTime();
 
+        stage.act(dt);
+        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
        
         
-        stage.act(dt);
+        
         stage.draw();
         
     }
