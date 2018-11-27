@@ -20,7 +20,7 @@ public class Player extends ActorPrefab {
         
         setAcceleration(400);
         setSpeedMax(800);
-        setDeceleration(400);
+        setDeceleration(1600);
     }
     
  

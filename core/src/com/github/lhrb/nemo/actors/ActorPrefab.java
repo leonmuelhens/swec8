@@ -58,6 +58,8 @@ public class ActorPrefab extends Group {
         //test area
         velocity = new Vector2(0,0);
         accelerationVector = new Vector2(0,0);
+        
+        worldDimension = new Rectangle(0,0,stage.getWidth(), stage.getHeight());
        
     }
     

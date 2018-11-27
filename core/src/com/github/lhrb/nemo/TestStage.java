@@ -35,10 +35,11 @@ public class TestStage extends Game {
     
     private void init() {
         Player player = new Player(20,20, stage);
-        player.setWorldDimension(1200, 600); // should get reworked
+        // player.setWorldDimension(1200, 600); // should get reworked
         ActorPrefab explosion = new ActorPrefab(200,200,stage);
         explosion.setAnimation(explosion.loadAnimation(
                                "explosion.png", 6, 6, 0.05f, true));
+        
        
     }
     
