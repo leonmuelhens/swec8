@@ -19,9 +19,9 @@ public class Player extends ActorPrefab {
         super(x,y,stage);
         setAnimation(AnimationLoader.loadTexture("player_laser.png"));
         
-        setAcceleration(400);
+        setAcceleration(3600);
         setSpeedMax(800);
-        setDeceleration(1600);
+        setDeceleration(100000);
     }
     
  
