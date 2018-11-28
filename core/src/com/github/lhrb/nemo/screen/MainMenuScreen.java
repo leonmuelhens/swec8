@@ -4,7 +4,6 @@
 package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -38,7 +37,7 @@ public class MainMenuScreen extends AbstractScreen {
                         return false;
                     }
                     //set next screen
-                    KillingNemo.setActiveScreen(null);
+                    KillingNemo.setActiveScreen(new FirstLevelScreen());
                     return true;
                 });
         
