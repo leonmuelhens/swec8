@@ -19,6 +19,7 @@ public abstract class AbstractGame extends Game {
     private static AbstractGame game;
     
     
+    
     public AbstractGame() {
         game = this;
     }
@@ -30,6 +31,8 @@ public abstract class AbstractGame extends Game {
     public void create() {
         InputMultiplexer iMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(iMultiplexer);
+        
+       
     }
     
     
