@@ -20,6 +20,7 @@ public abstract class AbstractScreen implements Screen, InputProcessor{
     protected Stage guiStage; 
 
     public AbstractScreen() {
+        //Viewport?
         gameStage = new Stage();
         guiStage = new Stage();
         init();
@@ -36,6 +37,10 @@ public abstract class AbstractScreen implements Screen, InputProcessor{
      */
     public abstract void update(float delta); 
     
+    
+    /**
+     * 
+     */
     public void render(float delta) {
         guiStage.act(delta);
         gameStage.act(delta);

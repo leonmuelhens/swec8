@@ -10,6 +10,6 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		//LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		//new LwjglApplication(new KillingNemo(), config);
-	    new LwjglApplication(new TestStage(), "Killing Nemo", 1200, 600);
+	    new LwjglApplication(new KillingNemo(), "Killing Nemo", 800, 600);
 	}
 }
