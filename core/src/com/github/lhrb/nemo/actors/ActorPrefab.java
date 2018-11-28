@@ -71,26 +71,23 @@ public class ActorPrefab extends Group {
         setSize(width, height);
         setOrigin(width/2, height/2);
     }
-        
-   
+
     public boolean isAnimationFinished() {
         return animation.isAnimationFinished(elapsedTime);
     }
-    
+
     public void setAnimationPause(boolean pause) {
         animationPause = pause;
     }
-    
+
     public void toggleAnimationPause() {
         animationPause = !animationPause;
     }
-    
-    
-    
+
     public void setWorldDimension(float width, float height) {
         worldDimension = new Rectangle(0,0, width, height);
     }
-    
+
     /**
      * NO SECURITY MECHANISM IMPLEMENTED YET
      * PAY ATTENTION USING THIS
@@ -178,17 +175,17 @@ public class ActorPrefab extends Group {
      * @param delta
      */
     public void applyPhysics(float delta) {
-        velocity.add(accelerationVector.x * delta, accelerationVector.y * delta);
+        velocity.add(Math.round(accelerationVector.x * delta), Math.round(accelerationVector.y * delta));
         float speed = getSpeed();
         
         if(accelerationVector.len() == 0) {
-            speed -= deceleration * delta;
+            speed -= Math.round(deceleration * delta);
         }
         
         speed = MathUtils.clamp(speed, 0, speedMax);
         setSpeed(speed);
         
-        moveBy(velocity.x * delta, velocity.y * delta);
+        moveBy(Math.round(velocity.x * delta), Math.round(velocity.y * delta));
         
         accelerationVector.set(0,0);
     }
