@@ -5,14 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class Background extends ActorPrefab {
-    int yDelta;
     static float initialPosition;
 
     public Background(float x, float y, Stage stage, int level) {
         super(x,y,stage);
         String fileName;
         initialPosition = y;
-        yDelta = 1200;
 
         switch (level) {
             case 1:
@@ -36,10 +34,10 @@ public class Background extends ActorPrefab {
     @Override
     public void act(float delta) {
         super.act(delta);
-        System.out.println(getY());
 
-        if (getY() <=  -yDelta) {
-            setY(initialPosition);
+        if (getY() <=  -initialPosition) {
+            float yDelta = (getY() * -1) - initialPosition;
+            setY(initialPosition - yDelta);
         }
 
         accelerationAtAngle(270);
