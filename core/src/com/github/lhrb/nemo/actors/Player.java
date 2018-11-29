@@ -17,7 +17,7 @@ public class Player extends ActorPrefab {
     
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
-        setAnimation(AnimationLoader.loadTexture("player_laser.png"));
+        setAnimation(AnimationLoader.loadTexture("player.png"));
         
         setAcceleration(3600);
         setSpeedMax(800);
