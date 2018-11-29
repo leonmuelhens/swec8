@@ -7,19 +7,22 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class Shot extends ActorPrefab {
 
-    public Shot(float x, float y, Stage stage) {
+    private final float angle;
+
+    public Shot(float x, float y, Stage stage, float angle) {
         super(x, y, stage);
+
         setAnimation(AnimationLoader.loadTexture("SchussStandart.png"));
         setSpeedMax(800);
-
         setAcceleration(30000);
+        this.angle = angle;
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        accelerationAtAngle(90);
+        accelerationAtAngle(angle);
 
         if (getY() <= getStage().getHeight()) {
             applyPhysics(delta);

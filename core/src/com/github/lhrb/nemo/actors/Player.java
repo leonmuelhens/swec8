@@ -50,7 +50,7 @@ public class Player extends ActorPrefab {
         }
 
         if(Gdx.input.isKeyPressed(Keys.SPACE) && shotDelayCount >= shotDelay) {
-            new Shot(getX()+(getWidth()/2), getY()+(getHeight()/2), getStage());
+            new Shot(getX()+(getWidth()/2), getY()+(getHeight()/2), getStage(), 90);
             shotDelayCount = 0;
         }
         
