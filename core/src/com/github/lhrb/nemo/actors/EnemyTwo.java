@@ -1,11 +1,9 @@
 package com.github.lhrb.nemo.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class AbstractEnemy extends ActorPrefab {
+public class EnemyTwo extends ActorPrefab {
 
     /**
      * Simple Enemie Implementation
@@ -14,9 +12,9 @@ public class AbstractEnemy extends ActorPrefab {
      */
 
 
-        public AbstractEnemy(float x, float y, Stage stage) {
+        public EnemyTwo(float x, float y, Stage stage) {
             super(x,y,stage);
-            setAnimation(AnimationLoader.loadTexture("player_laser.png"));
+            setAnimation(AnimationLoader.loadTexture("Gegner1.png"));
             setRotation(180);
             setAcceleration(1000000);
             setSpeedMax(300);
