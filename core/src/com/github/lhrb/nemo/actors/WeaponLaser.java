@@ -12,7 +12,7 @@ public class WeaponLaser extends Weapon {
     @Override
     public void fire(float x, float y, float angle) {
         if (isReady()) {
-            //TODO
+            new Laser(x, y, getStage(), angle);
             resetCooldownTimer();
         }
     }

@@ -65,7 +65,7 @@ public class Player extends ActorPrefab {
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
             weapon.remove();
-            weapon = new WeaponNormal(getStage(), 0.6f);
+            weapon = new WeaponLaser(getStage(), 2.0f);
         }
         
         applyPhysics(delta);
