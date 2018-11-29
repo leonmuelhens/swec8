@@ -15,8 +15,8 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  */
 public class Player extends ActorPrefab {
 
-    private static float shotDelay = 0.8f;
-    private static float shotDelayCount = 0;
+    private final float shotDelay = 0.8f;
+    private static float shotDelayCount = 0.8f;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
