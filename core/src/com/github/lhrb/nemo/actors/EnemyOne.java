@@ -1,7 +1,5 @@
 package com.github.lhrb.nemo.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -31,18 +29,9 @@ public class EnemyOne extends ActorPrefab {
         @Override
         public void act(float delta) {
             super.act(delta);
-            //accelerationAtAngle(270);
+            accelerationAtAngle(270);
 
-
-            applyPhysics(delta);
-
-            /**
-             * ATTENTION
-             * this method does not provide any security mechanism
-             */
-            setWorldBounds();
-
-
+            applyObjectPhysics(delta);
         }
 
 
