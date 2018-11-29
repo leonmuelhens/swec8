@@ -15,8 +15,7 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  */
 public class Player extends ActorPrefab {
 
-    private final float shotDelay = 0.4f;
-    private static float shotDelayCount = 0.8f;
+    private Weapon weapon;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -25,6 +24,8 @@ public class Player extends ActorPrefab {
         setAcceleration(30000);
         setSpeedMax(800);
         setDeceleration(30000);
+
+        weapon = new WeaponNormal(getStage(), 0.6f);
     }
     
  
@@ -49,13 +50,25 @@ public class Player extends ActorPrefab {
             accelerationAtAngle(270);
         }
 
-        if(Gdx.input.isKeyPressed(Keys.SPACE) && shotDelayCount >= shotDelay) {
-            new Shot(getX()+(getWidth()/2), getY()+(getHeight()/2), getStage(), 90);
-            shotDelayCount = 0;
+        if(Gdx.input.isKeyPressed(Keys.SPACE)) {
+            weapon.fire(getX()+(getWidth()/2), getY()+(getHeight()/2), 90);
+        }
+
+        // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
+        if(Gdx.input.isKeyPressed(Keys.F1)) {
+            weapon.remove();
+            weapon = new WeaponNormal(getStage(), 0.6f);
+        }
+        if(Gdx.input.isKeyPressed(Keys.F2)) {
+            weapon.remove();
+            weapon = new WeaponSpread(getStage(), 0.6f);
+        }
+        if(Gdx.input.isKeyPressed(Keys.F3)) {
+            weapon.remove();
+            weapon = new WeaponNormal(getStage(), 0.6f);
         }
         
         applyPhysics(delta);
-        shotDelayCount += delta;
         
         /**
          * ATTENTION
