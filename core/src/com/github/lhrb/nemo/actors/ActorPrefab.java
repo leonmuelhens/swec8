@@ -195,7 +195,14 @@ public class ActorPrefab extends Group {
         accelerationVector.set(0,0);
     }
 
-    
+    public void applyObjectPhysics(float delta) {
+        if (getY() >= getStage().getHeight() || getY() + getHeight() <= 0 ) {
+            remove();
+        } else {
+            applyPhysics(delta);
+        }
+    }
+
     /**
      * updates the actor based on time
      */
