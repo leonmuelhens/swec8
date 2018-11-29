@@ -16,6 +16,8 @@ public class Shot extends ActorPrefab {
         setSpeedMax(800);
         setAcceleration(30000);
         this.angle = angle;
+
+        setX(getX()-(getWidth()/2));
     }
 
     @Override
