@@ -1,5 +1,6 @@
 package com.github.lhrb.nemo.screen;
 
+import com.github.lhrb.nemo.actors.AbstractEnemy;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
@@ -11,7 +12,7 @@ public class FirstLevelScreen extends AbstractScreen{
     public void init() {
         Background bg = new Background(0,0,gameStage,1);
         Background bg2 = new Background(0,1200,gameStage,1);
-
+        AbstractEnemy enemie = new AbstractEnemy(500,500,gameStage);
         Player player = new Player(20,20, gameStage);
         // player.setWorldDimension(1200, 600); // should get reworked
         ActorPrefab explosion = new ActorPrefab(200,200, gameStage);
