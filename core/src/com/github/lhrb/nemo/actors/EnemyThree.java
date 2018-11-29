@@ -14,7 +14,7 @@ public class EnemyThree extends ActorPrefab {
 
         public EnemyThree(float x, float y, Stage stage) {
             super(x,y,stage);
-            setAnimation(AnimationLoader.loadTexture("Gegner3.png"));
+            setAnimation(AnimationLoader.loadTexture("gegner3.png"));
             //setRotation(180);
             setAcceleration(1000000);
             setSpeedMax(300);
