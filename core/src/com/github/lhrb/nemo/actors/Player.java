@@ -14,7 +14,10 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  * 
  */
 public class Player extends ActorPrefab {
-    
+
+    private static float shotDelay = 0.8f;
+    private static float shotDelayCount = 0;
+
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
         setAnimation(AnimationLoader.loadTexture("player_laser.png"));
@@ -45,8 +48,14 @@ public class Player extends ActorPrefab {
         if(Gdx.input.isKeyPressed(Keys.DOWN)) {
             accelerationAtAngle(270);
         }
+
+        if(Gdx.input.isKeyPressed(Keys.SPACE) && shotDelayCount >= shotDelay) {
+            new Shot(getX()+(getWidth()/2), getY()+(getHeight()/2), getStage());
+            shotDelayCount = 0;
+        }
         
         applyPhysics(delta);
+        shotDelayCount += delta;
         
         /**
          * ATTENTION
