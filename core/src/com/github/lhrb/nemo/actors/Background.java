@@ -1,10 +1,11 @@
 package com.github.lhrb.nemo.actors;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class Background extends ActorPrefab {
+    // stores the starting positon of the background
+    // as we need two backgrounds, this is important to save the start
     static float initialPosition;
 
     public Background(float x, float y, Stage stage, int level) {

@@ -64,12 +64,17 @@ public class ActorPrefab extends Group {
      * @param animation
      */
     public void setAnimation(Animation<TextureRegion> animation) {
-        this.animation = animation;
-        TextureRegion region = animation.getKeyFrame(0);
-        float width = region.getRegionWidth();
-        float height = region.getRegionHeight();
-        setSize(width, height);
-        setOrigin(width/2, height/2);
+        try {
+            this.animation = animation;
+            TextureRegion region = animation.getKeyFrame(0);
+            float width = region.getRegionWidth();
+            float height = region.getRegionHeight();
+            setSize(width, height);
+            setOrigin(width/2, height/2);
+
+        } catch (NullPointerException e){
+            System.out.println("The animation could not be created as the file does not exist!");
+        }
     }
 
     public boolean isAnimationFinished() {

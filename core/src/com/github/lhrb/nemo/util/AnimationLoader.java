@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+import java.io.IOException;
+
 /**
  * @author exa
  * 
@@ -37,30 +39,35 @@ public class AnimationLoader {
     public static Animation<TextureRegion> loadAnimation(String fileName, 
                                                   int rows, int cols, 
                                                   float frameDuration, boolean loop){
-        
-        Texture texture = new Texture(Gdx.files.internal(fileName), true);
-        texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        int tileWidth = texture.getWidth() / cols;
-        int tileHeight = texture.getHeight() / rows;
-        TextureRegion[][] tmp = TextureRegion.split(texture, tileWidth, tileHeight);
-        
-        Array<TextureRegion> textureArray = new Array<TextureRegion>();
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < cols; j++) {
-                textureArray.add(tmp[i][j]);
+        if (Gdx.files.internal(fileName).exists()) {
+            Texture texture = new Texture(Gdx.files.internal(fileName), true);
+            texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+            int tileWidth = texture.getWidth() / cols;
+            int tileHeight = texture.getHeight() / rows;
+            TextureRegion[][] tmp = TextureRegion.split(texture, tileWidth, tileHeight);
+
+            Array<TextureRegion> textureArray = new Array<TextureRegion>();
+            for(int i = 0; i < rows; i++) {
+                for(int j = 0; j < cols; j++) {
+                    textureArray.add(tmp[i][j]);
+                }
             }
+
+            Animation<TextureRegion> tmpAnimation = new Animation<TextureRegion>
+                    (frameDuration, textureArray);
+
+            if(loop) {
+                tmpAnimation.setPlayMode(Animation.PlayMode.LOOP);
+            }else {
+                tmpAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+            }
+            return tmpAnimation;
+        } else {
+            return null;
         }
+
         
-        Animation<TextureRegion> tmpAnimation = new Animation<TextureRegion>
-                                                (frameDuration, textureArray);
-        
-        if(loop) {
-            tmpAnimation.setPlayMode(Animation.PlayMode.LOOP);
-        }else {
-            tmpAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-        }
-        
-        return tmpAnimation;
+
     }
     
     /**
