@@ -6,7 +6,7 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 public class Background extends ActorPrefab {
     // stores the starting positon of the background
     // as we need two backgrounds, this is important to save the start
-    private final float initialPosition;
+    private static float initialPosition;
 
     public Background(float x, float y, Stage stage, int level) {
         super(x,y,stage);
