@@ -1,20 +1,16 @@
-package com.github.lhrb.nemo.actors;
+package com.github.lhrb.nemo.actors.shots;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class Laser extends ActorPrefab {
+public abstract class Shots extends ActorPrefab {
 
     private final float angle;
 
-    public Laser(float x, float y, Stage stage, float angle) {
+    public Shots(float x, float y, Stage stage, float angle) {
         super(x, y, stage);
 
-        setAnimation(AnimationLoader.loadTexture("SchussLaser.png"));
-        setSpeedMax(1600);
-        setAcceleration(30000);
         this.angle = angle;
 
         setX(getX()-(getWidth()/2));
@@ -40,4 +36,5 @@ public class Laser extends ActorPrefab {
         //setWorldBounds();
 
     }
+
 }

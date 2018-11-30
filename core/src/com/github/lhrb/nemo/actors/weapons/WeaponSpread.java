@@ -1,20 +1,21 @@
-package com.github.lhrb.nemo.actors;
+package com.github.lhrb.nemo.actors.weapons;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.shots.SingleShot;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class WeaponSpread extends Weapon {
-    public WeaponSpread(Stage stage, float cooldown) {
-        super(stage, cooldown);
+    public WeaponSpread(Stage stage) {
+        super(stage, 0.6f);
         setAnimation(AnimationLoader.loadTexture("IconSpread.png"));
     }
 
     @Override
     public void fire(float x, float y, float angle) {
         if (isReady()) {
-            new Shot(x, y, getStage(), angle-45);
-            new Shot(x, y, getStage(), angle);
-            new Shot(x, y, getStage(), angle+45);
+            new SingleShot(x, y, getStage(), angle-45);
+            new SingleShot(x, y, getStage(), angle);
+            new SingleShot(x, y, getStage(), angle+45);
             resetCooldownTimer();
         }
     }
