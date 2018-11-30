@@ -1,6 +1,5 @@
 package com.github.lhrb.nemo.screen;
 
-<<<<<<< HEAD
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
@@ -8,10 +7,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
-=======
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.*;
->>>>>>> master
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class FirstLevelScreen extends AbstractScreen{
