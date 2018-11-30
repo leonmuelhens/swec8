@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
@@ -244,6 +245,24 @@ public class ActorPrefab extends Group {
         }        
         return shape;
     }
+    
+    /**
+     * Determines whether to polygons overlap or not
+     * @param other 
+     * @return
+     */
+    public boolean overlap(ActorPrefab other) {
+        Polygon p1 = this.getShape();
+        Polygon p2 = other.getShape();
+        
+        //test rectangle first (performance)
+        if( !p1.getBoundingRectangle().overlaps(p2.getBoundingRectangle())) {
+            return false;
+        }
+        
+        return Intersector.overlapConvexPolygons(p1, p2);
+    }
+    
     
     /**
      * updates the actor based on time
