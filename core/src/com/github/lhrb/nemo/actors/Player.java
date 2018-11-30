@@ -6,6 +6,10 @@ package com.github.lhrb.nemo.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.weapons.Weapon;
+import com.github.lhrb.nemo.actors.weapons.WeaponLaser;
+import com.github.lhrb.nemo.actors.weapons.WeaponNormal;
+import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
@@ -25,7 +29,7 @@ public class Player extends ActorPrefab {
         setSpeedMax(800);
         setDeceleration(100000);
 
-        weapon = new WeaponNormal(getStage(), 0.6f);
+        weapon = new WeaponNormal(getStage());
 
     }
     
@@ -58,15 +62,15 @@ public class Player extends ActorPrefab {
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon.remove();
-            weapon = new WeaponNormal(getStage(), 0.6f);
+            weapon = new WeaponNormal(getStage());
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
             weapon.remove();
-            weapon = new WeaponSpread(getStage(), 0.6f);
+            weapon = new WeaponSpread(getStage());
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
             weapon.remove();
-            weapon = new WeaponLaser(getStage(), 2.0f);
+            weapon = new WeaponLaser(getStage());
         }
         
         applyPhysics(delta);
