@@ -21,6 +21,7 @@ public class EnemyTwo extends PhysicalActor implements Enemy {
     }
 
     public void setCharacteristics() {
+        setShapePolygon(8);
         setAnimation(AnimationLoader.loadTexture("gegner2.png"));
         //setRotation(180);
         setAcceleration(30);

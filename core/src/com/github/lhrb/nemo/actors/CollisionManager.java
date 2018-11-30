@@ -34,8 +34,9 @@ public class CollisionManager {
          * sollte effizienter gehen?
          */
         for(Player p : player) {
-            for(Enemy e : enemies) {            
-                if(e.overlap(p)) {
+            for(Enemy e : enemies) {    
+                if(e.overlap((PhysicalActor)p)) {
+                    System.out.println("player enemy");
                     e.collision();
                     p.collision();
                 }
@@ -44,6 +45,7 @@ public class CollisionManager {
         for(Enemy e : enemies) {
             for(Shots s : shots) {
                 if(e.overlap(s)) {
+                    System.out.println("shot enemy");
                     e.collision();
                     s.collision();
                 }
