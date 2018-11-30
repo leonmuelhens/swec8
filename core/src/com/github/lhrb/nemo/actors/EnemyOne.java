@@ -16,8 +16,8 @@ public class EnemyOne extends ActorPrefab {
             super(x,y,stage);
             setAnimation(AnimationLoader.loadTexture("gegner1.png"));
             setRotation(180);
-            setAcceleration(1000000);
-            setSpeedMax(300);
+            setAcceleration(1000);
+            setSpeedMax(75);
             setDeceleration(1000000);
         }
 

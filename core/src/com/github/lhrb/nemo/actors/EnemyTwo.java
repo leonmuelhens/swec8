@@ -16,8 +16,8 @@ public class EnemyTwo extends ActorPrefab {
             super(x,y,stage);
             setAnimation(AnimationLoader.loadTexture("gegner2.png"));
             //setRotation(180);
-            setAcceleration(1000000);
-            setSpeedMax(300);
+            setAcceleration(1000);
+            setSpeedMax(100);
             setDeceleration(1000000);
         }
 
