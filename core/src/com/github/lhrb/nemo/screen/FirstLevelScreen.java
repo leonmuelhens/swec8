@@ -1,9 +1,11 @@
 package com.github.lhrb.nemo.screen;
 
+import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.*;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class FirstLevelScreen extends AbstractScreen{
+    EnemyFactory factory = new EnemyFactory(1,gameStage);
 
     @Override
     public void init() {
@@ -25,7 +27,8 @@ public class FirstLevelScreen extends AbstractScreen{
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        
+        factory.continueManufacture();
+        //factory.modifySpawnRate();
     }
 
 }

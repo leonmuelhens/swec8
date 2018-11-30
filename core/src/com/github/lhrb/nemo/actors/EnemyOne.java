@@ -1,6 +1,7 @@
 package com.github.lhrb.nemo.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class EnemyOne extends ActorPrefab {
