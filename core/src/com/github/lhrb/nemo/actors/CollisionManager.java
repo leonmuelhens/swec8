@@ -5,6 +5,7 @@ package com.github.lhrb.nemo.actors;
 
 import java.util.ArrayList;
 
+import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.shots.Shots;
 
 /**
