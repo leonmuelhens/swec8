@@ -21,4 +21,9 @@ public class Laser extends Shots {
     public void act(float delta) {
         super.act(delta);
     }
+
+    @Override
+    public void collision() {
+        // Don't remove laser when enemy is hit
+    }
 }
