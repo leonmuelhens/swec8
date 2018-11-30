@@ -28,12 +28,11 @@ public class EnemyFactory {
     public void spawnEnemy(ActorPrefab actor) {
         if (spawnRate - (gameTime - timeLastSpawn) < 0) {
             Random rand = new Random();
-            float x = rand.nextInt((int) gameStage.getWidth()) + 1;
+            float x = rand.nextInt((int) gameStage.getWidth()- (int) actor.getWidth() ) + 1;
             float y = gameStage.getHeight();
 
             actor.setPosition(x,y);
             gameStage.addActor(actor);
-            actor.setWorldDimension(gameStage.getWidth(), gameStage.getHeight());
 
             timeLastSpawn = gameTime;
         }
