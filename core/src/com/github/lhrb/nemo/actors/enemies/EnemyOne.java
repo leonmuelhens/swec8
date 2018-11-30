@@ -1,10 +1,8 @@
-package com.github.lhrb.nemo.actors;
+package com.github.lhrb.nemo.actors.enemies;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class EnemyOne extends PhysicalActor implements Enemy {
+public class EnemyOne extends Enemy {
 
     /**
      * Simple Enemie Implementation
@@ -12,14 +10,6 @@ public class EnemyOne extends PhysicalActor implements Enemy {
      *
      */
 
-    public EnemyOne() {
-        setCharacteristics();
-    }
-
-    public EnemyOne(float x, float y, Stage stage) {
-        super(x,y,stage);
-        setCharacteristics();
-    }
 
     public void setCharacteristics() {
         setAnimation(AnimationLoader.loadTexture("gegner1.png"));
@@ -40,15 +30,5 @@ public class EnemyOne extends PhysicalActor implements Enemy {
 
             applyObjectPhysics(delta);
         }
-
-        /* (non-Javadoc)
-         * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
-         */
-        @Override
-        public void collision() {
-            System.out.println("enemyon collision");
-        }
-
-
 
 }

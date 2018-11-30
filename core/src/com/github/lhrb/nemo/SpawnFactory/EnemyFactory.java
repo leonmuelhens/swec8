@@ -2,9 +2,9 @@ package com.github.lhrb.nemo.SpawnFactory;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.ActorPrefab;
-import com.github.lhrb.nemo.actors.EnemyOne;
-import com.github.lhrb.nemo.actors.EnemyThree;
-import com.github.lhrb.nemo.actors.EnemyTwo;
+import com.github.lhrb.nemo.actors.enemies.EnemyOne;
+import com.github.lhrb.nemo.actors.enemies.EnemyThree;
+import com.github.lhrb.nemo.actors.enemies.EnemyTwo;
 
 import java.util.Random;
 

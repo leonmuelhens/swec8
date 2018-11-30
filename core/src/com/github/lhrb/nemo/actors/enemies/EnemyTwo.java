@@ -1,24 +1,14 @@
-package com.github.lhrb.nemo.actors;
+package com.github.lhrb.nemo.actors.enemies;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class EnemyTwo extends PhysicalActor implements Enemy {
+public class EnemyTwo extends Enemy {
 
     /**
      * Simple Enemie Implementation
      * @author Thorsten Rösler
      *
      */
-
-    public EnemyTwo() {
-        setCharacteristics();
-    }
-
-    public EnemyTwo(float x, float y, Stage stage) {
-        super(x,y,stage);
-        setCharacteristics();
-    }
 
     public void setCharacteristics() {
         
