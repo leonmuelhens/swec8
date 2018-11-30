@@ -37,7 +37,7 @@ public class Player extends PhysicalActor {
          * this method does not provide any security mechanism
          */
         setWorldDimension(stage.getWidth(), stage.getHeight());
-        setBoundToWorld();
+        
        
     }
     
@@ -82,11 +82,8 @@ public class Player extends PhysicalActor {
         }
         
         applyPhysics(delta);
-        
-      
-        
-
-        
+        setBoundToWorld();
+    
     }
 
 
