@@ -1,5 +1,7 @@
 package com.github.lhrb.nemo.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
@@ -9,6 +11,7 @@ public class FirstLevelScreen extends AbstractScreen{
     
     Player player;
     ActorPrefab explosion;
+    private Music test;
 
     @Override
     public void init() {
@@ -23,7 +26,10 @@ public class FirstLevelScreen extends AbstractScreen{
         explosion.setAnimation(AnimationLoader.loadAnimation(
                                "explosion.png", 6, 6, 0.05f, true));
         explosion.setShapePolygon(8);
-
+        test = Gdx.audio.newMusic(Gdx.files.internal("sound/test.ogg"));
+        test.setLooping(true);
+        test.setVolume(0.8f);
+        test.play();
         
     }
 
