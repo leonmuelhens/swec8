@@ -27,7 +27,7 @@ public class FirstLevelScreen extends AbstractScreen{
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        factory.continueManufacture();
+        factory.continueManufacture(delta);
         //factory.modifySpawnRate();
     }
 
