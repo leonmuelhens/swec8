@@ -19,13 +19,14 @@ public class Player extends ActorPrefab {
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
-        setAnimation(AnimationLoader.loadTexture("player_laser.png"));
-        
-        setAcceleration(30000);
+        setAnimation(AnimationLoader.loadTexture("player.png"));
+
+        setAcceleration(3600);
         setSpeedMax(800);
-        setDeceleration(30000);
+        setDeceleration(100000);
 
         weapon = new WeaponNormal(getStage(), 0.6f);
+
     }
     
  
@@ -74,7 +75,8 @@ public class Player extends ActorPrefab {
          * ATTENTION
          * this method does not provide any security mechanism
          */
-        setWorldBounds();
+        setWorldDimension(this.getStage().getWidth(), this.getStage().getHeight());
+        setBoundToWorld();
         
         
     }
