@@ -52,7 +52,8 @@ public class Player extends ActorPrefab {
          * ATTENTION
          * this method does not provide any security mechanism
          */
-        setWorldBounds();
+        setWorldDimension(this.getStage().getWidth(), this.getStage().getHeight());
+        setBoundToWorld();
         
         
     }

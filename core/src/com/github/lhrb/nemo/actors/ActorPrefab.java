@@ -55,7 +55,8 @@ public class ActorPrefab extends Group {
         velocity = new Vector2(0,0);
         accelerationVector = new Vector2(0,0);
         
-        worldDimension = new Rectangle(0,0,stage.getWidth(), stage.getHeight());
+        //bad code
+        //worldDimension = new Rectangle(0,0,stage.getWidth(), stage.getHeight());
        
     }
     
@@ -92,12 +93,13 @@ public class ActorPrefab extends Group {
     public void setWorldDimension(float width, float height) {
         worldDimension = new Rectangle(0,0, width, height);
     }
-
+    
     /**
      * NO SECURITY MECHANISM IMPLEMENTED YET
      * PAY ATTENTION USING THIS
      */
-    public void setWorldBounds() {
+    public void setBoundToWorld() {
+        if(worldDimension == null) return;
         if(getX() < 0) {
             setX(0);
         }
