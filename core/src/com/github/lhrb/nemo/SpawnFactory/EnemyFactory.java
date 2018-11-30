@@ -33,12 +33,6 @@ public class EnemyFactory {
         }
     }
 
-    public void calculateTimePassed(float delta) {
-        gameTime +=delta;
-        //System.out.println("gametime:" + gameTime);
-        //System.out.println("timelastspawn:" + timeLastSpawn);
-    }
-
     public void modifySpawnRate() {
         //-(atan(0.8x-3))+1.9
         // x = 9 equals 3 min of game
@@ -60,7 +54,7 @@ public class EnemyFactory {
     // This is the method called by level screens to spawn enemies
     public void continueManufacture(float delta) {
         spawnEnemies();
-        calculateTimePassed(delta);
+        gameTime +=delta;
         modifySpawnRate();
     }
 
