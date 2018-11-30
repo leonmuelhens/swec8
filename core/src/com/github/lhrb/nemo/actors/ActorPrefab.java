@@ -197,7 +197,6 @@ public class ActorPrefab extends Group {
 
     public void applyObjectPhysics(float delta) {
         if (getY() > getStage().getHeight() || getY() + getHeight() <= 0 ) {
-            System.out.println("removed ..");
             remove();
         } else {
             applyPhysics(delta);
