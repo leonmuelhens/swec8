@@ -12,17 +12,22 @@ public class EnemyOne extends ActorPrefab {
      *
      */
 
+    public EnemyOne() {
+        setCharacteristics();
+    }
 
-        public EnemyOne(float x, float y, Stage stage) {
-            super(x,y,stage);
-            setAnimation(AnimationLoader.loadTexture("gegner1.png"));
-            setRotation(180);
-            setAcceleration(1000000);
-            setSpeedMax(300);
-            setDeceleration(1000000);
-        }
+    public EnemyOne(float x, float y, Stage stage) {
+        super(x,y,stage);
+        setCharacteristics();
+    }
 
-
+    public void setCharacteristics() {
+        setAnimation(AnimationLoader.loadTexture("gegner1.png"));
+        setRotation(180);
+        setAcceleration(1000000);
+        setSpeedMax(300);
+        setDeceleration(1000000);
+    }
 
         /**
          * input handling

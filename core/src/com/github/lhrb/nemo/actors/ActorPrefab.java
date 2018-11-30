@@ -33,7 +33,23 @@ public class ActorPrefab extends Group {
     private Vector2 velocity;
     private Vector2 accelerationVector;
     
-    private Rectangle worldDimension; 
+    private Rectangle worldDimension;
+
+    public ActorPrefab() {
+        // animation init
+        animation = null;
+        elapsedTime = 0;
+        animationPause = false;
+
+        //motion init
+        acceleration = 0;
+        deceleration = 0;
+        speedMax = 100;
+
+        //test area
+        velocity = new Vector2(0,0);
+        accelerationVector = new Vector2(0,0);
+    }
 
     
     public ActorPrefab(float x, float y, Stage stage) {
@@ -58,7 +74,8 @@ public class ActorPrefab extends Group {
         worldDimension = new Rectangle(0,0,stage.getWidth(), stage.getHeight());
        
     }
-    
+
+
     /**
      * sets the animation
      * @param animation
