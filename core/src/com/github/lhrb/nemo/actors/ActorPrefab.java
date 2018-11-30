@@ -98,11 +98,11 @@ public class ActorPrefab extends Group {
      * PAY ATTENTION USING THIS
      */
     public void setWorldBounds() {
-        if(getX() + getWidth() < 0) {
-            setX(worldDimension.width);
+        if(getX() < 0) {
+            setX(0);
         }
-        if(getX() > worldDimension.width) {
-            setX(-getWidth());
+        if(getX() + getWidth() > worldDimension.width) {
+            setX(worldDimension.width - getWidth());
         }
         // bound Y
         if(getY() < 0) {
