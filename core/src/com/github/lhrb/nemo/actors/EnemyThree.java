@@ -23,8 +23,8 @@ public class EnemyThree extends ActorPrefab {
     public void setCharacteristics() {
         setAnimation(AnimationLoader.loadTexture("gegner3.png"));
         //setRotation(180);
-        setAcceleration(1000000);
-        setSpeedMax(300);
+        setAcceleration(1000);
+        setSpeedMax(100);
         setDeceleration(1000000);
     }
 
@@ -38,7 +38,4 @@ public class EnemyThree extends ActorPrefab {
 
         applyObjectPhysics(delta);
     }
-
-
-
 }

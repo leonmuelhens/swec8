@@ -16,23 +16,12 @@ public class FirstLevelScreen extends AbstractScreen{
         Background bg2 = new Background(0,1200,gameStage,1);
 
         player = new Player(20,20, gameStage);
-        player.setShapePolygon(8);
-        
-        // player.setWorldDimension(1200, 600); // should get reworked
-        explosion = new ActorPrefab(200,200, gameStage);
-        explosion.setAnimation(AnimationLoader.loadAnimation(
-                               "explosion.png", 6, 6, 0.05f, true));
-        explosion.setShapePolygon(8);
-        
     }
 
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
         factory.continueManufacture(delta);
-        if(player.overlap(explosion)) {
-            System.out.println("Collision " + delta);
-        }
     }
 
 }

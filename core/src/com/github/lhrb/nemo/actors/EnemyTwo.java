@@ -23,22 +23,19 @@ public class EnemyTwo extends ActorPrefab {
     public void setCharacteristics() {
         setAnimation(AnimationLoader.loadTexture("gegner2.png"));
         //setRotation(180);
-        setAcceleration(1000000);
-        setSpeedMax(300);
+        setAcceleration(30);
+        setSpeedMax(30);
         setDeceleration(1000000);
     }
 
-        /**
-         * input handling
-         */
-        @Override
-        public void act(float delta) {
-            super.act(delta);
-            accelerationAtAngle(270);
+    /**
+     * input handling
+     */
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        accelerationAtAngle(270);
 
-            applyObjectPhysics(delta);
-        }
-
-
-
+        applyObjectPhysics(delta);
+    }
 }

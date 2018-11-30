@@ -48,10 +48,6 @@ public class ActorPrefab extends Group {
         stage.addActor(this);
 
         initializeActor();
-
-        //bad code
-        //worldDimension = new Rectangle(0,0,stage.getWidth(), stage.getHeight());
-       
     }
 
     public void initializeActor() {
