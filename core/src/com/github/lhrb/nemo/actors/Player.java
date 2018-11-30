@@ -52,7 +52,7 @@ public class Player extends ActorPrefab {
         }
 
         if(Gdx.input.isKeyPressed(Keys.SPACE)) {
-            weapon.fire(getX()+(getWidth()/2), getY()+(getHeight()/2), 90);
+            weapon.fire(getX()+(getWidth()/2), getY()+(getHeight()), 90);
         }
 
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
