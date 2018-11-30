@@ -2,7 +2,6 @@ package com.github.lhrb.nemo.actors.shots;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.ActorPrefab;
-import com.github.lhrb.nemo.util.AnimationLoader;
 
 public abstract class Shots extends ActorPrefab {
 
