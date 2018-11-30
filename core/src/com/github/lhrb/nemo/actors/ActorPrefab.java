@@ -34,36 +34,39 @@ public class ActorPrefab extends Group {
     //test area
     private Vector2 velocity;
     private Vector2 accelerationVector;
-    
-    private Rectangle worldDimension; 
-    
+
+    private Rectangle worldDimension;
     private Polygon shape;
 
-    
+    public ActorPrefab() {
+        initializeActor();
+    }
+
     public ActorPrefab(float x, float y, Stage stage) {
         super(); // Unnecessary? call actually
         setPosition(x,y);
         stage.addActor(this);
-        
+
+        initializeActor();
+    }
+
+    public void initializeActor() {
         // animation init
         animation = null;
         elapsedTime = 0;
         animationPause = false;
-        
+
         //motion init
         acceleration = 0;
         deceleration = 0;
         speedMax = 100;
-        
+
         //test area
         velocity = new Vector2(0,0);
         accelerationVector = new Vector2(0,0);
-        
-        //bad code
-        //worldDimension = new Rectangle(0,0,stage.getWidth(), stage.getHeight());
-       
     }
-    
+
+
     /**
      * sets the animation
      * @param animation
@@ -201,7 +204,15 @@ public class ActorPrefab extends Group {
         
         accelerationVector.set(0,0);
     }
-    
+
+    public void applyObjectPhysics(float delta) {
+        if (getY() > getStage().getHeight() || getY() + getHeight() <= 0 ) {
+            remove();
+        } else {
+            applyPhysics(delta);
+        }
+    }
+
     
     /**
      * ####################################
@@ -263,8 +274,7 @@ public class ActorPrefab extends Group {
         
         return Intersector.overlapConvexPolygons(p1, p2);
     }
-    
-    
+
     /**
      * updates the actor based on time
      */

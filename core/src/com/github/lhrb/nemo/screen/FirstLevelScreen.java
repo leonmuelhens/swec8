@@ -1,5 +1,6 @@
 package com.github.lhrb.nemo.screen;
 
+<<<<<<< HEAD
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
@@ -7,10 +8,15 @@ import com.badlogic.gdx.audio.Sound;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
+=======
+import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
+import com.github.lhrb.nemo.actors.*;
+>>>>>>> master
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class FirstLevelScreen extends AbstractScreen{
-    
+    EnemyFactory factory = new EnemyFactory(1,gameStage);
+
     Player player;
     ActorPrefab explosion;
     private Music test;
@@ -35,15 +41,12 @@ public class FirstLevelScreen extends AbstractScreen{
         test.play();
         laser = Gdx.audio.newSound(Gdx.files.internal("sound/laser.ogg"));
 
-        
     }
 
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        if(player.overlap(explosion)) {
-            System.out.println("Collision " + delta);
-        }
+        factory.continueManufacture(delta);
     }
 
     /* (non-Javadoc)
