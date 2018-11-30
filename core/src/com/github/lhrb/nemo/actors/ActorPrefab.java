@@ -252,6 +252,7 @@ public class ActorPrefab extends Group {
      * @return
      */
     public boolean overlap(ActorPrefab other) {
+        if(shape == null || other == null ) return false;
         Polygon p1 = this.getShape();
         Polygon p2 = other.getShape();
         
@@ -279,7 +280,7 @@ public class ActorPrefab extends Group {
         
         Color c = getColor();
         batch.setColor(c.r, c.g, c.b, c.a);
-        if( animation != null & isVisible() ) {
+        if( animation != null && isVisible() ) {
             
             batch.draw(animation.getKeyFrame(elapsedTime), 
                        getX(), getY(), 
