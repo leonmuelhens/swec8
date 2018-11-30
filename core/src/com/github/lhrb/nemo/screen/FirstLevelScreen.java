@@ -1,21 +1,34 @@
 package com.github.lhrb.nemo.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.*;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class FirstLevelScreen extends AbstractScreen{
-    EnemyFactory factory = new EnemyFactory(1,gameStage);
+public class FirstLevelScreen extends AbstractScreen {
+    EnemyFactory factory = new EnemyFactory(1, gameStage);
     float gameTime;
     Player player;
+    ActorPrefab explosion;
+    private Music soundtrack;
 
     @Override
     public void init() {
         gameTime = 0F;
-        Background bg = new Background(0,0,gameStage,1);
-        Background bg2 = new Background(0,1200,gameStage,1);
+        Background bg = new Background(0, 0, gameStage, 1);
+        Background bg2 = new Background(0, 1200, gameStage, 1);
 
-        Player player = new Player(20,20, gameStage);
+        player = new Player(20, 20, gameStage);
+        soundtrack = Gdx.audio.newMusic(Gdx.files.internal("sound/soundTrack_1.ogg"));
+        soundtrack.setLooping(true);
+        soundtrack.setVolume(0.2f);
+        soundtrack.play();
     }
 
     @Override
@@ -27,12 +40,11 @@ public class FirstLevelScreen extends AbstractScreen{
            for how long the level shall take and replace the hardcorded 3*6
          */
 
-        if (gameTime < 3*60) {
+        if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         } else {
             // we have to initialize the bossScreen
             System.out.println("The Boss level should start here");
         }
     }
-
 }
