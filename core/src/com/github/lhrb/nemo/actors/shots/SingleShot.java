@@ -16,6 +16,7 @@ public class SingleShot extends Shots {
         setAnimation(AnimationLoader.loadTexture("SchussStandart.png"));
         setSpeedMax(800);
         setAcceleration(30000);
+        setShapePolygon(8);
     }
 
     @Override

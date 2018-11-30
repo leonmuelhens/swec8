@@ -14,6 +14,7 @@ public class Laser extends Shots {
         setAnimation(AnimationLoader.loadTexture("SchussLaser.png"));
         setSpeedMax(1600);
         setAcceleration(30000);
+        setShapePolygon(8);
     }
 
     @Override

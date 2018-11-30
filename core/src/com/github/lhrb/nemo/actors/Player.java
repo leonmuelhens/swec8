@@ -32,13 +32,7 @@ public class Player extends PhysicalActor {
         weapon = new WeaponNormal(getStage());
         setShapePolygon(8);
         
-        /**
-         * ATTENTION
-         * this method does not provide any security mechanism
-         */
-        setWorldDimension(this.getStage().getWidth(), this.getStage().getHeight());
-        setBoundToWorld();
-
+       
     }
     
  
@@ -84,7 +78,13 @@ public class Player extends PhysicalActor {
         applyPhysics(delta);
         
       
-        
+        /**
+         * ATTENTION
+         * this method does not provide any security mechanism
+         */
+        setWorldDimension(this.getStage().getWidth(), this.getStage().getHeight());
+        setBoundToWorld();
+
         
     }
 

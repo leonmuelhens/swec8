@@ -37,7 +37,7 @@ public class PhysicalActor extends ActorPrefab{
     public void setShapePolygon(int numEdges) {
         float width = getWidth();
         float height = getHeight();
-        
+        //System.out.println("width: " + width + " height: " + height);
         float[] vertices = new float[2*numEdges];
         for(int i = 0; i < numEdges; i++) {
             // 6.28 is ~360 degree in radian measure ;)
