@@ -7,8 +7,6 @@ import com.github.lhrb.nemo.actors.shots.SingleShot;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class WeaponSpread extends Weapon {
-    Sound sound;
-
     public WeaponSpread(Stage stage) {
         super(stage, 0.6f);
         setAnimation(AnimationLoader.loadTexture("IconSpread.png"));

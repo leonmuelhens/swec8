@@ -7,8 +7,6 @@ import com.github.lhrb.nemo.actors.shots.Laser;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class WeaponLaser extends Weapon {
-    Sound sound;
-
     public WeaponLaser(Stage stage) {
         super(stage, 2.0f);
         setAnimation(AnimationLoader.loadTexture("IconLaser.png"));
