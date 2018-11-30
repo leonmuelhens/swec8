@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class EnemyOne extends ActorPrefab {
+public class EnemyOne extends PhysicalActor implements Enemy {
 
     /**
      * Simple Enemie Implementation
@@ -38,6 +38,14 @@ public class EnemyOne extends ActorPrefab {
             accelerationAtAngle(270);
 
             applyObjectPhysics(delta);
+        }
+
+        /* (non-Javadoc)
+         * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
+         */
+        @Override
+        public void collision() {
+            System.out.println("enemyon collision");
         }
 
 

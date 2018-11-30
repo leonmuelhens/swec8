@@ -17,7 +17,7 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  * @author exa
  * 
  */
-public class Player extends ActorPrefab {
+public class Player extends PhysicalActor {
 
     private Weapon weapon;
 
@@ -83,6 +83,16 @@ public class Player extends ActorPrefab {
         setBoundToWorld();
         
         
+    }
+
+
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
+     */
+    @Override
+    public void collision() {
+        System.out.println("Player collision");
     }
 
 }

@@ -1,15 +1,13 @@
 package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
+import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
-import com.github.lhrb.nemo.actors.*;
-import com.github.lhrb.nemo.util.AnimationLoader;
+
 
 public class FirstLevelScreen extends AbstractScreen {
     EnemyFactory factory = new EnemyFactory(1, gameStage);
@@ -39,6 +37,7 @@ public class FirstLevelScreen extends AbstractScreen {
         /* Once we define an abstract class for gameScreens, we can define a variable
            for how long the level shall take and replace the hardcorded 3*6
          */
+        CollisionManager.checkCollision(getPhysicalActors());
 
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);

@@ -1,9 +1,9 @@
 package com.github.lhrb.nemo.actors.shots;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.actors.PhysicalActor;
 
-public abstract class Shots extends ActorPrefab {
+public abstract class Shots extends PhysicalActor {
 
     private final float angle;
 
@@ -34,6 +34,14 @@ public abstract class Shots extends ActorPrefab {
          */
         //setWorldBounds();
 
+    }
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
+     */
+    @Override
+    public void collision() {
+        System.out.println("shot collision");
     }
 
 }

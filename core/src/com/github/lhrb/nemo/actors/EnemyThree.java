@@ -3,7 +3,7 @@ package com.github.lhrb.nemo.actors;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class EnemyThree extends ActorPrefab {
+public class EnemyThree extends PhysicalActor implements Enemy {
 
     /**
      * Simple Enemie Implementation
