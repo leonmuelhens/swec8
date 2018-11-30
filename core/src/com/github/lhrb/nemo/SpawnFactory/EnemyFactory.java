@@ -3,12 +3,14 @@ package com.github.lhrb.nemo.SpawnFactory;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.EnemyOne;
+import com.github.lhrb.nemo.actors.EnemyThree;
+import com.github.lhrb.nemo.actors.EnemyTwo;
+
 import java.util.Random;
 
 public class EnemyFactory {
 
     private int level;
-    private boolean enemyOne, enemyTwo, enemyThree;
     private float gameTime, timeLastSpawn;
     private Stage gameStage;
 
@@ -17,33 +19,56 @@ public class EnemyFactory {
     public EnemyFactory(int level, Stage gameStage) {
         this.level = level;
         gameTime = 0;
-        enemyOne = true;
-        enemyTwo = false;
-        enemyThree = false;
         this.gameStage = gameStage;
 
         // first spawn is delayed + 1 second
         timeLastSpawn = 1;
     }
 
-    public void spawnEnemy(ActorPrefab actor, float x, float y, Stage gameStage) {
+    public void spawnEnemy(ActorPrefab actor) {
         if (spawnRate - (gameTime - timeLastSpawn) < 0) {
-            actor = new ActorPrefab(x, y, gameStage);
+            Random rand = new Random();
+            float x = rand.nextInt((int) gameStage.getWidth()) + 1;
+            float y = gameStage.getHeight();
+
+            actor.setPosition(x,y);
+            gameStage.addActor(actor);
+            actor.setWorldDimension(gameStage.getWidth(), gameStage.getHeight());
+
             timeLastSpawn = gameTime;
         }
     }
 
     public void levelOneSpawner() {
         Random rand = new Random();
-        EnemyOne enemy = new EnemyOne(rand.nextInt((int) gameStage.getWidth()) + 1, gameStage.getHeight(), gameStage);
+
+        switch (rand.nextInt(3) + 1) {
+            case 1:
+                EnemyOne enemy = new EnemyOne();
+                spawnEnemy(enemy);
+                break;
+            case 2:
+                EnemyTwo enemy2 = new EnemyTwo();
+                spawnEnemy(enemy2);
+                break;
+            case 3:
+                EnemyThree enemy3 = new EnemyThree();
+                spawnEnemy(enemy3);
+                break;
+            default:
+                EnemyOne enemyy = new EnemyOne();
+                spawnEnemy(enemyy);
+                break;
+        }
     }
+
     public void levelTwoSpawner() {
-        Random rand = new Random();
-        EnemyOne enemy = new EnemyOne(rand.nextInt((int) gameStage.getWidth()) + 1, gameStage.getHeight(), gameStage);
+        EnemyTwo enemy = new EnemyTwo();
+        spawnEnemy(enemy);
     }
     public void levelThreeSpawner() {
-        Random rand = new Random();
-        EnemyOne enemy = new EnemyOne(rand.nextInt((int) gameStage.getWidth()) + 1, gameStage.getHeight(), gameStage);
+        EnemyOne enemy = new EnemyOne();
+        spawnEnemy(enemy);
     }
 
     public void spawnLevel() {
@@ -61,6 +86,10 @@ public class EnemyFactory {
                 levelOneSpawner();
                 break;
         }
+    }
+
+    private void updatePossibleEnemies() {
+
     }
 
 
@@ -87,8 +116,8 @@ public class EnemyFactory {
         spawnLevel();
         gameTime +=delta;
         modifySpawnRate();
+        updatePossibleEnemies();
     }
-
 
 
 
