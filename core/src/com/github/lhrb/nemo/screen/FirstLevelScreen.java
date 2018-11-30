@@ -28,7 +28,7 @@ public class FirstLevelScreen extends AbstractScreen{
         explosion.setShapePolygon(8);
         test = Gdx.audio.newMusic(Gdx.files.internal("sound/test.ogg"));
         test.setLooping(true);
-        test.setVolume(0.8f);
+        test.setVolume(0.2f);
         test.play();
         
     }
