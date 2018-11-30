@@ -1,7 +1,9 @@
 package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
@@ -12,6 +14,7 @@ public class FirstLevelScreen extends AbstractScreen{
     Player player;
     ActorPrefab explosion;
     private Music test;
+    private Sound laser;
 
     @Override
     public void init() {
@@ -30,6 +33,8 @@ public class FirstLevelScreen extends AbstractScreen{
         test.setLooping(true);
         test.setVolume(0.2f);
         test.play();
+        laser = Gdx.audio.newSound(Gdx.files.internal("sound/laser.ogg"));
+
         
     }
 
@@ -40,5 +45,18 @@ public class FirstLevelScreen extends AbstractScreen{
             System.out.println("Collision " + delta);
         }
     }
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.screen.AbstractScreen#keyDown(int)
+     */
+    @Override
+    public boolean keyDown(int keycode) {
+        if(keycode == Keys.SPACE) {
+            laser.play(0.3f);
+        }
+        return false;
+    }
+    
+    
 
 }
