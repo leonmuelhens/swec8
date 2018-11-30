@@ -40,7 +40,7 @@ public abstract class Shots extends PhysicalActor {
      */
     @Override
     public void collision() {
-        System.out.println("shot collision");
+        remove();
     }
 
 }
