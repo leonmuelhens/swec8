@@ -29,18 +29,9 @@ public class EnemyTwo extends ActorPrefab {
         @Override
         public void act(float delta) {
             super.act(delta);
-            //accelerationAtAngle(270);
+            accelerationAtAngle(270);
 
-
-            applyPhysics(delta);
-
-            /**
-             * ATTENTION
-             * this method does not provide any security mechanism
-             */
-            setWorldBounds();
-
-
+            applyObjectPhysics(delta);
         }
 
 
