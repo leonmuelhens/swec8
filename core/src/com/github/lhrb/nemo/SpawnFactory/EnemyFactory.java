@@ -1,6 +1,7 @@
 package com.github.lhrb.nemo.SpawnFactory;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.EnemyOne;
 import java.util.Random;
 
@@ -25,13 +26,43 @@ public class EnemyFactory {
         timeLastSpawn = 1;
     }
 
-    public void spawnEnemies() {
+    public void spawnEnemy(ActorPrefab actor, float x, float y, Stage gameStage) {
         if (spawnRate - (gameTime - timeLastSpawn) < 0) {
-            Random rand = new Random();
-            EnemyOne enemy = new EnemyOne(rand.nextInt((int) gameStage.getWidth()) + 1,gameStage.getHeight(),gameStage);
+            actor = new ActorPrefab(x, y, gameStage);
             timeLastSpawn = gameTime;
         }
     }
+
+    public void levelOneSpawner() {
+        Random rand = new Random();
+        EnemyOne enemy = new EnemyOne(rand.nextInt((int) gameStage.getWidth()) + 1, gameStage.getHeight(), gameStage);
+    }
+    public void levelTwoSpawner() {
+        Random rand = new Random();
+        EnemyOne enemy = new EnemyOne(rand.nextInt((int) gameStage.getWidth()) + 1, gameStage.getHeight(), gameStage);
+    }
+    public void levelThreeSpawner() {
+        Random rand = new Random();
+        EnemyOne enemy = new EnemyOne(rand.nextInt((int) gameStage.getWidth()) + 1, gameStage.getHeight(), gameStage);
+    }
+
+    public void spawnLevel() {
+        switch(level) {
+            case 1:
+                levelOneSpawner();
+                break;
+            case 2:
+                levelTwoSpawner();
+                break;
+            case 3:
+                levelThreeSpawner();
+                break;
+            default:
+                levelOneSpawner();
+                break;
+        }
+    }
+
 
     public void modifySpawnRate() {
         //-(atan(0.8x-3))+1.9
@@ -53,7 +84,7 @@ public class EnemyFactory {
 
     // This is the method called by level screens to spawn enemies
     public void continueManufacture(float delta) {
-        spawnEnemies();
+        spawnLevel();
         gameTime +=delta;
         modifySpawnRate();
     }
