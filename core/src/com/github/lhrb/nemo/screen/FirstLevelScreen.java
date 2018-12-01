@@ -1,7 +1,5 @@
 package com.github.lhrb.nemo.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
@@ -15,7 +13,6 @@ public class FirstLevelScreen extends AbstractScreen {
     private float gameTime;
     private Player player;
     private ActorPrefab explosion;
-    private SoundManager sM;
 
     @Override
     public void init() {
@@ -25,8 +22,7 @@ public class FirstLevelScreen extends AbstractScreen {
 
         player = new Player(20, 20, gameStage);
 
-        sM = SoundManager.getInstance();
-        sM.playTrack("firstlevel");
+        SoundManager.getInstance().playTrack("firstlevel");
     }
 
     @Override

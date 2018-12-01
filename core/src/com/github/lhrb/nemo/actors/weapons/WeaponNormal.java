@@ -1,10 +1,8 @@
 package com.github.lhrb.nemo.actors.weapons;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.shots.SingleShot;
-import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.SoundManager;
 
 public class WeaponNormal extends Weapon {
     public WeaponNormal(Stage stage) {
@@ -17,7 +15,7 @@ public class WeaponNormal extends Weapon {
             new SingleShot(x, y, getStage(), angle);
             resetCooldownTimer();
 
-            sM.playSound("laser");
+            SoundManager.getInstance().playSound("laser");
         }
     }
 }

@@ -3,8 +3,6 @@
  */
 package com.github.lhrb.nemo.util;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
@@ -43,7 +41,7 @@ public class SoundManager {
 
 
     private void addSong(String name, String path, float volume) {
-        if (fileNotExistent(name, path)) return;
+        if (!Gdx.files.internal(path).exists()) return;
 
         Music track = Gdx.audio.newMusic(Gdx.files.internal(path));
         track.setLooping(true);
@@ -52,25 +50,13 @@ public class SoundManager {
     }
 
     private void  addSound (String name, String path) {
-        if (fileNotExistent(name, path)) return;
+        if (!Gdx.files.internal(path).exists()) return;
 
         Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
         sounds.put(name, sound);
     }
 
-    private boolean fileNotExistent(String name, String path) {
-        final String ANSI_RED = "\u001B[31m";
-        if (!Gdx.files.internal(path).exists()) {
-            try {
-                throw new FileNotFoundException();
-            } catch (IOException e) {
-                System.out.println(ANSI_RED + "FileNotFoundException: Add Sound/Song " + name + ": File \"" + path + "\" does not exist!");
-            }
-            return true;
-        }
-        return false;
-    }
-
+    
     public static SoundManager getInstance() {
         if(soundMng == null) {
             soundMng = new SoundManager();
