@@ -14,7 +14,7 @@ public class GameManager {
     
     private static GameManager gameMng;
     
-    private int score;
+    private Integer score;
         
     private GameManager() {
         score = 0;
@@ -27,9 +27,10 @@ public class GameManager {
         return gameMng;
     }
     
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
+           
     
     /**
      * increase score by 1
