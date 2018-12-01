@@ -14,10 +14,12 @@ public class GameManager {
     
     private static GameManager gameMng;
     
-    private Integer score;
+    private int score;
+    private String scoreTxt;
         
     private GameManager() {
         score = 0;
+        scoreToString();
     }
     
     public static GameManager getInstance() {
@@ -30,6 +32,10 @@ public class GameManager {
     public Integer getScore() {
         return score;
     }
+    
+    public String getScoreAsString() {
+        return scoreTxt;
+    }
            
     
     /**
@@ -37,6 +43,7 @@ public class GameManager {
      */
     public synchronized void addScore() {
         addScore(1);
+        scoreToString();
     }
 
     /**
@@ -45,10 +52,16 @@ public class GameManager {
      */
     public synchronized void addScore(int i) {
         score += i;
+        scoreToString();
     }
     
     public synchronized void resetScore() {
         score = 0;
+        scoreToString();
+    }
+    
+    private void scoreToString() {
+        scoreTxt = String.valueOf(score);
     }
     
 

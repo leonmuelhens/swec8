@@ -26,7 +26,7 @@ public class FirstLevelScreen extends AbstractScreen {
         Background bg = new Background(0, 0, gameStage, 1);
         Background bg2 = new Background(0, 1200, gameStage, 1);
         
-        score = new Label(GameManager.getInstance().getScore().toString(),
+        score = new Label(GameManager.getInstance().getScoreAsString(),
                                  GuiManager.getInstance().getLabelStyle());
         score.setPosition(700, 550);
         guiStage.addActor(score);
@@ -56,6 +56,6 @@ public class FirstLevelScreen extends AbstractScreen {
         }
         
         //needs rework since String is immutable (memory performance) 
-        score.setText(GameManager.getInstance().getScore().toString());
+        score.setText(GameManager.getInstance().getScoreAsString());
     }
 }
