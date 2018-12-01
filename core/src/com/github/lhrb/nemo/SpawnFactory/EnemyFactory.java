@@ -43,30 +43,30 @@ public class EnemyFactory {
 
         switch (rand.nextInt(3) + 1) {
             case 1:
-                EnemyOne enemy = new EnemyOne();
+                EnemyOne enemy = new EnemyOne(gameStage);
                 spawnEnemy(enemy);
                 break;
             case 2:
-                EnemyTwo enemy2 = new EnemyTwo();
+                EnemyTwo enemy2 = new EnemyTwo(gameStage);
                 spawnEnemy(enemy2);
                 break;
             case 3:
-                EnemyThree enemy3 = new EnemyThree();
+                EnemyThree enemy3 = new EnemyThree(gameStage);
                 spawnEnemy(enemy3);
                 break;
             default:
-                EnemyOne enemyy = new EnemyOne();
+                EnemyOne enemyy = new EnemyOne(gameStage);
                 spawnEnemy(enemyy);
                 break;
         }
     }
 
     public void levelTwoSpawner() {
-        EnemyTwo enemy = new EnemyTwo();
+        EnemyTwo enemy = new EnemyTwo(gameStage);
         spawnEnemy(enemy);
     }
     public void levelThreeSpawner() {
-        EnemyOne enemy = new EnemyOne();
+        EnemyOne enemy = new EnemyOne(gameStage);
         spawnEnemy(enemy);
     }
 
