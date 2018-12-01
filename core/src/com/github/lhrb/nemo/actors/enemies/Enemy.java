@@ -15,19 +15,19 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  */
 public abstract class Enemy extends PhysicalActor{
     
-    public Enemy(){
+    public Enemy(Stage stage){
         super();
-        setCharacteristics();
+        setCharacteristics(stage);
     }
     
     public Enemy(float x, float y, Stage stage) {
         super(x,y,stage);
-        setCharacteristics();
+        setCharacteristics(stage);
     }
     
     int hp;
     
-    protected abstract void setCharacteristics();
+    protected abstract void setCharacteristics(Stage stage);
 
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()

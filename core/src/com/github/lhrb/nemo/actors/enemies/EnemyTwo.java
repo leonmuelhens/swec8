@@ -1,16 +1,19 @@
 package com.github.lhrb.nemo.actors.enemies;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class EnemyTwo extends Enemy {
-
+    public EnemyTwo(Stage stage) {
+        super(stage);
+    }
     /**
      * Simple Enemie Implementation
      * @author Thorsten Rösler
      *
      */
 
-    public void setCharacteristics() {
+    public void setCharacteristics(Stage stage) {
         
         setAnimation(AnimationLoader.loadTexture("gegner2.png"));
         //setRotation(180);
