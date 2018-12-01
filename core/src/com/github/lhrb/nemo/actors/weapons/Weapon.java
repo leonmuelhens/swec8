@@ -3,10 +3,11 @@ package com.github.lhrb.nemo.actors.weapons;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.util.SoundManager;
 
 public abstract class Weapon extends ActorPrefab {
 
-    protected Sound sound;
+    protected SoundManager sM;
 
     private final float cooldown;
     private static float cooldownTimer;
@@ -16,6 +17,7 @@ public abstract class Weapon extends ActorPrefab {
 
         this.cooldown = cooldown;
         this.cooldownTimer = cooldown;
+        sM = SoundManager.getInstance();
     }
 
     public boolean isReady() {

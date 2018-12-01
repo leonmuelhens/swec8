@@ -9,7 +9,6 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 public class WeaponLaser extends Weapon {
     public WeaponLaser(Stage stage) {
         super(stage, 2.0f);
-        sound = Gdx.audio.newSound(Gdx.files.internal("sound/laser.ogg"));
     }
 
     @Override
@@ -18,7 +17,7 @@ public class WeaponLaser extends Weapon {
             new Laser(x, y, getStage(), angle);
             resetCooldownTimer();
 
-            sound.play(0.3f);
+            sM.playSound("laser");
         }
     }
 }
