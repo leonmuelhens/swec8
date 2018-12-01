@@ -9,7 +9,6 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 public class WeaponNormal extends Weapon {
     public WeaponNormal(Stage stage) {
         super(stage, 0.6f);
-        setAnimation(AnimationLoader.loadTexture("IconNormal.png"));
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/laser.ogg"));
     }
 

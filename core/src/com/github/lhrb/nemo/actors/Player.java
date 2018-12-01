@@ -6,10 +6,7 @@ package com.github.lhrb.nemo.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.weapons.Weapon;
-import com.github.lhrb.nemo.actors.weapons.WeaponLaser;
-import com.github.lhrb.nemo.actors.weapons.WeaponNormal;
-import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
+import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
@@ -20,6 +17,7 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 public class Player extends PhysicalActor {
 
     private Weapon weapon;
+    private ActiveWeaponIcon weaponIcon;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -30,6 +28,7 @@ public class Player extends PhysicalActor {
         setDeceleration(100000);
 
         weapon = new WeaponNormal(getStage());
+        weaponIcon = new ActiveWeaponIcon("normal", getStage());
         setShapePolygon(8);
         
         /**
@@ -69,16 +68,22 @@ public class Player extends PhysicalActor {
 
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {
+            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponNormal(getStage());
+            weaponIcon = new ActiveWeaponIcon("normal", getStage());
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
+            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponSpread(getStage());
+            weaponIcon = new ActiveWeaponIcon("spread", getStage());
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
+            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponLaser(getStage());
+            weaponIcon = new ActiveWeaponIcon("laser", getStage());
         }
         
         applyPhysics(delta);
