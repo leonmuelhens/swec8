@@ -1,20 +1,18 @@
 package com.github.lhrb.nemo.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
+import com.github.lhrb.nemo.util.SoundManager;
 
 
 public class FirstLevelScreen extends AbstractScreen {
-    EnemyFactory factory = new EnemyFactory(1, gameStage);
-    float gameTime;
-    Player player;
-    ActorPrefab explosion;
-    private Music soundtrack;
+    private EnemyFactory factory = new EnemyFactory(1, gameStage);
+    private float gameTime;
+    private Player player;
+    private ActorPrefab explosion;
 
     @Override
     public void init() {
@@ -23,10 +21,8 @@ public class FirstLevelScreen extends AbstractScreen {
         Background bg2 = new Background(0, 1200, gameStage, 1);
 
         player = new Player(20, 20, gameStage);
-        soundtrack = Gdx.audio.newMusic(Gdx.files.internal("sound/soundTrack_1.ogg"));
-        soundtrack.setLooping(true);
-        soundtrack.setVolume(0.2f);
-        soundtrack.play();
+
+        SoundManager.getInstance().playTrack("firstlevel");
     }
 
     @Override
