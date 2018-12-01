@@ -126,7 +126,6 @@ public class Player extends PhysicalActor {
                 hitDelta = 0;
             }
         }
-        System.out.println("Player collision");
     }
 
 }

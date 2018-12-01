@@ -24,6 +24,7 @@ public class EnemyThree extends Enemy {
         setSpeedMax(100);
         setDeceleration(1000000);
         setShapePolygon(8);
+        hp = 3;
 
         weapon = new WeaponNormal(stage, 1.3f);
     }
