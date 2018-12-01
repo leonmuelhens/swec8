@@ -6,6 +6,7 @@ import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 
 
@@ -45,5 +46,6 @@ public class FirstLevelScreen extends AbstractScreen {
             // we have to initialize the bossScreen
             System.out.println("The Boss level should start here");
         }
+        System.out.println(GameManager.getInstance().getScore());
     }
 }
