@@ -9,7 +9,6 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 public class WeaponLaser extends Weapon {
     public WeaponLaser(Stage stage) {
         super(stage, 2.0f);
-        setAnimation(AnimationLoader.loadTexture("IconLaser.png"));
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/laser.ogg"));
     }
 
