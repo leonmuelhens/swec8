@@ -11,6 +11,7 @@ public abstract class Shots extends PhysicalActor {
         super(x, y, stage);
 
         this.angle = angle;
+        rotateBy(angle-90);
         setX(getX()-(getWidth()/2));
     }
 
