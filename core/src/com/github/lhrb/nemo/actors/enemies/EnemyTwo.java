@@ -26,7 +26,7 @@ public class EnemyTwo extends Enemy {
         setDeceleration(1000000);
         setShapePolygon(8);
 
-        weapon = new WeaponSpread(stage);
+        weapon = new WeaponSpread(stage,1.3f);
     }
 
     /**

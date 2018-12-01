@@ -12,6 +12,11 @@ public class WeaponSpread extends Weapon {
         sound = Gdx.audio.newSound(Gdx.files.internal("sound/laser.ogg"));
     }
 
+    public WeaponSpread(Stage stage, float cooldown) {
+        super(stage, cooldown);
+        sound = Gdx.audio.newSound(Gdx.files.internal("sound/laser.ogg"));
+    }
+
     @Override
     public void fire(float x, float y, float angle) {
         if (isReady()) {

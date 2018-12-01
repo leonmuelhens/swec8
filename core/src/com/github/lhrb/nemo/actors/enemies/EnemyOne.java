@@ -26,8 +26,8 @@ public class EnemyOne extends Enemy {
         setDeceleration(1000000);
         setShapePolygon(8);
 
-        weaponleft = new WeaponNormal(stage);
-        weaponright = new WeaponNormal(stage);
+        weaponleft = new WeaponNormal(stage, 1.2f);
+        weaponright = new WeaponNormal(stage, 1.2f);
     }
 
         /**
