@@ -3,21 +3,19 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.PhysicalActor;
-import com.github.lhrb.nemo.actors.shots.Laser;
-import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
  *
  */
 public abstract class Enemy extends PhysicalActor{
-    
+
     public Enemy(Stage stage){
         super();
         setCharacteristics(stage);
@@ -42,7 +40,7 @@ public abstract class Enemy extends PhysicalActor{
         if(hp <= 0) {
             if(getStage() != null) {
                 GameManager.getInstance().addScore(scoreValue);
-                Gdx.audio.newSound(Gdx.files.internal("sound/explosion1.ogg")).play();
+                SoundManager.getInstance().playSound("explosion");
 
                 new ActorPrefab(getX(), getY(), getStage())
                         .setAnimation(AnimationLoader.loadAnimation(
