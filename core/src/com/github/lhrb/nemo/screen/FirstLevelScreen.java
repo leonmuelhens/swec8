@@ -66,5 +66,6 @@ public class FirstLevelScreen extends AbstractScreen {
         
         //needs rework since String is immutable (memory performance) 
         score.setText(GameManager.getInstance().getScoreAsString());
+        life.setText(player.getLife());
     }
 }

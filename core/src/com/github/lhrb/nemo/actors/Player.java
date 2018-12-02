@@ -7,8 +7,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.weapons.*;
+import com.github.lhrb.nemo.screen.FirstLevelScreen;
+import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
@@ -31,7 +34,7 @@ public class Player extends PhysicalActor {
         setAcceleration(3600);
         setSpeedMax(800);
         setDeceleration(100000);
-        life = 10;
+        life = 3;
 
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
@@ -125,8 +128,14 @@ public class Player extends PhysicalActor {
         for (Actor a : getStage().getActors()) {
             if (a instanceof Enemy) {
                 a.remove();
-                gotHit = true;
-                hitDelta = 0;
+                if (!gotHit) {
+                    gotHit = true;
+                    hitDelta = 0;
+                    life -= 1;
+                    if (life <= 0) {
+                        KillingNemo.setActiveScreen(new GameOverScreen());
+                    }
+                }
             }
         }
     }
