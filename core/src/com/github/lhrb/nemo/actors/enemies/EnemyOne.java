@@ -41,7 +41,7 @@ public class EnemyOne extends Enemy {
 
             applyObjectPhysics(delta);
 
-            if (getY()+20 < getStage().getHeight()) {
+            if (getStage() != null && getY()+20 < getStage().getHeight()) {
                 weaponleft.fire(getX() + (getWidth() / 2) - 20, getY() - 30, 270);
                 weaponright.fire(getX() + (getWidth() / 2) + 20, getY() - 30, 270);
             }
