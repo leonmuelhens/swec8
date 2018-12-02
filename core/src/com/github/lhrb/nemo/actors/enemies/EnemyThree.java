@@ -28,7 +28,7 @@ public class EnemyThree extends Enemy {
         hp = 3;
         scoreValue = 2;
 
-        weapon = new WeaponNormal(stage, 1.3f);
+        weapon = new WeaponNormal(stage, 2.2f);
     }
 
     /**
