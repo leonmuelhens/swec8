@@ -8,6 +8,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.powerups.ActivePowerUPIcon;
+import com.github.lhrb.nemo.actors.powerups.PowerUP;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -20,8 +22,11 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
+    public PowerUP powerup;
+    public ActivePowerUPIcon powerupIcon;
     boolean gotHit;
     float hitDelta;
+    int hp;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -33,8 +38,11 @@ public class Player extends PhysicalActor {
 
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
+        powerup = null;
+        powerupIcon = new ActivePowerUPIcon("empty", getStage());
         setShapePolygon(8);
         gotHit = false;
+        hp = 3;
         
         /**
          * ATTENTION
