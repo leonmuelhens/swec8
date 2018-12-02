@@ -9,8 +9,8 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  * @author Thorsten Rösler
  *
  */
-public class PowerUP_Bombe extends PowerUP {
-    public PowerUP_Bombe(Stage stage) {
+public class PowerUPBomb extends PowerUP {
+    public PowerUPBomb(Stage stage) {
         super(stage);
     }
 

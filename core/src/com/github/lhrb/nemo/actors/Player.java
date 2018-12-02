@@ -26,7 +26,7 @@ public class Player extends PhysicalActor {
     public ActivePowerUPIcon powerupIcon;
     boolean gotHit;
     float hitDelta;
-    public int hp;
+    private int hp;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);

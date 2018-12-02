@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class PowerUP_Shield extends PowerUP {
-        public PowerUP_Shield(Stage stage) {
+public class PowerUPShield extends PowerUP {
+        public PowerUPShield(Stage stage) {
             super(stage);
         }
 

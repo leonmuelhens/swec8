@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class PowerUP_Heart extends PowerUP {
-        public PowerUP_Heart(Stage stage) {
+public class PowerUPHeart extends PowerUP {
+        public PowerUPHeart(Stage stage) {
             super(stage);
         }
 
@@ -20,11 +20,7 @@ public class PowerUP_Heart extends PowerUP {
 
         @Override
         public void collision() {
-            for (Actor a : getStage().getActors()) {
-                if (a instanceof Player) {
-                    ((Player) a).hp++;
-                }
-            }
+            //getStage().getActors().;
             remove();
         }
 

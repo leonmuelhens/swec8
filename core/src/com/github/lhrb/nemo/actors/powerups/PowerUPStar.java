@@ -5,13 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class PowerUP_Multiplicator extends PowerUP {
-        public PowerUP_Multiplicator(Stage stage) {
+public class PowerUPStar extends PowerUP {
+        public PowerUPStar(Stage stage) {
             super(stage);
         }
 
         public void setCharacteristics(Stage stage) {
-            setAnimation(AnimationLoader.loadTexture("powerup_multiplicator.png"));
+            setAnimation(AnimationLoader.loadTexture("powerup_star.png"));
             setAcceleration(1000);
             setSpeedMax(75);
             setDeceleration(1000000);
@@ -20,12 +20,11 @@ public class PowerUP_Multiplicator extends PowerUP {
 
         @Override
         public void collision() {
-            for (Actor a : getStage().getActors()) {
+            for (Actor a : getStage().getActors())
                 if (a instanceof Player) {
-                    ((Player) a).powerupIcon = new ActivePowerUPIcon("Multiplicator",getStage());
+                    ((Player) a).powerupIcon = new ActivePowerUPIcon("Star", getStage());
                     ((Player) a).powerup = this;
                 }
-            }
             remove();
         }
 
