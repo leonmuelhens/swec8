@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
@@ -18,7 +19,7 @@ public class FirstLevelScreen extends AbstractScreen {
     Player player;
     ActorPrefab explosion;
     private Music soundtrack;
-    private Label score;
+    private Label score, life;
 
     @Override
     public void init() {
@@ -28,10 +29,18 @@ public class FirstLevelScreen extends AbstractScreen {
         
         score = new Label(GameManager.getInstance().getScoreAsString(),
                                  GuiManager.getInstance().getLabelStyle());
-        score.setPosition(700, 550);
+        score.setPosition(740, 550);
         guiStage.addActor(score);
-        
+
         player = new Player(20, 20, gameStage);
+
+        new ActorPrefab(750, 30, guiStage)
+                .setAnimation(AnimationLoader.loadTexture("heart.png"));
+        life = new Label(player.getLife(),
+                GuiManager.getInstance().getLabelStyle());
+        life.setPosition(740, 60);
+        guiStage.addActor(life);
+
         soundtrack = Gdx.audio.newMusic(Gdx.files.internal("sound/soundTrack_1.ogg"));
         soundtrack.setLooping(true);
         soundtrack.setVolume(0.2f);

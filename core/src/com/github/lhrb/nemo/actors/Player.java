@@ -18,6 +18,7 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
+    private int life;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -26,6 +27,7 @@ public class Player extends PhysicalActor {
         setAcceleration(3600);
         setSpeedMax(800);
         setDeceleration(100000);
+        life = 10;
 
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
@@ -91,6 +93,7 @@ public class Player extends PhysicalActor {
     
     }
 
+    public String getLife() { return String.valueOf(life); }
 
 
     /* (non-Javadoc)
