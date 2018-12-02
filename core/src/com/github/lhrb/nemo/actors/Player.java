@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.weapons.*;
@@ -133,11 +134,16 @@ public class Player extends PhysicalActor {
                     hitDelta = 0;
                     life -= 1;
                     if (life <= 0) {
-                        KillingNemo.setActiveScreen(new GameOverScreen());
+                        playerDied();
                     }
                 }
             }
         }
+    }
+
+    public void playerDied() {
+        KillingNemo.setActiveScreen(new GameOverScreen());
+        GameManager.getInstance().resetScore();
     }
 
 }
