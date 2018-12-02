@@ -39,6 +39,8 @@ public class EnemyThree extends Enemy {
 
         applyObjectPhysics(delta);
 
-        weapon.fire(getX()+(getWidth()/2),getY()-40, 270);
+        if (getY()+20 < getStage().getHeight()) {
+            weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
+        }
     }
 }
