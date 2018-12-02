@@ -3,21 +3,19 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.PhysicalActor;
-import com.github.lhrb.nemo.actors.shots.Laser;
-import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
  *
  */
 public abstract class Enemy extends PhysicalActor{
-    
+
     public Enemy(Stage stage){
         super();
         setCharacteristics(stage);
@@ -29,6 +27,7 @@ public abstract class Enemy extends PhysicalActor{
     }
     
     int hp;
+    int scoreValue;
     
     protected abstract void setCharacteristics(Stage stage);
 
@@ -40,15 +39,9 @@ public abstract class Enemy extends PhysicalActor{
         hp -= 1;
         setColor(255,0,0,hp*0.4f);
         if(hp <= 0) {
-            GameManager.getInstance().addScore();
-            Gdx.audio.newSound(Gdx.files.internal("sound/explosion1.ogg")).play();
-            new ActorPrefab(getX(), getY(), getStage())
-                .setAnimation(AnimationLoader.loadAnimation(
-                           "explosion.png", 6, 6, 0.05f, false));
-            remove();
-            
             if(getStage() != null) {
-                Gdx.audio.newSound(Gdx.files.internal("sound/explosion1.ogg")).play();
+                GameManager.getInstance().addScore(scoreValue);
+                SoundManager.getInstance().playSound("explosion");
 
                 new ActorPrefab(getX(), getY(), getStage())
                         .setAnimation(AnimationLoader.loadAnimation(
@@ -57,8 +50,4 @@ public abstract class Enemy extends PhysicalActor{
             }
         }
     }
-    
-    
-    
-    
 }

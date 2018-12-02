@@ -25,7 +25,9 @@ public class EnemyTwo extends Enemy {
         setSpeedMax(30);
         setDeceleration(1000000);
         setShapePolygon(8);
+
         hp = 4;
+        scoreValue = 3;
 
         weapon = new WeaponSpread(stage,1.3f);
     }

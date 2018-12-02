@@ -1,12 +1,9 @@
 package com.github.lhrb.nemo.actors.weapons;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 
 public abstract class Weapon extends ActorPrefab {
-
-    protected Sound sound;
 
     private final float cooldown;
     private float cooldownTimer;
