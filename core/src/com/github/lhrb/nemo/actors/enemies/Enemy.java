@@ -37,6 +37,7 @@ public abstract class Enemy extends PhysicalActor{
     @Override
     public void collision() {
         hp -= 1;
+        setColor(255,0,0,hp*0.4f);
         if(hp <= 0) {
             if(getStage() != null) {
                 GameManager.getInstance().addScore(scoreValue);
@@ -49,8 +50,4 @@ public abstract class Enemy extends PhysicalActor{
             }
         }
     }
-    
-    
-    
-    
 }

@@ -42,6 +42,8 @@ public class EnemyTwo extends Enemy {
 
         applyObjectPhysics(delta);
 
-        weapon.fire(getX()+(getWidth()/2),getY()-40, 270);
+        if (getStage() != null && getY()+20 < getStage().getHeight()) {
+            weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
+        }
     }
 }

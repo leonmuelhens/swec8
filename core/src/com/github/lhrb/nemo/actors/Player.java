@@ -7,10 +7,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.GameManager;
+import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.powerups.ActivePowerUPIcon;
 import com.github.lhrb.nemo.actors.powerups.PowerUP;
 import com.github.lhrb.nemo.actors.weapons.*;
+import com.github.lhrb.nemo.screen.FirstLevelScreen;
+import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
@@ -22,11 +26,18 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
+<<<<<<< HEAD
     public PowerUP powerup;
     public ActivePowerUPIcon powerupIcon;
     boolean gotHit;
     float hitDelta;
     private int hp;
+=======
+    private int life;
+    private String health; // same as life just as string
+    private boolean gotHit;
+    private float hitDelta;
+>>>>>>> 23599e626b3d535467fa66a659a3d50a9296e790
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -35,6 +46,8 @@ public class Player extends PhysicalActor {
         setAcceleration(3600);
         setSpeedMax(800);
         setDeceleration(100000);
+        life = 3;
+        lifeToString();
 
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
@@ -120,6 +133,11 @@ public class Player extends PhysicalActor {
     
     }
 
+    public String getLife() { return health; }
+   
+    private void lifeToString() {
+        health = String.valueOf(life);
+    }
 
 
     /* (non-Javadoc)
@@ -130,10 +148,22 @@ public class Player extends PhysicalActor {
         for (Actor a : getStage().getActors()) {
             if (a instanceof Enemy) {
                 a.remove();
-                gotHit = true;
-                hitDelta = 0;
+                if (!gotHit) {
+                    gotHit = true;
+                    hitDelta = 0;
+                    life -= 1;
+                    lifeToString();
+                    if (life <= 0) {
+                        playerDied();
+                    }
+                }
             }
         }
+    }
+
+    public void playerDied() {
+        KillingNemo.setActiveScreen(new GameOverScreen());
+        GameManager.getInstance().resetScore();
     }
 
 }
