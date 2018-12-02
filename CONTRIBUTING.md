@@ -63,7 +63,16 @@ Euer Repo kann mittels
 ```
 git pull
 ```
-auf den neusten Stand gerbacht werden
+auf den neusten Stand gebracht werden d.h. alle branches werden gepulled.
+Um den <b>master branch</b> auf den neuesten stand zu bringen
+```
+git pull origin master
+```
+<b>Achtung</b> wenn ihr eclipse benutzt müsst ihr evtl mal 
+```
+gradlew eclipse
+```
+ausführen um alle Datein der ide hinzuzufügen.
 
 #### Branching
 In einen anderen Branch wechseln 
