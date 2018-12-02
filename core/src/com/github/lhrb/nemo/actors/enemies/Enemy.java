@@ -5,6 +5,7 @@ package com.github.lhrb.nemo.actors.enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.shots.Laser;
@@ -28,6 +29,7 @@ public abstract class Enemy extends PhysicalActor{
     }
     
     int hp;
+    int scoreValue;
     
     protected abstract void setCharacteristics(Stage stage);
 
@@ -39,6 +41,7 @@ public abstract class Enemy extends PhysicalActor{
         hp -= 1;
         if(hp <= 0) {
             if(getStage() != null) {
+                GameManager.getInstance().addScore(scoreValue);
                 Gdx.audio.newSound(Gdx.files.internal("sound/explosion1.ogg")).play();
 
                 new ActorPrefab(getX(), getY(), getStage())
