@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.ui.GameInterface;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 
@@ -23,6 +24,8 @@ public class MainMenuScreen extends AbstractScreen {
      */
     @Override
     public void init() {
+        GameInterface gui = new GameInterface(guiStage);
+        /*
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.loadTexture("mainmenu_background.png"));
         
@@ -43,7 +46,7 @@ public class MainMenuScreen extends AbstractScreen {
         
         
         guiStage.addActor(startBtn);
-        
+        */
         
         
     }
