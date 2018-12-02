@@ -25,8 +25,9 @@ public class Player extends PhysicalActor {
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
     private int life;
-    boolean gotHit;
-    float hitDelta;
+    private String health; // same as life just as string
+    private boolean gotHit;
+    private float hitDelta;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -36,6 +37,7 @@ public class Player extends PhysicalActor {
         setSpeedMax(800);
         setDeceleration(100000);
         life = 3;
+        lifeToString();
 
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
@@ -118,7 +120,11 @@ public class Player extends PhysicalActor {
     
     }
 
-    public String getLife() { return String.valueOf(life); }
+    public String getLife() { return health; }
+   
+    private void lifeToString() {
+        health = String.valueOf(life);
+    }
 
 
     /* (non-Javadoc)
@@ -133,6 +139,7 @@ public class Player extends PhysicalActor {
                     gotHit = true;
                     hitDelta = 0;
                     life -= 1;
+                    lifeToString();
                     if (life <= 0) {
                         playerDied();
                     }
