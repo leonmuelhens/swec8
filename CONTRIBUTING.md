@@ -1,93 +1,6 @@
 # Contributing Guidelines
 bitte einmal komplett lesen :)
 
-## Generelle Konventionen
-zum erhöhen der Lesbarkeit
-- Nach ~80 Spalten einen Zeilenumbruch verwenden
-- keine Tabs nur Leerzeichen verwenden!
-- Mindestens 2 Leerzeichen zum einrücken verwenden (besser 4)
-- versuchen Englische Begriffe zu verwenden
-
-## Bezeichnungen
-|Typ | Regel | Beispiel |
-|----|:-----:|----------|
-| Klassen | Name sollte ein Nomen sein. Das erste Wort muss mit einem Großbuchstaben beginnen | class ImageSprite; | 
-| Interfaces | Name muss mit Großbuchstaben beginnen | interface RasterDelegate; | 
-| Methoden | Name sollte ein Verb sein und mit einem Kleinbuchstaben beginnen | runFast(); |
-| Variablen | möglichst aussagekräftige Namen verwenden. Mit Kleinbuchstaben beginnen | int screenWidth; |
-| Konstanten | Nur Großbuchstaben, Wörte sind mit Underscore ("_") zu trennen | static final int SCREEN_WIDTH; |
-| Packages | nur Kleinbuchstaben| com.github.lhrb.sinnvollerpaketpfad
-
-## Kommentare
-Jede Klasse/Methode <b>muss</b> kommentiert werden!
-
-Im Kommentarblock über der Klasse/Methode muss angegeben, 
-welche Funktionalität zur Verfügung gestellt wird. 
-Also "<b>Was</b> macht die Klasse/Methode". 
-Das "Wie" kann, falls notwendig, mit inline Kommentaren beschrieben werden.
-```java
-/**
- * Angeben was die Methode macht
- * @param x beschreibtung 
- * @return beschreibung
- * @throws Exception beschreibung
-*/
-public int beispiel(int x) throws Exception{
-  //inline Kommentare können hilfreich sein
-  return 1;
-}
-```
-Es gibt noch viel mehr [javadoc tags](https://www.tutorialspoint.com/java/java_documentation.htm)
-
-## Test Klassen
-[JUnit](https://junit.org/junit4/ "junit4") 
-- Zu jeder Klasse muss eine entsprechende JUnit Test Klasse angelegt werden!
-- Jede Methode braucht eine entsprechende Test Methode!
-- Es sollte mindestens ein Test Case dargestellt werden 
-- Die Test Klassn/Methoden haben den gleichen Namen mit dem Präfix "Test" zb. TestKlassenName
-
-## Exception Handling
-Exceptions sind in Java "teuer", deshalb versuchen Exceptions mittels Kontrollabfrage auszuschließen
-```java
-//good practice
-if(obj != null){
-  obj.operation();
-  //....
-}
-
-//bad practice
-try{
-  obj.operation();
-}catch(NullPointerException e){
-  //...
-}
-```
-- "Behandelbare" Exceptions so früh wie möglich beheben! 
-- Alle anderen mittels "throw" weiterleiten
-- Exceptions sind <b>nicht</b> als Kontrollfluß Elemente zu Missbrauchen!!!
-- Aussagekräftige Exceptions verwenden [Exception](https://docs.oracle.com/javase/10/docs/api/java/lang/Exception.html), 
-[RuntimeException](https://docs.oracle.com/javase/10/docs/api/java/lang/RuntimeException.html)
-- Eigene Exceptions sind im gleichen Paket, wie die Klasse, die diese wirft abzulegen 
-
-## Filestructure
-Source code ablegen unter
-```
-src/main/java/com/github/lhrb/myshooter/paketname/ClassName.java
-```
-die Test Klassen unter
-```
-src/test/gleicherPfadWieDieZuTestendeKlasse/TestKlasse
-zb.
-src/test/java/com/github/lhrb/myshooter/paketname/TestClassName.java
-```
-Resourcen wie zb. Bilder werden im Wurzelverzeichnis unter
-```
-resources/sinnvollerOrdnerName/
-zb
-resources/img/
-resources/config/
-```
-
 # Git 
 - Download & Install git
 - Erstelle eine account auf [github](https://github.com "github")
@@ -190,6 +103,93 @@ git stash
 - (https://rogerdudler.github.io/git-guide/)
 - (https://githowto.com/)
 - (https://git-scm.com/doc)
+
+## Generelle Konventionen
+zum erhöhen der Lesbarkeit
+- Nach ~90 Spalten einen Zeilenumbruch verwenden
+- keine Tabs nur Leerzeichen verwenden!
+- Mindestens 2 Leerzeichen zum einrücken verwenden (besser 4)
+- versuchen Englische Begriffe zu verwenden
+
+## Bezeichnungen
+|Typ | Regel | Beispiel |
+|----|:-----:|----------|
+| Klassen | Name sollte ein Nomen sein. Das erste Wort muss mit einem Großbuchstaben beginnen | class ImageSprite; | 
+| Interfaces | Name muss mit Großbuchstaben beginnen | interface RasterDelegate; | 
+| Methoden | Name sollte ein Verb sein und mit einem Kleinbuchstaben beginnen | runFast(); |
+| Variablen | möglichst aussagekräftige Namen verwenden. Mit Kleinbuchstaben beginnen | int screenWidth; |
+| Konstanten | Nur Großbuchstaben, Wörte sind mit Underscore ("_") zu trennen | static final int SCREEN_WIDTH; |
+| Packages | nur Kleinbuchstaben| com.github.lhrb.sinnvollerpaketpfad
+
+## Kommentare
+Jede Klasse/Methode <b>muss</b> kommentiert werden!
+
+Im Kommentarblock über der Klasse/Methode muss angegeben, 
+welche Funktionalität zur Verfügung gestellt wird. 
+Also "<b>Was</b> macht die Klasse/Methode". 
+Das "Wie" kann, falls notwendig, mit inline Kommentaren beschrieben werden.
+```java
+/**
+ * Angeben was die Methode macht
+ * @param x beschreibtung 
+ * @return beschreibung
+ * @throws Exception beschreibung
+*/
+public int beispiel(int x) throws Exception{
+  //inline Kommentare können hilfreich sein
+  return 1;
+}
+```
+Es gibt noch viel mehr [javadoc tags](https://www.tutorialspoint.com/java/java_documentation.htm)
+
+## Test Klassen
+[JUnit](https://junit.org/junit4/ "junit4") 
+- Zu jeder Klasse muss eine entsprechende JUnit Test Klasse angelegt werden!
+- Jede Methode braucht eine entsprechende Test Methode!
+- Es sollte mindestens ein Test Case dargestellt werden 
+- Die Test Klassn/Methoden haben den gleichen Namen mit dem Präfix "Test" zb. TestKlassenName
+
+## Exception Handling
+Exceptions sind in Java "teuer", deshalb versuchen Exceptions mittels Kontrollabfrage auszuschließen
+```java
+//good practice
+if(obj != null){
+  obj.operation();
+  //....
+}
+
+//bad practice
+try{
+  obj.operation();
+}catch(NullPointerException e){
+  //...
+}
+```
+- "Behandelbare" Exceptions so früh wie möglich beheben! 
+- Alle anderen mittels "throw" weiterleiten
+- Exceptions sind <b>nicht</b> als Kontrollfluß Elemente zu Missbrauchen!!!
+- Aussagekräftige Exceptions verwenden [Exception](https://docs.oracle.com/javase/10/docs/api/java/lang/Exception.html), 
+[RuntimeException](https://docs.oracle.com/javase/10/docs/api/java/lang/RuntimeException.html)
+- Eigene Exceptions sind im gleichen Paket, wie die Klasse, die diese wirft abzulegen 
+
+## Filestructure
+Source code ablegen unter
+```
+src/main/java/com/github/lhrb/myshooter/paketname/ClassName.java
+```
+die Test Klassen unter
+```
+src/test/gleicherPfadWieDieZuTestendeKlasse/TestKlasse
+zb.
+src/test/java/com/github/lhrb/myshooter/paketname/TestClassName.java
+```
+Resourcen wie zb. Bilder werden im Wurzelverzeichnis unter
+```
+resources/sinnvollerOrdnerName/
+zb
+resources/img/
+resources/config/
+```
 
 # Gradle 
 [Download & Install](https://gradle.org/install/ "gradle") gradle
