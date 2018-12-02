@@ -1,16 +1,23 @@
 package com.github.lhrb.nemo.actors.enemies;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.weapons.Weapon;
+import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class EnemyTwo extends Enemy {
-
+    public EnemyTwo(Stage stage) {
+        super(stage);
+    }
     /**
      * Simple Enemie Implementation
      * @author Thorsten Rösler
      *
      */
 
-    public void setCharacteristics() {
+    private Weapon weapon;
+
+    public void setCharacteristics(Stage stage) {
         
         setAnimation(AnimationLoader.loadTexture("gegner2.png"));
         //setRotation(180);
@@ -18,6 +25,9 @@ public class EnemyTwo extends Enemy {
         setSpeedMax(30);
         setDeceleration(1000000);
         setShapePolygon(8);
+        hp = 4;
+
+        weapon = new WeaponSpread(stage,1.3f);
     }
 
     /**
@@ -29,5 +39,9 @@ public class EnemyTwo extends Enemy {
         accelerationAtAngle(270);
 
         applyObjectPhysics(delta);
+
+        if (getStage() != null && getY()+20 < getStage().getHeight()) {
+            weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
+        }
     }
 }

@@ -6,11 +6,14 @@ import com.github.lhrb.nemo.actors.PhysicalActor;
 public abstract class Shots extends PhysicalActor {
 
     private final float angle;
+    public boolean isPlayerShot;
 
     public Shots(float x, float y, Stage stage, float angle) {
         super(x, y, stage);
 
         this.angle = angle;
+        if (angle > 0 && angle < 180) isPlayerShot = true;
+        else isPlayerShot = false;
         rotateBy(angle-90);
         setX(getX()-(getWidth()/2));
     }
@@ -43,5 +46,7 @@ public abstract class Shots extends PhysicalActor {
     public void collision() {
         remove();
     }
+
+    public boolean isPlayerShot() { return isPlayerShot; }
 
 }

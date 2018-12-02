@@ -9,7 +9,7 @@ public abstract class Weapon extends ActorPrefab {
     protected Sound sound;
 
     private final float cooldown;
-    private static float cooldownTimer;
+    private float cooldownTimer;
 
     public Weapon(Stage stage, float cooldown) {
         super(0, 0, stage); // TODO: Waffenslot Grafik

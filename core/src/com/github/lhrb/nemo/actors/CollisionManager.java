@@ -34,33 +34,32 @@ public class CollisionManager {
          * grade brain fuck
          * sollte effizienter gehen?
          */
-        for(Enemy e : enemies) {
-            for(Player p : player) {
+
+        for(Player p : player) {
+            for (Enemy e : enemies) {
+                // Enemy collosion with player
                 if(e.overlap((PhysicalActor)p)) {
-                    //beide einzel prüfen, falls ein object schon removed wurde
-                    if(e != null) {
-                        e.collision(); 
+                    if (e != null) { e.collision(); }
+                    if (p != null) { p.collision(); }
+                }
+                // Enemy collosion with Shots
+                for (Shots s : shots) {
+                    if(e.overlap(s) && s.isPlayerShot()) {
+                        if(e != null) { e.collision(); }
+                        if(s != null) { s.collision(); }
                     }
-                    if(p != null) {
-                        p.collision();
-                    }
-                    
                 }
             }
-            for(Shots s : shots) {
-                if(e.overlap(s)) {
-                    if(e != null) {
-                        e.collision();
-                    }
-                    if( s != null) {
-                        s.collision();
-                    }
+            for (Shots s : shots) {
+                // Player collision with Shots
+                if(s.overlap((PhysicalActor)p) && !s.isPlayerShot()) {
+                    if(p != null) { p.collision(); }
+                    if(s != null) { s.collision(); }
                 }
-            }       
-            
-        }
-       
-        
-    }
+            }
+            /*for (Powerups p : powerups) {
 
+            }*/
+        }
+    }
 }

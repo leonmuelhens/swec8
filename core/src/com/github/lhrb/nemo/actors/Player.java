@@ -5,7 +5,9 @@ package com.github.lhrb.nemo.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -19,6 +21,8 @@ public class Player extends PhysicalActor {
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
     private int life;
+    boolean gotHit;
+    float hitDelta;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -32,6 +36,7 @@ public class Player extends PhysicalActor {
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
         setShapePolygon(8);
+        gotHit = false;
         
         /**
          * ATTENTION
@@ -41,6 +46,20 @@ public class Player extends PhysicalActor {
         
        
     }
+
+    private void hitAnimation(float delta) {
+        if (hitDelta < 1.5f) {
+            hitDelta += delta;
+
+            if ((int) (hitDelta* 10) % 5 == 0 ) {
+                if (this.getColor().a == 0) this.setOpacity(1);
+                else this.setOpacity(0);
+            }
+        } else {
+            gotHit = false;
+            this.setOpacity(1);
+        }
+    }
     
  
     
@@ -49,6 +68,8 @@ public class Player extends PhysicalActor {
      */
     @Override
     public void act(float delta) {
+        if (gotHit) hitAnimation(delta);
+
         super.act(delta);
         
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
@@ -101,7 +122,13 @@ public class Player extends PhysicalActor {
      */
     @Override
     public void collision() {
-        System.out.println("Player collision");
+        for (Actor a : getStage().getActors()) {
+            if (a instanceof Enemy) {
+                a.remove();
+                gotHit = true;
+                hitDelta = 0;
+            }
+        }
     }
 
 }
