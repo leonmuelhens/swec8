@@ -26,19 +26,12 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
-<<<<<<< HEAD
     public PowerUP powerup;
     public ActivePowerUPIcon powerupIcon;
-    boolean gotHit;
-    float hitDelta;
-    private int hp;
-=======
     private int life;
     private String health; // same as life just as string
     private boolean gotHit;
     private float hitDelta;
->>>>>>> 23599e626b3d535467fa66a659a3d50a9296e790
-
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
         setAnimation(AnimationLoader.loadTexture("player.png"));
@@ -55,7 +48,6 @@ public class Player extends PhysicalActor {
         powerupIcon = new ActivePowerUPIcon("empty", getStage());
         setShapePolygon(8);
         gotHit = false;
-        hp = 3;
         
         /**
          * ATTENTION
