@@ -26,8 +26,8 @@ public class Player extends PhysicalActor {
     private ActiveWeaponIcon weaponIcon;
     private int life;
     private String health; // same as life just as string
-    boolean gotHit;
-    float hitDelta;
+    private boolean gotHit;
+    private float hitDelta;
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
