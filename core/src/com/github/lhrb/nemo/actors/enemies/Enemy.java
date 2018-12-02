@@ -27,6 +27,7 @@ public abstract class Enemy extends PhysicalActor{
     }
     
     int hp;
+    int scoreValue;
     
     protected abstract void setCharacteristics();
 
@@ -37,7 +38,7 @@ public abstract class Enemy extends PhysicalActor{
     public void collision() {
         hp -= 1;
         if(hp <= 0) {
-            GameManager.getInstance().addScore();
+            GameManager.getInstance().addScore(scoreValue);
             Gdx.audio.newSound(Gdx.files.internal("sound/explosion1.ogg")).play();
             new ActorPrefab(getX(), getY(), getStage())
                 .setAnimation(AnimationLoader.loadAnimation(

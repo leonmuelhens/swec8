@@ -18,6 +18,7 @@ public class EnemyOne extends Enemy {
         setSpeedMax(75);
         setDeceleration(1000000);
         setShapePolygon(8);
+        scoreValue = 1;
     }
 
         /**
