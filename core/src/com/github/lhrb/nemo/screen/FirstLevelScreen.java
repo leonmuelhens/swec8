@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.weapons.ActiveWeaponIcon;
 import com.github.lhrb.nemo.ui.GameInterface;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
@@ -23,6 +24,7 @@ public class FirstLevelScreen extends AbstractScreen {
     private Label gameTimeText;
     private Player player;
     private Label score, life;
+    private ActiveWeaponIcon playerWeapon;
 
     @Override
     public void init() {
@@ -31,7 +33,15 @@ public class FirstLevelScreen extends AbstractScreen {
         Background bg = new Background(0, 0, gameStage, 1);
         Background bg2 = new Background(0, 1200, gameStage, 1);
 
+        player = new Player(20, 20, gameStage);
+
+        GameInterface gui = new GameInterface(guiStage,prepareTableObjects());
+
+    }
+
+    public HashMap<String, Actor> prepareTableObjects() {
         HashMap<String, Actor> tableObjects = new HashMap<String, Actor>();
+
         score = new Label(GameManager.getInstance().getScoreAsString(),
                 GuiManager.getInstance().getLabelStyle());
 
@@ -39,9 +49,6 @@ public class FirstLevelScreen extends AbstractScreen {
 
         tableObjects.put("score",score);
         tableObjects.put("gametime",gameTimeText);
-
-        player = new Player(20, 20, gameStage);
-
         Actor heart = new ActorPrefab();
         ((ActorPrefab) heart).setAnimation(AnimationLoader.loadTexture("heart.png"));
         tableObjects.put("heart", heart);
@@ -49,12 +56,12 @@ public class FirstLevelScreen extends AbstractScreen {
                 GuiManager.getInstance().getLabelStyle());
         tableObjects.put("life",life);
         //guiStage.addActor(life);
-        tableObjects.put("weapon", player.getWeaponIcon());
+        playerWeapon = player.getWeaponIcon();
+        tableObjects.put("weapon", playerWeapon);
 
         SoundManager.getInstance().playTrack("firstlevel");
 
-        GameInterface gui = new GameInterface(guiStage,tableObjects);
-
+        return tableObjects;
     }
 
     @Override

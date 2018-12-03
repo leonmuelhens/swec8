@@ -47,14 +47,10 @@ public class GameInterface {
         // right: life + heart
         table.add(tableObjects.get("weapon")).expandY().width(75).bottom().pad(10);
         table.add(tableObjects.get("life")).expandX().pad(10).bottom().right();
-        table.debug();
+
+        //table.debug();
         stage.addActor(table);
 
     }
-
-    public void addActor(Actor actor) {
-        gameInterface.add(actor);
-    }
-
 
 }
