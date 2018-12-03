@@ -8,7 +8,7 @@ public class ActivePowerUPIcon extends ActorPrefab {
     public ActivePowerUPIcon(String type, Stage stage){
         super(0,0,stage);
         switch (type) {
-                case "bombe":
+                case "bomb":
                     setAnimation(AnimationLoader.loadTexture("powerup_bompe.png"));
                     break;
                 case "multiplicator":

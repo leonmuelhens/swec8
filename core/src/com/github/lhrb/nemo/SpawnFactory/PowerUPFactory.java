@@ -2,6 +2,7 @@ package com.github.lhrb.nemo.SpawnFactory;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.powerups.*;
 
 import java.util.Random;
@@ -9,62 +10,51 @@ import java.util.Random;
 public class PowerUPFactory {
 
     private int level;
-    private float gameTime, timeLastSpawn;
     private Stage gameStage;
+    private Enemy enemy;
 
-    private float spawnRate;
-
-    public PowerUPFactory(int level, Stage gameStage) {
+    public PowerUPFactory(int level, Enemy enemy, Stage gameStage) {
         this.level = level;
-        gameTime = 0;
+        this.enemy=enemy;
         this.gameStage = gameStage;
-
-        // first spawn is delayed + 1 second
-        timeLastSpawn = 1;
     }
 
     public void spawnPowerUP(ActorPrefab actor) {
-        if (spawnRate - (gameTime - timeLastSpawn) < 0) {
-            Random rand = new Random();
-            float x = rand.nextInt((int) gameStage.getWidth()- (int) actor.getWidth() ) + 1;
-            float y = gameStage.getHeight();
 
-            actor.setPosition(x,y);
+            actor.setPosition(enemy.getX(),enemy.getY());
             gameStage.addActor(actor);
-
-            timeLastSpawn = gameTime;
-        }
     }
 
     public void levelOneSpawner() {
         Random rand = new Random();
-
-        switch (rand.nextInt(5) + 1) {
-            case 1:
-                PowerUPBomb bomb = new PowerUPBomb(gameStage);
-                spawnPowerUP(bomb);
-                break;
-            case 2:
-                PowerUPHeart heart = new PowerUPHeart(gameStage);
-                spawnPowerUP(heart);
-                break;
-            case 3:
-                PowerUPMultiplicator multi = new PowerUPMultiplicator(gameStage);
-                spawnPowerUP(multi);
-                break;
-            case 4:
-                PowerUPShield shield = new PowerUPShield(gameStage);
-                spawnPowerUP(shield);
-                break;
-            case 5:
-                PowerUPStar star = new PowerUPStar(gameStage);
-                spawnPowerUP(star);
-                break;
-            default:
-                break;
-        }
+        //if ((rand.nextInt(10)+1) < 9) {
+            switch (rand.nextInt(5) + 1) {
+                case 1:
+                    PowerUPBomb bomb = new PowerUPBomb(gameStage);
+                    spawnPowerUP(bomb);
+                    break;
+                case 2:
+                    PowerUPHeart heart = new PowerUPHeart(gameStage);
+                    spawnPowerUP(heart);
+                    break;
+                case 3:
+                    PowerUPMultiplicator multi = new PowerUPMultiplicator(gameStage);
+                    spawnPowerUP(multi);
+                    break;
+                case 4:
+                    PowerUPShield shield = new PowerUPShield(gameStage);
+                    spawnPowerUP(shield);
+                    break;
+                case 5:
+                    PowerUPStar star = new PowerUPStar(gameStage);
+                    spawnPowerUP(star);
+                    break;
+                default:
+                    break;
+            }
+        //}
     }
-
+// Left in for if we decide to change powerup spawn rate per level
     public void levelTwoSpawner() {
 
     }
@@ -88,38 +78,5 @@ public class PowerUPFactory {
                 break;
         }
     }
-
-    private void updatePossibleEnemies() {
-
-    }
-
-
-    public void modifySpawnRate() {
-        //-(atan(0.8x-3))+1.9
-        // x = 9 equals 3 min of game
-        // x = 0.05 equals 1 second
-
-        //here we get the x value for atan function for time passed
-        float x = (gameTime /2 / 10);
-        //System.out.println("X: " + x);
-
-        // here we get the y value which will modify the spawn rate!
-        // we can just modify this function to change the spawnrate
-        double y = -Math.atan((0.8F * x) -3)+1.9;
-        //System.out.println("Y: " + y);
-        spawnRate = (float)y;
-        //System.out.println("Spawnrate:" + spawnRate);
-        //System.out.println("spawnrate: " + y * spawnRate);
-    }
-
-    // This is the method called by level screens to spawn enemies
-    public void continueManufacture(float delta) {
-        spawnLevel();
-        gameTime +=delta;
-        modifySpawnRate();
-        updatePossibleEnemies();
-    }
-
-
 
 }
