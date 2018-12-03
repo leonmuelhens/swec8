@@ -3,11 +3,11 @@
  */
 package com.github.lhrb.nemo.actors;
 
-import java.util.ArrayList;
-
 import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.powerups.PowerUP;
+import com.github.lhrb.nemo.actors.shots.Shots;
+
+import java.util.ArrayList;
 
 /**
  * @author exa
@@ -43,7 +43,7 @@ public class CollisionManager {
         for(Player p : player) {
             for (Enemy e : enemies) {
                 // Enemy collosion with player
-                if(e.overlap((PhysicalActor)p)) {
+                if (e.overlap(p)) {
                     if (e != null) { e.collision(); }
                     if (p != null) { p.collision(); }
                 }
@@ -57,15 +57,17 @@ public class CollisionManager {
             }
             for (Shots s : shots) {
                 // Player collision with Shots
-                if(s.overlap((PhysicalActor)p) && !s.isPlayerShot()) {
+                if (s.overlap(p) && !s.isPlayerShot()) {
                     if(p != null) { p.collision(); }
                     if(s != null) { s.collision(); }
                 }
             }
             for (PowerUP pu : powerups) {
-                if(pu.overlap((PhysicalActor)p)) {
+                if (pu.overlap(p)) {
+                    if (pu != null) {
+                        pu.collision();
+                    }
                     if(p != null) { p.collision(pu); }
-                    if (pu != null) {pu.collision();}
                 }
             }
         }

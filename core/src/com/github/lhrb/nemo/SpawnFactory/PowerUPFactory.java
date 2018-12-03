@@ -17,6 +17,7 @@ public class PowerUPFactory {
         this.level = level;
         this.enemy=enemy;
         this.gameStage = gameStage;
+        spawnLevel();
     }
 
     public void spawnPowerUP(ActorPrefab actor) {

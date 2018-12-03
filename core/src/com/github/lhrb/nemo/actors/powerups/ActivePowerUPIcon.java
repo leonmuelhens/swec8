@@ -6,10 +6,10 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class ActivePowerUPIcon extends ActorPrefab {
     public ActivePowerUPIcon(String type, Stage stage){
-        super(0,0,stage);
+        super(725, 100, stage);
         switch (type) {
                 case "bomb":
-                    setAnimation(AnimationLoader.loadTexture("powerup_bompe.png"));
+                    setAnimation(AnimationLoader.loadTexture("powerup_bombe.png"));
                     break;
                 case "multiplicator":
                     setAnimation(AnimationLoader.loadTexture("powerup_multiplicator.png"));

@@ -12,7 +12,6 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
-import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -136,6 +135,7 @@ public class Player extends PhysicalActor {
      */
     @Override
     public void collision() {
+        if (getStage() == null) System.out.println("stage null");
         for (Actor a : getStage().getActors()) {
             if (a instanceof Enemy) {
                 a.remove();
@@ -153,33 +153,39 @@ public class Player extends PhysicalActor {
     }
 
     public void collision(PowerUP pu){
+        if (getStage() == null) System.out.println("stage null");
         if (pu instanceof PowerUPBomb){
             powerupIcon.remove();
-            powerup.remove();
+            if (powerup != null)
+                powerup.remove();
             powerupIcon = new ActivePowerUPIcon("bomb",getStage());
             powerup = pu;
 
         }
         else if (pu instanceof PowerUPHeart){
             life++;
+            lifeToString();
         }
         else if (pu instanceof PowerUPMultiplicator){
             powerupIcon.remove();
-            powerup.remove();
+            if (powerup != null)
+                powerup.remove();
             powerupIcon = new ActivePowerUPIcon("multiplicator",getStage());
             powerup = pu;
 
         }
         else if (pu instanceof PowerUPShield){
             powerupIcon.remove();
-            powerup.remove();
+            if (powerup != null)
+                powerup.remove();
             powerupIcon = new ActivePowerUPIcon("shield",getStage());
             powerup = pu;
 
         }
         else if (pu instanceof PowerUPStar){
             powerupIcon.remove();
-            powerup.remove();
+            if (powerup != null)
+                powerup.remove();
             powerupIcon = new ActivePowerUPIcon("star",getStage());
             powerup = pu;
 
