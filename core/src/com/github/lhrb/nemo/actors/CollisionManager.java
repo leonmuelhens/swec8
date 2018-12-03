@@ -44,13 +44,17 @@ public class CollisionManager {
             for (Enemy e : enemies) {
                 // Enemy collosion with player
                 if (e.overlap(p)) {
-                    if (e != null) { e.collision(); }
+                    if (e != null) {
+                        e.collision(p);
+                    }
                     if (p != null) { p.collision(); }
                 }
                 // Enemy collosion with Shots
                 for (Shots s : shots) {
                     if(e.overlap(s) && s.isPlayerShot()) {
-                        if(e != null) { e.collision(); }
+                        if (e != null) {
+                            e.collision(p);
+                        }
                         if(s != null) { s.collision(); }
                     }
                 }
@@ -63,6 +67,7 @@ public class CollisionManager {
                 }
             }
             for (PowerUP pu : powerups) {
+                //Player collision with powerups
                 if (pu.overlap(p)) {
                     if (pu != null) {
                         pu.collision();

@@ -197,4 +197,10 @@ public class Player extends PhysicalActor {
         GameManager.getInstance().resetScore();
     }
 
+    public boolean multi() {
+        if (powerup != null)
+            return this.powerup instanceof PowerUPMultiplicator;
+        return false;
+    }
+
 }
