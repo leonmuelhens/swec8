@@ -64,7 +64,7 @@ public class CollisionManager {
             }
             for (PowerUP pu : powerups) {
                 if(pu.overlap((PhysicalActor)p)) {
-                    if(p != null) { p.collision(); }
+                    if(p != null) { p.collision(pu); }
                     if (pu != null) {pu.collision();}
                 }
             }

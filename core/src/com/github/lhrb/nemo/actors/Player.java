@@ -10,8 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.powerups.ActivePowerUPIcon;
-import com.github.lhrb.nemo.actors.powerups.PowerUP;
+import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
@@ -26,8 +25,8 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
-    public PowerUP powerup;
-    public ActivePowerUPIcon powerupIcon;
+    private PowerUP powerup;
+    private ActivePowerUPIcon powerupIcon;
     private int life;
     private String health; // same as life just as string
     private boolean gotHit;
@@ -150,6 +149,40 @@ public class Player extends PhysicalActor {
                     }
                 }
             }
+        }
+    }
+
+    public void collision(PowerUP pu){
+        if (pu instanceof PowerUPBomb){
+            powerupIcon.remove();
+            powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("bomb",getStage());
+            powerup = pu;
+
+        }
+        else if (pu instanceof PowerUPHeart){
+            life++;
+        }
+        else if (pu instanceof PowerUPMultiplicator){
+            powerupIcon.remove();
+            powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("multiplicator",getStage());
+            powerup = pu;
+
+        }
+        else if (pu instanceof PowerUPShield){
+            powerupIcon.remove();
+            powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("shield",getStage());
+            powerup = pu;
+
+        }
+        else if (pu instanceof PowerUPStar){
+            powerupIcon.remove();
+            powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("star",getStage());
+            powerup = pu;
+
         }
     }
 

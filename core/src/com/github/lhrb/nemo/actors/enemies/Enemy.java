@@ -5,6 +5,7 @@ package com.github.lhrb.nemo.actors.enemies;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
+import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.util.AnimationLoader;
@@ -46,6 +47,7 @@ public abstract class Enemy extends PhysicalActor{
                 new ActorPrefab(getX(), getY(), getStage())
                         .setAnimation(AnimationLoader.loadAnimation(
                                 "explosion.png", 6, 6, 0.05f, false));
+                new PowerUPFactory(1,this,getStage());
                 remove();
             }
         }
