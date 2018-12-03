@@ -32,7 +32,9 @@ public class Player extends PhysicalActor {
     private float hitDelta;
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
-        setAnimation(AnimationLoader.get().texture("player.png"));
+
+        setAnimation(AnimationLoader.get().animation("player_animation_feuer.png", 1, 3, 0.1f, true));
+
 
         setAcceleration(3600);
         setSpeedMax(800);
