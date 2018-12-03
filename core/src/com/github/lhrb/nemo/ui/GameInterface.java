@@ -33,7 +33,7 @@ public class GameInterface {
         table.setHeight(stage.getHeight());
 
         // first Row: Level Indicator
-        table.add().width(75).pad(10);
+        table.add(tableObjects.get("gametime")).width(75).pad(10);
         table.add(o1).expandX().height(50).right().pad(10); // middle
         table.row();
 
@@ -47,8 +47,9 @@ public class GameInterface {
         // right: life + heart
         table.add(tableObjects.get("weapon")).expandY().width(75).bottom().pad(10);
         table.add(tableObjects.get("life")).expandX().pad(10).bottom().right();
-
+        table.debug();
         stage.addActor(table);
+
     }
 
     public void addActor(Actor actor) {

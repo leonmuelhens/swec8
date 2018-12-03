@@ -20,6 +20,7 @@ import java.util.HashMap;
 public class FirstLevelScreen extends AbstractScreen {
     private EnemyFactory factory = new EnemyFactory(1, gameStage);
     private float gameTime;
+    private Label gameTimeText;
     private Player player;
     private Label score, life;
 
@@ -34,7 +35,10 @@ public class FirstLevelScreen extends AbstractScreen {
         score = new Label(GameManager.getInstance().getScoreAsString(),
                 GuiManager.getInstance().getLabelStyle());
 
+        gameTimeText = new Label(String.valueOf(gameTime),GuiManager.getInstance().getLabelStyle());
+
         tableObjects.put("score",score);
+        tableObjects.put("gametime",gameTimeText);
 
         player = new Player(20, 20, gameStage);
 
@@ -58,6 +62,7 @@ public class FirstLevelScreen extends AbstractScreen {
         // TODO Auto-generated method stub
         gameTime += delta;
 
+
         /* Once we define an abstract class for gameScreens, we can define a variable
            for how long the level shall take and replace the hardcorded 3*6
          */
@@ -73,5 +78,6 @@ public class FirstLevelScreen extends AbstractScreen {
         //needs rework since String is immutable (memory performance) 
         score.setText(GameManager.getInstance().getScoreAsString());
         life.setText(player.getLife());
+        gameTimeText.setText(String.valueOf(Math.round(gameTime)));
     }
 }
