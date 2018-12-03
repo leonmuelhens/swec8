@@ -32,7 +32,7 @@ public class FirstLevelScreen extends AbstractScreen {
         player = new Player(20, 20, gameStage);
 
         new ActorPrefab(750, 30, guiStage)
-                .setAnimation(AnimationLoader.loadTexture("heart.png"));
+                .setAnimation(AnimationLoader.get().texture("heart.png"));
         life = new Label(player.getLife(),
                 GuiManager.getInstance().getLabelStyle());
         life.setPosition(740, 60);

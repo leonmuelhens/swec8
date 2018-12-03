@@ -44,7 +44,7 @@ public abstract class Enemy extends PhysicalActor{
                 SoundManager.getInstance().playSound("explosion");
 
                 new ActorPrefab(getX(), getY(), getStage())
-                        .setAnimation(AnimationLoader.loadAnimation(
+                        .setAnimation(AnimationLoader.get().animation(
                                 "explosion.png", 6, 6, 0.05f, false));
                 remove();
             }
