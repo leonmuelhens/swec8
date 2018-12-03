@@ -19,7 +19,7 @@ public class EnemyOne extends Enemy {
     private Weapon weaponright;
 
     public void setCharacteristics(Stage stage) {
-        setAnimation(AnimationLoader.loadTexture("gegner1.png"));
+        setAnimation(AnimationLoader.get().texture("gegner1.png"));
         setRotation(180);
         setAcceleration(1000);
         setSpeedMax(75);

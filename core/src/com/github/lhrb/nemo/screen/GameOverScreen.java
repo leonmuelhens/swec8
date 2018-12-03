@@ -27,7 +27,7 @@ public class GameOverScreen extends AbstractScreen {
     @Override
     public void init() {
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.loadTexture("bg1.png"));
+        bg.setAnimation(AnimationLoader.get().texture("bg1.png"));
 
         gameOver = new Label("Game Over :(",
                 GuiManager.getInstance().getLabelStyle());

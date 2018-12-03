@@ -19,7 +19,7 @@ public class EnemyTwo extends Enemy {
 
     public void setCharacteristics(Stage stage) {
         
-        setAnimation(AnimationLoader.loadTexture("gegner2.png"));
+        setAnimation(AnimationLoader.get().texture("gegner2.png"));
         //setRotation(180);
         setAcceleration(30);
         setSpeedMax(30);
