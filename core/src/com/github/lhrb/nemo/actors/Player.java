@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
-import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -24,11 +24,12 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
+    private PowerUP powerup;
+    private ActivePowerUPIcon powerupIcon;
     private int life;
     private String health; // same as life just as string
     private boolean gotHit;
     private float hitDelta;
-
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
         setAnimation(AnimationLoader.get().texture("player.png"));
@@ -41,6 +42,8 @@ public class Player extends PhysicalActor {
 
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
+        powerup = null;
+        powerupIcon = new ActivePowerUPIcon("empty", getStage());
         setShapePolygon(8);
         gotHit = false;
         
@@ -132,8 +135,9 @@ public class Player extends PhysicalActor {
      */
     @Override
     public void collision() {
+        if (getStage() == null) System.out.println("stage null");
         for (Actor a : getStage().getActors()) {
-            if (a instanceof Enemy) {
+            if (a instanceof Enemy || a instanceof PowerUP) {
                 a.remove();
                 if (!gotHit) {
                     gotHit = true;
@@ -148,9 +152,55 @@ public class Player extends PhysicalActor {
         }
     }
 
+    public void collision(PowerUP pu){
+        if (getStage() == null) System.out.println("stage null");
+        if (pu instanceof PowerUPBomb){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("bomb",getStage());
+            powerup = pu;
+
+        }
+        else if (pu instanceof PowerUPHeart){
+            life++;
+            lifeToString();
+        }
+        else if (pu instanceof PowerUPMultiplicator){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("multiplicator",getStage());
+            powerup = pu;
+
+        }
+        else if (pu instanceof PowerUPShield){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("shield",getStage());
+            powerup = pu;
+
+        }
+        else if (pu instanceof PowerUPStar){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("star",getStage());
+            powerup = pu;
+
+        }
+    }
+
     public void playerDied() {
         KillingNemo.setActiveScreen(new GameOverScreen());
         GameManager.getInstance().resetScore();
+    }
+
+    public boolean multi() {
+        if (powerup != null)
+            return this.powerup instanceof PowerUPMultiplicator;
+        return false;
     }
 
 }
