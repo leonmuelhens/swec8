@@ -27,16 +27,20 @@ public class GameInterface {
         table.setHeight(stage.getHeight());
 
         // first Row
-        table.add(one).width(100); // left column
+        table.add(one).width(100).height(50); // left column
         table.add(one2).expandX(); // middle
-        table.add(one3).width(100); //right column
+        table.add(one3).width(100).height(50); //right column
         table.row();
 
         // second row
-        table.add().width(100); // left column
+        table.add().width(100).height(50); // left column
         table.add().expandY(); // middle
-        table.add(four).width(100); //right column
+        table.add(four).width(100).height(50); //right column
         table.row();
+
+        table.add(one4).width(100).height(50);
+        table.add().expandX(); // middle
+        table.add().width(100).height(50);
 
         table.setPosition(0,0);
         System.out.println(table.getX());
