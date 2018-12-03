@@ -22,17 +22,6 @@ public class PowerUPBomb extends PowerUP {
         setShapePolygon(8);
     }
 
-    @Override
-    public void collision() {
-        for (Actor a : getStage().getActors()) {
-            if (a instanceof Player) {
-                ((Player) a).powerupIcon = new ActivePowerUPIcon("Bombe",getStage());
-                ((Player) a).powerup = this;
-            }
-        }
-        remove();
-    }
-
     /**
      * input handling
      */

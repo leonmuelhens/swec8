@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.shots.Shots;
+import com.github.lhrb.nemo.actors.powerups.PowerUP;
 
 /**
  * @author exa
@@ -18,6 +19,7 @@ public class CollisionManager {
         ArrayList<Player> player = new ArrayList<Player>();
         ArrayList<Shots> shots = new ArrayList<Shots>();
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+        ArrayList<PowerUP> powerups = new ArrayList<PowerUP>();
         for(PhysicalActor e : list) {
             if(e instanceof Player) {
                 player.add( (Player)e );
@@ -27,6 +29,9 @@ public class CollisionManager {
             }
             if(e instanceof Enemy) {
                 enemies.add( (Enemy)e );
+            }
+            if(e instanceof PowerUP) {
+                powerups.add( (PowerUP)e );
             }
         }
         
@@ -57,9 +62,12 @@ public class CollisionManager {
                     if(s != null) { s.collision(); }
                 }
             }
-            /*for (Powerups p : powerups) {
-
-            }*/
+            for (PowerUP pu : powerups) {
+                if(pu.overlap((PhysicalActor)p)) {
+                    if(p != null) { p.collision(); }
+                    if (pu != null) {pu.collision();}
+                }
+            }
         }
     }
 }

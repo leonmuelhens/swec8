@@ -18,12 +18,6 @@ public class PowerUPHeart extends PowerUP {
             setShapePolygon(8);
         }
 
-        @Override
-        public void collision() {
-            //getStage().getActors().;
-            remove();
-        }
-
         /**
          * input handling
          */

@@ -29,5 +29,7 @@ public abstract class PowerUP extends PhysicalActor{
      * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
      */
     @Override
-    public abstract void collision();
+    public void collision(){
+        remove();
+    }
 }

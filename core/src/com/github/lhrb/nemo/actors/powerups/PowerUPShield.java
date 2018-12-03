@@ -18,16 +18,6 @@ public class PowerUPShield extends PowerUP {
             setShapePolygon(8);
         }
 
-        @Override
-        public void collision() {
-            for (Actor a : getStage().getActors()) {
-                if (a instanceof Player) {
-                    ((Player) a).powerupIcon = new ActivePowerUPIcon("Shield",getStage());
-                    ((Player) a).powerup = this;
-                }
-            }
-            remove();
-        }
 
         /**
          * input handling
