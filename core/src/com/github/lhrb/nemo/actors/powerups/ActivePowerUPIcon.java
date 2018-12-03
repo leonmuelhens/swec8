@@ -9,16 +9,16 @@ public class ActivePowerUPIcon extends ActorPrefab {
         super(725, 100, stage);
         switch (type) {
                 case "bomb":
-                    setAnimation(AnimationLoader.loadTexture("powerup_bombe.png"));
+                    setAnimation(AnimationLoader.get().texture("powerup_bombe.png"));
                     break;
                 case "multiplicator":
-                    setAnimation(AnimationLoader.loadTexture("powerup_multiplicator.png"));
+                    setAnimation(AnimationLoader.get().texture("powerup_multiplicator.png"));
                     break;
                 case "shield":
-                    setAnimation(AnimationLoader.loadTexture("powerup_shield.png"));
+                    setAnimation(AnimationLoader.get().texture("powerup_shield.png"));
                     break;
                 case "star":
-                    setAnimation(AnimationLoader.loadTexture("powerup_star.png"));
+                    setAnimation(AnimationLoader.get().texture("powerup_star.png"));
                     break;
                 default:
                     // no texture

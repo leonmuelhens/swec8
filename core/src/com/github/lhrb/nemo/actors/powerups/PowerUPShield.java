@@ -11,7 +11,7 @@ public class PowerUPShield extends PowerUP {
         }
 
         public void setCharacteristics(Stage stage) {
-            setAnimation(AnimationLoader.loadTexture("powerup_shield.png"));
+            setAnimation(AnimationLoader.get().texture("powerup_shield.png"));
             setAcceleration(1000);
             setSpeedMax(75);
             setDeceleration(1000000);

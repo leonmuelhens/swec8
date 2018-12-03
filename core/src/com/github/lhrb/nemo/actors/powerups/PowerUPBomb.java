@@ -15,7 +15,7 @@ public class PowerUPBomb extends PowerUP {
     }
 
     public void setCharacteristics(Stage stage) {
-        setAnimation(AnimationLoader.loadTexture("powerup_bombe.png"));
+        setAnimation(AnimationLoader.get().texture("powerup_bombe.png"));
         setAcceleration(1000);
         setSpeedMax(75);
         setDeceleration(1000000);

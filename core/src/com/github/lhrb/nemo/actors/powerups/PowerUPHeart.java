@@ -11,7 +11,7 @@ public class PowerUPHeart extends PowerUP {
         }
 
         public void setCharacteristics(Stage stage) {
-            setAnimation(AnimationLoader.loadTexture("powerup_heart.png"));
+            setAnimation(AnimationLoader.get().texture("powerup_heart.png"));
             setAcceleration(1000);
             setSpeedMax(75);
             setDeceleration(1000000);

@@ -11,7 +11,7 @@ public class PowerUPMultiplicator extends PowerUP {
         }
 
         public void setCharacteristics(Stage stage) {
-            setAnimation(AnimationLoader.loadTexture("powerup_multiplicator.png"));
+            setAnimation(AnimationLoader.get().texture("powerup_multiplicator.png"));
             setAcceleration(1000);
             setSpeedMax(75);
             setDeceleration(1000000);
