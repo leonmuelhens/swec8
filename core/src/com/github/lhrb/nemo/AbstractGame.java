@@ -46,7 +46,9 @@ public abstract class AbstractGame extends Game {
     
     public static void setActiveScreen(AbstractScreen screen) {
         if(screen == null) return;
-        game.getScreen().dispose(); //experimental
+        if(game.getScreen() != null) {
+            game.getScreen().dispose(); //experimental
+        }
         game.setScreen(screen);
     }
 
