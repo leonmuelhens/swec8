@@ -14,10 +14,11 @@ public class PowerUPFactory {
     private Enemy enemy;
 
     public PowerUPFactory(int level, Enemy enemy, Stage gameStage) {
+        //level isnt used yet
         this.level = level;
         this.enemy=enemy;
         this.gameStage = gameStage;
-        spawnLevel();
+        spawnPU();
     }
 
     public void spawnPowerUP(ActorPrefab actor) {
@@ -26,7 +27,7 @@ public class PowerUPFactory {
             gameStage.addActor(actor);
     }
 
-    public void levelOneSpawner() {
+    public void spawnPU() {
         Random rand = new Random();
         //if ((rand.nextInt(10)+1) < 9) {
             switch (rand.nextInt(5) + 1) {
@@ -55,29 +56,4 @@ public class PowerUPFactory {
             }
         //}
     }
-// Left in for if we decide to change powerup spawn rate per level
-    public void levelTwoSpawner() {
-
-    }
-    public void levelThreeSpawner() {
-
-    }
-
-    public void spawnLevel() {
-        switch(level) {
-            case 1:
-                levelOneSpawner();
-                break;
-            case 2:
-                levelTwoSpawner();
-                break;
-            case 3:
-                levelThreeSpawner();
-                break;
-            default:
-                levelOneSpawner();
-                break;
-        }
-    }
-
 }
