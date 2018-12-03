@@ -29,7 +29,7 @@ public class EnemyTwo extends Enemy {
         hp = 4;
         scoreValue = 3;
 
-        weapon = new WeaponSpread(stage,1.3f);
+        weapon = new WeaponSpread(stage,2.8f, 32f);
     }
 
     /**
