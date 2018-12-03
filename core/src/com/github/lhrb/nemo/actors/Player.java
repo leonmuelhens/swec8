@@ -31,7 +31,7 @@ public class Player extends PhysicalActor {
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
-        setAnimation(AnimationLoader.loadTexture("player.png"));
+        setAnimation(AnimationLoader.get().texture("player.png"));
 
         setAcceleration(3600);
         setSpeedMax(800);
