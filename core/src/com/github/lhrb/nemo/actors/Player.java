@@ -126,6 +126,10 @@ public class Player extends PhysicalActor {
         health = String.valueOf(life);
     }
 
+    public ActiveWeaponIcon getWeaponIcon() {
+        return weaponIcon;
+    }
+
 
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()

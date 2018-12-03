@@ -24,8 +24,8 @@ public class MainMenuScreen extends AbstractScreen {
      */
     @Override
     public void init() {
-        GameInterface gui = new GameInterface(guiStage);
-        /*
+        //GameInterface gui = new GameInterface(guiStage);
+
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.loadTexture("mainmenu_background.png"));
         
@@ -46,7 +46,7 @@ public class MainMenuScreen extends AbstractScreen {
         
         
         guiStage.addActor(startBtn);
-        */
+
         
         
     }
