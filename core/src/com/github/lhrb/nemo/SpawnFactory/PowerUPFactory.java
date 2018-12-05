@@ -15,7 +15,7 @@ public class PowerUPFactory {
 
     public static void spawnPU(float x, float y, Stage stage) {
         
-        Random rand = new Random();
+        Random rand = new Random(111);
         //if ((rand.nextInt(10)+1) < 9) {
         CType type;
             switch (rand.nextInt(5) + 1) {
