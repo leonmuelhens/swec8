@@ -11,19 +11,21 @@ import com.github.lhrb.nemo.util.SoundManager;
  * @author exa
  *
  */
-public abstract class PowerUP extends PhysicalActor{
+public class PowerUP extends PhysicalActor{
+    CType type;
 
-    public PowerUP(Stage stage){
-        super();
-        setCharacteristics(stage);
-    }
-
-    public PowerUP(float x, float y, Stage stage) {
+    public PowerUP(float x, float y, Stage stage, CType type) {
         super(x,y,stage);
-        setCharacteristics(stage);
+        this.type = type;
+        setAnimation(AnimationLoader.get().texture(Collectables.get().getPath(type)));
+        setAcceleration(1000);
+        setSpeedMax(75);
+        setShapePolygon(8);
     }
-
-    protected abstract void setCharacteristics(Stage stage);
+    
+    public CType getType() {
+        return type;
+    }
 
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
@@ -31,5 +33,15 @@ public abstract class PowerUP extends PhysicalActor{
     @Override
     public void collision(){
         remove();
+    }
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.actors.ActorPrefab#act(float)
+     */
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        accelerationAtAngle(270);
+        applyObjectPhysics(delta);
     }
 }

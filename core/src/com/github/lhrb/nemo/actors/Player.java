@@ -156,7 +156,7 @@ public class Player extends PhysicalActor {
 
     public void collision(PowerUP pu){
         if (getStage() == null) System.out.println("stage null");
-        if (pu instanceof PowerUPBomb){
+        if (pu.getType() == CType.Bomb){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
@@ -164,11 +164,11 @@ public class Player extends PhysicalActor {
             powerup = pu;
 
         }
-        else if (pu instanceof PowerUPHeart){
+        else if (pu.getType() == CType.Heart){
             life++;
             lifeToString();
         }
-        else if (pu instanceof PowerUPMultiplicator){
+        else if (pu.getType() == CType.Multiplicator){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
@@ -176,7 +176,7 @@ public class Player extends PhysicalActor {
             powerup = pu;
 
         }
-        else if (pu instanceof PowerUPShield){
+        else if (pu.getType() == CType.Shield){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
@@ -184,7 +184,7 @@ public class Player extends PhysicalActor {
             powerup = pu;
 
         }
-        else if (pu instanceof PowerUPStar){
+        else if (pu.getType() == CType.Star){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
@@ -201,7 +201,7 @@ public class Player extends PhysicalActor {
 
     public boolean multi() {
         if (powerup != null)
-            return this.powerup instanceof PowerUPMultiplicator;
+            return (powerup.getType() == CType.Multiplicator);
         return false;
     }
 

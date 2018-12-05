@@ -48,11 +48,14 @@ public abstract class Enemy extends PhysicalActor{
                 else
                     GameManager.getInstance().addScore(scoreValue);
                 SoundManager.getInstance().playSound("explosion");
-
+                
+                //code below is bad    
                 new ActorPrefab(getX(), getY(), getStage())
                         .setAnimation(AnimationLoader.get().animation(
                                 "explosion.png", 6, 6, 0.05f, false));
-                new PowerUPFactory(1,this,getStage());
+                //end 
+                
+                PowerUPFactory.spawnPU(getX(), getY(), getStage());
                 remove();
             }
         }
