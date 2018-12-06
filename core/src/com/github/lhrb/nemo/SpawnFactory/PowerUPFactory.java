@@ -38,7 +38,7 @@ public class PowerUPFactory {
                     type = CType.Bomb;
                     break;
             }
-            PowerUP pu = new PowerUP(x, y, stage, CType.Bomb);
+            PowerUP pu = new PowerUP(x, y, stage, type);
             //stage.addActor(pu);;
       
     }
