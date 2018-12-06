@@ -36,8 +36,8 @@ public class Player extends PhysicalActor {
         setAnimation(AnimationLoader.get().animation("player_animation_feuer.png", 1, 3, 0.1f, true));
 
 
-        setAcceleration(3600);
-        setSpeedMax(800);
+        setAcceleration(100000);
+        setSpeedMax(500);
         setDeceleration(100000);
         life = 3;
         lifeToString();
