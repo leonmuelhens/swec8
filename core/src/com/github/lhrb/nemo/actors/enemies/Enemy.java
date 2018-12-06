@@ -7,7 +7,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
-import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
+import com.github.lhrb.nemo.SpawnFactory.CollectibleFactory;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
@@ -58,7 +58,7 @@ public abstract class Enemy extends PhysicalActor{
                 //end 
                 
                 if(new Random(111).nextInt(10) <= 1) { // 20% chance to drop
-                    PowerUPFactory.spawnPU(getX(), getY(), getStage());
+                    CollectibleFactory.spawnC(getX(), getY(), getStage());
                 }
                 remove();
             }

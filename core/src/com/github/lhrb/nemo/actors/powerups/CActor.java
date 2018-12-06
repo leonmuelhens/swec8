@@ -1,23 +1,20 @@
 package com.github.lhrb.nemo.actors.powerups;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.GameManager;
-import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.util.AnimationLoader;
-import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
  *
  */
-public class PowerUP extends PhysicalActor{
+public class CActor extends PhysicalActor{
     CType type;
 
-    public PowerUP(float x, float y, Stage stage, CType type) {
+    public CActor(float x, float y, Stage stage, CType type) {
         super(x,y,stage);
         this.type = type;
-        setAnimation(AnimationLoader.get().texture(Collectables.get().getPath(type)));
+        setAnimation(AnimationLoader.get().texture(Collectibles.get().getPath(type)));
         setAcceleration(1000);
         setSpeedMax(75);
         setShapePolygon(8);

@@ -4,7 +4,7 @@
 package com.github.lhrb.nemo.actors;
 
 import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.powerups.PowerUP;
+import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.shots.Shots;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class CollisionManager {
         ArrayList<Player> player = new ArrayList<Player>();
         ArrayList<Shots> shots = new ArrayList<Shots>();
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-        ArrayList<PowerUP> powerups = new ArrayList<PowerUP>();
+        ArrayList<CActor> collectibles = new ArrayList<CActor>();
         for(PhysicalActor e : list) {
             if(e instanceof Player) {
                 player.add( (Player)e );
@@ -30,8 +30,8 @@ public class CollisionManager {
             if(e instanceof Enemy) {
                 enemies.add( (Enemy)e );
             }
-            if(e instanceof PowerUP) {
-                powerups.add( (PowerUP)e );
+            if(e instanceof CActor) {
+                collectibles.add( (CActor)e );
             }
         }
         
@@ -66,13 +66,13 @@ public class CollisionManager {
                     if(s != null) { s.collision(); }
                 }
             }
-            for (PowerUP pu : powerups) {
+            for (CActor c : collectibles) {
                 //Player collision with powerups
-                if (pu.overlap(p)) {
-                    if (pu != null) {
-                        pu.collision();
+                if (c.overlap(p)) {
+                    if (c != null) {
+                        c.collision();
                     }
-                    if(p != null) { p.collision(pu); }
+                    if(p != null) { p.collision(c); }
                 }
             }
         }

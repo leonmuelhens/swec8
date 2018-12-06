@@ -24,7 +24,7 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
-    private PowerUP powerup;
+    private CActor powerup;
     private ActivePowerUPIcon powerupIcon;
     private int life;
     private String health; // same as life just as string
@@ -100,7 +100,7 @@ public class Player extends PhysicalActor {
             weapon.fire(getX()+(getWidth()/2), getY()+(getHeight()), 90);
         }
 
-        // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
+        // Zum Vereinfachen der Waffentests!
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weaponIcon.remove();
             weapon.remove();
@@ -139,7 +139,7 @@ public class Player extends PhysicalActor {
     public void collision() {
         if (getStage() == null) System.out.println("stage null");
         for (Actor a : getStage().getActors()) {
-            if (a instanceof Enemy || a instanceof PowerUP) {
+            if (a instanceof Enemy || a instanceof CActor) {
                 a.remove();
                 if (!gotHit) {
                     gotHit = true;
@@ -154,43 +154,61 @@ public class Player extends PhysicalActor {
         }
     }
 
-    public void collision(PowerUP pu){
+    public void collision(CActor c){
         if (getStage() == null) System.out.println("stage null");
-        if (pu.getType() == CType.Bomb){
+        if (c.getType() == CType.Bomb){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
             powerupIcon = new ActivePowerUPIcon("bomb",getStage());
-            powerup = pu;
+            powerup = c;
 
         }
-        else if (pu.getType() == CType.Heart){
+        else if (c.getType() == CType.Heart){
             life++;
             lifeToString();
         }
-        else if (pu.getType() == CType.Multiplicator){
+        else if (c.getType() == CType.Multiplicator){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
             powerupIcon = new ActivePowerUPIcon("multiplicator",getStage());
-            powerup = pu;
+            powerup = c;
 
         }
-        else if (pu.getType() == CType.Shield){
+        else if (c.getType() == CType.Shield){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
             powerupIcon = new ActivePowerUPIcon("shield",getStage());
-            powerup = pu;
+            powerup = c;
 
         }
-        else if (pu.getType() == CType.Star){
+        else if (c.getType() == CType.Star){
             powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
             powerupIcon = new ActivePowerUPIcon("star",getStage());
-            powerup = pu;
+            powerup = c;
 
+        }
+        else if (c.getType() == CType.Normal){
+            weaponIcon.remove();
+            weapon.remove();
+            weapon = new WeaponNormal(getStage());
+            weaponIcon = new ActiveWeaponIcon("normal", getStage());
+        }
+        else if (c.getType() == CType.Spread){
+            weaponIcon.remove();
+            weapon.remove();
+            weapon = new WeaponSpread(getStage());
+            weaponIcon = new ActiveWeaponIcon("spread", getStage());
+        }
+        else if (c.getType() == CType.Laser){
+            weaponIcon.remove();
+            weapon.remove();
+            weapon = new WeaponLaser(getStage());
+            weaponIcon = new ActiveWeaponIcon("laser", getStage());
         }
     }
 
