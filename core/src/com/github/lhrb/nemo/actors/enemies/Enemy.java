@@ -3,6 +3,8 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
+import java.util.Random;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
@@ -48,11 +50,16 @@ public abstract class Enemy extends PhysicalActor{
                 else
                     GameManager.getInstance().addScore(scoreValue);
                 SoundManager.getInstance().playSound("explosion");
-
+                
+                //code below is bad    
                 new ActorPrefab(getX(), getY(), getStage())
                         .setAnimation(AnimationLoader.get().animation(
                                 "explosion.png", 6, 6, 0.05f, false));
-                new PowerUPFactory(1,this,getStage());
+                //end 
+                
+                if(new Random(111).nextInt(10) <= 1) { // 20% chance to drop
+                    PowerUPFactory.spawnPU(getX(), getY(), getStage());
+                }
                 remove();
             }
         }
