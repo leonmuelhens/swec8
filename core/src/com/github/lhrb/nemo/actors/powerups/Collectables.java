@@ -18,6 +18,7 @@ public class Collectables {
        powerUp = new HashMap<CType, String>();
        init();
    }
+   
    public static Collectables get() {
        if(collectables == null) {
            collectables = new Collectables();
