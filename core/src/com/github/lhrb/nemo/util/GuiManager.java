@@ -44,7 +44,7 @@ public class GuiManager {
             
             txtBtnStyle = new TextButtonStyle();
 
-            Texture   buttonTex   = new Texture( Gdx.files.internal("button.png") );
+            Texture   buttonTex   = new Texture( Gdx.files.internal("button2.png") );
             NinePatch buttonPatch = new NinePatch(buttonTex, 24,24,24,24);
             txtBtnStyle.up    = new NinePatchDrawable( buttonPatch );
             txtBtnStyle.font      = customFont;
