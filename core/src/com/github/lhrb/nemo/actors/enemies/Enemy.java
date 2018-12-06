@@ -56,8 +56,11 @@ public abstract class Enemy extends PhysicalActor{
                         .setAnimation(AnimationLoader.get().animation(
                                 "explosion.png", 6, 6, 0.05f, false));
                 //end 
-                
-                if(new Random(111).nextInt(10) <= 1) { // 20% chance to drop
+
+                //SEED 111 FOR TESTING
+                Random rand = new Random();
+
+                if(rand.nextInt(10) <= 1) { // 20% chance to drop
                     CollectibleFactory.spawnC(getX(), getY(), getStage());
                 }
                 remove();

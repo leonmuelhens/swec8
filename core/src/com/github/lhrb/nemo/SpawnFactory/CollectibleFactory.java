@@ -7,7 +7,8 @@ import com.github.lhrb.nemo.actors.powerups.CActor;
 import java.util.Random;
 
 public class CollectibleFactory {
-
+    //SEED 111 FOR TESTING
+ private static Random rand = new Random();
 
     public CollectibleFactory() {
     }
@@ -15,7 +16,7 @@ public class CollectibleFactory {
 
     public static void spawnC(float x, float y, Stage stage) {
         
-        Random rand = new Random(111);
+
         CType type;
             switch (rand.nextInt(8) + 1) {
                 case 1:
