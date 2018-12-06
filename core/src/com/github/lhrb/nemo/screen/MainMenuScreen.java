@@ -6,7 +6,9 @@ package com.github.lhrb.nemo.screen;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
@@ -26,8 +28,14 @@ public class MainMenuScreen extends AbstractScreen {
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("mainmenu_background.png"));
         
-        TextButton startBtn = new TextButton("Neues Spiel", GuiManager.getInstance().getTxtBtnStyle());
-        startBtn.setPosition(200, 300);
+        Table table = new Table();
+        table.setFillParent(true); // fill full screen
+        //table.setDebug(true);
+        
+        
+        TextButton startBtn = new TextButton("Neues  Spiel", GuiManager.getInstance().getTxtBtnStyle());
+        //startBtn.setFillParent(true);
+        //startBtn.setPosition(200, 300);
         startBtn.addListener(
                 (Event e) ->{
                     if( !(e instanceof InputEvent)) {
@@ -41,9 +49,25 @@ public class MainMenuScreen extends AbstractScreen {
                     return true;
                 });
         
+        TextButton lvlBtn = new TextButton("Level", GuiManager.getInstance().getTxtBtnStyle());
+        TextButton hsBtn = new TextButton("High Score", GuiManager.getInstance().getTxtBtnStyle());
+        TextButton keysBtn = new TextButton("Tastenbelegung", GuiManager.getInstance().getTxtBtnStyle());
+        TextButton closeBtn = new TextButton("Beenden", GuiManager.getInstance().getTxtBtnStyle());
         
-        guiStage.addActor(startBtn);
+        table.add(startBtn).width(575).spaceBottom(5);
+        table.row();
+        table.add(lvlBtn).width(575).spaceBottom(5);
+        table.row();
+        table.add(hsBtn).width(575).spaceBottom(5);
+        table.row();
+        table.add(keysBtn).width(575).spaceBottom(5);
+        table.row();
+        table.add(closeBtn).width(475);
         
+        
+        
+        //guiStage.addActor(startBtn);
+        guiStage.addActor(table);
         
         
     }
