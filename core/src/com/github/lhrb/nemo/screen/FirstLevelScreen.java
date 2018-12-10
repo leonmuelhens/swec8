@@ -1,8 +1,11 @@
 package com.github.lhrb.nemo.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.enemies.endboss.Uboot;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.actors.Background;
@@ -17,6 +20,8 @@ public class FirstLevelScreen extends AbstractScreen {
     private float gameTime;
     private Player player;
     private Label score, life;
+
+    private Uboot uboot;
 
     @Override
     public void init() {
@@ -52,11 +57,20 @@ public class FirstLevelScreen extends AbstractScreen {
          */
         CollisionManager.checkCollision(getPhysicalActors());
 
+        if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
+            gameTime += 3 * 60;
+        }
+
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
-        } else {
+        } else if (gameTime > 3*60 && uboot == null) {
             // we have to initialize the bossScreen
-            System.out.println("The Boss level should start here");
+            uboot = new Uboot(gameStage);
+            uboot.setPosition(gameStage.getWidth()/2,gameStage.getHeight());
+            gameStage.addActor(uboot);
+        }
+        else {
+            // End level screen here
         }
         
         //needs rework since String is immutable (memory performance) 

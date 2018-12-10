@@ -5,7 +5,7 @@ import com.github.lhrb.nemo.actors.ActorPrefab;
 
 public abstract class Weapon extends ActorPrefab {
 
-    private final float cooldown;
+    protected float cooldown;
     private float cooldownTimer;
 
     public Weapon(Stage stage, float cooldown) {
