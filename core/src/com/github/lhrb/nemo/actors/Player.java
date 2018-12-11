@@ -30,6 +30,8 @@ public class Player extends PhysicalActor {
     private Weapon weapon;
     private PowerUP powerup;
     private int life;
+    private int score;
+    private int multiplier = 1;
     private boolean gotHit;
     private float hitDelta;
     public Player(float x, float y, Stage stage) {
@@ -42,6 +44,7 @@ public class Player extends PhysicalActor {
         setSpeedMax(500);
         setDeceleration(100000);
         life = 3;
+        score = 0;
 
         weapon = new WeaponNormal(getStage());
         powerup = null;
@@ -53,6 +56,7 @@ public class Player extends PhysicalActor {
          * this method does not provide any security mechanism
          */
         setWorldDimension(stage.getWidth(), stage.getHeight());
+        GameManager.get().registerPlayer(this);
         
        
     }
@@ -80,6 +84,9 @@ public class Player extends PhysicalActor {
         }
     }
     
+    public void addScore(int p) {
+        changes.firePropertyChange("score", score, (score += (p * multiplier)));
+    }
  
     
     /**
@@ -140,7 +147,8 @@ public class Player extends PhysicalActor {
                 if (!gotHit) {
                     gotHit = true;
                     hitDelta = 0;
-                    life -= 1;
+                    //life -= 1;
+                    changes.firePropertyChange("health", life, --life);
                     if (life <= 0) {
                         playerDied();
                     }
@@ -182,7 +190,7 @@ public class Player extends PhysicalActor {
 
     public void playerDied() {
         KillingNemo.setActiveScreen(new GameOverScreen());
-        GameManager.getInstance().resetScore();
+        //GameManager.getInstance().resetScore();
     }
 
     public boolean multi() {

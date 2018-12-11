@@ -68,9 +68,6 @@ public class FirstLevelScreen extends AbstractScreen {
         if(keycode == Keys.J) {
             hud.setWpnIcon(CType.Spread);
         }
-        if(keycode == Keys.K) {
-            hud.setHp("10");
-        }
         return super.keyDown(keycode);
     }
 }

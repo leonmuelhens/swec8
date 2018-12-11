@@ -42,7 +42,7 @@ public class HUD implements PropertyChangeListener{
         this.player = player;
         player.addPropertyChangeListener(this);
         
-        score ="testscore";
+        score ="0";
         hp = "3";
         gametime = "zeit";
         
@@ -101,17 +101,16 @@ public class HUD implements PropertyChangeListener{
         wpnIcon.setDrawable(wpnIcons.get(type));
     }
     
-    public void setScore(String s) {
-        scoreLbl.setText(s);
-    }
-   
-    public void setHp(String s) {
-        hpLbl.setText(s);
-    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO Auto-generated method stub
+        //System.out.println("anything?");
+        if(evt.getPropertyName().equals("health")) {
+            hpLbl.setText(evt.getNewValue().toString());
+        }
+        if(evt.getPropertyName().equals("score")) {
+            scoreLbl.setText(evt.getNewValue().toString());
+        }
         
     }
     
