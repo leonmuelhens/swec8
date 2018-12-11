@@ -64,19 +64,20 @@ public class HUD implements PropertyChangeListener{
         hud.setFillParent(true);
         
         // first Row: Level Indicator
-        hud.add(timeLbl).width(75).pad(10);
+        hud.add(timeLbl).width(64).pad(10).padTop(0).height(50);
         //hud.add(timeLbl).expandX().height(50).right().pad(10); // middle
+        hud.add().expandX().pad(10).padTop(0).height(50).right(); // für das Level, in welcher Form bilden wir es?
         hud.row();
 
         // second row:Highscore indicatro
-        hud.add().width(75).pad(10);
+        hud.add().width(64).pad(10);
         hud.add(scoreLbl).expandX().height(50).right().pad(10);
         hud.row();
 
         // third row:
         // left: weapon
         // right: life + heart
-        hud.add(wpnIcon).expandY().width(75).bottom().pad(10);
+        hud.add(wpnIcon).expandY().width(64).bottom().pad(10);
         hud.add(hpBtn).expandX().pad(10).bottom().right();
         hud.debug();
     }
@@ -106,6 +107,11 @@ public class HUD implements PropertyChangeListener{
         }
         if(evt.getPropertyName().equals("wpn")) {
             wpnIcon.setDrawable(wpnIcons.get(evt.getNewValue()));
+            return;
+        }
+        if(evt.getPropertyName().equals("time")) {
+            timeLbl.setText(evt.getNewValue().toString());
+            return;
         }
         
     }
