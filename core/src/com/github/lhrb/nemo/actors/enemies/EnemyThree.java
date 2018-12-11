@@ -18,7 +18,7 @@ public class EnemyThree extends Enemy {
     private Weapon weapon;
 
     public void setCharacteristics(Stage stage) {
-        setAnimation(AnimationLoader.loadTexture("gegner3.png"));
+        setAnimation(AnimationLoader.get().texture("gegner3.png"));
         //setRotation(180);
         setAcceleration(1000);
         setSpeedMax(100);

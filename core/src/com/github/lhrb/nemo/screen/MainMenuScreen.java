@@ -27,7 +27,7 @@ public class MainMenuScreen extends AbstractScreen {
         //GameInterface gui = new GameInterface(guiStage);
 
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.loadTexture("mainmenu_background.png"));
+        bg.setAnimation(AnimationLoader.get().texture("mainmenu_background.png"));
         
         TextButton startBtn = new TextButton("Neues Spiel", GuiManager.getInstance().getTxtBtnStyleBig());
         startBtn.setPosition(200, 300);

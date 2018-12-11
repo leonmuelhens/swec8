@@ -40,31 +40,8 @@ public class FirstLevelScreen extends AbstractScreen {
 
         //GameInterface gui = new GameInterface(guiStage,prepareTableObjects());
 
-    }
-
-    public HashMap<String, Actor> prepareTableObjects() {
-        HashMap<String, Actor> tableObjects = new HashMap<String, Actor>();
-
-        score = new Label(GameManager.getInstance().getScoreAsString(),
-                GuiManager.getInstance().getLabelStyle());
-
-        gameTimeText = new Label(String.valueOf(gameTime),GuiManager.getInstance().getLabelStyle());
-
-        tableObjects.put("score",score);
-        tableObjects.put("gametime",gameTimeText);
-        Actor heart = new ActorPrefab();
-        ((ActorPrefab) heart).setAnimation(AnimationLoader.loadTexture("heart.png"));
-        tableObjects.put("heart", heart);
-        life = new Label(player.getLife(),
-                GuiManager.getInstance().getLabelStyle());
-        tableObjects.put("life",life);
-        //guiStage.addActor(life);
-        playerWeapon = player.getWeaponIcon();
-        tableObjects.put("weapon", playerWeapon);
 
         SoundManager.getInstance().playTrack("firstlevel");
-
-        return tableObjects;
     }
 
     @Override
