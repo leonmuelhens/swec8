@@ -107,9 +107,14 @@ public class HUD implements PropertyChangeListener{
         //System.out.println("anything?");
         if(evt.getPropertyName().equals("health")) {
             hpLbl.setText(evt.getNewValue().toString());
+            return;
         }
         if(evt.getPropertyName().equals("score")) {
             scoreLbl.setText(evt.getNewValue().toString());
+            return;
+        }
+        if(evt.getPropertyName().equals("wpn")) {
+            wpnIcon.setDrawable(wpnIcons.get(evt.getNewValue()));
         }
         
     }

@@ -119,14 +119,17 @@ public class Player extends PhysicalActor {
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon.remove();
             weapon = new WeaponNormal(getStage());
+            changes.firePropertyChange("wpn", null, CType.Normal);
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
             weapon.remove();
             weapon = new WeaponSpread(getStage());
+            changes.firePropertyChange("wpn", null, CType.Spread);
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
             weapon.remove();
             weapon = new WeaponLaser(getStage());
+            changes.firePropertyChange("wpn", null, CType.Laser);
         }
         
         applyPhysics(delta);
@@ -166,7 +169,7 @@ public class Player extends PhysicalActor {
 
         }
         else if (pu.getType() == CType.Heart){
-            life++;
+            changes.firePropertyChange("health", life, ++life);
         }
         else if (pu.getType() == CType.Multiplicator){
             if (powerup != null)
