@@ -6,6 +6,7 @@ import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.weapons.ActiveWeaponIcon;
 import com.github.lhrb.nemo.ui.GameInterface;
+import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.actors.Background;
@@ -34,8 +35,10 @@ public class FirstLevelScreen extends AbstractScreen {
         Background bg2 = new Background(0, 1200, gameStage, 1);
 
         player = new Player(20, 20, gameStage);
+        HUD hud = new HUD(800f, 600f);
+        guiStage.addActor(hud.getHUD());
 
-        GameInterface gui = new GameInterface(guiStage,prepareTableObjects());
+        //GameInterface gui = new GameInterface(guiStage,prepareTableObjects());
 
     }
 
@@ -83,8 +86,8 @@ public class FirstLevelScreen extends AbstractScreen {
         }
         
         //needs rework since String is immutable (memory performance) 
-        score.setText(GameManager.getInstance().getScoreAsString());
-        life.setText(player.getLife());
-        gameTimeText.setText(String.valueOf(Math.round(gameTime)));
+        //score.setText(GameManager.getInstance().getScoreAsString());
+        //life.setText(player.getLife());
+        //gameTimeText.setText(String.valueOf(Math.round(gameTime)));
     }
 }
