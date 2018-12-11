@@ -29,7 +29,6 @@ public class HUD implements PropertyChangeListener{
     
     private Table hud;
     
-    private String score, hp, gametime;
     private Label scoreLbl, hpLbl, timeLbl;
     private Image wpnIcon;
     private ImageButton hpBtn;
@@ -41,11 +40,7 @@ public class HUD implements PropertyChangeListener{
         
         this.player = player;
         player.addPropertyChangeListener(this);
-        
-        score ="0";
-        hp = "3";
-        gametime = "zeit";
-        
+                
         initLabels();
         
         wpnIcons = new HashMap<CType, Drawable>();
@@ -88,17 +83,13 @@ public class HUD implements PropertyChangeListener{
     
     private void initLabels() {
         LabelStyle style = GuiManager.getInstance().getLabelStyle();
-        scoreLbl = new Label(score, style);
-        hpLbl = new Label(hp, style);
-        timeLbl = new Label(gametime, style);
+        scoreLbl = new Label("0", style);
+        hpLbl = new Label("3", style);
+        timeLbl = new Label("zeit", style);
     }
     
     public Table getHUD() {
         return hud;
-    }
-    
-    public void setWpnIcon(CType type) {
-        wpnIcon.setDrawable(wpnIcons.get(type));
     }
     
 
