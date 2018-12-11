@@ -1,31 +1,23 @@
 package com.github.lhrb.nemo.screen;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.github.lhrb.nemo.actors.ActorPrefab;
+
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.weapons.ActiveWeaponIcon;
-import com.github.lhrb.nemo.ui.GameInterface;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.ui.HUD;
-import com.github.lhrb.nemo.util.AnimationLoader;
-import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
-import com.github.lhrb.nemo.GameManager;
+import com.badlogic.gdx.Input.Keys;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.SoundManager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 
 
 public class FirstLevelScreen extends AbstractScreen {
     private EnemyFactory factory = new EnemyFactory(1, gameStage);
     private float gameTime;
-    private Label gameTimeText;
     private Player player;
-    private Label score, life;
-    private ActiveWeaponIcon playerWeapon;
+    private HUD hud;
 
     @Override
     public void init() {
@@ -35,7 +27,7 @@ public class FirstLevelScreen extends AbstractScreen {
         Background bg2 = new Background(0, 1200, gameStage, 1);
 
         player = new Player(20, 20, gameStage);
-        HUD hud = new HUD(800f, 600f);
+        hud = new HUD();
         guiStage.addActor(hud.getHUD());
 
         //GameInterface gui = new GameInterface(guiStage,prepareTableObjects());
@@ -66,5 +58,19 @@ public class FirstLevelScreen extends AbstractScreen {
         //score.setText(GameManager.getInstance().getScoreAsString());
         //life.setText(player.getLife());
         //gameTimeText.setText(String.valueOf(Math.round(gameTime)));
+    }
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.screen.AbstractScreen#keyDown(int)
+     */
+    @Override
+    public boolean keyDown(int keycode) {
+        if(keycode == Keys.J) {
+            hud.setWpnIcon(CType.Spread);
+        }
+        if(keycode == Keys.K) {
+            hud.setHp("10");
+        }
+        return super.keyDown(keycode);
     }
 }

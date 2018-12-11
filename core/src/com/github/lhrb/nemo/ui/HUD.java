@@ -3,12 +3,16 @@
  */
 package com.github.lhrb.nemo.ui;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 
@@ -17,28 +21,45 @@ import com.github.lhrb.nemo.util.GuiManager;
  *
  */
 public class HUD {
+    
     private Table hud;
     
     private String score, hp, gametime;
     private Label scoreLbl, hpLbl, timeLbl;
-    private Image wpnIcon, hpIcon;
+    private Image wpnIcon;
+    private ImageButton hpBtn;
     
-    public HUD(float width, float height) {
+    
+    private HashMap<CType, Drawable> wpnIcons;
+    
+    public HUD() {
         
         score ="testscore";
-        hp = "testHp";
+        hp = "3";
         gametime = "zeit";
+        
         initLabels();
         
-        Drawable test = new TextureRegionDrawable();
-        wpnIcon = new Image();
-        //wpnIcon.set
+        wpnIcons = new HashMap<CType, Drawable>();
+        wpnIcons.put(CType.Normal, new TextureRegionDrawable(AnimationLoader.get()
+                                       .texture("IconNormal.png").getKeyFrame(0)));
+        wpnIcons.put(CType.Spread, new TextureRegionDrawable(AnimationLoader.get()
+                                       .texture("IconSpread.png").getKeyFrame(0)));
+        wpnIcons.put(CType.Laser, new TextureRegionDrawable(AnimationLoader.get()
+                                        .texture("IconLaser.png").getKeyFrame(0)));
+        
+        
+        //TextureRegionDrawable test = new TextureRegionDrawable(AnimationLoader.get().texture("IconNormal.png").getKeyFrame(0));
+        wpnIcon = new Image(wpnIcons.get(CType.Normal));
+        //hpIcon = new Image(new TextureRegionDrawable(AnimationLoader.get()
+        //                            .texture("heart.png").getKeyFrame(0)));
+        hpBtn = new ImageButton(new TextureRegionDrawable(AnimationLoader.get()
+                                        .texture("heart.png").getKeyFrame(0)));
+        hpBtn.add(hpLbl);
         
         hud = new Table();
         hud.setFillParent(true);
-        //hud.setWidth(width);
-        //hud.setHeight(height);
-
+        
         // first Row: Level Indicator
         hud.add(timeLbl).width(75).pad(10);
         //hud.add(timeLbl).expandX().height(50).right().pad(10); // middle
@@ -52,8 +73,8 @@ public class HUD {
         // third row:
         // left: weapon
         // right: life + heart
-        //hud.add(tableObjects.get("weapon")).expandY().width(75).bottom().pad(10);
-        //hud.add(tableObjects.get("life")).expandX().pad(10).bottom().right();
+        hud.add(wpnIcon).expandY().width(75).bottom().pad(10);
+        hud.add(hpBtn).expandX().pad(10).bottom().right();
         hud.debug();
     }
     
@@ -66,6 +87,18 @@ public class HUD {
     
     public Table getHUD() {
         return hud;
+    }
+    
+    public void setWpnIcon(CType type) {
+        wpnIcon.setDrawable(wpnIcons.get(type));
+    }
+    
+    public void setScore(String s) {
+        scoreLbl.setText(s);
+    }
+   
+    public void setHp(String s) {
+        hpLbl.setText(s);
     }
     
 
