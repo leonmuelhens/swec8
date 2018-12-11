@@ -29,6 +29,8 @@ public class Uboot extends Enemy {
 
     @Override
     protected void setCharacteristics(Stage stage) {
+        setSpecificCharacteristics(stage);
+
         setRotation(0);
         setAcceleration(1000);
         setSpeedMax(75);
@@ -37,8 +39,6 @@ public class Uboot extends Enemy {
 
         hp = 5;
         scoreValue = 100;
-
-        setSpecificCharacteristics(stage);
     }
 
     protected void setSpecificCharacteristics(Stage stage) {
@@ -57,16 +57,16 @@ public class Uboot extends Enemy {
     @Override
     public void collision(Player p) {
         if (!sections[0].destroyed) {
-            sections[0].collision();
+            sections[0].collision(p);
         }
         else if (!sections[1].destroyed) {
-            sections[1].collision();
+            sections[1].collision(p);
         }
         else if (!sections[2].destroyed) {
-            sections[2].collision();
+            sections[2].collision(p);
         }
         else {
-            super.collision();
+            super.collision(p);
         }
     }
 
@@ -117,8 +117,11 @@ public class Uboot extends Enemy {
 
         boolean destroyed = false;
 
+        Stage parentStage;
+
         public Section(Stage stage) {
             super(stage);
+            parentStage = stage;
             setAnimation(null);
         }
 
@@ -132,7 +135,7 @@ public class Uboot extends Enemy {
         }
 
         @Override
-        public void collision() {
+        public void collision(Player p) {
             hp -= 1;
             if(hp <= 0) {
                 if(getStage() != null) {
@@ -145,9 +148,16 @@ public class Uboot extends Enemy {
                             .setAnimation(AnimationLoader.get().animation(
                                     "explosion.png", 6, 6, 0.05f, false));
                     //end
+
+                    destroyed = true;
                     remove();
                 }
             }
+        }
+
+        @Override
+        public Stage getStage() {
+            return parentStage;
         }
 
         @Override
@@ -175,7 +185,8 @@ public class Uboot extends Enemy {
         public void resetCooldownTimer() {
             if (shotsFiredinSalve < salveRepetition) {
                 shotsFiredinSalve++;
-                cooldown = 0.4f;
+                cooldown = 0.1f;
+                super.resetCooldownTimer();
             }
             else {
                 shotsFiredinSalve = 0;
