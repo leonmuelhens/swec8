@@ -60,14 +60,5 @@ public class FirstLevelScreen extends AbstractScreen {
         //gameTimeText.setText(String.valueOf(Math.round(gameTime)));
     }
 
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.screen.AbstractScreen#keyDown(int)
-     */
-    @Override
-    public boolean keyDown(int keycode) {
-        if(keycode == Keys.J) {
-            hud.setWpnIcon(CType.Spread);
-        }
-        return super.keyDown(keycode);
-    }
+
 }
