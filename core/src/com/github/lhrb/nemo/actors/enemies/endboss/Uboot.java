@@ -7,6 +7,7 @@ import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.SingleShot;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
@@ -44,9 +45,10 @@ public class Uboot extends Enemy {
     protected void setSpecificCharacteristics(Stage stage) {
         setAnimation(AnimationLoader.get().texture("uboot.png"));
 
-        weapons = new Weapon[2];
+        weapons = new Weapon[3];
         weapons[0] = new WeaponSalve(stage);
         weapons[1] = new WeaponTorpedo(stage);
+        weapons[2] = new WeaponBombdrop(stage);
 
         sections = new Section[3];
         sections[0] = new Section(stage);
@@ -206,6 +208,21 @@ public class Uboot extends Enemy {
         public void fire(float x, float y, float angle) {
             if (isReady()) {
                 new Torpedo(x,y,getStage(),angle);
+                resetCooldownTimer();
+            }
+        }
+    }
+
+    private class WeaponBombdrop extends Weapon {
+
+        public WeaponBombdrop(Stage stage) {
+            super(stage, 10);
+        }
+
+        @Override
+        public void fire(float x, float y, float angle) {
+            if (isReady()) {
+                new Bomb(x,y,getStage(),angle);
                 resetCooldownTimer();
             }
         }
