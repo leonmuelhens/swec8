@@ -27,7 +27,7 @@ public class FirstLevelScreen extends AbstractScreen {
         Background bg2 = new Background(0, 1200, gameStage, 1);
 
         player = new Player(20, 20, gameStage);
-        hud = new HUD();
+        hud = new HUD(player);
         guiStage.addActor(hud.getHUD());
 
         //GameInterface gui = new GameInterface(guiStage,prepareTableObjects());

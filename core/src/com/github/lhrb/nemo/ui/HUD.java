@@ -3,6 +3,8 @@
  */
 package com.github.lhrb.nemo.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
@@ -20,7 +23,9 @@ import com.github.lhrb.nemo.util.GuiManager;
  * @author exa
  *
  */
-public class HUD {
+public class HUD implements PropertyChangeListener{
+    
+    private Player player;
     
     private Table hud;
     
@@ -32,7 +37,10 @@ public class HUD {
     
     private HashMap<CType, Drawable> wpnIcons;
     
-    public HUD() {
+    public HUD(Player player) {
+        
+        this.player = player;
+        player.addPropertyChangeListener(this);
         
         score ="testscore";
         hp = "3";
@@ -99,6 +107,12 @@ public class HUD {
    
     public void setHp(String s) {
         hpLbl.setText(s);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        // TODO Auto-generated method stub
+        
     }
     
 

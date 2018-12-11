@@ -3,6 +3,9 @@
  */
 package com.github.lhrb.nemo.actors;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -22,6 +25,8 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  */
 public class Player extends PhysicalActor {
 
+    private PropertyChangeSupport changes = new PropertyChangeSupport(this);
+    
     private Weapon weapon;
     private PowerUP powerup;
     private int life;
@@ -50,6 +55,15 @@ public class Player extends PhysicalActor {
         setWorldDimension(stage.getWidth(), stage.getHeight());
         
        
+    }
+    
+    
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
+    }
+    
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        changes.removePropertyChangeListener(l);
     }
 
     private void hitAnimation(float delta) {
