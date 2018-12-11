@@ -201,7 +201,7 @@ public class Uboot extends Enemy {
     private class WeaponTorpedo extends Weapon {
 
         public WeaponTorpedo(Stage stage) {
-            super(stage, 8);
+            super(stage, 8,0);
         }
 
         @Override
@@ -216,7 +216,7 @@ public class Uboot extends Enemy {
     private class WeaponBombdrop extends Weapon {
 
         public WeaponBombdrop(Stage stage) {
-            super(stage, 10);
+            super(stage, 10,5);
         }
 
         @Override

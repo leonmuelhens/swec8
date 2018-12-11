@@ -15,6 +15,13 @@ public abstract class Weapon extends ActorPrefab {
         this.cooldownTimer = cooldown;
     }
 
+    public Weapon(Stage stage, float cooldown, float initialCooldownTime)
+    {
+        this(stage,cooldown);
+
+        this.cooldownTimer = initialCooldownTime;
+    }
+
     public boolean isReady() {
         return cooldownTimer >= cooldown;
     }
