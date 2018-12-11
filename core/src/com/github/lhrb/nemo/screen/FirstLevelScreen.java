@@ -2,11 +2,9 @@ package com.github.lhrb.nemo.screen;
 
 
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
-import com.badlogic.gdx.Input.Keys;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.SoundManager;
 
