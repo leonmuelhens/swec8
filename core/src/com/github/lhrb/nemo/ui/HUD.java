@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.powerups.CType;
+import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 
@@ -26,21 +27,23 @@ import com.github.lhrb.nemo.util.GuiManager;
 public class HUD implements PropertyChangeListener{
     
     private Player player;
+    private LevelScreen level;
     
     private Table hud;
     
     private Label scoreLbl, hpLbl, timeLbl;
     private Image wpnIcon;
     private ImageButton hpBtn;
-    
+
     
     private HashMap<CType, Drawable> wpnIcons;
     
-    public HUD(Player player) {
+    public HUD(Player player, LevelScreen level) {
         
         this.player = player;
         player.addPropertyChangeListener(this);
-                
+        this.level = level;
+        level.addPropertyChangeListener(this);
         initLabels();
         
         wpnIcons = new HashMap<CType, Drawable>();
@@ -86,7 +89,7 @@ public class HUD implements PropertyChangeListener{
         LabelStyle style = GuiManager.getInstance().getLabelStyle();
         scoreLbl = new Label("0", style);
         hpLbl = new Label("3", style);
-        timeLbl = new Label("zeit", style);
+        timeLbl = new Label("0", style);
     }
     
     public Table getHUD() {
@@ -109,7 +112,7 @@ public class HUD implements PropertyChangeListener{
             wpnIcon.setDrawable(wpnIcons.get(evt.getNewValue()));
             return;
         }
-        if(evt.getPropertyName().equals("time")) {
+        if(evt.getPropertyName().equals("gametime")) {
             timeLbl.setText(evt.getNewValue().toString());
             return;
         }
