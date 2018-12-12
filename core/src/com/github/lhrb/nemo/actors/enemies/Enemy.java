@@ -45,10 +45,8 @@ public abstract class Enemy extends PhysicalActor{
         if(hp <= 0) {
             if(getStage() != null) {
                 //test for multiplicator
-                if (p.multi() == true)
-                    GameManager.getInstance().addScore(3 * scoreValue);
-                else
-                    GameManager.getInstance().addScore(scoreValue);
+                GameManager.get().addScore(scoreValue);
+
                 SoundManager.getInstance().playSound("explosion");
                 
                 //code below is bad    
