@@ -49,7 +49,7 @@ public class GuiManager {
     private TextButtonStyle createTextButtonStyle(int fontSize, Color color) {
         TextButtonStyle tmp = new TextButtonStyle();
         Texture   buttonTex   = new Texture( Gdx.files.internal("button.png") );
-        NinePatch buttonPatch = new NinePatch(buttonTex, 8,8,8,8);
+        NinePatch buttonPatch = new NinePatch(buttonTex, 10,10,8,8);
         tmp.up    = new NinePatchDrawable( buttonPatch );
         tmp.font      = createFont(fontSize);
         tmp.fontColor = Color.BLACK;
