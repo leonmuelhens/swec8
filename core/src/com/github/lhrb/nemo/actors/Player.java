@@ -140,8 +140,10 @@ public class Player extends PhysicalActor {
     public void collision() {
         if (getStage() == null) System.out.println("stage null");
         for (Actor a : getStage().getActors()) {
-            if ((a instanceof Enemy || a instanceof PowerUP) && !(a instanceof EndBoss)) {
-                a.remove();
+            if ((a instanceof Enemy || a instanceof PowerUP)) {
+                if (!(a instanceof EndBoss)) {
+                    a.remove();
+                }
                 if (!gotHit) {
                     gotHit = true;
                     hitDelta = 0;
