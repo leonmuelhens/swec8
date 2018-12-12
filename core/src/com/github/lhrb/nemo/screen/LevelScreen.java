@@ -5,12 +5,13 @@ import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.ui.HUD;
+import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class LevelScreen extends AbstractScreen{
+public abstract class LevelScreen extends AbstractScreen implements PropertyListener{
     protected int level;
     float gameTime;
     HUD hud;
@@ -37,11 +38,13 @@ public abstract class LevelScreen extends AbstractScreen{
             System.out.println("The Boss level should start here");
         }
     }
-
+    
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
         changes.addPropertyChangeListener(l);
     }
-
+    
+    @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
     }

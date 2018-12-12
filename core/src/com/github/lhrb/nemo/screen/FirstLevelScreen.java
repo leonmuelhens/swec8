@@ -24,7 +24,9 @@ public class FirstLevelScreen extends LevelScreen {
         bg2 = new Background(0, 1200, gameStage, 1);
 
         player = new Player(20, 20, gameStage);
-        hud = new HUD(player,this);
+        hud = new HUD();
+        hud.registerPropertyListener(this);
+        hud.registerPropertyListener(player);
         guiStage.addActor(hud.getHUD());
 
         SoundManager.getInstance().playTrack("firstlevel");

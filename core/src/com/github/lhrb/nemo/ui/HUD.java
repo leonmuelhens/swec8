@@ -19,6 +19,7 @@ import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
+import com.github.lhrb.nemo.util.PropertyListener;
 
 /**
  * @author exa
@@ -38,12 +39,8 @@ public class HUD implements PropertyChangeListener{
     
     private HashMap<CType, Drawable> wpnIcons;
     
-    public HUD(Player player, LevelScreen level) {
+    public HUD() {
         
-        this.player = player;
-        player.addPropertyChangeListener(this);
-        this.level = level;
-        level.addPropertyChangeListener(this);
         initLabels();
         
         wpnIcons = new HashMap<CType, Drawable>();
@@ -94,6 +91,10 @@ public class HUD implements PropertyChangeListener{
     
     public Table getHUD() {
         return hud;
+    }
+    
+    public void registerPropertyListener(PropertyListener pL) {
+        pL.addPropertyChangeListener(this);
     }
     
 

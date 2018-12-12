@@ -17,13 +17,14 @@ import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.PropertyListener;
 
 /**
  * Simple player Implementation
  * @author exa
  * 
  */
-public class Player extends PhysicalActor {
+public class Player extends PhysicalActor implements PropertyListener{
 
     private PropertyChangeSupport changes = new PropertyChangeSupport(this);
     
@@ -61,11 +62,12 @@ public class Player extends PhysicalActor {
        
     }
     
-    
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
         changes.addPropertyChangeListener(l);
     }
     
+    @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
     }
