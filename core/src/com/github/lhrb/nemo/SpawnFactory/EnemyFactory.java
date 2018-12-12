@@ -14,7 +14,7 @@ public class EnemyFactory {
     private float gameTime, timeLastSpawn;
     private Stage gameStage;
     private float spawnRate;
-    private int randSpawnPossibilityStart;
+    private int randSpawnPossibilityStart = 1;
     private int randSpawnPossibility;
     
     private int level = 0;
@@ -85,7 +85,7 @@ public class EnemyFactory {
 
             if(randomInt <= randSpawnPossibility) {
                 spawn(true);
-                System.out.println("Spawned a random Unit");
+                //System.out.println("Spawned a random Unit");
             }
         }
     }
@@ -98,7 +98,7 @@ public class EnemyFactory {
 
             if (!randomUnit) {
                 timeLastSpawn = gameTime;
-                System.out.println("Spawned a unit");
+                //System.out.println("Spawned a unit");
             }
         }
     }

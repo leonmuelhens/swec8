@@ -79,7 +79,7 @@ public class HUD implements PropertyChangeListener{
         // right: life + heart
         hud.add(wpnIcon).expandY().width(64).bottom().pad(10);
         hud.add(hpBtn).expandX().pad(10).bottom().right();
-        hud.debug();
+        //hud.debug();
     }
     
     private void initLabels() {
