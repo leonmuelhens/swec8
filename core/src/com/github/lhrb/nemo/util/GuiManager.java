@@ -41,6 +41,7 @@ public class GuiManager {
 
     }
 
+
     private TextButtonStyle createTextButtonStyle(int fontSize) {
         return createTextButtonStyle(fontSize,Color.BLACK);
     }
@@ -63,13 +64,13 @@ public class GuiManager {
     // Creates font with size X anc Color Y
     private BitmapFont createFont(int fontSize, Color color) {
         FreeTypeFontGenerator fontGenerator =
-                new FreeTypeFontGenerator(Gdx.files.internal("font/5x5_pixel.ttf"));
+                new FreeTypeFontGenerator(Gdx.files.internal("font/pixelfj8pt1.normal.ttf"));
         FreeTypeFontParameter fontParameters = new FreeTypeFontParameter();
         fontParameters.size = fontSize;
         fontParameters.color = color;
-        fontParameters.borderWidth = 2;
+        fontParameters.borderWidth = 1;
         fontParameters.borderColor = Color.BLACK;
-        fontParameters.borderStraight = true;
+        fontParameters.borderStraight = false;
         fontParameters.minFilter = TextureFilter.Linear;
         fontParameters.magFilter = TextureFilter.Linear;
 
@@ -97,6 +98,10 @@ public class GuiManager {
 
     public TextButtonStyle getTxtBtnStyleBig() {
         return txtBtnStyleBig;
+    }
+    
+    public TextButtonStyle getTxtBtnStyleSmall() {
+        return txtBtnStyleLittle;
     }
     
 }
