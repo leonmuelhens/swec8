@@ -45,10 +45,8 @@ public abstract class Enemy extends PhysicalActor{
         if(hp <= 0) {
             if(getStage() != null) {
                 //test for multiplicator
-                if (p.multi() == true)
-                    GameManager.getInstance().addScore(3 * scoreValue);
-                else
-                    GameManager.getInstance().addScore(scoreValue);
+                GameManager.get().addScore(scoreValue);
+
                 SoundManager.getInstance().playSound("explosion");
                 
                 //code below is bad    
@@ -56,8 +54,8 @@ public abstract class Enemy extends PhysicalActor{
                         .setAnimation(AnimationLoader.get().animation(
                                 "explosion.png", 6, 6, 0.05f, false));
                 //end 
-                
-                if(new Random(111).nextInt(10) <= 1) { // 20% chance to drop
+                Random rand = new Random();
+                if(rand.nextInt(10) <= 1) { // 20% chance to drop
                     PowerUPFactory.spawnPU(getX(), getY(), getStage());
                 }
                 remove();
