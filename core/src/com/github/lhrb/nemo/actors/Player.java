@@ -51,7 +51,7 @@ public class Player extends PhysicalActor implements PropertyListener{
         powerup = null;
         setShapePolygon(8);
         gotHit = false;
-        
+
         /**
          * ATTENTION
          * this method does not provide any security mechanism
@@ -59,7 +59,6 @@ public class Player extends PhysicalActor implements PropertyListener{
         setWorldDimension(stage.getWidth(), stage.getHeight());
         GameManager.get().registerPlayer(this);
         
-       
     }
     
     @Override
