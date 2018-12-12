@@ -23,34 +23,60 @@ public class GuiManager {
     
     private static GuiManager guiMng;
     private LabelStyle labelStyle;
+    private LabelStyle labelStyleBig;
+
     private TextButtonStyle txtBtnStyle;
-    
+    private TextButtonStyle txtBtnStyleLittle;
+    private TextButtonStyle txtBtnStyleBig;
+
     private GuiManager() {
-            FreeTypeFontGenerator fontGenerator = 
-                new FreeTypeFontGenerator(Gdx.files.internal("font/5x5_pixel.ttf"));
-            FreeTypeFontParameter fontParameters = new FreeTypeFontParameter();
-            fontParameters.size = 48;
-            fontParameters.color = Color.WHITE;
-            fontParameters.borderWidth = 2;
-            fontParameters.borderColor = Color.BLACK;
-            fontParameters.borderStraight = true;
-            fontParameters.minFilter = TextureFilter.Linear;
-            fontParameters.magFilter = TextureFilter.Linear;
+        // Create Label Styles
+        labelStyle = new LabelStyle(createFont(24),Color.WHITE);
+        labelStyleBig = new LabelStyle(createFont(48),Color.WHITE);
 
-            BitmapFont customFont = fontGenerator.generateFont(fontParameters);
+        // Create button Styles
+        txtBtnStyle = new TextButtonStyle(createTextButtonStyle(36));
+        txtBtnStyleLittle = new TextButtonStyle(createTextButtonStyle(24));
+        txtBtnStyleBig = new TextButtonStyle(createTextButtonStyle(48));
 
-            labelStyle = new LabelStyle();
-            labelStyle.font = customFont;
-            
-            txtBtnStyle = new TextButtonStyle();
-
-            Texture   buttonTex   = new Texture( Gdx.files.internal("button.png") );
-            NinePatch buttonPatch = new NinePatch(buttonTex, 24,24,24,24);
-            txtBtnStyle.up    = new NinePatchDrawable( buttonPatch );
-            txtBtnStyle.font      = customFont;
-            txtBtnStyle.fontColor = Color.BLACK;
     }
-    
+
+
+    private TextButtonStyle createTextButtonStyle(int fontSize) {
+        return createTextButtonStyle(fontSize,Color.BLACK);
+    }
+
+    private TextButtonStyle createTextButtonStyle(int fontSize, Color color) {
+        TextButtonStyle tmp = new TextButtonStyle();
+        Texture   buttonTex   = new Texture( Gdx.files.internal("button.png") );
+        NinePatch buttonPatch = new NinePatch(buttonTex, 24,24,24,24);
+        tmp.up    = new NinePatchDrawable( buttonPatch );
+        tmp.font      = createFont(fontSize);
+        tmp.fontColor = Color.BLACK;
+        return tmp;
+    }
+
+    // Creates font with size X and Color white as default
+    private BitmapFont createFont(int fontSize) {
+        return createFont(fontSize, Color.WHITE);
+    }
+
+    // Creates font with size X anc Color Y
+    private BitmapFont createFont(int fontSize, Color color) {
+        FreeTypeFontGenerator fontGenerator =
+                new FreeTypeFontGenerator(Gdx.files.internal("font/pixelfj8pt1.normal.ttf"));
+        FreeTypeFontParameter fontParameters = new FreeTypeFontParameter();
+        fontParameters.size = fontSize;
+        fontParameters.color = color;
+        fontParameters.borderWidth = 1;
+        fontParameters.borderColor = Color.BLACK;
+        fontParameters.borderStraight = false;
+        fontParameters.minFilter = TextureFilter.Linear;
+        fontParameters.magFilter = TextureFilter.Linear;
+
+        return fontGenerator.generateFont(fontParameters);
+    }
+
     public static GuiManager getInstance() {
         if(guiMng == null) {
             guiMng = new GuiManager();
@@ -61,10 +87,21 @@ public class GuiManager {
     public LabelStyle getLabelStyle() {
         return labelStyle;
     }
-    
+
+    public LabelStyle getLabelStyleBig() {
+        return labelStyleBig;
+    }
+
     public TextButtonStyle getTxtBtnStyle() {
         return txtBtnStyle;
     }
+
+    public TextButtonStyle getTxtBtnStyleBig() {
+        return txtBtnStyleBig;
+    }
     
+    public TextButtonStyle getTxtBtnStyleSmall() {
+        return txtBtnStyleLittle;
+    }
     
 }
