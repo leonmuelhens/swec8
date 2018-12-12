@@ -30,7 +30,6 @@ public class Player extends PhysicalActor {
     private String health; // same as life just as string
     private boolean gotHit;
     private float hitDelta;
-
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
 
