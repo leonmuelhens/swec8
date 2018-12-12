@@ -45,6 +45,7 @@ public class CollisionManager {
                 // Enemy collosion with player
                 if (e.overlap(p)) {
                     if (e != null) {
+                        // e.collision(new CollisionEvent(e,p));
                         e.collision(p);
                     }
                     if (p != null) { p.collision(); }
