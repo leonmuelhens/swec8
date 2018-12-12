@@ -3,11 +3,13 @@
  */
 package com.github.lhrb.nemo.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
@@ -33,28 +35,61 @@ public class MainMenuScreen extends AbstractScreen {
         Table table = new Table();
         table.setFillParent(true); // fill full screen
         //table.setDebug(true);
+        TextButtonStyle style = GuiManager.getInstance().getTxtBtnStyleBig();
         
-        
-        TextButton startBtn = new TextButton("Neues  Spiel", GuiManager.getInstance().getTxtBtnStyle());
+        TextButton startBtn = new TextButton("Neues  Spiel", style);
         //startBtn.setFillParent(true);
         //startBtn.setPosition(200, 300);
+        
+        TextButton lvlBtn = new TextButton("Level", style);
+        TextButton hsBtn = new TextButton("High Score", style);
+        TextButton keysBtn = new TextButton("Tastenbelegung", style);
+        TextButton closeBtn = new TextButton("Beenden", style);
+        
         startBtn.addListener(
                 (Event e) ->{
-                    if( !(e instanceof InputEvent)) {
-                        return false;
-                    }
-                    if( !((InputEvent)e).getType().equals(Type.touchDown) ) {
-                        return false;
-                    }
+                    if( !(e instanceof InputEvent)) { return false; }
+                    if( !((InputEvent)e).getType().equals(Type.touchDown) ) { return false; }
                     //set next screen
                     KillingNemo.setActiveScreen(new FirstLevelScreen());
                     return true;
                 });
         
-        TextButton lvlBtn = new TextButton("Level", GuiManager.getInstance().getTxtBtnStyle());
-        TextButton hsBtn = new TextButton("High Score", GuiManager.getInstance().getTxtBtnStyle());
-        TextButton keysBtn = new TextButton("Tastenbelegung", GuiManager.getInstance().getTxtBtnStyle());
-        TextButton closeBtn = new TextButton("Beenden", GuiManager.getInstance().getTxtBtnStyle());
+        lvlBtn.addListener(
+                (Event e) ->{
+                    if( !(e instanceof InputEvent)) { return false; }
+                    if( !((InputEvent)e).getType().equals(Type.touchDown) ) { return false; }
+                    //set next screen
+                    KillingNemo.setActiveScreen(new ChooseLvlScreen());
+                    return true;
+                });
+        hsBtn.addListener(
+                (Event e) ->{
+                    if( !(e instanceof InputEvent)) { return false; }
+                    if( !((InputEvent)e).getType().equals(Type.touchDown) ) { return false; }
+                    //set next screen
+                    KillingNemo.setActiveScreen(new HighscoreScreen());
+                    return true;
+                });
+        keysBtn.addListener(
+                (Event e) ->{
+                    if( !(e instanceof InputEvent)) { return false; }
+                    if( !((InputEvent)e).getType().equals(Type.touchDown) ) { return false; }
+                    //set next screen
+                    KillingNemo.setActiveScreen(new OptionScreen());
+                    return true;
+                });
+        
+        
+        closeBtn.addListener(
+                (Event e) ->{
+                    if( !(e instanceof InputEvent)) { return false; }
+                    if( !((InputEvent)e).getType().equals(Type.touchDown) ) { return false; }
+                    Gdx.app.exit();;
+                    return true;
+                });
+        
+
         
         table.add(startBtn).width(575).spaceBottom(5);
         table.row();
