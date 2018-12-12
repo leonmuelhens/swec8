@@ -112,7 +112,9 @@ public class EnemyFactory {
     }
     
     public void setLevel(int lvl) {
+        if(lvl > 2) return;
         this.level = lvl;
+        //code to set randSpawnPossibility -/Start
     }
     
     public void setStage(Stage stage) {
