@@ -100,4 +100,8 @@ public class GuiManager {
         return txtBtnStyleBig;
     }
     
+    public TextButtonStyle getTxtBtnStyleSmall() {
+        return txtBtnStyleLittle;
+    }
+    
 }

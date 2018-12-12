@@ -35,7 +35,7 @@ public class MainMenuScreen extends AbstractScreen {
         Table table = new Table();
         table.setFillParent(true); // fill full screen
         //table.setDebug(true);
-        TextButtonStyle style = GuiManager.getInstance().getTxtBtnStyleBig();
+        TextButtonStyle style = GuiManager.getInstance().getTxtBtnStyle();
         
         TextButton startBtn = new TextButton("Neues  Spiel", style);
         //startBtn.setFillParent(true);
@@ -90,16 +90,17 @@ public class MainMenuScreen extends AbstractScreen {
                 });
         
 
+        int size = 450;
         
-        table.add(startBtn).width(575).spaceBottom(5);
+        table.add(startBtn).width(size).spaceBottom(5);
         table.row();
-        table.add(lvlBtn).width(575).spaceBottom(5);
+        table.add(lvlBtn).width(size).spaceBottom(5);
         table.row();
-        table.add(hsBtn).width(575).spaceBottom(5);
+        table.add(hsBtn).width(size).spaceBottom(5);
         table.row();
-        table.add(keysBtn).width(575).spaceBottom(5);
+        table.add(keysBtn).width(size).spaceBottom(5);
         table.row();
-        table.add(closeBtn).width(475);
+        table.add(closeBtn).width( (size - 100) );
         
         
         //guiStage.addActor(startBtn);
