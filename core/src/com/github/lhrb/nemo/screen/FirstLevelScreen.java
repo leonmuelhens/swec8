@@ -1,7 +1,6 @@
 package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.github.lhrb.nemo.SpawnFactory.LevelOneFactory;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.util.AnimationLoader;
@@ -14,7 +13,7 @@ import com.github.lhrb.nemo.util.SoundManager;
 
 
 public class FirstLevelScreen extends AbstractScreen {
-    private LevelOneFactory factory = new LevelOneFactory(gameStage);
+    private EnemyFactory factory = new EnemyFactory(gameStage);
     private float gameTime;
     private Player player;
     private Label score, life;
