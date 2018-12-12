@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
-import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -24,6 +24,8 @@ public class Player extends PhysicalActor {
 
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
+    private PowerUP powerup;
+    private ActivePowerUPIcon powerupIcon;
     private int life;
     private String health; // same as life just as string
     private boolean gotHit;
@@ -31,26 +33,28 @@ public class Player extends PhysicalActor {
 
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
-        setAnimation(AnimationLoader.loadTexture("player.png"));
 
-        setAcceleration(3600);
-        setSpeedMax(800);
-        setDeceleration(1000000);
+        setAnimation(AnimationLoader.get().animation("player_animation_feuer.png", 1, 3, 0.1f, true));
+
+
+        setAcceleration(100000);
+        setSpeedMax(500);
+        setDeceleration(100000);
         life = 3;
         lifeToString();
 
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
+        powerup = null;
+        powerupIcon = new ActivePowerUPIcon("empty", getStage());
         setShapePolygon(8);
         gotHit = false;
-        
+
         /**
          * ATTENTION
          * this method does not provide any security mechanism
          */
         setWorldDimension(stage.getWidth(), stage.getHeight());
-        
-       
     }
 
     private void hitAnimation(float delta) {
@@ -132,8 +136,9 @@ public class Player extends PhysicalActor {
      */
     @Override
     public void collision() {
+        if (getStage() == null) System.out.println("stage null");
         for (Actor a : getStage().getActors()) {
-            if (a instanceof Enemy) {
+            if (a instanceof Enemy || a instanceof PowerUP) {
                 a.remove();
                 if (!gotHit) {
                     gotHit = true;
@@ -148,9 +153,55 @@ public class Player extends PhysicalActor {
         }
     }
 
+    public void collision(PowerUP pu){
+        if (getStage() == null) System.out.println("stage null");
+        if (pu.getType() == CType.Bomb){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("bomb",getStage());
+            powerup = pu;
+
+        }
+        else if (pu.getType() == CType.Heart){
+            life++;
+            lifeToString();
+        }
+        else if (pu.getType() == CType.Multiplicator){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("multiplicator",getStage());
+            powerup = pu;
+
+        }
+        else if (pu.getType() == CType.Shield){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("shield",getStage());
+            powerup = pu;
+
+        }
+        else if (pu.getType() == CType.Star){
+            powerupIcon.remove();
+            if (powerup != null)
+                powerup.remove();
+            powerupIcon = new ActivePowerUPIcon("star",getStage());
+            powerup = pu;
+
+        }
+    }
+
     public void playerDied() {
         KillingNemo.setActiveScreen(new GameOverScreen());
         GameManager.getInstance().resetScore();
+    }
+
+    public boolean multi() {
+        if (powerup != null)
+            return (powerup.getType() == CType.Multiplicator);
+        return false;
     }
 
 }
