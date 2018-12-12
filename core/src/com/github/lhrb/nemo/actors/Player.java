@@ -12,6 +12,7 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
+import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -25,6 +26,7 @@ public class Player extends PhysicalActor {
     private Weapon weapon;
     private ActiveWeaponIcon weaponIcon;
     private PowerUP powerup;
+    private float powerupTimer;
     private ActivePowerUPIcon powerupIcon;
     private int life;
     private String health; // same as life just as string
@@ -45,6 +47,7 @@ public class Player extends PhysicalActor {
         weapon = new WeaponNormal(getStage());
         weaponIcon = new ActiveWeaponIcon("normal", getStage());
         powerup = null;
+        powerupTimer = 0;
         powerupIcon = new ActivePowerUPIcon("empty", getStage());
         setShapePolygon(8);
         gotHit = false;
@@ -80,6 +83,15 @@ public class Player extends PhysicalActor {
     @Override
     public void act(float delta) {
         if (gotHit) hitAnimation(delta);
+        if (powerup != null && powerup.getType() != CType.Bomb) {
+            powerupTimer -= delta;
+            System.out.println(powerupTimer);
+            if (powerupTimer <= 0 ) {
+                powerup.remove();
+                powerupIcon.remove();
+            }
+        }
+
 
         super.act(delta);
         
@@ -138,8 +150,9 @@ public class Player extends PhysicalActor {
     @Override
     public void collision() {
         if (getStage() == null) System.out.println("stage null");
+
         for (Actor a : getStage().getActors()) {
-            if (a instanceof Enemy || a instanceof PowerUP) {
+            if (a instanceof Enemy) {
                 a.remove();
                 if (!gotHit) {
                     gotHit = true;
@@ -154,43 +167,34 @@ public class Player extends PhysicalActor {
         }
     }
 
+    public void changePowerup(PowerUP pu, ActivePowerUPIcon apui) {
+        if (pu.getType() != CType.Bomb){
+            powerupTimer = 20;
+        }
+        powerupIcon.remove();
+        if (powerup != null)
+            powerup.remove();
+        powerupIcon = apui;
+        powerup = pu;
+    }
+
     public void collision(PowerUP pu){
         if (getStage() == null) System.out.println("stage null");
         if (pu.getType() == CType.Bomb){
-            powerupIcon.remove();
-            if (powerup != null)
-                powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("bomb",getStage());
-            powerup = pu;
-
+            changePowerup(pu,new ActivePowerUPIcon("bomb",getStage()));
         }
         else if (pu.getType() == CType.Heart){
             life++;
             lifeToString();
         }
         else if (pu.getType() == CType.Multiplicator){
-            powerupIcon.remove();
-            if (powerup != null)
-                powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("multiplicator",getStage());
-            powerup = pu;
-
+            changePowerup(pu,new ActivePowerUPIcon("multiplicator",getStage()));
         }
         else if (pu.getType() == CType.Shield){
-            powerupIcon.remove();
-            if (powerup != null)
-                powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("shield",getStage());
-            powerup = pu;
-
+            changePowerup(pu, new ActivePowerUPIcon("shield",getStage()));
         }
         else if (pu.getType() == CType.Star){
-            powerupIcon.remove();
-            if (powerup != null)
-                powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("star",getStage());
-            powerup = pu;
-
+           changePowerup(pu,new ActivePowerUPIcon("star",getStage()));
         }
     }
 
