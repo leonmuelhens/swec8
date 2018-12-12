@@ -37,7 +37,7 @@ public class MainMenuScreen extends AbstractScreen {
         //table.setDebug(true);
         TextButtonStyle style = GuiManager.getInstance().getTxtBtnStyle();
         
-        TextButton startBtn = new TextButton("Neues  Spiel", style);
+        TextButton startBtn = new TextButton("Neues Spiel", style);
         //startBtn.setFillParent(true);
         //startBtn.setPosition(200, 300);
         
@@ -101,7 +101,6 @@ public class MainMenuScreen extends AbstractScreen {
         table.add(keysBtn).width(size).spaceBottom(5);
         table.row();
         table.add(closeBtn).width( (size - 100) );
-        
         
         //guiStage.addActor(startBtn);
         guiStage.addActor(table);
