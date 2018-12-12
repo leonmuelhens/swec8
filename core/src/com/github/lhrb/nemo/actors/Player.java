@@ -35,7 +35,7 @@ public class Player extends PhysicalActor {
 
         setAcceleration(3600);
         setSpeedMax(800);
-        setDeceleration(100000);
+        setDeceleration(1000000);
         life = 3;
         lifeToString();
 

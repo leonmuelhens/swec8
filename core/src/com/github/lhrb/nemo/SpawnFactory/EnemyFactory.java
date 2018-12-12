@@ -16,6 +16,8 @@ public class EnemyFactory {
 
     private float spawnRate;
 
+    private int randomSpawnPossibility = 1;
+
     public EnemyFactory(int level, Stage gameStage) {
         this.level = level;
         gameTime = 0;
@@ -26,52 +28,65 @@ public class EnemyFactory {
     }
 
     public void spawnEnemy(ActorPrefab actor) {
-        if (spawnRate - (gameTime - timeLastSpawn) < 0) {
-            Random rand = new Random();
-            float x = rand.nextInt((int) gameStage.getWidth()- (int) actor.getWidth() ) + 1;
-            float y = gameStage.getHeight();
 
-            actor.setPosition(x,y);
-            gameStage.addActor(actor);
+        Random rand = new Random();
+        float x = rand.nextInt((int) gameStage.getWidth()- (int) actor.getWidth() ) + 1;
+        float y = gameStage.getHeight();
 
-            timeLastSpawn = gameTime;
-        }
+        actor.setPosition(x,y);
+        gameStage.addActor(actor);
     }
 
     public void levelOneSpawner() {
         Random rand = new Random();
+        int randomInt = rand.nextInt(100);
 
-        switch (rand.nextInt(3) + 1) {
-            case 1:
-                EnemyOne enemy = new EnemyOne(gameStage);
-                spawnEnemy(enemy);
-                break;
-            case 2:
-                EnemyTwo enemy2 = new EnemyTwo(gameStage);
-                spawnEnemy(enemy2);
-                break;
-            case 3:
-                EnemyThree enemy3 = new EnemyThree(gameStage);
-                spawnEnemy(enemy3);
-                break;
-            default:
-                EnemyOne enemyy = new EnemyOne(gameStage);
-                spawnEnemy(enemyy);
-                break;
+        if(randomInt <= 50) {
+            EnemyOne enemy = new EnemyOne(gameStage);
+            spawnEnemy(enemy);
+        } else if (randomInt <= 80) {
+            EnemyTwo enemy2 = new EnemyTwo(gameStage);
+            spawnEnemy(enemy2);
+        } else {
+            EnemyThree enemy3 = new EnemyThree(gameStage);
+            spawnEnemy(enemy3);
         }
     }
 
     public void levelTwoSpawner() {
-        EnemyTwo enemy = new EnemyTwo(gameStage);
-        spawnEnemy(enemy);
+        Random rand = new Random();
+        int randomInt = rand.nextInt(100);
+
+        if(randomInt <= 40) {
+            EnemyOne enemy = new EnemyOne(gameStage);
+            spawnEnemy(enemy);
+        } else if (randomInt <= 75) {
+            EnemyTwo enemy2 = new EnemyTwo(gameStage);
+            spawnEnemy(enemy2);
+        } else {
+            EnemyThree enemy3 = new EnemyThree(gameStage);
+            spawnEnemy(enemy3);
+        }
     }
     public void levelThreeSpawner() {
-        EnemyOne enemy = new EnemyOne(gameStage);
-        spawnEnemy(enemy);
+        Random rand = new Random();
+        int randomInt = rand.nextInt(100);
+
+        if(randomInt <= 30) {
+            EnemyOne enemy = new EnemyOne(gameStage);
+            spawnEnemy(enemy);
+        } else if (randomInt <= 70) {
+            EnemyTwo enemy2 = new EnemyTwo(gameStage);
+            spawnEnemy(enemy2);
+        } else {
+            EnemyThree enemy3 = new EnemyThree(gameStage);
+            spawnEnemy(enemy3);
+        }
     }
 
-    public void spawnLevel() {
-        switch(level) {
+    public void spawnLevel(boolean randomUnit) {
+        if (spawnRate - (gameTime - timeLastSpawn) < 0 ||randomUnit) {
+            switch(level) {
             case 1:
                 levelOneSpawner();
                 break;
@@ -84,13 +99,27 @@ public class EnemyFactory {
             default:
                 levelOneSpawner();
                 break;
+            }
+            if (!randomUnit) {
+                timeLastSpawn = gameTime;
+                System.out.println("Spawn unit");
+            }
         }
     }
 
-    private void updatePossibleEnemies() {
+    public void spawnAdditionalRandom() {
+        // spawn with a minimum possibility of 0.5s difference
+        // try to generate random maximum every delta 500 additionally
+        if ( gameTime % 500 >= 1 && 0.5 - (gameTime - timeLastSpawn) < 0) {
+            Random rand = new Random();
+            int randomInt = rand.nextInt(1000);
 
+            if(randomInt <= randomSpawnPossibility ) {
+                spawnLevel(true);
+                System.out.println("spawned a random Unit: " + randomInt);
+            }
+        }
     }
-
 
     public void modifySpawnRate() {
         //-(atan(0.8x-3))+1.9
@@ -112,12 +141,9 @@ public class EnemyFactory {
 
     // This is the method called by level screens to spawn enemies
     public void continueManufacture(float delta) {
-        spawnLevel();
+        spawnLevel(false);
         gameTime +=delta;
         modifySpawnRate();
-        updatePossibleEnemies();
+        spawnAdditionalRandom();
     }
-
-
-
 }
