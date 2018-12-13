@@ -24,8 +24,6 @@ public class Bomb extends Shots {
         setShapePolygon(8);
 
         explodeY = new Random().nextInt((int)(getStage().getHeight()*0.7));
-
-        System.out.println("BOMB will explode at " + explodeY);
     }
 
     public Bomb(float x, float y, Stage stage, float angle, float explodeY) {
@@ -67,8 +65,6 @@ public class Bomb extends Shots {
                     "big_explosion.png", 6, 6, 0.05f, false));
             setShapePolygon(8);
             setPosition(getX()-(getWidth()/2), getY()-(getHeight()/2));
-
-            System.out.println("BOOM!");
         }
 
         @Override
