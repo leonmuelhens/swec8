@@ -59,9 +59,9 @@ public abstract class Enemy extends PhysicalActor{
             //test for multiplicator
             if (col.isShot() || bomb) {
                 if (col.getPlayer().multi())
-                    GameManager.getInstance().addScore(3 * scoreValue);
+                    GameManager.get().addScore(3 * scoreValue);
                 else
-                    GameManager.getInstance().addScore(scoreValue);
+                    GameManager.get().addScore(scoreValue);
             }
             SoundManager.getInstance().playSound("explosion");
             //code below is bad

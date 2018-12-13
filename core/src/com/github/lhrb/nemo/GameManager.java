@@ -3,10 +3,10 @@
  */
 package com.github.lhrb.nemo;
 
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.shots.Shots;
+import com.github.lhrb.nemo.actors.Player;
 
 /**
  * @author exa
@@ -15,31 +15,26 @@ import com.github.lhrb.nemo.actors.shots.Shots;
  */
 public class GameManager {
     
+    private Player player; //needs to change for multiplayer
+    
     private static GameManager gameMng;
     
-    private int score;
-    private String scoreTxt;
-        
     private GameManager() {
-        score = 0;
-        scoreToString();
+        
     }
     
-    public static GameManager getInstance() {
+    public static GameManager get() {
         if(gameMng == null) {
             gameMng = new GameManager();
         }
         return gameMng;
     }
     
-    public Integer getScore() {
-        return score;
+    public void registerPlayer(Player player) {
+        this.player = player;
     }
+              
     
-    public String getScoreAsString() {
-        return scoreTxt;
-    }
-
     // In future we need to check that no boss will be removed here
     public void removeEnemiesAndShots() {
         for (Actor a : AbstractGame.getGameStage().getActors()) {
@@ -48,33 +43,15 @@ public class GameManager {
             }
         }
     }
-           
-    
-    /**
-     * increase score by 1
-     */
-    public synchronized void addScore() {
-        addScore(1);
-        scoreToString();
-    }
 
     /**
      * increase score by i
-     * @param i
+     * @param p
      */
-    public synchronized void addScore(int i) {
-        score += i;
-        scoreToString();
+    public void addScore(int p) {
+        player.addScore(p);
     }
-    
-    public synchronized void resetScore() {
-        score = 0;
-        scoreToString();
-    }
-    
-    private void scoreToString() {
-        scoreTxt = String.valueOf(score);
-    }
+
     
 
     

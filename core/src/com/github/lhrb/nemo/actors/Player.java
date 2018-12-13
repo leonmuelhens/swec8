@@ -3,6 +3,9 @@
  */
 package com.github.lhrb.nemo.actors;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,21 +20,23 @@ import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.PropertyListener;
 
 /**
  * Simple player Implementation
  * @author exa
  * 
  */
-public class Player extends PhysicalActor {
+public class Player extends PhysicalActor implements PropertyListener{
 
+    private PropertyChangeSupport changes = new PropertyChangeSupport(this);
+    
     private Weapon weapon;
-    private ActiveWeaponIcon weaponIcon;
     private PowerUP powerup;
     private float powerupTimer;
-    private ActivePowerUPIcon powerupIcon;
     private int life;
-    private String health; // same as life just as string
+    private int score;
+    private int multiplier = 1;
     private boolean gotHit;
     private float hitDelta;
     public Player(float x, float y, Stage stage) {
@@ -39,18 +44,16 @@ public class Player extends PhysicalActor {
 
         setAnimation(AnimationLoader.get().animation("player_animation_feuer.png", 1, 3, 0.1f, true));
 
-
         setAcceleration(100000);
         setSpeedMax(500);
         setDeceleration(100000);
         life = 3;
-        lifeToString();
+        score = 0;
 
         weapon = new WeaponNormal(getStage());
-        weaponIcon = new ActiveWeaponIcon("normal", getStage());
         powerup = null;
         powerupTimer = 0;
-        powerupIcon = new ActivePowerUPIcon("empty", getStage());
+
         setShapePolygon(8);
         gotHit = false;
         
@@ -59,8 +62,19 @@ public class Player extends PhysicalActor {
          * this method does not provide any security mechanism
          */
         setWorldDimension(stage.getWidth(), stage.getHeight());
+        GameManager.get().registerPlayer(this);
         
        
+    }
+    
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
+    }
+    
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        changes.removePropertyChangeListener(l);
     }
 
     public PowerUP getPowerup() {
@@ -81,6 +95,9 @@ public class Player extends PhysicalActor {
         }
     }
     
+    public void addScore(int p) {
+        changes.firePropertyChange("score", score, (score += (p * multiplier)));
+    }
  
     
     /**
@@ -94,7 +111,6 @@ public class Player extends PhysicalActor {
             System.out.println(powerupTimer);
             if (powerupTimer <= 0 ) {
                 powerup.remove();
-                powerupIcon.remove();
                 powerup = null;
             }
         }
@@ -132,22 +148,19 @@ public class Player extends PhysicalActor {
 
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {
-            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponNormal(getStage());
-            weaponIcon = new ActiveWeaponIcon("normal", getStage());
+            changes.firePropertyChange("wpn", null, CType.Normal);
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
-            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponSpread(getStage());
-            weaponIcon = new ActiveWeaponIcon("spread", getStage());
+            changes.firePropertyChange("wpn", null, CType.Spread);
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
-            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponLaser(getStage());
-            weaponIcon = new ActiveWeaponIcon("laser", getStage());
+            changes.firePropertyChange("wpn", null, CType.Laser);
         }
         
         applyPhysics(delta);
@@ -155,19 +168,15 @@ public class Player extends PhysicalActor {
     
     }
 
-    public String getLife() { return health; }
-   
-    private void lifeToString() {
-        health = String.valueOf(life);
-    }
 
     public void playerHit() {
-        GameManager.getInstance().removeEnemiesAndShots();
+        GameManager.get().removeEnemiesAndShots();
+
         if (!gotHit) {
             gotHit = true;
             hitDelta = 0;
-            life -= 1;
-            lifeToString();
+            //life -= 1;
+            changes.firePropertyChange("health", life, --life);
             if (life <= 0) {
                 playerDied();
             }
@@ -176,7 +185,6 @@ public class Player extends PhysicalActor {
 
     public void playerDied() {
         KillingNemo.setActiveScreen(new GameOverScreen());
-        GameManager.getInstance().resetScore();
     }
 
     /* (non-Javadoc)
@@ -189,48 +197,46 @@ public class Player extends PhysicalActor {
         if (powerup == null) {
             playerHit();
         } else {
-            if (powerup.getType() != CType.Star ) {
+            if (powerup.getType() != CType.Star) {
                 if (!col.isShot() || powerup.getType() != CType.Shield) {
                     playerHit();
+                } else {
+                    /**
+                     * Hier eine Animation oder so? Opacity auf dem Player vielleicht?
+                     * oder wäre das zu viel des guten?
+                     */
                 }
-            } else {
-                /**
-                 * Hier eine Animation oder so? Opacity auf dem Player vielleicht?
-                 * oder wäre das zu viel des guten?
-                 */
             }
         }
     }
 
-    public void changePowerup(PowerUP pu, ActivePowerUPIcon apui) {
+    public void changePowerup(PowerUP pu) {
         if (pu.getType() != CType.Bomb){
             powerupTimer = 20;
         }
-        powerupIcon.remove();
+        if (powerup == null) {
+            changes.firePropertyChange("powerup",null,pu.getType());
+
+        } else {
+            changes.firePropertyChange("powerup",powerup.getType(),pu.getType());
+        }
+
         if (powerup != null)
             powerup.remove();
-        powerupIcon = apui;
         powerup = pu;
     }
 
     public void collision(PowerUP pu){
         if (getStage() == null) System.out.println("stage null");
         if (pu.getType() == CType.Bomb){
-            changePowerup(pu,new ActivePowerUPIcon("bomb",getStage()));
+            changePowerup(pu);
+        }  else if (pu.getType() == CType.Heart){
+            changes.firePropertyChange("health", life, ++life);
         }
-        else if (pu.getType() == CType.Heart){
-            life++;
-            lifeToString();
+        else {
+            changePowerup(pu);
         }
-        else if (pu.getType() == CType.Multiplicator){
-            changePowerup(pu,new ActivePowerUPIcon("multiplicator",getStage()));
-        }
-        else if (pu.getType() == CType.Shield){
-            changePowerup(pu, new ActivePowerUPIcon("shield",getStage()));
-        }
-        else if (pu.getType() == CType.Star){
-           changePowerup(pu,new ActivePowerUPIcon("star",getStage()));
-        }
+
     }
 
     public boolean multi() {
@@ -238,5 +244,4 @@ public class Player extends PhysicalActor {
             return (powerup.getType() == CType.Multiplicator);
         return false;
     }
-
 }
