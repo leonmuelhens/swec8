@@ -47,17 +47,10 @@ public abstract class Enemy extends PhysicalActor{
 
     }
 
-    public void enemyDied(CollisionEvent col, boolean bomb) {
+    public void enemyDied(boolean countScore) {
         if (getStage() != null) {
             // col is null when bomb is thrown!
-            if(bomb) {
-                GameManager.get().addScore(scoreValue);
-            }
-            else {
-                if ((col != null && col.getSource() instanceof Shots)) {
-                    GameManager.get().addScore(scoreValue);
-                }
-            }
+            if (countScore) GameManager.get().addScore(scoreValue);
 
             SoundManager.getInstance().playSound("explosion");
             //code below is bad
@@ -80,8 +73,8 @@ public abstract class Enemy extends PhysicalActor{
             setColor(255, 0, 0, hp * 0.4f);
         }
 
-        if (hp <= 0) {
-            enemyDied(col,false);
+        if (hp <= 0 && (col != null && col.getSource() instanceof Shots)) {
+            enemyDied(true);
         }
     }
 }

@@ -49,10 +49,9 @@ public class CollisionManager {
 
         // Collision Source sollte immer der Schuss oder der Gegner sein
         for (Player p : player) {
-            PowerUP powerUp = p.getPowerup();
 
             for (Enemy e : enemies) {
-                if (powerUp == null || powerUp.getType() != CType.Star) {
+                if (!p.isInvincible()) {
                     // Enemy collosion with player
                     if (e.overlap(p)) {
                         if (e != null) {
@@ -73,14 +72,12 @@ public class CollisionManager {
                     }
                 }
             }
-            if (powerUp == null || powerUp.getType() != CType.Star){
+            if (!p.isInvincible()){
                 for (Shots s : shots) {
                     // Player collision with Shots
                     if (s.overlap(p) && !s.isPlayerShot()) {
                         if (p != null) {
-                            if (powerUp == null || powerUp.getType() != CType.Shield) {
-                                p.collision(new CollisionEvent(s, p));
-                            }
+                            p.collision(new CollisionEvent(s, p));
                             s.collision();
                         }
                     }

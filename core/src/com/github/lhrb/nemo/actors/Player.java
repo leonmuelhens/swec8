@@ -38,6 +38,7 @@ public class Player extends PhysicalActor implements PropertyListener{
     private int score;
     private int multiplier = 1;
     private boolean gotHit;
+    private boolean invincible;
     private float hitDelta;
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
@@ -53,6 +54,7 @@ public class Player extends PhysicalActor implements PropertyListener{
         weapon = new WeaponNormal(getStage());
         powerup = null;
         powerupTimer = 0;
+        invincible = false;
 
         setShapePolygon(8);
         gotHit = false;
@@ -77,8 +79,8 @@ public class Player extends PhysicalActor implements PropertyListener{
         changes.removePropertyChangeListener(l);
     }
 
-    public PowerUP getPowerup() {
-        return powerup;
+    public boolean isInvincible() {
+        return invincible;
     }
 
     private void hitAnimation(float delta) {
@@ -96,11 +98,12 @@ public class Player extends PhysicalActor implements PropertyListener{
     }
     
     public void addScore(int enemyScore) {
-        int factor = 1;
         if ( powerup != null && powerup.getType() == CType.Multiplicator) {
-            factor = 3;
+            multiplier = 3;
+        } else {
+            multiplier = 1;
         }
-        changes.firePropertyChange("score", score, (score += (factor * enemyScore)));
+        changes.firePropertyChange("score", score, (score += (multiplier * enemyScore)));
     }
  
     
@@ -143,7 +146,7 @@ public class Player extends PhysicalActor implements PropertyListener{
                 // hier fehlt noch eine animation
                 for (Actor a : AbstractGame.getGameStage().getActors()) {
                     if (a instanceof Enemy) {
-                        ((Enemy) a).enemyDied(null,true);
+                        ((Enemy) a).enemyDied(true);
                     }
                 }
                 changePowerup(null);
@@ -184,6 +187,10 @@ public class Player extends PhysicalActor implements PropertyListener{
     public void collision(CollisionEvent col) {
         if (getStage() == null) System.out.println("stage null");
 
+        if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
+            return;
+        }
+
         GameManager.get().removeEnemiesAndShots();
 
         if (!gotHit) {
@@ -199,35 +206,37 @@ public class Player extends PhysicalActor implements PropertyListener{
     }
 
     public void changePowerup(PowerUP changePu) {
+        invincible = false;
+
         // Fälle:
-        // 1: kein Powerup - kein changePu -> nichts passiert
-        // 2: kein Powerup - changePu gesetzt -> Setze changePu
-        // 3: Powerup gesetzt - keine changePu -> Remove PowerUp
-        // 4: Powerup gesetzt - changePu gesetzt -> Ersetze PowerUp
+        // 1: changePu set - powerUp set -> Ersetze PowerUp
+        // 2: changePu set - powerUp not set -> Setze PowerUp
+        // 3: changePu not set - powerUp set -> Remove PowerUp
+        // 4: changePu not set - powerUp not set -> nichts passiert
 
-        // remove PowerupAction
+        if(changePu != null) {
+            if (changePu.getType() != CType.Bomb){
+                powerupTimer = 20;
+            } else if (changePu.getType() != CType.Star) {
+                invincible = true;
+            }
 
-        // remove Powerup
-        if (powerup == null) { // 1 + 2 (1 wird nicht behandelt)
-            if(changePu != null) { // 2
-                if (changePu.getType() != CType.Bomb){
-                    powerupTimer = 20;
-                }
+            // Fall 1: Ersetzen Powerup
+            if(powerup != null) {
+                changes.firePropertyChange("powerup",powerup.getType(),changePu.getType());
+                powerup = changePu;
+            }
+            // Fall 2: Setze PowerUp
+            else {
                 changes.firePropertyChange("powerup",null,changePu.getType());
                 powerup = changePu;
             }
-        } else { // 3 + 4
-            if(changePu == null) { // Fall 3
+        } else {
+            // Fall 3: Remove PowerUp
+            if (powerup != null) {
                 powerup.remove();
                 changes.firePropertyChange("powerup",powerup.getType(),null);
                 powerup = null;
-
-            } else { // Fall 4
-                if (changePu.getType() != CType.Bomb){
-                    powerupTimer = 20;
-                }
-                changes.firePropertyChange("powerup",powerup.getType(),changePu.getType());
-                powerup = changePu;
             }
         }
     }
