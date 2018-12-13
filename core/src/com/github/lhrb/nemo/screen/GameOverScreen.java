@@ -13,6 +13,7 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -28,7 +29,9 @@ public class GameOverScreen extends AbstractScreen {
     public void init() {
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("bg1.png"));
-
+        
+        SoundManager.getInstance().stopTrack();
+        
         gameOver = new Label("Game Over :(",
                 GuiManager.getInstance().getLabelStyle());
         gameOver.setPosition(200,500);

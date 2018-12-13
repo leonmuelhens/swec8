@@ -29,8 +29,8 @@ public class SoundManager {
         songs = new HashMap<String, Music>();
         sounds = new HashMap<String, Sound>();
         
-        musicVolume = 1.0f;
-        sfxVolume = 0.8f;
+        musicVolume = 0.25f;
+        sfxVolume = 0.5f;
 
         // Add sounds
         addSound("explosion","sound/explosion1.ogg");
