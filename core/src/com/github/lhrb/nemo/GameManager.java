@@ -40,7 +40,7 @@ public class GameManager {
     // In future we need to check that no boss will be removed here
     public void removeEnemiesAndShots() {
         for (Actor a : AbstractGame.getGameStage().getActors()) {
-            if (a instanceof Enemy) {
+            if (a instanceof Enemy && !(a instanceof EndBoss)) {
                 ((Enemy) a).enemyDied(false);
             } else if (a instanceof Shots) {
                 a.remove();
