@@ -7,10 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.AbstractGame;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.powerups.*;
+import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
@@ -115,6 +117,17 @@ public class Player extends PhysicalActor {
 
         if(Gdx.input.isKeyPressed(Keys.SPACE)) {
             weapon.fire(getX()+(getWidth()/2), getY()+(getHeight()), 90);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.B)) {
+            if (powerup != null && powerup.getType() == CType.Bomb) {
+                // hier fehlt noch eine animation
+                for (Actor a : AbstractGame.getGameStage().getActors()) {
+                    if (a instanceof Enemy) {
+                        ((Enemy) a).enemyDied(new CollisionEvent(this, (Enemy)a,null),true);
+                    }
+                }
+            }
         }
 
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können

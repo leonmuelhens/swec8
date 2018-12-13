@@ -50,24 +50,30 @@ public abstract class Enemy extends PhysicalActor{
         }
 
         if (hp <= 0 || !isShot) {
-            if (getStage() != null) {
-                //test for multiplicator
-                if (col.isShot() && col.getPlayer().multi())
+            enemyDied(col,false);
+        }
+    }
+
+    public void enemyDied(CollisionEvent col, boolean bomb) {
+        if (getStage() != null) {
+            //test for multiplicator
+            if (col.isShot() || bomb) {
+                if (col.getPlayer().multi())
                     GameManager.getInstance().addScore(3 * scoreValue);
                 else
                     GameManager.getInstance().addScore(scoreValue);
-                SoundManager.getInstance().playSound("explosion");
-                //code below is bad
-                new ActorPrefab(getX(), getY(), getStage())
-                        .setAnimation(AnimationLoader.get().animation(
-                                "explosion.png", 6, 6, 0.05f, false));
-                //end
-                Random rand = new Random();
-                if(rand.nextInt(10) <= 1) { // 20% chance to drop
-                    PowerUPFactory.spawnPU(getX(), getY(), getStage());
-                }
-                remove();
             }
+            SoundManager.getInstance().playSound("explosion");
+            //code below is bad
+            new ActorPrefab(getX(), getY(), getStage())
+                    .setAnimation(AnimationLoader.get().animation(
+                            "explosion.png", 6, 6, 0.05f, false));
+            //end
+            Random rand = new Random();
+            if(rand.nextInt(10) <= 1) { // 20% chance to drop
+                PowerUPFactory.spawnPU(getX(), getY(), getStage());
+            }
+            remove();
         }
     }
 
