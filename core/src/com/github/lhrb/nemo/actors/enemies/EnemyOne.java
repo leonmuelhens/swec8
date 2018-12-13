@@ -29,8 +29,8 @@ public class EnemyOne extends Enemy {
         hp = 2;
         scoreValue = 1;
 
-        weaponleft = new WeaponNormal(stage, 2f);
-        weaponright = new WeaponNormal(stage, 2f);
+        weaponleft = new WeaponNormal(stage, 1.6f);
+        weaponright = new WeaponNormal(stage, 1.6f);
     }
 
         /**
@@ -43,7 +43,7 @@ public class EnemyOne extends Enemy {
 
             applyObjectPhysics(delta);
 
-            if (getStage() != null && getY()+20 < getStage().getHeight()) {
+            if (getStage() != null && getY() + getHeight() - 10 < getStage().getHeight()) {
                 weaponleft.fire(getX() + (getWidth() / 2) - 20, getY() - 30, 270);
                 weaponright.fire(getX() + (getWidth() / 2) + 20, getY() - 30, 270);
             }
