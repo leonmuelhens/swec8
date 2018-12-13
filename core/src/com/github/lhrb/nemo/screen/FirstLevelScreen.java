@@ -10,6 +10,7 @@ import com.github.lhrb.nemo.util.SoundManager;
 import java.beans.PropertyChangeSupport;
 
 
+
 public class FirstLevelScreen extends LevelScreen {
 
     @Override
@@ -30,6 +31,6 @@ public class FirstLevelScreen extends LevelScreen {
 
         SoundManager.getInstance().playTrack("firstlevel");
 
-        factory = new EnemyFactory(level, gameStage);
+        factory = new EnemyFactory(gameStage);
     }
 }

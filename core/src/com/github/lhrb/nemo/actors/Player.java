@@ -14,6 +14,7 @@ import com.github.lhrb.nemo.AbstractGame;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.*;
@@ -58,7 +59,7 @@ public class Player extends PhysicalActor implements PropertyListener{
 
         setShapePolygon(8);
         gotHit = false;
-        
+
         /**
          * ATTENTION
          * this method does not provide any security mechanism
@@ -66,7 +67,6 @@ public class Player extends PhysicalActor implements PropertyListener{
         setWorldDimension(stage.getWidth(), stage.getHeight());
         GameManager.get().registerPlayer(this);
         
-       
     }
     
     @Override

@@ -9,7 +9,7 @@ public class WeaponSpread extends Weapon {
 
     public WeaponSpread(Stage stage) {
         super(stage, 0.6f);
-        angleModifier = 45;
+        angleModifier = 25;
     }
 
     public WeaponSpread(Stage stage, float cooldown) {
