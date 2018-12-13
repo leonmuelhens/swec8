@@ -9,7 +9,7 @@ public class CollisionEvent {
 
     public CollisionEvent(PhysicalActor source, PhysicalActor destiny) {
         this.source = source;
-        this.destiny = source;
+        this.destiny = destiny;
     }
 
 

@@ -87,10 +87,10 @@ public class CollisionManager {
                 //Player collision with powerups
                 if (pu.overlap(p)) {
                     if (pu != null) {
-                        pu.collision();
+                        pu.collision(new CollisionEvent(p, pu));
                     }
                     if (p != null) {
-                        p.collision(pu);
+                        p.collision(new CollisionEvent(p, pu));
                     }
                 }
             }

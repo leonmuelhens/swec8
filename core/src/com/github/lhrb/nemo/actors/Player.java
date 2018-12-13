@@ -186,6 +186,16 @@ public class Player extends PhysicalActor implements PropertyListener{
     public void collision(CollisionEvent col) {
         if (getStage() == null) System.out.println("stage null");
 
+        if (col.getDestiny() != null && col.getDestiny() instanceof PowerUP) {
+            if (((PowerUP) col.getDestiny()).getType() == CType.Heart){
+                changes.firePropertyChange("health", life, ++life);
+            }
+            else {
+                changePowerup((PowerUP) col.getDestiny());
+            }
+            return;
+        }
+
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
             return;
         }
@@ -242,13 +252,7 @@ public class Player extends PhysicalActor implements PropertyListener{
     }
 
     public void collision(PowerUP pu){
-        if (getStage() == null) System.out.println("stage null");
-        if (pu.getType() == CType.Heart){
-            changes.firePropertyChange("health", life, ++life);
-        }
-        else {
-            changePowerup(pu);
-        }
+
 
     }
 
