@@ -44,7 +44,8 @@ public abstract class Shots extends PhysicalActor {
      */
     @Override
     public void collision() {
-        remove();
+        if (!(this instanceof Bomb.Explosion))
+            remove();
     }
 
     public boolean isPlayerShot() { return isPlayerShot; }

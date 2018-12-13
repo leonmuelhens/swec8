@@ -3,6 +3,9 @@
  */
 package com.github.lhrb.nemo.actors;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,24 +13,27 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.PropertyListener;
 
 /**
  * Simple player Implementation
  * @author exa
  * 
  */
-public class Player extends PhysicalActor {
+public class Player extends PhysicalActor implements PropertyListener{
 
+    private PropertyChangeSupport changes = new PropertyChangeSupport(this);
+    
     private Weapon weapon;
-    private ActiveWeaponIcon weaponIcon;
     private PowerUP powerup;
-    private ActivePowerUPIcon powerupIcon;
     private int life;
-    private String health; // same as life just as string
+    private int score;
+    private int multiplier = 1;
     private boolean gotHit;
     private float hitDelta;
     public Player(float x, float y, Stage stage) {
@@ -40,22 +46,30 @@ public class Player extends PhysicalActor {
         setSpeedMax(500);
         setDeceleration(100000);
         life = 3;
-        lifeToString();
+        score = 0;
 
         weapon = new WeaponNormal(getStage());
-        weaponIcon = new ActiveWeaponIcon("normal", getStage());
         powerup = null;
-        powerupIcon = new ActivePowerUPIcon("empty", getStage());
         setShapePolygon(8);
         gotHit = false;
-        
+
         /**
          * ATTENTION
          * this method does not provide any security mechanism
          */
         setWorldDimension(stage.getWidth(), stage.getHeight());
+        GameManager.get().registerPlayer(this);
         
-       
+    }
+    
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
+    }
+    
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        changes.removePropertyChangeListener(l);
     }
 
     private void hitAnimation(float delta) {
@@ -72,6 +86,9 @@ public class Player extends PhysicalActor {
         }
     }
     
+    public void addScore(int p) {
+        changes.firePropertyChange("score", score, (score += (p * multiplier)));
+    }
  
     
     /**
@@ -102,33 +119,24 @@ public class Player extends PhysicalActor {
 
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {
-            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponNormal(getStage());
-            weaponIcon = new ActiveWeaponIcon("normal", getStage());
+            changes.firePropertyChange("wpn", null, CType.Normal);
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
-            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponSpread(getStage());
-            weaponIcon = new ActiveWeaponIcon("spread", getStage());
+            changes.firePropertyChange("wpn", null, CType.Spread);
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
-            weaponIcon.remove();
             weapon.remove();
             weapon = new WeaponLaser(getStage());
-            weaponIcon = new ActiveWeaponIcon("laser", getStage());
+            changes.firePropertyChange("wpn", null, CType.Laser);
         }
         
         applyPhysics(delta);
         setBoundToWorld();
     
-    }
-
-    public String getLife() { return health; }
-   
-    private void lifeToString() {
-        health = String.valueOf(life);
     }
 
 
@@ -139,13 +147,15 @@ public class Player extends PhysicalActor {
     public void collision() {
         if (getStage() == null) System.out.println("stage null");
         for (Actor a : getStage().getActors()) {
-            if (a instanceof Enemy || a instanceof PowerUP) {
-                a.remove();
+            if ((a instanceof Enemy || a instanceof PowerUP)) {
+                if (!(a instanceof EndBoss)) {
+                    a.remove();
+                }
                 if (!gotHit) {
                     gotHit = true;
                     hitDelta = 0;
-                    life -= 1;
-                    lifeToString();
+                    //life -= 1;
+                    changes.firePropertyChange("health", life, --life);
                     if (life <= 0) {
                         playerDied();
                     }
@@ -157,38 +167,29 @@ public class Player extends PhysicalActor {
     public void collision(PowerUP pu){
         if (getStage() == null) System.out.println("stage null");
         if (pu.getType() == CType.Bomb){
-            powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("bomb",getStage());
             powerup = pu;
 
         }
         else if (pu.getType() == CType.Heart){
-            life++;
-            lifeToString();
+            changes.firePropertyChange("health", life, ++life);
         }
         else if (pu.getType() == CType.Multiplicator){
-            powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("multiplicator",getStage());
             powerup = pu;
 
         }
         else if (pu.getType() == CType.Shield){
-            powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("shield",getStage());
             powerup = pu;
 
         }
         else if (pu.getType() == CType.Star){
-            powerupIcon.remove();
             if (powerup != null)
                 powerup.remove();
-            powerupIcon = new ActivePowerUPIcon("star",getStage());
             powerup = pu;
 
         }
@@ -196,7 +197,7 @@ public class Player extends PhysicalActor {
 
     public void playerDied() {
         KillingNemo.setActiveScreen(new GameOverScreen());
-        GameManager.getInstance().resetScore();
+        //GameManager.getInstance().resetScore();
     }
 
     public boolean multi() {
