@@ -89,7 +89,7 @@ public class Uboot extends EndBoss {
         if (getStage() != null && getY()+20 < getStage().getHeight()) {
             for (Weapon w:
                  weapons) {
-                w.fire(getX(),getY(),270);
+                w.fire(getX()+(getWidth()/2),getY()-(getHeight()/2),270);
             }
         }
     }
