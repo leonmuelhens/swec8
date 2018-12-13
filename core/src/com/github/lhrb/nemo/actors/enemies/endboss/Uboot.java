@@ -1,6 +1,7 @@
 package com.github.lhrb.nemo.actors.enemies.endboss;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.enemies.endboss.Sections;
@@ -46,18 +47,18 @@ public class Uboot extends EndBoss {
     }
 
     @Override
-    public void collision(Player p) {
+    public void collision(CollisionEvent col) {
         if (!sections[0].destroyed) {
-            sections[0].collision(p);
+            sections[0].collision(col);
         }
         else if (!sections[1].destroyed) {
-            sections[1].collision(p);
+            sections[1].collision(col);
         }
         else if (!sections[2].destroyed) {
-            sections[2].collision(p);
+            sections[2].collision(col);
         }
         else {
-            super.collision(p);
+            super.collision(col);
         }
     }
 

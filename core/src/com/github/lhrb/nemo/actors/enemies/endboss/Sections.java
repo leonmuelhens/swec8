@@ -3,7 +3,9 @@ package com.github.lhrb.nemo.actors.enemies.endboss;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -30,8 +32,11 @@ public class Sections extends EndBoss {
     }
 
     @Override
-    public void collision(Player p) {
-        hp -= 1;
+    public void collision(CollisionEvent col) {
+        if (col.getSource() instanceof Shots) {
+            hp -= 1;
+        }
+
         if(hp <= 0) {
             if(getStage() != null) {
 

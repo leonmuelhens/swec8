@@ -204,10 +204,12 @@ public class ActorPrefab extends Group {
     }
 
     public void applyObjectPhysics(float delta) {
-        if (getY() > getStage().getHeight() || getY() + getHeight() <= 0 ) {
-            remove();
-        } else {
-            applyPhysics(delta);
+        if (getStage() != null) {
+            if (getY() > getStage().getHeight() || getY() + getHeight() <= 0) {
+                remove();
+            } else {
+                applyPhysics(delta);
+            }
         }
     }
 

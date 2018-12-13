@@ -34,26 +34,37 @@ public class HUD implements PropertyChangeListener{
     
     private Label scoreLbl, hpLbl, timeLbl;
     private Image wpnIcon;
+    private Image powerupIcon;
     private ImageButton hpBtn;
 
     
-    private HashMap<CType, Drawable> wpnIcons;
+    private HashMap<CType, Drawable> collectibleIcons;
     
     public HUD() {
-        
+        powerupIcon = new Image();
         initLabels();
-        
-        wpnIcons = new HashMap<CType, Drawable>();
-        wpnIcons.put(CType.Normal, new TextureRegionDrawable(AnimationLoader.get()
-                                       .texture("IconNormal.png").getKeyFrame(0)));
-        wpnIcons.put(CType.Spread, new TextureRegionDrawable(AnimationLoader.get()
-                                       .texture("IconSpread.png").getKeyFrame(0)));
-        wpnIcons.put(CType.Laser, new TextureRegionDrawable(AnimationLoader.get()
-                                        .texture("IconLaser.png").getKeyFrame(0)));
-        
-        
+
+        collectibleIcons = new HashMap<CType, Drawable>();
+        // Weapons
+        collectibleIcons.put(CType.Normal, new TextureRegionDrawable(AnimationLoader.get()
+                .texture("IconNormal.png").getKeyFrame(0)));
+        collectibleIcons.put(CType.Spread, new TextureRegionDrawable(AnimationLoader.get()
+                .texture("IconSpread.png").getKeyFrame(0)));
+        collectibleIcons.put(CType.Laser, new TextureRegionDrawable(AnimationLoader.get()
+                .texture("IconLaser.png").getKeyFrame(0)));
+
+        // Powerups
+        collectibleIcons.put(CType.Bomb, new TextureRegionDrawable(AnimationLoader.get()
+                .texture("powerup_bombe.png").getKeyFrame(0)));
+        collectibleIcons.put(CType.Multiplicator, new TextureRegionDrawable(AnimationLoader.get()
+                .texture("powerup_multiplicator.png").getKeyFrame(0)));
+        collectibleIcons.put(CType.Shield, new TextureRegionDrawable(AnimationLoader.get()
+                .texture("powerup_shield.png").getKeyFrame(0)));
+        collectibleIcons.put(CType.Star, new TextureRegionDrawable(AnimationLoader.get()
+                .texture("powerup_star.png").getKeyFrame(0)));
+
         //TextureRegionDrawable test = new TextureRegionDrawable(AnimationLoader.get().texture("IconNormal.png").getKeyFrame(0));
-        wpnIcon = new Image(wpnIcons.get(CType.Normal));
+        wpnIcon = new Image(collectibleIcons.get(CType.Normal));
         //hpIcon = new Image(new TextureRegionDrawable(AnimationLoader.get()
         //                            .texture("heart.png").getKeyFrame(0)));
         hpBtn = new ImageButton(new TextureRegionDrawable(AnimationLoader.get()
@@ -74,10 +85,15 @@ public class HUD implements PropertyChangeListener{
         hud.add(scoreLbl).expandX().height(50).right().pad(10);
         hud.row();
 
-        // third row:
+        // third row
+        hud.add().expandY().width(64).pad(10);
+        hud.add(powerupIcon).expandX().pad(10).bottom().right();
+        hud.row();
+
+        // fourth:
         // left: weapon
         // right: life + heart
-        hud.add(wpnIcon).expandY().width(64).bottom().pad(10);
+        hud.add(wpnIcon).height(64).width(64).bottom().pad(10);
         hud.add(hpBtn).expandX().pad(10).bottom().right();
         //hud.debug();
     }
@@ -110,11 +126,15 @@ public class HUD implements PropertyChangeListener{
             return;
         }
         if(evt.getPropertyName().equals("wpn")) {
-            wpnIcon.setDrawable(wpnIcons.get(evt.getNewValue()));
+            wpnIcon.setDrawable(collectibleIcons.get(evt.getNewValue()));
             return;
         }
         if(evt.getPropertyName().equals("gametime")) {
             timeLbl.setText(evt.getNewValue().toString());
+            return;
+        }
+        if(evt.getPropertyName().equals("powerup")) {
+            powerupIcon.setDrawable(collectibleIcons.get(evt.getNewValue()));
             return;
         }
         

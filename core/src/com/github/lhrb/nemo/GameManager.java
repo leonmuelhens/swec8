@@ -3,6 +3,11 @@
  */
 package com.github.lhrb.nemo;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
+import com.github.lhrb.nemo.actors.powerups.PowerUP;
+import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.Player;
 
 /**
@@ -32,10 +37,20 @@ public class GameManager {
     }
               
     
+    // In future we need to check that no boss will be removed here
+    public void removeEnemiesAndShots() {
+        for (Actor a : AbstractGame.getGameStage().getActors()) {
+            if (a instanceof Enemy && !(a instanceof EndBoss)) {
+                ((Enemy) a).enemyDied(false);
+            } else if (a instanceof Shots) {
+                a.remove();
+            }
+        }
+    }
 
     /**
      * increase score by i
-     * @param i
+     * @param p
      */
     public void addScore(int p) {
         player.addScore(p);
