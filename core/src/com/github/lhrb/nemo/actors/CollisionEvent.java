@@ -1,26 +1,38 @@
 package com.github.lhrb.nemo.actors;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.shots.Shots;
 
-import java.util.EventObject;
+public class CollisionEvent {
 
-public class CollisionEvent extends EventObject {
+    private Player player;
+    private Enemy enemy;
+    private Shots shot;
 
-    private Actor source;
-    private Actor destiny;
-
-    public CollisionEvent(Actor source, Actor destiny) {
-        super(source);
-        this.source = source;
-        this.destiny = destiny;
+    public CollisionEvent(Player p, Enemy e, Shots s) {
+        this.player = p;
+        this.enemy = e;
+        this.shot = s;
     }
 
-    @Override
-    public Actor getSource() {
-        return source;
+
+    public Player getPlayer() {
+        return player;
     }
 
-    public Actor getDestiny() {
-        return destiny;
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
+    public Shots getShot() {
+        return shot;
+    }
+
+    public boolean isShot() {
+        if (shot != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

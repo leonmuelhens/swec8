@@ -9,8 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
 import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.powerups.CType;
+import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -39,28 +42,44 @@ public abstract class Enemy extends PhysicalActor{
      * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
      */
 
-    public void collision(Player p) {
-        hp -= 1;
-        setColor(255,0,0,hp*0.4f);
-        if(hp <= 0) {
-            if(getStage() != null) {
+    public void enemyHit(CollisionEvent col) {
+        boolean isShot = col.isShot();
+        if (isShot) {
+            hp -= 1;
+            setColor(255, 0, 0, hp * 0.4f);
+        }
+
+        if (hp <= 0 || !isShot) {
+            if (getStage() != null) {
                 //test for multiplicator
-                if (p.multi() == true)
+                if (col.isShot() && col.getPlayer().multi())
                     GameManager.getInstance().addScore(3 * scoreValue);
                 else
                     GameManager.getInstance().addScore(scoreValue);
                 SoundManager.getInstance().playSound("explosion");
-                
-                //code below is bad    
+                //code below is bad
                 new ActorPrefab(getX(), getY(), getStage())
                         .setAnimation(AnimationLoader.get().animation(
                                 "explosion.png", 6, 6, 0.05f, false));
-                //end 
+                //end
                 Random rand = new Random();
                 if(rand.nextInt(10) <= 1) { // 20% chance to drop
                     PowerUPFactory.spawnPU(getX(), getY(), getStage());
                 }
                 remove();
+            }
+        }
+    }
+
+    public void collision(CollisionEvent col) {
+        boolean isShot = col.isShot();
+        if (isShot) {
+            enemyHit(col);
+        } else {
+            if ((col.getPlayer().getPowerup() != null
+                    && col.getPlayer().getPowerup().getType() != CType.Star)
+                    || col.getPlayer().getPowerup() == null ) {
+                enemyHit(col);
             }
         }
     }

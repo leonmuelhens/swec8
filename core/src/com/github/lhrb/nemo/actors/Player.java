@@ -61,6 +61,10 @@ public class Player extends PhysicalActor {
        
     }
 
+    public PowerUP getPowerup() {
+        return powerup;
+    }
+
     private void hitAnimation(float delta) {
         if (hitDelta < 1.5f) {
             hitDelta += delta;
@@ -89,6 +93,7 @@ public class Player extends PhysicalActor {
             if (powerupTimer <= 0 ) {
                 powerup.remove();
                 powerupIcon.remove();
+                powerup = null;
             }
         }
 
@@ -143,26 +148,43 @@ public class Player extends PhysicalActor {
         health = String.valueOf(life);
     }
 
+    public void playerHit() {
+        GameManager.getInstance().removeEnemiesAndShots();
+        if (!gotHit) {
+            gotHit = true;
+            hitDelta = 0;
+            life -= 1;
+            lifeToString();
+            if (life <= 0) {
+                playerDied();
+            }
+        }
+    }
+
+    public void playerDied() {
+        KillingNemo.setActiveScreen(new GameOverScreen());
+        GameManager.getInstance().resetScore();
+    }
 
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
      */
     @Override
-    public void collision() {
+    public void collision(CollisionEvent col) {
         if (getStage() == null) System.out.println("stage null");
 
-        for (Actor a : getStage().getActors()) {
-            if (a instanceof Enemy) {
-                a.remove();
-                if (!gotHit) {
-                    gotHit = true;
-                    hitDelta = 0;
-                    life -= 1;
-                    lifeToString();
-                    if (life <= 0) {
-                        playerDied();
-                    }
+        if (powerup == null) {
+            playerHit();
+        } else {
+            if (powerup.getType() != CType.Star ) {
+                if (!col.isShot() || powerup.getType() != CType.Shield) {
+                    playerHit();
                 }
+            } else {
+                /**
+                 * Hier eine Animation oder so? Opacity auf dem Player vielleicht?
+                 * oder wäre das zu viel des guten?
+                 */
             }
         }
     }
@@ -196,11 +218,6 @@ public class Player extends PhysicalActor {
         else if (pu.getType() == CType.Star){
            changePowerup(pu,new ActivePowerUPIcon("star",getStage()));
         }
-    }
-
-    public void playerDied() {
-        KillingNemo.setActiveScreen(new GameOverScreen());
-        GameManager.getInstance().resetScore();
     }
 
     public boolean multi() {

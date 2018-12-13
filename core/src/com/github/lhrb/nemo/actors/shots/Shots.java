@@ -1,7 +1,9 @@
 package com.github.lhrb.nemo.actors.shots;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.PhysicalActor;
+import com.github.lhrb.nemo.actors.powerups.CType;
 
 public abstract class Shots extends PhysicalActor {
 
@@ -45,6 +47,15 @@ public abstract class Shots extends PhysicalActor {
     @Override
     public void collision() {
         remove();
+    }
+
+    @Override
+    public void collision(CollisionEvent col) {
+        if ((col.getPlayer().getPowerup() != null
+                && col.getPlayer().getPowerup().getType() != CType.Star)
+                || col.getPlayer().getPowerup() == null ) {
+            remove();
+        }
     }
 
     public boolean isPlayerShot() { return isPlayerShot; }

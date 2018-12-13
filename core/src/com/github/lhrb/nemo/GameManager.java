@@ -4,6 +4,9 @@
 package com.github.lhrb.nemo;
 
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.shots.Shots;
 
 /**
  * @author exa
@@ -35,6 +38,15 @@ public class GameManager {
     
     public String getScoreAsString() {
         return scoreTxt;
+    }
+
+    // In future we need to check that no boss will be removed here
+    public void removeEnemiesAndShots() {
+        for (Actor a : AbstractGame.getGameStage().getActors()) {
+            if (a instanceof Shots || a instanceof Enemy) {
+                a.remove();
+            }
+        }
     }
            
     

@@ -40,33 +40,34 @@ public class CollisionManager {
          * sollte effizienter gehen?
          */
 
+        // Collision Source sollte immer der Schuss oder der Gegner sein
         for(Player p : player) {
             for (Enemy e : enemies) {
                 // Enemy collosion with player
                 if (e.overlap(p)) {
                     if (e != null) {
-                        // e.collision(new CollisionEvent(e,p));
-                        e.collision(p);
+                        e.collision(new CollisionEvent(p,e,null));
                     }
-                    if (p != null) { p.collision(); }
+                    if (p != null) { p.collision(new CollisionEvent(p,e,null)); }
                 }
                 // Enemy collosion with Shots
                 for (Shots s : shots) {
                     if(e.overlap(s) && s.isPlayerShot()) {
                         if (e != null) {
-                            e.collision(p);
+                            e.collision(new CollisionEvent(p,e,s));
                         }
-                        if(s != null) { s.collision(); }
+                        s.collision();
                     }
                 }
             }
             for (Shots s : shots) {
                 // Player collision with Shots
                 if (s.overlap(p) && !s.isPlayerShot()) {
-                    if(p != null) { p.collision(); }
-                    if(s != null) { s.collision(); }
+                    if(p != null) { p.collision(new CollisionEvent(p,null,s)); }
+                    s.collision(new CollisionEvent(p,null,s));
                 }
             }
+            // Collision Source sollte das Powerup sein
             for (PowerUP pu : powerups) {
                 //Player collision with powerups
                 if (pu.overlap(p)) {
