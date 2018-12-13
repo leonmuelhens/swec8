@@ -50,11 +50,15 @@ public abstract class Enemy extends PhysicalActor{
     public void enemyDied(CollisionEvent col, boolean bomb) {
         if (getStage() != null) {
             // col is null when bomb is thrown!
-            if ((col != null && col.getSource() instanceof Shots)  || bomb) {
-                if (col.getDestiny() instanceof Enemy) {
+            if(bomb) {
+                GameManager.get().addScore(scoreValue);
+            }
+            else {
+                if ((col != null && col.getSource() instanceof Shots)) {
                     GameManager.get().addScore(scoreValue);
                 }
             }
+
             SoundManager.getInstance().playSound("explosion");
             //code below is bad
             new ActorPrefab(getX(), getY(), getStage())
@@ -76,7 +80,7 @@ public abstract class Enemy extends PhysicalActor{
             setColor(255, 0, 0, hp * 0.4f);
         }
 
-        if (hp <= 0 || !isShot) {
+        if (hp <= 0) {
             enemyDied(col,false);
         }
     }

@@ -95,12 +95,12 @@ public class Player extends PhysicalActor implements PropertyListener{
         }
     }
     
-    public void addScore(int p) {
+    public void addScore(int enemyScore) {
         int factor = 1;
-        if ( powerup.getType() == CType.Multiplicator) {
+        if ( powerup != null && powerup.getType() == CType.Multiplicator) {
             factor = 3;
         }
-        changes.firePropertyChange("score", score, (score += (factor * multiplier)));
+        changes.firePropertyChange("score", score, (score += (factor * enemyScore)));
     }
  
     
@@ -114,8 +114,7 @@ public class Player extends PhysicalActor implements PropertyListener{
             powerupTimer -= delta;
             System.out.println(powerupTimer);
             if (powerupTimer <= 0 ) {
-                powerup.remove();
-                powerup = null;
+                changePowerup(null);
             }
         }
 
@@ -147,6 +146,7 @@ public class Player extends PhysicalActor implements PropertyListener{
                         ((Enemy) a).enemyDied(null,true);
                     }
                 }
+                changePowerup(null);
             }
         }
 
@@ -194,30 +194,47 @@ public class Player extends PhysicalActor implements PropertyListener{
             if (life <= 0) {
                 playerDied();
             }
+            changePowerup(null);
         }
     }
 
-    public void changePowerup(PowerUP pu) {
-        if (pu.getType() != CType.Bomb){
-            powerupTimer = 20;
-        }
-        if (powerup == null) {
-            changes.firePropertyChange("powerup",null,pu.getType());
+    public void changePowerup(PowerUP changePu) {
+        // Fälle:
+        // 1: kein Powerup - kein changePu -> nichts passiert
+        // 2: kein Powerup - changePu gesetzt -> Setze changePu
+        // 3: Powerup gesetzt - keine changePu -> Remove PowerUp
+        // 4: Powerup gesetzt - changePu gesetzt -> Ersetze PowerUp
 
-        } else {
-            changes.firePropertyChange("powerup",powerup.getType(),pu.getType());
-        }
+        // remove PowerupAction
 
-        if (powerup != null)
-            powerup.remove();
-        powerup = pu;
+        // remove Powerup
+        if (powerup == null) { // 1 + 2 (1 wird nicht behandelt)
+            if(changePu != null) { // 2
+                if (changePu.getType() != CType.Bomb){
+                    powerupTimer = 20;
+                }
+                changes.firePropertyChange("powerup",null,changePu.getType());
+                powerup = changePu;
+            }
+        } else { // 3 + 4
+            if(changePu == null) { // Fall 3
+                powerup.remove();
+                changes.firePropertyChange("powerup",powerup.getType(),null);
+                powerup = null;
+
+            } else { // Fall 4
+                if (changePu.getType() != CType.Bomb){
+                    powerupTimer = 20;
+                }
+                changes.firePropertyChange("powerup",powerup.getType(),changePu.getType());
+                powerup = changePu;
+            }
+        }
     }
 
     public void collision(PowerUP pu){
         if (getStage() == null) System.out.println("stage null");
-        if (pu.getType() == CType.Bomb){
-            changePowerup(pu);
-        }  else if (pu.getType() == CType.Heart){
+        if (pu.getType() == CType.Heart){
             changes.firePropertyChange("health", life, ++life);
         }
         else {
