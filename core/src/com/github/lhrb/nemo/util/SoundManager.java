@@ -23,6 +23,7 @@ public class SoundManager {
     
     private HashMap<String, Music> songs;
     private HashMap<String, Sound> sounds;
+    private Music current;
     
     private SoundManager() {
         songs = new HashMap<String, Music>();
@@ -72,11 +73,36 @@ public class SoundManager {
         sfxVolume = f;
     }
     
+    /**
+     * plays current track
+     */
+    public void playTrack() {
+        if(current == null) return;
+        if(!current.isPlaying()) {
+            current.play();
+        }
+    }
+    
+    /**
+     * plays specific track
+     * @param s
+     */
     public void playTrack(String s) {
         if(s == null) return;
         if(songs.containsKey(s)) {
-            songs.get(s).play();
+            current = songs.get(s);
+            current.play();
         }
+    }
+    
+    public void pauseTrack() {
+        if(current == null) return;
+        current.pause();
+    }
+    
+    public void stopTrack() {
+        if(current == null) return;
+        current.stop();
     }
     
     public void playSound(String key) {
