@@ -28,11 +28,11 @@ public class GameOverScreen extends AbstractScreen {
      */
     @Override
     public void init() {
+        SoundManager.getInstance().playTrack("menu");
+        
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("bg1.png"));
-        
-        SoundManager.getInstance().stopTrack();
-        
+                
         Table table = new Table();
         table.setFillParent(true);
         

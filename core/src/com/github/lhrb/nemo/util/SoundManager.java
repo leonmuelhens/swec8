@@ -35,9 +35,11 @@ public class SoundManager {
         // Add sounds
         addSound("explosion","sound/explosion1.ogg");
         addSound("laser","sound/laser.ogg");
+        addSound("hit", "sound/hit.ogg");
 
         // Add Songs
         addSong("firstlevel", "sound/soundTrack_1.ogg", musicVolume);
+        addSong("menu", "sound/menu.ogg", musicVolume);
     }
 
 
@@ -90,6 +92,9 @@ public class SoundManager {
     public void playTrack(String s) {
         if(s == null) return;
         if(songs.containsKey(s)) {
+            if(current != null) {
+               current.dispose(); 
+            }
             current = songs.get(s);
             current.play();
         }
