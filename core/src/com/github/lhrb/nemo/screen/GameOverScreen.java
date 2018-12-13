@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
@@ -32,13 +33,14 @@ public class GameOverScreen extends AbstractScreen {
         
         SoundManager.getInstance().stopTrack();
         
+        Table table = new Table();
+        table.setFillParent(true);
+        
         gameOver = new Label("Game Over :(",
-                GuiManager.getInstance().getLabelStyle());
-        gameOver.setPosition(200,500);
-        guiStage.addActor(gameOver);
+                GuiManager.getInstance().getLabelStyleBig());
+        //guiStage.addActor(gameOver);
 
         TextButton backBtn = new TextButton("zum Hauptmenue", GuiManager.getInstance().getTxtBtnStyle());
-        backBtn.setPosition(200,300);
         backBtn.addListener(
                 (Event e) ->{
                     if( !(e instanceof InputEvent)) {
@@ -53,8 +55,13 @@ public class GameOverScreen extends AbstractScreen {
                 });
 
 
-        guiStage.addActor(backBtn);
-
+        //guiStage.addActor(backBtn);
+        
+        table.add(gameOver).spaceBottom(50);
+        table.row();
+        table.add(backBtn);
+        
+        guiStage.addActor(table);
 
 
     }
