@@ -1,9 +1,13 @@
 package com.github.lhrb.nemo.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
+import com.github.lhrb.nemo.actors.enemies.endboss.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -18,6 +22,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     Player player;
     Background bg, bg2;
     EnemyFactory factory;
+    EndBoss endBoss;
 
     PropertyChangeSupport changes;
 
@@ -31,11 +36,25 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
          */
         CollisionManager.checkCollision(getPhysicalActors());
 
+
+        // For testing
+        if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
+            gameTime += 3*60;
+        }
+
+
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
-        } else {
-            // we have to initialize the bossScreen
-            System.out.println("The Boss level should start here");
+        }
+        else if (gameTime > 3*60 && endBoss == null) {
+            if (this instanceof FirstLevelScreen) {
+                endBoss = new Uboot(gameStage);
+                endBoss.setPosition(gameStage.getWidth()/2,gameStage.getHeight());
+                gameStage.addActor(endBoss);
+            }
+        }
+        else {
+            // Level end screen starts here
         }
     }
     
