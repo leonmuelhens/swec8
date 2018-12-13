@@ -49,7 +49,6 @@ public class CollisionManager {
 
         // Collision Source sollte immer der Schuss oder der Gegner sein
         for (Player p : player) {
-
             for (Enemy e : enemies) {
                 if (!p.isInvincible()) {
                     // Enemy collosion with player

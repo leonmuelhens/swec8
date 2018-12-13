@@ -115,7 +115,6 @@ public class Player extends PhysicalActor implements PropertyListener{
         if (gotHit) hitAnimation(delta);
         if (powerup != null && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
-            System.out.println(powerupTimer);
             if (powerupTimer <= 0 ) {
                 changePowerup(null);
             }
@@ -217,8 +216,9 @@ public class Player extends PhysicalActor implements PropertyListener{
         if(changePu != null) {
             if (changePu.getType() != CType.Bomb){
                 powerupTimer = 20;
-            } else if (changePu.getType() != CType.Star) {
-                invincible = true;
+                if (changePu.getType() == CType.Star) {
+                    invincible = true;
+                }
             }
 
             // Fall 1: Ersetzen Powerup
