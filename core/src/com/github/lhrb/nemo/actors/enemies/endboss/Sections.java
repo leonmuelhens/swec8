@@ -21,16 +21,7 @@ public class Sections extends EndBoss {
 
     @Override
     protected void setCharacteristics(Stage stage) {
-
-    }
-
-    @Override
-    protected void setSpecificCharacteristics(Stage stage) {
-        // nothing yet
-    }
-    @Override
-    protected void setSectionPosition(float x, float y) {
-        // nothing yet
+        hp = 10;
     }
 
     public boolean isDestroyed() {

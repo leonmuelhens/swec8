@@ -23,19 +23,6 @@ public class Uboot extends EndBoss {
 
     @Override
     protected void setCharacteristics(Stage stage) {
-        setSpecificCharacteristics(stage);
-
-        setRotation(0);
-        setAcceleration(1000);
-        setSpeedMax(75);
-        setDeceleration(1000000);
-        setShapePolygon(8);
-
-        hp = 5;
-        scoreValue = 100;
-    }
-
-    protected void setSpecificCharacteristics(Stage stage) {
         setAnimation(AnimationLoader.get().texture("uboot.png"));
 
         weapons = new Weapon[3];
@@ -47,6 +34,15 @@ public class Uboot extends EndBoss {
         sections[0] = new Sections(stage);
         sections[1] = new Sections(stage);
         sections[2] = new Sections(stage);
+
+        setRotation(0);
+        setAcceleration(1000);
+        setSpeedMax(75);
+        setDeceleration(1000000);
+        setShapePolygon(8);
+
+        hp = 10;
+        scoreValue = 100;
     }
 
     @Override

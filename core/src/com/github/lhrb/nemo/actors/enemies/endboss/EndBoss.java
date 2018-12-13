@@ -14,14 +14,4 @@ public abstract class EndBoss extends Enemy {
         super(stage);
         setCharacteristics(stage);
     }
-
-
-    protected void setSpecificCharacteristics(Stage stage) {
-        // nothing yet
-    }
-    protected void setSectionPosition(float x, float y) {
-        // nothing yet
-    }
-
-
 }
