@@ -30,8 +30,8 @@ public abstract class Enemy extends PhysicalActor{
         setCharacteristics(stage);
     }
     
-    int hp;
-    int scoreValue;
+    protected int hp;
+    protected int scoreValue;
     
     protected abstract void setCharacteristics(Stage stage);
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.GameOverScreen;
@@ -146,8 +147,10 @@ public class Player extends PhysicalActor implements PropertyListener{
     public void collision() {
         if (getStage() == null) System.out.println("stage null");
         for (Actor a : getStage().getActors()) {
-            if (a instanceof Enemy || a instanceof PowerUP) {
-                a.remove();
+            if ((a instanceof Enemy || a instanceof PowerUP)) {
+                if (!(a instanceof EndBoss)) {
+                    a.remove();
+                }
                 if (!gotHit) {
                     gotHit = true;
                     hitDelta = 0;
