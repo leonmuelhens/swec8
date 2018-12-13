@@ -22,6 +22,7 @@ import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * Simple player Implementation
@@ -205,7 +206,7 @@ public class Player extends PhysicalActor implements PropertyListener{
         if (!gotHit) {
             gotHit = true;
             hitDelta = 0;
-            //life -= 1;
+            SoundManager.getInstance().playSound("hit");
             changes.firePropertyChange("health", life, --life);
             if (life <= 0) {
                 playerDied();
