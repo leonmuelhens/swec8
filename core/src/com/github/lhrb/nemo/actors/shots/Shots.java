@@ -49,15 +49,6 @@ public abstract class Shots extends PhysicalActor {
         remove();
     }
 
-    @Override
-    public void collision(CollisionEvent col) {
-        if ((col.getPlayer().getPowerup() != null
-                && col.getPlayer().getPowerup().getType() != CType.Star)
-                || col.getPlayer().getPowerup() == null ) {
-            remove();
-        }
-    }
-
     public boolean isPlayerShot() { return isPlayerShot; }
 
 }

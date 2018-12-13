@@ -96,7 +96,11 @@ public class Player extends PhysicalActor implements PropertyListener{
     }
     
     public void addScore(int p) {
-        changes.firePropertyChange("score", score, (score += (p * multiplier)));
+        int factor = 1;
+        if ( powerup.getType() == CType.Multiplicator) {
+            factor = 3;
+        }
+        changes.firePropertyChange("score", score, (score += (factor * multiplier)));
     }
  
     
@@ -140,7 +144,7 @@ public class Player extends PhysicalActor implements PropertyListener{
                 // hier fehlt noch eine animation
                 for (Actor a : AbstractGame.getGameStage().getActors()) {
                     if (a instanceof Enemy) {
-                        ((Enemy) a).enemyDied(new CollisionEvent(this, (Enemy)a,null),true);
+                        ((Enemy) a).enemyDied(null,true);
                     }
                 }
             }
@@ -169,20 +173,6 @@ public class Player extends PhysicalActor implements PropertyListener{
     }
 
 
-    public void playerHit() {
-        GameManager.get().removeEnemiesAndShots();
-
-        if (!gotHit) {
-            gotHit = true;
-            hitDelta = 0;
-            //life -= 1;
-            changes.firePropertyChange("health", life, --life);
-            if (life <= 0) {
-                playerDied();
-            }
-        }
-    }
-
     public void playerDied() {
         KillingNemo.setActiveScreen(new GameOverScreen());
     }
@@ -194,18 +184,15 @@ public class Player extends PhysicalActor implements PropertyListener{
     public void collision(CollisionEvent col) {
         if (getStage() == null) System.out.println("stage null");
 
-        if (powerup == null) {
-            playerHit();
-        } else {
-            if (powerup.getType() != CType.Star) {
-                if (!col.isShot() || powerup.getType() != CType.Shield) {
-                    playerHit();
-                } else {
-                    /**
-                     * Hier eine Animation oder so? Opacity auf dem Player vielleicht?
-                     * oder wäre das zu viel des guten?
-                     */
-                }
+        GameManager.get().removeEnemiesAndShots();
+
+        if (!gotHit) {
+            gotHit = true;
+            hitDelta = 0;
+            //life -= 1;
+            changes.firePropertyChange("health", life, --life);
+            if (life <= 0) {
+                playerDied();
             }
         }
     }

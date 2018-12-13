@@ -5,34 +5,19 @@ import com.github.lhrb.nemo.actors.shots.Shots;
 
 public class CollisionEvent {
 
-    private Player player;
-    private Enemy enemy;
-    private Shots shot;
+    private PhysicalActor source, destiny;
 
-    public CollisionEvent(Player p, Enemy e, Shots s) {
-        this.player = p;
-        this.enemy = e;
-        this.shot = s;
+    public CollisionEvent(PhysicalActor source, PhysicalActor destiny) {
+        this.source = source;
+        this.destiny = source;
     }
 
 
-    public Player getPlayer() {
-        return player;
+    public PhysicalActor getSource() {
+        return source;
     }
 
-    public Enemy getEnemy() {
-        return enemy;
-    }
-
-    public Shots getShot() {
-        return shot;
-    }
-
-    public boolean isShot() {
-        if (shot != null) {
-            return true;
-        } else {
-            return false;
-        }
+    public PhysicalActor getDestiny() {
+        return destiny;
     }
 }

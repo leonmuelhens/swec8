@@ -43,25 +43,17 @@ public abstract class Enemy extends PhysicalActor{
      */
 
     public void enemyHit(CollisionEvent col) {
-        boolean isShot = col.isShot();
-        if (isShot) {
-            hp -= 1;
-            setColor(255, 0, 0, hp * 0.4f);
-        }
+        boolean isShot = col.getSource() instanceof Shots;
 
-        if (hp <= 0 || !isShot) {
-            enemyDied(col,false);
-        }
     }
 
     public void enemyDied(CollisionEvent col, boolean bomb) {
         if (getStage() != null) {
-            //test for multiplicator
-            if (col.isShot() || bomb) {
-                if (col.getPlayer().multi())
-                    GameManager.get().addScore(3 * scoreValue);
-                else
+            // col is null when bomb is thrown!
+            if ((col != null && col.getSource() instanceof Shots)  || bomb) {
+                if (col.getDestiny() instanceof Enemy) {
                     GameManager.get().addScore(scoreValue);
+                }
             }
             SoundManager.getInstance().playSound("explosion");
             //code below is bad
@@ -78,15 +70,14 @@ public abstract class Enemy extends PhysicalActor{
     }
 
     public void collision(CollisionEvent col) {
-        boolean isShot = col.isShot();
+        boolean isShot = col.getSource() instanceof Shots;
         if (isShot) {
-            enemyHit(col);
-        } else {
-            if ((col.getPlayer().getPowerup() != null
-                    && col.getPlayer().getPowerup().getType() != CType.Star)
-                    || col.getPlayer().getPowerup() == null ) {
-                enemyHit(col);
-            }
+            hp -= 1;
+            setColor(255, 0, 0, hp * 0.4f);
+        }
+
+        if (hp <= 0 || !isShot) {
+            enemyDied(col,false);
         }
     }
 }
