@@ -35,7 +35,7 @@ public class Sections extends EndBoss {
         if(hp <= 0) {
             if(getStage() != null) {
 
-                GameManager.getInstance().addScore(scoreValue);
+                GameManager.get().addScore(scoreValue);
                 SoundManager.getInstance().playSound("explosion");
 
                 //code below is bad
