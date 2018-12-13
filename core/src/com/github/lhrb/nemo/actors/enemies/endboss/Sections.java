@@ -22,6 +22,7 @@ public class Sections extends EndBoss {
     @Override
     protected void setCharacteristics(Stage stage) {
         hp = 10;
+        scoreValue = 100;
     }
 
     public boolean isDestroyed() {
