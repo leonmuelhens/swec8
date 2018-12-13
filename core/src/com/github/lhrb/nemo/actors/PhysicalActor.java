@@ -88,8 +88,12 @@ public class PhysicalActor extends ActorPrefab{
     /**
      * do something specifc
      */
-    public void collision() {
-                
-    }
+    public void collision(CollisionEvent col) {   }
+
+    /**
+     * this one is just used for actors which shall disappear
+     * we do not need to handle plaer or enemy actions
+     */
+    public void collision() { }
 
 }

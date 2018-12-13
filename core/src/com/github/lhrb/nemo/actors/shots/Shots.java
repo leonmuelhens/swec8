@@ -1,7 +1,9 @@
 package com.github.lhrb.nemo.actors.shots;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.PhysicalActor;
+import com.github.lhrb.nemo.actors.powerups.CType;
 
 public abstract class Shots extends PhysicalActor {
 
