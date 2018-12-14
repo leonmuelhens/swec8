@@ -6,7 +6,7 @@ package com.github.lhrb.nemo;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
-import com.github.lhrb.nemo.actors.powerups.PowerUP;
+import com.github.lhrb.nemo.actors.powerups.Collectibles;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.Player;
 
