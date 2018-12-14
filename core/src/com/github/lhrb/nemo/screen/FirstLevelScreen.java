@@ -17,6 +17,8 @@ public class FirstLevelScreen extends LevelScreen {
     public void init() {
         gameTime = 0F;
         level = 1;
+        soundVolume = 0f;
+        afterDeathTime = 5f;
 
         changes = new PropertyChangeSupport(this);
 

@@ -60,6 +60,9 @@ public class Uboot extends EndBoss {
         else {
             super.collision(col);
         }
+        if (hp <= 0) {
+            destroyed = true;
+        }
     }
 
     @Override
