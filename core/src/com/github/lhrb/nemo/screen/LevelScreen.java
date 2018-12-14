@@ -57,7 +57,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         }
-        else if (gameTime > 3*60 && endBoss == null) {
+        else if (gameTime >= 3*60 && endBoss == null) {
             if (this instanceof FirstLevelScreen) {
                 endBoss = new Uboot(gameStage);
                 endBoss.setPosition(gameStage.getWidth()/2,gameStage.getHeight());
