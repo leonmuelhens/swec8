@@ -33,4 +33,14 @@ public class FirstLevelScreen extends LevelScreen {
 
         factory = new EnemyFactory(gameStage);
     }
+
+    @Override
+    public void increaseVolume () {
+        // after 2.5seconds we reached the volume we want
+        if (gameTime / 10 > 0.25f) soundVolume = 0.25f;
+        else soundVolume = gameTime / 10;
+
+        System.out.println(soundVolume);
+        SoundManager.getInstance().setMusicStreamVolume("firstlevel",soundVolume);
+    }
 }

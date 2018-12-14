@@ -2,6 +2,7 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
@@ -23,8 +24,11 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     Background bg, bg2;
     EnemyFactory factory;
     EndBoss endBoss;
+    float soundVolume = 0f;
 
     PropertyChangeSupport changes;
+
+    public void increaseVolume () {    }
 
     @Override
     public void update(float delta) {
@@ -40,6 +44,10 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         // For testing
         if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
             gameTime += 3*60;
+        }
+
+        if (soundVolume < 0.25f) {
+            increaseVolume();
         }
 
 
