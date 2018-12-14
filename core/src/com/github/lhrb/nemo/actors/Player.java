@@ -20,6 +20,7 @@ import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 
+
 /**
  * Simple player Implementation
  * @author exa
@@ -133,7 +134,7 @@ public class Player extends PhysicalActor implements PropertyListener{
             weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
         }
-        
+
         applyPhysics(delta);
         setBoundToWorld();
     
