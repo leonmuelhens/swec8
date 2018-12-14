@@ -43,7 +43,7 @@ public class GameManager {
             if (a instanceof Enemy && !(a instanceof EndBoss)) {
                 ((Enemy) a).enemyDied(false);
             } else if (a instanceof Shots) {
-                a.remove();
+                ((Shots) a).collision();
             }
         }
     }
