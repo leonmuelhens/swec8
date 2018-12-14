@@ -126,12 +126,12 @@ public class MainMenuScreen extends AbstractScreen {
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        if (menuDelay < 3) {
+        if (menuDelay <=1) {
             menuDelay += delta;
         } else {
             mainMenu.setTransform(true);
             mainMenu.setVisible(true);
-            mainMenu.addAction(Actions.fadeIn(3f));
+            mainMenu.addAction(Actions.fadeIn(5f));
         }
     }
 
