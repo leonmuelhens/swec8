@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -49,6 +50,8 @@ public class MainMenuScreen extends AbstractScreen {
         TextButton hsBtn = new TextButton("High Score", style);
         TextButton keysBtn = new TextButton("Tastenbelegung", style);
         TextButton closeBtn = new TextButton("Beenden", style);
+
+        Label gameName = new Label("Killing Nemo", GuiManager.getInstance().getLabelStyleBig());
         
         startBtn.addListener(
                 (Event e) ->{
@@ -95,7 +98,9 @@ public class MainMenuScreen extends AbstractScreen {
         
 
         int size = 450;
-        
+
+        mainMenu.add(gameName).spaceBottom(40);
+        mainMenu.row();
         mainMenu.add(startBtn).width(size).spaceBottom(5);
         mainMenu.row();
         mainMenu.add(lvlBtn).width(size).spaceBottom(5);
@@ -105,7 +110,7 @@ public class MainMenuScreen extends AbstractScreen {
         mainMenu.add(keysBtn).width(size).spaceBottom(5);
         mainMenu.row();
         mainMenu.add(closeBtn).width( (size - 100) );
-        
+
         //guiStage.addActor(startBtn);
         guiStage.addActor(mainMenu);
         mainMenu.setVisible(false);
