@@ -67,7 +67,7 @@ public class CollisionManager {
                         if (e != null) {
                             e.collision(new CollisionEvent(s, e));
                         }
-                        s.collision();
+                        s.collision(null);
                     }
                 }
             }
@@ -77,7 +77,7 @@ public class CollisionManager {
                     if (s.overlap(p) && !s.isPlayerShot()) {
                         if (p != null) {
                             p.collision(new CollisionEvent(s, p));
-                            s.collision();
+                            s.collision(null);
                         }
                     }
                 }

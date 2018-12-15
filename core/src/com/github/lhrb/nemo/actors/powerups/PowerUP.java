@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.CollisionEvent;
+import com.github.lhrb.nemo.actors.Existence;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -12,7 +13,7 @@ import com.github.lhrb.nemo.util.SoundManager;
  * @author exa
  *
  */
-public class PowerUP extends PhysicalActor{
+public class PowerUP extends PhysicalActor implements Existence{
     CType type;
 
     public PowerUP(float x, float y, Stage stage, CType type) {
@@ -44,5 +45,11 @@ public class PowerUP extends PhysicalActor{
         super.act(delta);
         accelerationAtAngle(270);
         applyObjectPhysics(delta);
+    }
+
+    @Override
+    public void perish() {
+        // TODO Auto-generated method stub
+        
     }
 }

@@ -29,7 +29,7 @@ import com.github.lhrb.nemo.util.SoundManager;
  * @author exa
  * 
  */
-public class Player extends PhysicalActor implements PropertyListener{
+public class Player extends PhysicalActor implements PropertyListener, Existence{
 
     private PropertyChangeSupport changes = new PropertyChangeSupport(this);
     
@@ -175,14 +175,13 @@ public class Player extends PhysicalActor implements PropertyListener{
     
     }
 
-
-    public void playerDied() {
-        KillingNemo.setActiveScreen(new GameOverScreen());
+    
+    @Override
+    public void perish() {
+        KillingNemo.setActiveScreen(new GameOverScreen());        
     }
 
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
-     */
+    
     @Override
     public void collision(CollisionEvent col) {
         if (getStage() == null) System.out.println("stage null");
@@ -209,7 +208,7 @@ public class Player extends PhysicalActor implements PropertyListener{
             SoundManager.getInstance().playSound("hit");
             changes.firePropertyChange("health", life, --life);
             if (life <= 0) {
-                playerDied();
+                perish();
             }
             changePowerup(null);
         }
@@ -252,14 +251,12 @@ public class Player extends PhysicalActor implements PropertyListener{
         }
     }
 
-    public void collision(PowerUP pu){
-
-
-    }
 
     public boolean multi() {
         if (powerup != null)
             return (powerup.getType() == CType.Multiplicator);
         return false;
     }
+
+
 }
