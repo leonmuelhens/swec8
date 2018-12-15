@@ -9,6 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 
 /**

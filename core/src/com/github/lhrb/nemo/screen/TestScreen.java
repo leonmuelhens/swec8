@@ -5,6 +5,9 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.github.lhrb.nemo.actors.CollisionManager;
+import com.github.lhrb.nemo.actors.MultiPartActor;
+import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -14,28 +17,32 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  */
 public class TestScreen extends AbstractScreen {
     
-    Group test;
-    float sx = 0;
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
     @Override
     public void init() {
         
-        test = new Group();
-        Image back = new Image(AnimationLoader.get().texture("uboot_back.png").getKeyFrame(0));
-        Image middle = new Image(AnimationLoader.get().texture("uboot_middle.png").getKeyFrame(0));
-        Image front = new Image(AnimationLoader.get().texture("uboot_front.png").getKeyFrame(0));
         
-        test.addActor(back);
-        test.addActor(middle);
-        test.addActor(front);
+        MultiPartActor test = new MultiPartActor(0,200, gameStage);
+        PhysicalActor back = new PhysicalActor();
+        PhysicalActor middle = new PhysicalActor();
+        PhysicalActor front = new PhysicalActor();
+        back.setAnimation(AnimationLoader.get().texture("uboot_back.png"));
+        middle.setAnimation(AnimationLoader.get().texture("uboot_middle.png"));
+        front.setAnimation(AnimationLoader.get().texture("uboot_front.png"));
+        back.setShapePolygon(8);
+        middle.setShapePolygon(8);
+        front.setShapePolygon(8);
+        test.addPart(back, 0, 200);
+        test.addPart(middle, 72, 200);
+        test.addPart(front, 144, 200);
         
-        back.setPosition(0, 200);
-        middle.setPosition(72, 200);
-        front.setPosition(144, 200);
+        //back.setPosition(0, 200);
+        //middle.setPosition(72, 200);
+        //front.setPosition(144, 200);
         //test.setPosition(200, 200);
-        gameStage.addActor(test);
+        //gameStage.addActor(test);
         
         Player player = new Player(50,50, gameStage);
 
@@ -46,8 +53,8 @@ public class TestScreen extends AbstractScreen {
      */
     @Override
     public void update(float delta) {
+        CollisionManager.checkCollision(getPhysicalActors());
         // TODO Auto-generated method stub
-        test.setPosition(sx++, test.getOriginY());
     }
 
 }
