@@ -139,13 +139,13 @@ public class Uboot extends EndBoss {
     private class WeaponTorpedo extends Weapon {
 
         public WeaponTorpedo(Stage stage) {
-            super(stage, 8,0);
+            super(8,0);
         }
 
         @Override
         public void fire(float x, float y, float angle) {
             if (isReady()) {
-                new Torpedo(x,y,getStage(),angle);
+                new Torpedo(x,y,angle);
                 resetCooldownTimer();
             }
         }
@@ -154,13 +154,13 @@ public class Uboot extends EndBoss {
     private class WeaponBombdrop extends Weapon {
 
         public WeaponBombdrop(Stage stage) {
-            super(stage, 10,5);
+            super(10,5);
         }
 
         @Override
         public void fire(float x, float y, float angle) {
             if (isReady()) {
-                new Bomb(x,y,getStage(),angle);
+                new Bomb(x,y,angle);
                 resetCooldownTimer();
             }
         }

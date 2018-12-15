@@ -1,23 +1,25 @@
 package com.github.lhrb.nemo.actors.weapons;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.github.lhrb.nemo.KillingNemo;
 
-public abstract class Weapon extends ActorPrefab {
+
+public abstract class Weapon extends Actor{
 
     protected float cooldown;
     private float cooldownTimer;
 
-    public Weapon(Stage stage, float cooldown) {
-        super(0, 0, stage); // TODO: Waffenslot Grafik
-
+    public Weapon(float cooldown) {
+        super();
+        KillingNemo.getGameStage().addActor(this);
         this.cooldown = cooldown;
         this.cooldownTimer = cooldown;
+
     }
 
-    public Weapon(Stage stage, float cooldown, float initialCooldownTime)
+    public Weapon(float cooldown, float initialCooldownTime)
     {
-        this(stage,cooldown);
+        this(cooldown);
 
         this.cooldownTimer = initialCooldownTime;
     }
@@ -43,5 +45,6 @@ public abstract class Weapon extends ActorPrefab {
         super.act(delta);
 
         cooldownTimer += delta;
+        //System.out.println("hier");
     }
 }

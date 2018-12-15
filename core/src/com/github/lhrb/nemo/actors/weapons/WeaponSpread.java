@@ -8,25 +8,25 @@ public class WeaponSpread extends Weapon {
     private float angleModifier;
 
     public WeaponSpread(Stage stage) {
-        super(stage, 0.6f);
+        super(0.6f);
         angleModifier = 25;
     }
 
     public WeaponSpread(Stage stage, float cooldown) {
-        super(stage, cooldown);
+        super(cooldown);
     }
 
     public WeaponSpread(Stage stage, float cooldown,float angleModifier) {
-        super(stage, cooldown);
+        super(cooldown);
         this.angleModifier = angleModifier;
     }
 
     @Override
     public void fire(float x, float y, float angle) {
         if (isReady()) {
-            new SingleShot(x, y, getStage(), angle - angleModifier);
-            new SingleShot(x, y, getStage(), angle);
-            new SingleShot(x, y, getStage(), angle + angleModifier);
+            new SingleShot(x, y, angle - angleModifier);
+            new SingleShot(x, y, angle);
+            new SingleShot(x, y, angle + angleModifier);
             resetCooldownTimer();
 
             SoundManager.getInstance().playSound("laser");

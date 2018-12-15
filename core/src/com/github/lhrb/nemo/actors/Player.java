@@ -53,7 +53,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         life = 3;
         score = 0;
 
-        weapon = new WeaponNormal(getStage());
+        weapon = new WeaponNormal();
+        stage.addActor(weapon);
         powerup = null;
         powerupTimer = 0;
         invincible = false;
@@ -156,7 +157,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon.remove();
-            weapon = new WeaponNormal(getStage());
+            weapon = new WeaponNormal();
             changes.firePropertyChange("wpn", null, CType.Normal);
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
@@ -166,7 +167,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
             weapon.remove();
-            weapon = new WeaponLaser(getStage());
+            weapon = new WeaponLaser();
             changes.firePropertyChange("wpn", null, CType.Laser);
         }
         
