@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * @author exa
  *
  */
-public class EnemyActor extends PhysicalActor{
+public class EnemyActor extends PhysicalActor implements Existence{
     
     protected int hp;
     protected int scoreValue;
@@ -20,6 +20,18 @@ public class EnemyActor extends PhysicalActor{
     
     public EnemyActor(float x, float y, Stage stage) {
         super(x, y, stage);
+    }
+
+    @Override
+    public void perish() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void collision(CollisionEvent col) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
