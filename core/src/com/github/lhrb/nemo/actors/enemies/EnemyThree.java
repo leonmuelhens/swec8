@@ -24,8 +24,8 @@ public class EnemyThree extends EnemyActor {
         setDeceleration(1000000);
         setShapePolygon(8);
 
-        hp = 3;
-        scoreValue = 2;
+        setHp(3);
+        setScoreValue(2);
 
         weapon = new WeaponNormal(fireRate);
     }

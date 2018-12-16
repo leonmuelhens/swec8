@@ -22,8 +22,8 @@ public class Sections extends EndBoss {
 
     @Override
     protected void setCharacteristics() {
-        hp = 10;
-        scoreValue = 100;
+        setHp(10);
+        setScoreValue(100);
     }
 
     public boolean isDestroyed() {
@@ -33,13 +33,13 @@ public class Sections extends EndBoss {
     @Override
     public void collision(CollisionEvent col) {
         if (col.getSource() instanceof Shots) {
-            hp -= 1;
+            decreaseHp();
         }
 
-        if(hp <= 0) {
+        if(getHp() <= 0) {
             if(getStage() != null) {
 
-                GameManager.get().addScore(scoreValue);
+                GameManager.get().addScore(getScoreValue());
                 SoundManager.getInstance().playSound("explosion");
 
                 //code below is bad

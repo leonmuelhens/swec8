@@ -42,8 +42,8 @@ public class Uboot extends EndBoss {
         setDeceleration(1000000);
         setShapePolygon(8);
 
-        hp = 10;
-        scoreValue = 100;
+        setHp(10);
+        setScoreValue(100);
     }
 
     @Override

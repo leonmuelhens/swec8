@@ -54,7 +54,6 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         powerup = null;
         powerupTimer = 0;
         invincible = false;
-
         setShapePolygon(8);
         gotHit = false;
 
@@ -250,9 +249,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
 
 
     public boolean multi() {
-        if (powerup != null)
-            return (powerup.getType() == CType.Multiplicator);
-        return false;
+        return powerup != null && powerup.getType() == CType.Multiplicator;
     }
 
 

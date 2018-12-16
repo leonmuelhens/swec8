@@ -25,10 +25,9 @@ public class EnemyOne extends EnemyActor {
         setDeceleration(0);
         setShapePolygon(8);
 
-        hp = 2;
-        scoreValue = 1;
-        
-      
+        setHp(2);
+        setScoreValue(1);
+              
         weaponleft = new WeaponNormal(fireRate);
         weaponright = new WeaponNormal(fireRate);
     }

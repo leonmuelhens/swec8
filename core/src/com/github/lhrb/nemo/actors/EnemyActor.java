@@ -15,8 +15,8 @@ import com.github.lhrb.nemo.util.SoundManager;
 
 public class EnemyActor extends PhysicalActor implements Existence{
     
-    protected int hp;
-    protected int scoreValue;
+    private int hp;
+    private int scoreValue;
 
     public EnemyActor() {
         super();
@@ -58,8 +58,38 @@ public class EnemyActor extends PhysicalActor implements Existence{
                perish();
            }
        }
-       
-        
+    }
+
+    /**
+     * @return the hp
+     */
+    protected int getHp() {
+        return hp;
+    }
+
+    /**
+     * @param hp the hp to set
+     */
+    protected void setHp(int hp) {
+        this.hp = hp;
+    }
+    
+    protected void decreaseHp() {
+        hp--;
+    }
+
+    /**
+     * @return the scoreValue
+     */
+    protected int getScoreValue() {
+        return scoreValue;
+    }
+
+    /**
+     * @param scoreValue the scoreValue to set
+     */
+    protected void setScoreValue(int scoreValue) {
+        this.scoreValue = scoreValue;
     }
 
 }
