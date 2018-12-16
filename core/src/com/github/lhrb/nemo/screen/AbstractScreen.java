@@ -48,6 +48,8 @@ public abstract class AbstractScreen implements Screen, InputProcessor{
        for(Actor e : gameStage.getActors()) {
            if(e instanceof PhysicalActor) {
                list.add( (PhysicalActor)e );
+           }else if(e instanceof MultiPartActor) {
+               list.addAll(((MultiPartActor) e).getPartCollection());
            }
        }
        return list;

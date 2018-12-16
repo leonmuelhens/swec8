@@ -13,11 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class MultiPartActor extends ActorPrefab {
     
-    ArrayList<PhysicalActor> parts;
+    ArrayList<Section> parts;
     
     public MultiPartActor(float x, float y, Stage stage) {
         super(x,y,stage);
-        parts = new ArrayList<PhysicalActor>();
+        parts = new ArrayList<Section>();
     }
     
     
@@ -26,18 +26,20 @@ public class MultiPartActor extends ActorPrefab {
      * 
      * @param pA
      */
-    public void addPart(PhysicalActor e) {
+    public void addPart(Section e) {
         if(parts == null) return;
         parts.add(e);
         this.addActor(e);
     }
     
-    public void addPart(PhysicalActor e, float x, float y) {
-        e.setPosition(x, y);
-        addPart(e);
+    
+    public void handleCollision(Section section) {
+        if(section.getDmg()) {
+            section.perish();
+        }
     }
     
-    public ArrayList<PhysicalActor> getPartCollection(){
+    public ArrayList<Section> getPartCollection(){
         return parts;
     }
     

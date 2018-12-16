@@ -4,6 +4,7 @@
 package com.github.lhrb.nemo.actors;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.github.lhrb.nemo.actors.shots.Shots;
 
 /**
  * @author exa
@@ -13,13 +14,34 @@ public class Section extends EnemyActor {
     
     private MultiPartActor parent;
     
+    /**
+     * 
+     * @param parent
+     * @param x
+     * @param y
+     * @param hp
+     * @param score
+     * @param texture
+     */
     public Section(MultiPartActor parent, float x, float y, 
-                   Animation<TextureRegion> texture) {
+                   int hp, int score, Animation<TextureRegion> texture) {
         super();
         this.parent = parent;
         setPosition(x, y);
         setAnimation(texture);
+        setHp(hp);
+        setScoreValue(score);
+        setShapePolygon(8);
         parent.addActor(this);
+    }
+    
+    /**
+     * 
+     * @return true if hp is zero or less
+     */
+    public boolean getDmg() {
+        decreaseHp();
+        return (getHp() <= 0);
     }
 
     /* (non-Javadoc)
@@ -36,8 +58,10 @@ public class Section extends EnemyActor {
      */
     @Override
     public void collision(CollisionEvent col) {
-        // TODO Auto-generated method stub
-        super.collision(col);
+        if(col == null) return;
+        if(col.getSource() instanceof Shots) {
+            parent.handleCollision(this);
+        }
     }
 
 }

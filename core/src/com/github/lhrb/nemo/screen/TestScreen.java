@@ -9,6 +9,7 @@ import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.Section;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
@@ -25,18 +26,14 @@ public class TestScreen extends AbstractScreen {
         
         
         MultiPartActor test = new MultiPartActor(0,200, gameStage);
-        PhysicalActor back = new PhysicalActor();
-        PhysicalActor middle = new PhysicalActor();
-        PhysicalActor front = new PhysicalActor();
-        back.setAnimation(AnimationLoader.get().texture("uboot_back.png"));
-        middle.setAnimation(AnimationLoader.get().texture("uboot_middle.png"));
-        front.setAnimation(AnimationLoader.get().texture("uboot_front.png"));
-        back.setShapePolygon(8);
-        middle.setShapePolygon(8);
-        front.setShapePolygon(8);
-        test.addPart(back, 0, 200);
-        test.addPart(middle, 72, 200);
-        test.addPart(front, 144, 200);
+        
+        Section back = new Section(test, 0, 200, 5, 5, AnimationLoader.get().texture("uboot_back.png"));
+        Section middle = new Section(test, 72, 200, 5, 5, AnimationLoader.get().texture("uboot_middle.png"));
+        Section front = new Section(test, 144, 200, 5, 5, AnimationLoader.get().texture("uboot_front.png"));
+
+        test.addPart(back);
+        test.addPart(middle);
+        test.addPart(front);
         
         //back.setPosition(0, 200);
         //middle.setPosition(72, 200);
