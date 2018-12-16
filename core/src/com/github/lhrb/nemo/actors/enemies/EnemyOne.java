@@ -15,6 +15,7 @@ public class EnemyOne extends EnemyActor {
 
     private Weapon weaponleft;
     private Weapon weaponright;
+    private float fireRate = 3f;
     
     public void setCharacteristics() {
         setAnimation(AnimationLoader.get().texture("gegner1.png"));
@@ -26,9 +27,10 @@ public class EnemyOne extends EnemyActor {
 
         hp = 2;
         scoreValue = 1;
-
-        weaponleft = new WeaponNormal(3f);
-        weaponright = new WeaponNormal(3f);
+        
+      
+        weaponleft = new WeaponNormal(fireRate);
+        weaponright = new WeaponNormal(fireRate);
     }
 
         /**
@@ -44,7 +46,7 @@ public class EnemyOne extends EnemyActor {
             applyObjectPhysics(delta);
             
             
-            if(getElapsedTime() > 2) { // muss man mal testen ob sich das bei unterschiedlichen rechner gleich verhält
+            if(getElapsedTime() > 2f) { // muss man mal testen ob sich das bei unterschiedlichen rechner gleich verhält
                 weaponleft.fire(getX() + (getWidth() / 2) - 20, getY() - 30, 270);
                 weaponright.fire(getX() + (getWidth() / 2) + 20, getY() - 30, 270);
             }

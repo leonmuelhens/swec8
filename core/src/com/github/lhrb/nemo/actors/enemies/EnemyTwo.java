@@ -14,6 +14,7 @@ public class EnemyTwo extends EnemyActor {
      */
 
     private Weapon weapon;
+    private float fireRate = 3f;
 
     public void setCharacteristics() {
         
@@ -27,7 +28,7 @@ public class EnemyTwo extends EnemyActor {
         hp = 4;
         scoreValue = 3;
 
-        weapon = new WeaponSpread(2.8f, 45f);
+        weapon = new WeaponSpread(fireRate, 45f);
     }
 
     /**
@@ -36,12 +37,19 @@ public class EnemyTwo extends EnemyActor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        weapon.act(delta);
+        
         accelerationAtAngle(270);
-
         applyObjectPhysics(delta);
-
+        
+        if(getElapsedTime() > 4f) {
+            weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
+        }
+        
+        /**
         if (getStage() != null && getY() + getHeight() - 10 < getStage().getHeight()) {
             weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
         }
+        */
     }
 }

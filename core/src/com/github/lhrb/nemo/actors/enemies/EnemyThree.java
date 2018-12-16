@@ -14,6 +14,7 @@ public class EnemyThree extends EnemyActor {
      */
 
     private Weapon weapon;
+    private float fireRate = 3f;
 
     public void setCharacteristics() {
         setAnimation(AnimationLoader.get().texture("gegner3.png"));
@@ -26,7 +27,7 @@ public class EnemyThree extends EnemyActor {
         hp = 3;
         scoreValue = 2;
 
-        weapon = new WeaponNormal(2.2f);
+        weapon = new WeaponNormal(fireRate);
     }
 
     /**
@@ -35,12 +36,18 @@ public class EnemyThree extends EnemyActor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        weapon.act(delta);
         accelerationAtAngle(270);
-
         applyObjectPhysics(delta);
-
+        
+        if(getElapsedTime() > 0.8f) {
+            weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
+        }
+        
+        /**
         if (getStage() != null && getY() + getHeight() - 10 < getStage().getHeight()) {
             weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
         }
+        */
     }
 }
