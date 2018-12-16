@@ -1,7 +1,7 @@
 package com.github.lhrb.nemo.SpawnFactory;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.enemies.EnemyOne;
 import com.github.lhrb.nemo.actors.enemies.EnemyThree;
 import com.github.lhrb.nemo.actors.enemies.EnemyTwo;
@@ -35,14 +35,14 @@ public class EnemyFactory {
         Random unitRand = new Random();
         int randomInt = unitRand.nextInt(100);
 
-        Enemy newEnemy;
+        EnemyActor newEnemy;
 
         if(randomInt <= spawnB[level][0]) {
-            newEnemy = new EnemyOne(gameStage);
+            newEnemy = new EnemyOne();
         } else if (randomInt <= spawnB[level][1]) {
-            newEnemy = new EnemyTwo(gameStage);
+            newEnemy = new EnemyTwo();
         } else {
-            newEnemy = new EnemyThree(gameStage);
+            newEnemy = new EnemyThree();
         }
 
         Random xCoord = new Random();

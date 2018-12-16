@@ -13,12 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.AbstractGame;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
-import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.*;
-import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
@@ -148,8 +145,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             if (powerup != null && powerup.getType() == CType.Bomb) {
                 // hier fehlt noch eine animation
                 for (Actor a : AbstractGame.getGameStage().getActors()) {
-                    if (a instanceof Enemy) {
-                        ((Enemy) a).enemyDied(true);
+                    if (a instanceof EnemyActor) {
+                        ((EnemyActor) a).perish();
                     }
                 }
                 changePowerup(null);

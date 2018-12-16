@@ -12,10 +12,7 @@ import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
 
-/**
- * @author exa
- *
- */
+
 public class EnemyActor extends PhysicalActor implements Existence{
     
     protected int hp;
@@ -23,21 +20,21 @@ public class EnemyActor extends PhysicalActor implements Existence{
 
     public EnemyActor() {
         super();
+        setCharacteristics();
     }
-    
-    public EnemyActor(Stage stage) {
-        super();
-        this.setStage(stage);
-    }
-    
+        
     public EnemyActor(float x, float y, Stage stage) {
         super(x, y, stage);
+        setCharacteristics();
     }
+    
+    
+    protected void setCharacteristics() {}
 
     @Override
     public void perish() {        
+        
         GameManager.get().addScore(scoreValue);
-
         SoundManager.getInstance().playSound("explosion");
         //code below is bad
         new ActorPrefab(getX(), getY(), getStage())

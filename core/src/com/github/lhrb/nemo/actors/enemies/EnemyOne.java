@@ -1,14 +1,12 @@
 package com.github.lhrb.nemo.actors.enemies;
 
+import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponNormal;
 import com.github.lhrb.nemo.util.AnimationLoader;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class EnemyOne extends Enemy {
-    public EnemyOne(Stage stage) {
-        super(stage);
-    }
+public class EnemyOne extends EnemyActor {
+
     /**
      * Simple Enemie Implementation
      * @author Thorsten Rösler
@@ -17,8 +15,8 @@ public class EnemyOne extends Enemy {
 
     private Weapon weaponleft;
     private Weapon weaponright;
-
-    public void setCharacteristics(Stage stage) {
+    
+    public void setCharacteristics() {
         setAnimation(AnimationLoader.get().texture("gegner1.png"));
         setRotation(180);
         setAcceleration(1000);
@@ -44,11 +42,19 @@ public class EnemyOne extends Enemy {
             accelerationAtAngle(270);
 
             applyObjectPhysics(delta);
-
+            
+            
+            if(getElapsedTime() > 2) { // muss man mal testen ob sich das bei unterschiedlichen rechner gleich verhält
+                weaponleft.fire(getX() + (getWidth() / 2) - 20, getY() - 30, 270);
+                weaponright.fire(getX() + (getWidth() / 2) + 20, getY() - 30, 270);
+            }
+            
+            /**
             if (getStage() != null && getY() + getHeight() - 10 < getStage().getHeight()) {
                 weaponleft.fire(getX() + (getWidth() / 2) - 20, getY() - 30, 270);
                 weaponright.fire(getX() + (getWidth() / 2) + 20, getY() - 30, 270);
             }
+            */
         }
 
 }

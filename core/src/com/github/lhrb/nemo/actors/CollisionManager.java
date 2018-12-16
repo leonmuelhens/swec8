@@ -3,8 +3,6 @@
  */
 package com.github.lhrb.nemo.actors;
 
-import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.powerups.PowerUP;
 import com.github.lhrb.nemo.actors.shots.Shots;
 
@@ -19,7 +17,7 @@ public class CollisionManager {
     public static void checkCollision(ArrayList<PhysicalActor> list) {
         ArrayList<Player> player = new ArrayList<Player>();
         ArrayList<Shots> shots = new ArrayList<Shots>();
-        ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+        ArrayList<EnemyActor> enemies = new ArrayList<EnemyActor>();
         ArrayList<PowerUP> powerups = new ArrayList<PowerUP>();
         for (PhysicalActor e : list) {
             if (e instanceof Player) {
@@ -28,8 +26,8 @@ public class CollisionManager {
             if (e instanceof Shots) {
                 shots.add((Shots) e);
             }
-            if (e instanceof Enemy) {
-                enemies.add((Enemy) e);
+            if (e instanceof EnemyActor) {
+                enemies.add((EnemyActor) e);
             }
             if (e instanceof PowerUP) {
                 powerups.add((PowerUP) e);
@@ -49,7 +47,7 @@ public class CollisionManager {
 
         // Collision Source sollte immer der Schuss oder der Gegner sein
         for (Player p : player) {
-            for (Enemy e : enemies) {
+            for (EnemyActor e : enemies) {
                 if (!p.isInvincible()) {
                     // Enemy collosion with player
                     if (e.overlap(p)) {

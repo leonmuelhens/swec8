@@ -1,14 +1,12 @@
 package com.github.lhrb.nemo.actors.enemies;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponNormal;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class EnemyThree extends Enemy {
-    public EnemyThree(Stage stage) {
-        super(stage);
-    }
+public class EnemyThree extends EnemyActor {
+
     /**
      * Simple Enemie Implementation
      * @author Thorsten Rösler
@@ -17,7 +15,7 @@ public class EnemyThree extends Enemy {
 
     private Weapon weapon;
 
-    public void setCharacteristics(Stage stage) {
+    public void setCharacteristics() {
         setAnimation(AnimationLoader.get().texture("gegner3.png"));
         //setRotation(180);
         setAcceleration(1000);

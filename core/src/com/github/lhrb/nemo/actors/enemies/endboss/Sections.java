@@ -15,14 +15,13 @@ public class Sections extends EndBoss {
 
     Stage parentStage;
 
-    public Sections(Stage stage) {
-        super(stage);
-        parentStage = stage;
+    public Sections() {
+        super();
         setAnimation(null);
     }
 
     @Override
-    protected void setCharacteristics(Stage stage) {
+    protected void setCharacteristics() {
         hp = 10;
         scoreValue = 100;
     }
@@ -55,10 +54,6 @@ public class Sections extends EndBoss {
         }
     }
 
-    @Override
-    public Stage getStage() {
-        return parentStage;
-    }
 
     @Override
     public void act(float delta) {

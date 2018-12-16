@@ -214,7 +214,9 @@ public class ActorPrefab extends Group {
     }
 
     
-    
+    public float getElapsedTime() {
+        return elapsedTime;
+    }
 
     /**
      * updates the actor based on time

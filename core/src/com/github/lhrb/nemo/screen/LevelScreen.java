@@ -48,7 +48,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         else if (gameTime > 3*60 && endBoss == null) {
             if (this instanceof FirstLevelScreen) {
-                endBoss = new Uboot(gameStage);
+                endBoss = new Uboot();
                 endBoss.setPosition(gameStage.getWidth()/2,gameStage.getHeight());
                 gameStage.addActor(endBoss);
             }

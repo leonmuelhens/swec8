@@ -18,23 +18,23 @@ public class Uboot extends EndBoss {
 
     private float moveAngle;
 
-    public Uboot(Stage stage) {
-        super(stage);
+    public Uboot() {
+        super();
     }
 
     @Override
-    protected void setCharacteristics(Stage stage) {
+    protected void setCharacteristics() {
         setAnimation(AnimationLoader.get().texture("uboot.png"));
 
         weapons = new Weapon[3];
-        weapons[0] = new WeaponSalve(stage);
-        weapons[1] = new WeaponTorpedo(stage);
-        weapons[2] = new WeaponBombdrop(stage);
+        weapons[0] = new WeaponSalve();
+        weapons[1] = new WeaponTorpedo();
+        weapons[2] = new WeaponBombdrop();
 
         sections = new Sections[3];
-        sections[0] = new Sections(stage);
-        sections[1] = new Sections(stage);
-        sections[2] = new Sections(stage);
+        sections[0] = new Sections();
+        sections[1] = new Sections();
+        sections[2] = new Sections();
 
         setRotation(0);
         setAcceleration(1000);
@@ -117,7 +117,7 @@ public class Uboot extends EndBoss {
             super(cooldown);
         }
 
-        public WeaponSalve(Stage stage) {
+        public WeaponSalve() {
             super(12, 45);
         }
 
@@ -138,7 +138,7 @@ public class Uboot extends EndBoss {
 
     private class WeaponTorpedo extends Weapon {
 
-        public WeaponTorpedo(Stage stage) {
+        public WeaponTorpedo() {
             super(8,0);
         }
 
@@ -153,7 +153,7 @@ public class Uboot extends EndBoss {
 
     private class WeaponBombdrop extends Weapon {
 
-        public WeaponBombdrop(Stage stage) {
+        public WeaponBombdrop() {
             super(10,5);
         }
 
