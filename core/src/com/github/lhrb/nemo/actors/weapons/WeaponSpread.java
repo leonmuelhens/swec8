@@ -1,22 +1,21 @@
 package com.github.lhrb.nemo.actors.weapons;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.shots.SingleShot;
 import com.github.lhrb.nemo.util.SoundManager;
 
 public class WeaponSpread extends Weapon {
     private float angleModifier;
 
-    public WeaponSpread(Stage stage) {
+    public WeaponSpread() {
         super(0.6f);
         angleModifier = 25;
     }
 
-    public WeaponSpread(Stage stage, float cooldown) {
+    public WeaponSpread(float cooldown) {
         super(cooldown);
     }
 
-    public WeaponSpread(Stage stage, float cooldown,float angleModifier) {
+    public WeaponSpread(float cooldown,float angleModifier) {
         super(cooldown);
         this.angleModifier = angleModifier;
     }

@@ -8,7 +8,7 @@ public class Laser extends Shots {
     public Laser(float x, float y, float angle) {
         super(x, y, angle);
 
-        setAnimation(AnimationLoader.get().texture("SchussLaser.png"));
+        setAnimation(AnimationLoader.get().texture("SchussLaser.png"));      
         setSpeedMax(1600);
         setAcceleration(30000);
         setShapePolygon(8);

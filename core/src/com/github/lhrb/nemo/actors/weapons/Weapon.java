@@ -1,20 +1,13 @@
 package com.github.lhrb.nemo.actors.weapons;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.github.lhrb.nemo.KillingNemo;
-
-
-public abstract class Weapon extends Actor{
+public abstract class Weapon {
 
     protected float cooldown;
-    private float cooldownTimer;
+    protected float cooldownTimer;
 
-    public Weapon(float cooldown) {
-        super();
-        KillingNemo.getGameStage().addActor(this);
+    public Weapon(float cooldown) {        
         this.cooldown = cooldown;
         this.cooldownTimer = cooldown;
-
     }
 
     public Weapon(float cooldown, float initialCooldownTime)
@@ -40,11 +33,8 @@ public abstract class Weapon extends Actor{
      */
     public abstract void fire(float x, float y, float angle);
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
 
+    public void act(float delta) {
         cooldownTimer += delta;
-        //System.out.println("hier");
     }
 }

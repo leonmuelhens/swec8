@@ -113,12 +113,12 @@ public class Uboot extends EndBoss {
 
         private int shotsFiredinSalve = 0;
 
-        public WeaponSalve(Stage stage, float cooldown) {
-            super(stage, cooldown);
+        public WeaponSalve(float cooldown) {
+            super(cooldown);
         }
 
         public WeaponSalve(Stage stage) {
-            super(stage,12, 45);
+            super(12, 45);
         }
 
         @Override

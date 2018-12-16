@@ -23,14 +23,14 @@ public class EnemyOne extends Enemy {
         setRotation(180);
         setAcceleration(1000);
         setSpeedMax(75);
-        setDeceleration(1000000);
+        setDeceleration(0);
         setShapePolygon(8);
 
         hp = 2;
         scoreValue = 1;
 
-        weaponleft = new WeaponNormal(1.6f);
-        weaponright = new WeaponNormal(1.6f);
+        weaponleft = new WeaponNormal(3f);
+        weaponright = new WeaponNormal(3f);
     }
 
         /**
@@ -39,6 +39,8 @@ public class EnemyOne extends Enemy {
         @Override
         public void act(float delta) {
             super.act(delta);
+            weaponleft.act(delta);
+            weaponright.act(delta);
             accelerationAtAngle(270);
 
             applyObjectPhysics(delta);
