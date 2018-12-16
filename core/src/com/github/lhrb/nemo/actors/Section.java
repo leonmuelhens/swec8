@@ -27,11 +27,11 @@ public class Section extends EnemyActor {
                    int hp, int score, Animation<TextureRegion> texture) {
         super();
         this.parent = parent;
-        setPosition(x, y);
+        setPosition(parent.getX()+x, parent.getY()+y);
         setAnimation(texture);
         setHp(hp);
         setScoreValue(score);
-        setShapePolygon(8);
+        setShapePolygon(4);
         parent.addActor(this);
     }
     

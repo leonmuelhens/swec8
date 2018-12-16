@@ -27,9 +27,9 @@ public class TestScreen extends AbstractScreen {
         
         MultiPartActor test = new MultiPartActor(0,200, gameStage);
         
-        Section back = new Section(test, 0, 200, 5, 5, AnimationLoader.get().texture("uboot_back.png"));
-        Section middle = new Section(test, 72, 200, 5, 5, AnimationLoader.get().texture("uboot_middle.png"));
-        Section front = new Section(test, 144, 200, 5, 5, AnimationLoader.get().texture("uboot_front.png"));
+        Section back = new Section(test, 0, 0, 5, 5, AnimationLoader.get().texture("uboot_back.png"));
+        Section middle = new Section(test, 72, 0, 5, 5, AnimationLoader.get().texture("uboot_middle.png"));
+        Section front = new Section(test, 144, 0, 5, 5, AnimationLoader.get().texture("uboot_front.png"));
 
         test.addPart(back);
         test.addPart(middle);

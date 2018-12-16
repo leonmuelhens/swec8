@@ -29,12 +29,12 @@ public class MultiPartActor extends ActorPrefab {
     public void addPart(Section e) {
         if(parts == null) return;
         parts.add(e);
-        this.addActor(e);
     }
     
     
     public void handleCollision(Section section) {
         if(section.getDmg()) {
+            parts.remove(section);
             section.perish();
         }
     }
