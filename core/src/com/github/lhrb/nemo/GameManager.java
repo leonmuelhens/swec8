@@ -10,6 +10,7 @@ import com.github.lhrb.nemo.actors.powerups.PowerUP;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.util.Highscore;
+import com.github.lhrb.nemo.util.Serialization;
 
 import java.util.ArrayList;
 
@@ -24,17 +25,7 @@ public class GameManager {
     
     private static GameManager gameMng;
 
-    private ArrayList<Highscore> highscores= new ArrayList<Highscore>(){{add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));
-        add(new Highscore("Test", 0));}};
+    private ArrayList<Highscore> highscores= new ArrayList<Highscore>();
 
     private GameManager() {
         
@@ -77,7 +68,7 @@ public class GameManager {
     }
 
     public ArrayList<Highscore> getHighscores(){
-
+        highscores = Serialization.deserialise();
         return highscores;
     }
     
@@ -85,7 +76,7 @@ public class GameManager {
         for (Highscore highscore : highscores = scores) {
             
         }
-        ;
+        Serialization.serialise(highscores);
     }
 
     

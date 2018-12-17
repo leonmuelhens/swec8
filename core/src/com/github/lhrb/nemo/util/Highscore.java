@@ -1,6 +1,8 @@
 package com.github.lhrb.nemo.util;
 
-public class Highscore {
+import java.io.Serializable;
+
+public class Highscore implements Serializable {
     private String name="";
     private int score=0;
 

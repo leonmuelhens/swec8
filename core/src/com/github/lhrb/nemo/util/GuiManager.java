@@ -7,12 +7,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 /**
@@ -29,6 +33,8 @@ public class GuiManager {
     private TextButtonStyle txtBtnStyleLittle;
     private TextButtonStyle txtBtnStyleBig;
 
+    private TextFieldStyle txtFldStyle;
+
     private GuiManager() {
         // Create Label Styles
         labelStyle = new LabelStyle(createFont(24),Color.WHITE);
@@ -38,6 +44,11 @@ public class GuiManager {
         txtBtnStyle = new TextButtonStyle(createTextButtonStyle(36));
         txtBtnStyleLittle = new TextButtonStyle(createTextButtonStyle(24));
         txtBtnStyleBig = new TextButtonStyle(createTextButtonStyle(48));
+
+        //Create TextField Style
+        txtFldStyle =new TextFieldStyle();
+        txtFldStyle.font = new BitmapFont();
+        txtFldStyle.fontColor = Color.WHITE;
 
     }
 
@@ -103,5 +114,7 @@ public class GuiManager {
     public TextButtonStyle getTxtBtnStyleSmall() {
         return txtBtnStyleLittle;
     }
+
+    public TextFieldStyle getTxtFldStyle(){return txtFldStyle;}
     
 }
