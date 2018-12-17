@@ -26,13 +26,19 @@ public class Section extends EnemyActor {
     public Section(MultiPartActor parent, float x, float y, 
                    int hp, int score, Animation<TextureRegion> texture) {
         super();
-        this.parent = parent;
-        setPosition(parent.getX()+x, parent.getY()+y);
+        this.parent = parent;        
         setAnimation(texture);
+        setPosition(x,y);
         setHp(hp);
         setScoreValue(score);
         setShapePolygon(4);
         parent.addActor(this);
+        debuug();
+    }
+    
+    public void debuug() {
+        System.out.println("X: " + getX() + " Y: " + getY() 
+                           +"\n OX: " + getOriginX() + " OY: " + getOriginY());
     }
     
     /**

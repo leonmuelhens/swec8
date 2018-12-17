@@ -15,7 +15,7 @@ public class EnemyOne extends EnemyActor {
 
     private Weapon weaponleft;
     private Weapon weaponright;
-    private float fireRate = 3f;
+    private float fireRate;
     
     public void setCharacteristics() {
         setAnimation(AnimationLoader.get().texture("gegner1.png"));
@@ -27,7 +27,7 @@ public class EnemyOne extends EnemyActor {
 
         setHp(2);
         setScoreValue(1);
-              
+        fireRate = 3f;      
         weaponleft = new WeaponNormal(fireRate);
         weaponright = new WeaponNormal(fireRate);
     }

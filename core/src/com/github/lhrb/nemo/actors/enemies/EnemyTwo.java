@@ -14,7 +14,7 @@ public class EnemyTwo extends EnemyActor {
      */
 
     private Weapon weapon;
-    private float fireRate = 3f;
+    private float fireRate;
 
     public void setCharacteristics() {
         
@@ -27,7 +27,7 @@ public class EnemyTwo extends EnemyActor {
 
         setHp(4);
         setScoreValue(3);
-
+        fireRate = 3f;  
         weapon = new WeaponSpread(fireRate, 45f);
     }
 

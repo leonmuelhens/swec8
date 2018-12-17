@@ -14,7 +14,7 @@ public class EnemyThree extends EnemyActor {
      */
 
     private Weapon weapon;
-    private float fireRate = 3f;
+    private float fireRate;
 
     public void setCharacteristics() {
         setAnimation(AnimationLoader.get().texture("gegner3.png"));
@@ -26,7 +26,7 @@ public class EnemyThree extends EnemyActor {
 
         setHp(3);
         setScoreValue(2);
-
+        fireRate = 3f;  
         weapon = new WeaponNormal(fireRate);
     }
 
