@@ -160,7 +160,7 @@ public class Player extends PhysicalActor implements PropertyListener{
 
         if(Gdx.input.isKeyPressed(Keys.ESCAPE)) {
             KillingNemo.getActiveScreen().pause();
-            KillingNemo.setActiveScreen(new OptionScreen());
+            KillingNemo.setActiveScreen(new OptionScreen(KillingNemo.getActiveScreen()));
         }
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {

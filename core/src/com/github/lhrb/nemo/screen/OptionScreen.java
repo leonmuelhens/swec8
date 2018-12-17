@@ -3,9 +3,11 @@
  */
 package com.github.lhrb.nemo.screen;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
@@ -17,6 +19,18 @@ import com.github.lhrb.nemo.util.GuiManager;
  *
  */
 public class OptionScreen extends AbstractScreen {
+
+    AbstractScreen backScreen = new MainMenuScreen();
+
+    public OptionScreen(){super();}
+    public OptionScreen(Screen activeScreen) {
+        gameStage = new Stage();
+        guiStage = new Stage();
+
+        backScreen = (AbstractScreen)activeScreen;
+        init();
+
+    }
 
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
@@ -32,7 +46,8 @@ public class OptionScreen extends AbstractScreen {
                     if( !(e instanceof InputEvent)) { return false; }
                     if( !((InputEvent)e).getType().equals(Type.touchDown) ) { return false; }
                     //set next screen
-                    KillingNemo.setActiveScreen(new MainMenuScreen());
+                    backScreen.resume();
+                    KillingNemo.setActiveScreen(backScreen);
                     return true;
                 });
         guiStage.addActor(backBtn);
