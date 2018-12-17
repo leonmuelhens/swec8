@@ -262,4 +262,9 @@ public class Player extends PhysicalActor implements PropertyListener{
             return (powerup.getType() == CType.Multiplicator);
         return false;
     }
+
+
+    public int getScore() {
+        return score;
+    }
 }

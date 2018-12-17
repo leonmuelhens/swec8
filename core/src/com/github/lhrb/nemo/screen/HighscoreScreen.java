@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
@@ -32,9 +33,8 @@ public class HighscoreScreen extends AbstractScreen {
     @Override
     public void init() {
 
-        Highscore save =new Highscore("Test", 100);
-        stats= new ArrayList<>();
-        for(int i = 0;i<10;i++) { this.stats.add(save);}
+
+        stats= GameManager.get().getHighscores();
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("highscore.png"));
         highscore = new Table();

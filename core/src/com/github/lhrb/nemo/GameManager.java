@@ -9,6 +9,9 @@ import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.powerups.PowerUP;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.util.Highscore;
+
+import java.util.ArrayList;
 
 /**
  * @author exa
@@ -20,7 +23,19 @@ public class GameManager {
     private Player player; //needs to change for multiplayer
     
     private static GameManager gameMng;
-    
+
+    private ArrayList<Highscore> highscores= new ArrayList<Highscore>(){{add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));
+        add(new Highscore("Test", 0));}};
+
     private GameManager() {
         
     }
@@ -56,7 +71,22 @@ public class GameManager {
         player.addScore(p);
     }
 
+
+    public int getScore() {
+        return player.getScore();
+    }
+
+    public ArrayList<Highscore> getHighscores(){
+
+        return highscores;
+    }
     
+    public void setHighscores(ArrayList<Highscore> scores){
+        for (Highscore highscore : highscores = scores) {
+            
+        }
+        ;
+    }
 
     
 }
