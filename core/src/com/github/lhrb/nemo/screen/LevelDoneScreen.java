@@ -7,7 +7,11 @@ package com.github.lhrb.nemo.screen;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.Align;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
@@ -45,6 +49,7 @@ public class LevelDoneScreen extends AbstractScreen {
 
         Table table = new Table();
         table.setFillParent(true);
+        table.setDebug(true);
         game = GameManager.get();
         score = game.getHighscores();
 
@@ -56,7 +61,12 @@ public class LevelDoneScreen extends AbstractScreen {
         if(game.getScore()>score.get(9).getScore()){
 
             levelDone3 = new TextField("Username",GuiManager.getInstance().getTxtFldStyle());
-            table.add(levelDone3).spaceBottom(50);
+            levelDone2 = new Label("Username:",
+                    GuiManager.getInstance().getLabelStyle());
+            levelDone3.setWidth(600);
+
+            table.add(levelDone2).spaceBottom(50).align(Align.center);
+            table.add(levelDone3).spaceBottom(50).align(Align.left);
             table.row();
         }
         else {
@@ -81,9 +91,12 @@ public class LevelDoneScreen extends AbstractScreen {
                     Collections.reverse(score);
                     score.remove(10);
                     game.setHighscores(score);
+                    levelDone2.setText("Dein Highscore wurde gespeichert "+levelDone3.getText());
+                    table.removeActor(levelDone3);
+                    table.removeActor(subBtn);
                     return true;
                 });
-        TextButton backBtn = new TextButton("zum Hauptmenü", GuiManager.getInstance().getTxtBtnStyle());
+        TextButton backBtn = new TextButton("Zum Hauptmenü", GuiManager.getInstance().getTxtBtnStyle());
         backBtn.addListener(
                 (Event e) ->{
                     if( !(e instanceof InputEvent)) {
