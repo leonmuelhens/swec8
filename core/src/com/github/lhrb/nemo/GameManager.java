@@ -5,10 +5,8 @@ package com.github.lhrb.nemo;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Removable;
-import com.github.lhrb.nemo.actors.shots.Shots;
 
 /**
  * @author exa

@@ -3,7 +3,8 @@
  */
 package com.github.lhrb.nemo.actors;
 
-import com.github.lhrb.nemo.actors.powerups.PowerUP;
+import com.github.lhrb.nemo.actors.enemies.Enemy;
+import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.shots.Shots;
 
 import java.util.ArrayList;
@@ -17,11 +18,12 @@ public class CollisionManager {
     public static void checkCollision(ArrayList<PhysicalActor> list) {
         ArrayList<Player> player = new ArrayList<Player>();
         ArrayList<Shots> shots = new ArrayList<Shots>();
+
         ArrayList<EnemyActor> enemies = new ArrayList<EnemyActor>();
-        ArrayList<PowerUP> powerups = new ArrayList<PowerUP>();
-        for (PhysicalActor e : list) {
-            if (e instanceof Player) {
-                player.add((Player) e);
+        ArrayList<CActor> collectibles = new ArrayList<CActor>();
+        for(PhysicalActor e : list) {
+            if(e instanceof Player) {
+                player.add( (Player)e );
             }
             if (e instanceof Shots) {
                 shots.add((Shots) e);
@@ -29,8 +31,8 @@ public class CollisionManager {
             if (e instanceof EnemyActor) {
                 enemies.add((EnemyActor) e);
             }
-            if (e instanceof PowerUP) {
-                powerups.add((PowerUP) e);
+            if(e instanceof CActor) {
+                collectibles.add( (CActor)e );
             }
         }
 
@@ -81,14 +83,14 @@ public class CollisionManager {
                 }
             }
             // Collision Source sollte das Powerup sein
-            for (PowerUP pu : powerups) {
+            for (CActor c : collectibles) {
                 //Player collision with powerups
-                if (pu.overlap(p)) {
-                    if (pu != null) {
-                        pu.collision(new CollisionEvent(p, pu));
+                if (c.overlap(p)) {
+                    if (c != null) {
+                        c.collision(new CollisionEvent(p, c));
                     }
                     if (p != null) {
-                        p.collision(new CollisionEvent(p, pu));
+                        p.collision(new CollisionEvent(p, c));
                     }
                 }
             }

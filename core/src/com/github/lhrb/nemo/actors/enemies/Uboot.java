@@ -7,12 +7,14 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Section;
 import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
+import com.github.lhrb.nemo.screen.LevelDoneScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 
@@ -74,6 +76,8 @@ public class Uboot extends MultiPartActor {
                 removePart(section);
                 section.perish();
                 addAction(Actions.removeActor());
+                // first level over
+                KillingNemo.setActiveScreen(new LevelDoneScreen());
             }
         }
     }

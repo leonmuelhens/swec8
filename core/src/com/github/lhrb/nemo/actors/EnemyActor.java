@@ -8,7 +8,7 @@ import java.util.Random;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.GameManager;
-import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
+import com.github.lhrb.nemo.SpawnFactory.CollectibleFactory;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -49,7 +49,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
         //end
         Random rand = new Random();
         if(rand.nextInt(10) <= 1) { // 20% chance to drop
-            PowerUPFactory.spawnPU(getX(), getY(), getStage());
+            CollectibleFactory.spawnC(getX(), getY(), getStage());
         }
         addAction(Actions.removeActor());       
     }

@@ -31,8 +31,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     private PropertyChangeSupport changes = new PropertyChangeSupport(this);
     
     private Weapon weapon;
-    private PowerUP powerup;
     private float powerupTimer;
+    private CActor powerup;
     private int life;
     private int score;
     private int multiplier = 1;
@@ -152,7 +152,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
         }
 
-        // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
+        // Zum Vereinfachen der Waffentests!
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon = new WeaponNormal(getStage());
             changes.firePropertyChange("wpn", null, CType.Normal);
@@ -182,22 +182,33 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     public void collision(CollisionEvent col) {
         if (getStage() == null) System.out.println("stage null");
 
-        if (col.getDestiny() != null && col.getDestiny() instanceof PowerUP) {
-            if (((PowerUP) col.getDestiny()).getType() == CType.Heart){
+        if (col.getDestiny() != null && col.getDestiny() instanceof CActor) {
+            if (((CActor) col.getDestiny()).getType() == CType.Heart) {
                 changes.firePropertyChange("health", life, ++life);
             }
+            else if(((CActor) col.getDestiny()).getType() == CType.Normal) {
+                weapon = new WeaponNormal(getStage());
+                changes.firePropertyChange("wpn", null, CType.Normal);
+            }
+            else if(((CActor) col.getDestiny()).getType() == CType.Spread) {
+                weapon = new WeaponSpread(getStage());
+                changes.firePropertyChange("wpn", null, CType.Spread);
+            }
+            else if(((CActor) col.getDestiny()).getType() == CType.Laser) {
+                weapon = new WeaponLaser(getStage());
+                changes.firePropertyChange("wpn", null, CType.Laser);
+            }
             else {
-                changePowerup((PowerUP) col.getDestiny());
+                changePowerup((CActor) col.getDestiny());
             }
             return;
         }
-
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
             return;
         }
         
         GameManager.get().removeEnemiesAndShots(getStage());
-        
+
         if (!gotHit) {
             gotHit = true;
             hitDelta = 0;
@@ -210,9 +221,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
     }
 
-    public void changePowerup(PowerUP changePu) {
+    public void changePowerup(CActor changePu) {
         invincible = false;
-
         // Fälle:
         // 1: changePu set - powerUp set -> Ersetze PowerUp
         // 2: changePu set - powerUp not set -> Setze PowerUp
@@ -247,10 +257,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
     }
 
-
     public boolean multi() {
         return powerup != null && powerup.getType() == CType.Multiplicator;
     }
-
 
 }
