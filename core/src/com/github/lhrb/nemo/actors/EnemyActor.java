@@ -13,7 +13,7 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
 
 
-public class EnemyActor extends PhysicalActor implements Existence{
+public class EnemyActor extends PhysicalActor implements Existence, Removable{
     
     private int hp;
     private int scoreValue;
@@ -90,6 +90,12 @@ public class EnemyActor extends PhysicalActor implements Existence{
      */
     protected void setScoreValue(int scoreValue) {
         this.scoreValue = scoreValue;
+    }
+
+    @Override
+    public void destroy() {
+        // TODO Auto-generated method stub
+        this.remove();
     }
 
 }

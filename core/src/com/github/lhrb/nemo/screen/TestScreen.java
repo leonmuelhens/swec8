@@ -3,8 +3,10 @@
  */
 package com.github.lhrb.nemo.screen;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.PhysicalActor;
@@ -53,5 +55,4 @@ public class TestScreen extends AbstractScreen {
         CollisionManager.checkCollision(getPhysicalActors());
         // TODO Auto-generated method stub
     }
-
 }

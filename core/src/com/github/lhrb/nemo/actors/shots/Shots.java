@@ -5,8 +5,9 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.Existence;
 import com.github.lhrb.nemo.actors.PhysicalActor;
+import com.github.lhrb.nemo.actors.Removable;
 
-public abstract class Shots extends PhysicalActor implements Existence{
+public abstract class Shots extends PhysicalActor implements Existence, Removable{
 
     private final float angle;
     private boolean isPlayerShot;
@@ -45,6 +46,11 @@ public abstract class Shots extends PhysicalActor implements Existence{
     @Override
     public void perish() {
         
+    }
+    
+    @Override
+    public void destroy() {
+        this.remove();
     }
 
     public boolean isPlayerShot() { return isPlayerShot; }
