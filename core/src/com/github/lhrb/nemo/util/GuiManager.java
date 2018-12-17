@@ -7,16 +7,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 /**
@@ -46,12 +44,35 @@ public class GuiManager {
         txtBtnStyleBig = new TextButtonStyle(createTextButtonStyle(48));
 
         //Create TextField Style
-        txtFldStyle =new TextFieldStyle();
-        txtFldStyle.font = new BitmapFont();
-        txtFldStyle.fontColor = Color.WHITE;
+        txtFldStyle =new TextFieldStyle(createTextFieldStyle(36,Color.BLACK));
+        /*txtFldStyle.font = new BitmapFont();
+        txtFldStyle.fontColor = Color.WHITE;*/
 
     }
 
+
+    private TextFieldStyle createTextFieldStyle(int fontSize,Color color){
+        Skin skin = new Skin();
+        //TODO replace with textfield backgound
+        Texture   backgoundTex   = new Texture( Gdx.files.internal("button.png") );
+
+        skin.add(
+                "background",
+                new NinePatch(backgoundTex, 5, 5, 5, 5));
+        //TODO replace with cursor file
+        skin.add("cursor", Gdx.files.internal("button.png"));
+
+        TextFieldStyle tStyle = new TextFieldStyle();
+        tStyle.font = createFont(fontSize);
+        tStyle.fontColor = color;
+        tStyle.background = skin.getDrawable("background");
+        //TODO init CURSOR
+        //tStyle.cursor = skin.newDrawable("cursor", Color.WHITE);
+        //tStyle.cursor.setMinWidth(2f);
+        tStyle.selection = skin.newDrawable("background", 0.5f, 0.5f, 0.5f,
+                0.5f);
+        return tStyle;
+    }
 
     private TextButtonStyle createTextButtonStyle(int fontSize) {
         return createTextButtonStyle(fontSize,Color.BLACK);
