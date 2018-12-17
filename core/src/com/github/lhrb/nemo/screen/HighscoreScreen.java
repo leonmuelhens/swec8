@@ -6,12 +6,15 @@ package com.github.lhrb.nemo.screen;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Align;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
+import com.github.lhrb.nemo.util.Highscore;
 
 import java.util.ArrayList;
 
@@ -21,13 +24,17 @@ import java.util.ArrayList;
  */
 public class HighscoreScreen extends AbstractScreen {
 
-    private Table highscore;
-    private ArrayList<HighScore> stats= new ArrayList<Highscore>();
+    Table highscore;
+    ArrayList<Highscore> stats;
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
     @Override
     public void init() {
+
+        Highscore save =new Highscore("Test", 100);
+        stats= new ArrayList<>();
+        for(int i = 0;i<10;i++) { this.stats.add(save);}
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("highscore.png"));
         highscore = new Table();
@@ -44,10 +51,10 @@ public class HighscoreScreen extends AbstractScreen {
                 });
         int size = 450;
 
-
+        addScoreToTable();
         highscore.add(backBtn).width(size).spaceBottom(5);
-        highscore.row();
 
+        highscore.setDebug(true);
         guiStage.addActor(highscore);
 
     }
@@ -58,6 +65,22 @@ public class HighscoreScreen extends AbstractScreen {
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
+
+    }
+
+    public  void addScoreToTable(){
+        int i =1;
+        for (Highscore stat :stats) {
+            Label place = new Label(String.valueOf(i), GuiManager.getInstance().getLabelStyle());
+            Label score = new Label(String.valueOf(stat.getScore()), GuiManager.getInstance().getLabelStyle());
+            Label name = new Label(stat.getName(), GuiManager.getInstance().getLabelStyle());
+
+            highscore.add(place).width(50).align(Align.left);
+            highscore.add(score).width(100).align(Align.center);
+            highscore.add(name).width(200).align(Align.right);
+            highscore.row();
+            i++;
+        }
 
     }
 
