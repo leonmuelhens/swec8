@@ -56,6 +56,7 @@ public class Uboot extends MultiPartActor {
      */
     @Override
     public void handleCollision(Section section) {
+        System.out.println("hallo");
         //prevent middle part getting dmg
         if(getPartSize() > 1 && section.getID() != 1) {
             if(section.getDmg()) {
