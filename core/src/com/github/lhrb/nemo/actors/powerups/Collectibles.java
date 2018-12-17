@@ -35,9 +35,9 @@ public class Collectibles {
        collectibles.put(CType.Star, "powerup_star.png");
        
        //Weapons
-       collectibles.put(CType.Laser, "Placeholder1.png");
-       collectibles.put(CType.Spread, "Placeholder2.png");
-       collectibles.put(CType.Normal, "Placeholder3.png");
+       collectibles.put(CType.Laser, "weapon_laser.png");
+       collectibles.put(CType.Spread, "weapon_spread.png");
+       collectibles.put(CType.Normal, "weapon_normal.png");
    }
    
    /**
