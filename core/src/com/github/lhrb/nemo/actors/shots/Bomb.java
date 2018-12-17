@@ -2,6 +2,7 @@ package com.github.lhrb.nemo.actors.shots;
 
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -47,7 +48,7 @@ public class Bomb extends Shots {
             //        .setAnimation(AnimationLoader.get().animation(
             //                "big_explosion.png", 6, 6, 0.05f, false));
 
-            remove();
+            addAction(Actions.removeActor());
         }
     }
 
@@ -67,10 +68,19 @@ public class Bomb extends Shots {
         public void act(float delta) {
             super.act(delta);
             if (isAnimationFinished()) {
-                remove();
+                addAction(Actions.removeActor());
             }
         }
 
+    }
+
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.actors.shots.Shots#perish()
+     */
+    @Override
+    public void perish() {
+        
     }
 
 

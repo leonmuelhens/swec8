@@ -54,6 +54,11 @@ public class GameManager {
     public void addScore(int p) {
         player.addScore(p);
     }
+    
+    public float getPlayerX() {
+        if(player == null) return 0;
+        return player.getX();
+    }
 
     
 

@@ -15,6 +15,7 @@ import com.github.lhrb.nemo.actors.shots.Shots;
 public class Section extends EnemyActor {
     
     private MultiPartActor parent;
+    private int ID;    
     
     /**
      * 
@@ -35,6 +36,23 @@ public class Section extends EnemyActor {
         setScoreValue(score);
         setShapePolygon(4);
         parent.addActor(this);
+    }
+    
+    /**
+     * 
+     * @param parent
+     * @param x
+     * @param y
+     * @param id
+     * @param hp
+     * @param score
+     * @param texture
+     */
+    public Section(int id, MultiPartActor parent, float x, float y,
+            int hp, int score, Animation<TextureRegion> texture) {
+        this(parent,x,y,hp,score,texture);
+        this.ID = id;
+       
     }
     
     
@@ -81,6 +99,14 @@ public class Section extends EnemyActor {
             shape.setScale(getScaleX()*0.5f, getScaleY());
         }        
         return shape;
+    }
+
+
+    /**
+     * @return the iD
+     */
+    public int getID() {
+        return ID;
     }
 
 }

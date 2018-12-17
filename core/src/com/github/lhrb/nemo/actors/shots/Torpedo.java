@@ -1,8 +1,8 @@
 package com.github.lhrb.nemo.actors.shots;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.Player;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class Torpedo extends Shots {
@@ -24,16 +24,24 @@ public class Torpedo extends Shots {
     public void act(float delta) {
         super.act(delta);
 
-        for (Actor a:
-                getStage().getActors()) {
-            if (a instanceof Player) {
-                if (a.getX() > getX()) {
+        
+                if (GameManager.get().getPlayerX() > getX()) {
                     accelerationAtAngle(initialAngle+45);
                 }
-                else if (a.getX() < getX()){
+                else{
                     accelerationAtAngle(initialAngle-45);
                 }
-            }
-        }
+
+    }
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.actors.shots.Shots#perish()
+     */
+    @Override
+    public void perish() {
+
+        //remove actor after 1 sec
+        addAction(Actions.delay(5));
+        addAction(Actions.after(Actions.removeActor()));
     }
 }

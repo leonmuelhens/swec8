@@ -21,9 +21,7 @@ public abstract class Shots extends PhysicalActor implements Existence, Removabl
         rotateBy(angle-90);
         setX(getX()-(getWidth()/2));
         
-        //remove actor after 1 sec
-        addAction(Actions.delay(1));
-        addAction(Actions.after(Actions.removeActor()));
+        perish();
 
     }
 
@@ -41,12 +39,14 @@ public abstract class Shots extends PhysicalActor implements Existence, Removabl
      */
     @Override
     public void collision(CollisionEvent col) {
-            perish();
+            destroy();
     }
     
     @Override
     public void perish() {
-        addAction(Actions.removeActor());
+        //remove actor after 1 sec
+        addAction(Actions.delay(1));
+        addAction(Actions.after(Actions.removeActor()));
     }
     
     @Override

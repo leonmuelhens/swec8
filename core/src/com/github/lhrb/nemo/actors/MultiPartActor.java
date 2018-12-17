@@ -13,13 +13,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class MultiPartActor extends ActorPrefab {
     
-    ArrayList<Section> parts;
+    private ArrayList<Section> parts;
+    
+    public MultiPartActor(Stage stage) {
+        super();
+        setStage(stage);
+        init();
+    }
     
     public MultiPartActor(float x, float y, Stage stage) {
         super(x,y,stage);
-        parts = new ArrayList<Section>();
+        init();
     }
     
+    private void init() {
+        parts = new ArrayList<Section>();
+    }
     
     
     /**
@@ -29,6 +38,17 @@ public class MultiPartActor extends ActorPrefab {
     public void addPart(Section e) {
         if(parts == null) return;
         parts.add(e);
+    }
+    
+    public void removePart(Section e) {
+        if(parts != null) {
+            parts.remove(e);
+        }
+    }
+    
+    public int getPartSize() {
+        if(parts == null) return 0;
+        return parts.size();
     }
     
     

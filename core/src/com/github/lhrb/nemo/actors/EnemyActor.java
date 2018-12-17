@@ -51,7 +51,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
         if(rand.nextInt(10) <= 1) { // 20% chance to drop
             PowerUPFactory.spawnPU(getX(), getY(), getStage());
         }
-        remove();        
+        addAction(Actions.removeActor());       
     }
 
     @Override
