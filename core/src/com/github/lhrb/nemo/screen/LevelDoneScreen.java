@@ -22,7 +22,7 @@ import com.github.lhrb.nemo.util.SoundManager;
  */
 public class LevelDoneScreen extends AbstractScreen {
 
-    Label levelDone, levelDone2;
+    Label levelDone;
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
@@ -38,9 +38,7 @@ public class LevelDoneScreen extends AbstractScreen {
 
         levelDone = new Label("Level Geschafft :)",
                 GuiManager.getInstance().getLabelStyleBig());
-        levelDone2 = new Label("Beta durchgespielt :(",
-                GuiManager.getInstance().getLabelStyleBig());
-        //guiStage.addActor(gameOver);
+
 
         TextButton backBtn = new TextButton("zum Hauptmenü", GuiManager.getInstance().getTxtBtnStyle());
         backBtn.addListener(
@@ -61,7 +59,6 @@ public class LevelDoneScreen extends AbstractScreen {
 
         table.add(levelDone).spaceBottom(50);
         table.row();
-        table.add(levelDone2).spaceBottom(50);
         table.row();
         table.add(backBtn);
 
