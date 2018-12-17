@@ -34,7 +34,7 @@ public class Section extends EnemyActor {
         setPosition(x,y);
         setHp(hp);
         setScoreValue(score);
-        setShapePolygon(4);
+        setShapePolygon(8);
         parent.addActor(this);
     }
     
@@ -96,7 +96,7 @@ public class Section extends EnemyActor {
             shape.setPosition( pos.x, pos.y);
             shape.setOrigin(origin.x, origin.y); 
             shape.setRotation(getRotation());
-            shape.setScale(getScaleX()*0.5f, getScaleY());
+            shape.setScale(getScaleX(), getScaleY());
         }        
         return shape;
     }
