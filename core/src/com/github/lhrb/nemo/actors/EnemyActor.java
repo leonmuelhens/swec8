@@ -17,9 +17,14 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
     
     private int hp;
     private int scoreValue;
-
+    
     public EnemyActor() {
         super();
+    }
+
+    public EnemyActor(Stage stage) {
+        super();
+        setStage(stage);
         setCharacteristics();
     }
         

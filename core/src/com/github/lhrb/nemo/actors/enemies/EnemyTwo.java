@@ -1,11 +1,17 @@
 package com.github.lhrb.nemo.actors.enemies;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class EnemyTwo extends EnemyActor {
+
+    public EnemyTwo(Stage stage) {
+        super(stage);
+        // TODO Auto-generated constructor stub
+    }
 
     /**
      * Simple Enemie Implementation
@@ -28,7 +34,7 @@ public class EnemyTwo extends EnemyActor {
         setHp(4);
         setScoreValue(3);
         fireRate = 3f;  
-        weapon = new WeaponSpread(fireRate, 45f);
+        weapon = new WeaponSpread(fireRate, 45f, getStage());
     }
 
     /**

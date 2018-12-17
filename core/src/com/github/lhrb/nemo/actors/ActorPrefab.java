@@ -43,7 +43,11 @@ public class ActorPrefab extends Group {
     public ActorPrefab(float x, float y, Stage stage) {
         super(); // Unnecessary? call actually
         setPosition(x,y);
-        stage.addActor(this);
+        if(stage != null) {
+            stage.addActor(this);
+        }else {
+            System.out.println("stage ist nukll");
+        }
 
         initializeActor();
     }

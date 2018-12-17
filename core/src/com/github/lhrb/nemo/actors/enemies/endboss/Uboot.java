@@ -27,9 +27,9 @@ public class Uboot extends EndBoss {
         setAnimation(AnimationLoader.get().texture("uboot.png"));
 
         weapons = new Weapon[3];
-        weapons[0] = new WeaponSalve();
-        weapons[1] = new WeaponTorpedo();
-        weapons[2] = new WeaponBombdrop();
+        weapons[0] = new WeaponSalve(getStage());
+        weapons[1] = new WeaponTorpedo(getStage());
+        weapons[2] = new WeaponBombdrop(getStage());
 
         sections = new Sections[3];
         sections[0] = new Sections();
@@ -113,12 +113,12 @@ public class Uboot extends EndBoss {
 
         private int shotsFiredinSalve = 0;
 
-        public WeaponSalve(float cooldown) {
-            super(cooldown);
+        public WeaponSalve(float cooldown, Stage stage) {
+            super(cooldown, stage);
         }
 
-        public WeaponSalve() {
-            super(12, 45);
+        public WeaponSalve(Stage stage) {
+            super(12, 45, stage);
         }
 
         @Override
@@ -138,14 +138,14 @@ public class Uboot extends EndBoss {
 
     private class WeaponTorpedo extends Weapon {
 
-        public WeaponTorpedo() {
-            super(8,0);
+        public WeaponTorpedo(Stage stage) {
+            super(8,0, stage);
         }
 
         @Override
         public void fire(float x, float y, float angle) {
             if (isReady()) {
-                new Torpedo(x,y,angle);
+                new Torpedo(x,y,angle, stage);
                 resetCooldownTimer();
             }
         }
@@ -153,14 +153,14 @@ public class Uboot extends EndBoss {
 
     private class WeaponBombdrop extends Weapon {
 
-        public WeaponBombdrop() {
-            super(10,5);
+        public WeaponBombdrop(Stage stage) {
+            super(10,5, stage);
         }
 
         @Override
         public void fire(float x, float y, float angle) {
             if (isReady()) {
-                new Bomb(x,y,angle);
+                new Bomb(x,y,angle, stage);
                 resetCooldownTimer();
             }
         }

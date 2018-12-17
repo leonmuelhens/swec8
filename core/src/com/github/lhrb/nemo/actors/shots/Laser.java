@@ -1,12 +1,13 @@
 package com.github.lhrb.nemo.actors.shots;
 
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class Laser extends Shots {
 
-    public Laser(float x, float y, float angle) {
-        super(x, y, angle);
+    public Laser(float x, float y, float angle, Stage stage) {
+        super(x, y, angle, stage);
 
         setAnimation(AnimationLoader.get().texture("SchussLaser.png"));      
         setSpeedMax(1600);

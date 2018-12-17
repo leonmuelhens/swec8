@@ -65,6 +65,7 @@ public abstract class AbstractScreen implements Screen, InputProcessor{
     }
     
     public Stage getGameStage() {
+        if(gameStage == null) System.out.println("STAGE IS NULL");
         return gameStage;
     }
     

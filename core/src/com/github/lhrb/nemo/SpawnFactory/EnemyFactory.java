@@ -38,11 +38,11 @@ public class EnemyFactory {
         EnemyActor newEnemy;
 
         if(randomInt <= spawnB[level][0]) {
-            newEnemy = new EnemyOne();
+            newEnemy = new EnemyOne(gameStage);
         } else if (randomInt <= spawnB[level][1]) {
-            newEnemy = new EnemyTwo();
+            newEnemy = new EnemyTwo(gameStage);
         } else {
-            newEnemy = new EnemyThree();
+            newEnemy = new EnemyThree(gameStage);
         }
 
         Random xCoord = new Random();

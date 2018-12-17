@@ -1,19 +1,22 @@
 package com.github.lhrb.nemo.actors.weapons;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 public abstract class Weapon {
 
     protected float cooldown;
     protected float cooldownTimer;
+    protected Stage stage;
 
-    public Weapon(float cooldown) {        
+    public Weapon(float cooldown, Stage stage) {        
         this.cooldown = cooldown;
         this.cooldownTimer = cooldown;
+        this.stage = stage;
     }
 
-    public Weapon(float cooldown, float initialCooldownTime)
+    public Weapon(float cooldown, float initialCooldownTime, Stage stage)
     {
-        this(cooldown);
-
+        this(cooldown, stage);
         this.cooldownTimer = initialCooldownTime;
     }
 

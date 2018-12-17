@@ -1,5 +1,6 @@
 package com.github.lhrb.nemo.actors.shots;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.CollisionEvent;
@@ -12,8 +13,8 @@ public abstract class Shots extends PhysicalActor implements Existence, Removabl
     private final float angle;
     private boolean isPlayerShot;
 
-    public Shots(float x, float y, float angle) {
-        super(x, y, KillingNemo.getGameStage());
+    public Shots(float x, float y, float angle, Stage stage) {
+        super(x, y, stage);
         
         this.angle = angle;
         isPlayerShot = (angle < 180);

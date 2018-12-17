@@ -50,7 +50,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         life = 3;
         score = 0;
 
-        weapon = new WeaponNormal();
+        weapon = new WeaponNormal(stage);
         powerup = null;
         powerupTimer = 0;
         invincible = false;
@@ -143,7 +143,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if (Gdx.input.isKeyPressed(Keys.B)) {
             if (powerup != null && powerup.getType() == CType.Bomb) {
                 // hier fehlt noch eine animation
-                for (Actor a : AbstractGame.getGameStage().getActors()) {
+                for (Actor a : getStage().getActors()) {
                     if (a instanceof EnemyActor) {
                         ((EnemyActor) a).perish();
                     }
@@ -154,15 +154,15 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
 
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {
-            weapon = new WeaponNormal();
+            weapon = new WeaponNormal(getStage());
             changes.firePropertyChange("wpn", null, CType.Normal);
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
-            weapon = new WeaponSpread();
+            weapon = new WeaponSpread(getStage());
             changes.firePropertyChange("wpn", null, CType.Spread);
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
-            weapon = new WeaponLaser();
+            weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
         }
         
@@ -196,7 +196,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             return;
         }
         System.out.println("was ist hier los");
-        GameManager.get().removeEnemiesAndShots();
+        GameManager.get().removeEnemiesAndShots(getStage());
         
         if (!gotHit) {
             gotHit = true;
