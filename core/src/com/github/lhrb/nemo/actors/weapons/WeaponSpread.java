@@ -5,7 +5,7 @@ import com.github.lhrb.nemo.actors.shots.SingleShot;
 import com.github.lhrb.nemo.util.SoundManager;
 
 public class WeaponSpread extends Weapon {
-    private float angleModifier;
+    protected float angleModifier;
 
     public WeaponSpread(Stage stage) {
         super(0.6f, stage);

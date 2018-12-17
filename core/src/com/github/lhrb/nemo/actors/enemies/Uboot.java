@@ -20,6 +20,8 @@ public class Uboot extends MultiPartActor {
     
     private float moveAngle;
     private ArrayList<Weapon> weapons;
+    private float worldWidth;
+    private float worldHeight;
     
     public Uboot(Stage stage){
         super(stage);
@@ -47,7 +49,11 @@ public class Uboot extends MultiPartActor {
         setRotation(0);
         setAcceleration(1000);
         setSpeedMax(75);
-        setDeceleration(0);   
+        setDeceleration(0);
+        
+        //
+        worldWidth = 600f;
+        worldHeight = 500f;
         
     }
     
@@ -78,16 +84,16 @@ public class Uboot extends MultiPartActor {
     public void act(float delta) {
         super.act(delta);
 
-        if (getY() > getStage().getHeight() - (getStage().getHeight()/8)) {
+        if (getY() > worldHeight) {
             moveAngle = 270;
         }
         else if (moveAngle == 270) {
             moveAngle = 0;
         }
-        else if (moveAngle == 0 && getX() > getStage().getWidth() - (getStage().getWidth()/8) - this.getWidth()) {
+        else if (moveAngle == 0 && getX() > worldWidth) {
             moveAngle = 180;
         }
-        else if (moveAngle == 180 && getX() < getStage().getWidth()/8) {
+        else if (moveAngle == 180 && getX() < 50) {
             moveAngle = 0;
         }
 
@@ -98,7 +104,7 @@ public class Uboot extends MultiPartActor {
         if (getElapsedTime() > 2f) {
             for (Weapon w: weapons) {
                 w.act(delta);
-                w.fire(getX()+(getWidth()/2),getY()-(getHeight()/2),270);
+                w.fire(getX()+108,getY()-(getHeight()/2),270);
             }
         }
     }
