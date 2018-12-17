@@ -40,10 +40,8 @@ public class GameManager {
     // In future we need to check that no boss will be removed here
     public void removeEnemiesAndShots(Stage stage) {
         if(stage == null) return;
-        System.out.println("Actor count: " + stage.getActors().size);
         for (Actor a : stage.getActors()) {
             if(a instanceof Removable) {
-                System.out.print("+ ");
                 ((Removable) a).destroy();
             }
         }

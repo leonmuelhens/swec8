@@ -41,17 +41,17 @@ public abstract class Shots extends PhysicalActor implements Existence, Removabl
      */
     @Override
     public void collision(CollisionEvent col) {
-            remove();
+            perish();
     }
     
     @Override
     public void perish() {
-        
+        addAction(Actions.removeActor());
     }
     
     @Override
     public void destroy() {
-        this.remove();
+        addAction(Actions.removeActor());
     }
 
     public boolean isPlayerShot() { return isPlayerShot; }

@@ -40,11 +40,10 @@ public abstract class AbstractGame extends Game {
         return ((AbstractScreen)game.getScreen()).getUiStage();
     }
     
-    /**
     public static Stage getGameStage() {
         return ((AbstractScreen)game.getScreen()).getGameStage();
     }
-    */
+   
     public static void setActiveScreen(AbstractScreen screen) {
         if(screen == null) return;
         if(game.getScreen() != null) {

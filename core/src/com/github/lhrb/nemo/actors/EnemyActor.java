@@ -6,6 +6,7 @@ package com.github.lhrb.nemo.actors;
 import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
 import com.github.lhrb.nemo.actors.shots.Shots;
@@ -99,8 +100,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
 
     @Override
     public void destroy() {
-        // TODO Auto-generated method stub
-        remove();
+        addAction(Actions.removeActor());
     }
 
 }
