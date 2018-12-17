@@ -2,6 +2,7 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
@@ -40,6 +41,10 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         // For testing
         if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
             gameTime += 3*60;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            KillingNemo.getActiveScreen().pause();
+            KillingNemo.setActiveScreen(new OptionScreen(KillingNemo.getActiveScreen()));
         }
 
 
