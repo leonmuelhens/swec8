@@ -20,6 +20,7 @@ import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
+import com.github.lhrb.nemo.screen.OptionScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -154,6 +155,13 @@ public class Player extends PhysicalActor implements PropertyListener{
             }
         }
 
+        //TODO needs to be put somewhere else
+
+
+        if(Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+            KillingNemo.getActiveScreen().pause();
+            KillingNemo.setActiveScreen(new OptionScreen());
+        }
         // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon.remove();
