@@ -6,6 +6,8 @@ import com.github.lhrb.nemo.actors.weapons.Weapon;
 
 public abstract class EndBoss extends Enemy {
 
+    protected boolean destroyed = false;
+
     private Sections sections[];
     private Weapon weapons[];
 
@@ -13,5 +15,10 @@ public abstract class EndBoss extends Enemy {
     public EndBoss(Stage stage) {
         super(stage);
         setCharacteristics(stage);
+    }
+
+
+    public boolean isDestroyed() {
+        return destroyed;
     }
 }

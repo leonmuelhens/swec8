@@ -2,6 +2,8 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
+import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
@@ -23,14 +25,19 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     Background bg, bg2;
     EnemyFactory factory;
     EndBoss endBoss;
+    float afterDeathTime;
+    float soundVolume;
 
     PropertyChangeSupport changes;
+
+    public void increaseVolume () {    }
 
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
         changes.firePropertyChange("gametime",gameTime,(int)(gameTime+delta));
         gameTime += delta;
+
         /* Once we define an abstract class for gameScreens, we can define a variable
            for how long the level shall take and replace the hardcorded 3*6
          */
@@ -42,11 +49,15 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             gameTime += 3*60;
         }
 
+        if (soundVolume < 0.25f) {
+            increaseVolume();
+        }
+
 
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         }
-        else if (gameTime > 3*60 && endBoss == null) {
+        else if (gameTime >= 3*60 && endBoss == null) {
             if (this instanceof FirstLevelScreen) {
                 endBoss = new Uboot(gameStage);
                 endBoss.setPosition(gameStage.getWidth()/2,gameStage.getHeight());
@@ -54,7 +65,12 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             }
         }
         else {
-            // Level end screen starts here
+            if (endBoss.isDestroyed()) {
+                afterDeathTime -= delta;
+                if (afterDeathTime <= 0) {
+                    KillingNemo.setActiveScreen(new LevelDoneScreen());
+                }
+            }
         }
     }
     
