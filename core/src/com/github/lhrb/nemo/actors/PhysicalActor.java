@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class PhysicalActor extends ActorPrefab{
     
-    private Polygon shape;
+    protected Polygon shape;
     
     public PhysicalActor() {
         super();

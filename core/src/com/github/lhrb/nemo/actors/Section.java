@@ -4,6 +4,8 @@
 package com.github.lhrb.nemo.actors;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 import com.github.lhrb.nemo.actors.shots.Shots;
 
 /**
@@ -33,6 +35,7 @@ public class Section extends EnemyActor {
         setScoreValue(score);
         setShapePolygon(4);
         parent.addActor(this);
+        setDebug(true);
         debuug();
     }
     
@@ -68,6 +71,23 @@ public class Section extends EnemyActor {
         if(col.getSource() instanceof Shots) {
             parent.handleCollision(this);
         }
+    }
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.actors.PhysicalActor#getShape()
+     */
+    @Override
+    public Polygon getShape() {
+        if(shape != null) {
+            Vector2 origin = parent.localToStageCoordinates( new Vector2(getOriginX(), getOriginY()) );
+            Vector2 pos = parent.localToStageCoordinates( new Vector2(getX(), getY()) );
+            System.out.println("X:" + pos.x + " Y: " + pos.y);
+            shape.setPosition( pos.x, pos.y);
+            shape.setOrigin(origin.x, origin.y); 
+            shape.setRotation(getRotation());
+            shape.setScale(getScaleX()*0.5f, getScaleY());
+        }        
+        return shape;
     }
 
 }
