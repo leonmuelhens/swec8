@@ -4,8 +4,10 @@
 package com.github.lhrb.nemo;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Removable;
+import com.github.lhrb.nemo.actors.shots.Shots;
 
 /**
  * @author exa
@@ -36,8 +38,10 @@ public class GameManager {
     
     // In future we need to check that no boss will be removed here
     public void removeEnemiesAndShots() {
+        System.out.println("Actor count: " + AbstractGame.getGameStage().getActors().size);
         for (Actor a : AbstractGame.getGameStage().getActors()) {
             if(a instanceof Removable) {
+                System.out.print("+ ");
                 ((Removable) a).destroy();
             }
         }

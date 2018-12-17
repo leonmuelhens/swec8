@@ -197,7 +197,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
 
         GameManager.get().removeEnemiesAndShots();
-
+        
         if (!gotHit) {
             gotHit = true;
             hitDelta = 0;

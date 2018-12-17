@@ -49,13 +49,6 @@ public class EnemyOne extends EnemyActor {
                 weaponleft.fire(getX() + (getWidth() / 2) - 20, getY() - 30, 270);
                 weaponright.fire(getX() + (getWidth() / 2) + 20, getY() - 30, 270);
             }
-            
-            /**
-            if (getStage() != null && getY() + getHeight() - 10 < getStage().getHeight()) {
-                weaponleft.fire(getX() + (getWidth() / 2) - 20, getY() - 30, 270);
-                weaponright.fire(getX() + (getWidth() / 2) + 20, getY() - 30, 270);
-            }
-            */
         }
 
 }

@@ -43,11 +43,6 @@ public class EnemyThree extends EnemyActor {
         if(getElapsedTime() > 0.8f) {
             weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
         }
-        
-        /**
-        if (getStage() != null && getY() + getHeight() - 10 < getStage().getHeight()) {
-            weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
-        }
-        */
+
     }
 }

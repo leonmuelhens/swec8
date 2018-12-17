@@ -35,14 +35,8 @@ public class Section extends EnemyActor {
         setScoreValue(score);
         setShapePolygon(4);
         parent.addActor(this);
-        setDebug(true);
-        debuug();
     }
     
-    public void debuug() {
-        System.out.println("X: " + getX() + " Y: " + getY() 
-                           +"\n OX: " + getOriginX() + " OY: " + getOriginY());
-    }
     
     /**
      * 
@@ -81,7 +75,6 @@ public class Section extends EnemyActor {
         if(shape != null) {
             Vector2 origin = parent.localToStageCoordinates( new Vector2(getOriginX(), getOriginY()) );
             Vector2 pos = parent.localToStageCoordinates( new Vector2(getX(), getY()) );
-            System.out.println("X:" + pos.x + " Y: " + pos.y);
             shape.setPosition( pos.x, pos.y);
             shape.setOrigin(origin.x, origin.y); 
             shape.setRotation(getRotation());

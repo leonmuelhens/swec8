@@ -95,7 +95,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
     @Override
     public void destroy() {
         // TODO Auto-generated method stub
-        this.remove();
+        remove();
     }
 
 }

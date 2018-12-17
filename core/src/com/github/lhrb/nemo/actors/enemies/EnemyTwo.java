@@ -46,10 +46,5 @@ public class EnemyTwo extends EnemyActor {
             weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
         }
         
-        /**
-        if (getStage() != null && getY() + getHeight() - 10 < getStage().getHeight()) {
-            weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
-        }
-        */
     }
 }

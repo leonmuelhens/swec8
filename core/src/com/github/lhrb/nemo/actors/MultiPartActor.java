@@ -18,7 +18,6 @@ public class MultiPartActor extends ActorPrefab {
     public MultiPartActor(float x, float y, Stage stage) {
         super(x,y,stage);
         parts = new ArrayList<Section>();
-        setDebug(true);
     }
     
     
