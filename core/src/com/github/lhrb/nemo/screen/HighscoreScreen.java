@@ -70,7 +70,7 @@ public class HighscoreScreen extends AbstractScreen {
         addScoreToTable();
         highscore.add(backBtn).colspan(3).spaceBottom(5).expandY().width(450);
 
-        highscore.setDebug(true);
+        //highscore.setDebug(true);
         guiStage.addActor(highscore);
         //highscore.debug();
 
