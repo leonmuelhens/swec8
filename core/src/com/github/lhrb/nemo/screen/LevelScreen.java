@@ -49,7 +49,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             KillingNemo.getActiveScreen().pause();
-            KillingNemo.setActiveScreen(new OptionScreen(KillingNemo.getActiveScreen()));
+            KillingNemo.setActiveScreen(new PauseScreen(KillingNemo.getActiveScreen()));
         }
 
         if (soundVolume < 0.25f) {
