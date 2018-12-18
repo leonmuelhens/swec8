@@ -5,6 +5,7 @@ package com.github.lhrb.nemo.actors.enemies;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.KillingNemo;
@@ -22,8 +23,7 @@ public class Uboot extends MultiPartActor {
     
     private float moveAngle;
     private ArrayList<Weapon> weapons;
-    private float worldWidth;
-    private float worldHeight;
+    private Vector3 moveArea;
     
     public Uboot(Stage stage){
         super(stage);
@@ -53,9 +53,7 @@ public class Uboot extends MultiPartActor {
         setSpeedMax(75);
         setDeceleration(0);
         
-        //
-        worldWidth = 600f;
-        worldHeight = 500f;
+        moveArea = new Vector3(50f, 550f, 500f);
         
     }
     
@@ -64,7 +62,6 @@ public class Uboot extends MultiPartActor {
      */
     @Override
     public void handleCollision(Section section) {
-        System.out.println("hallo");
         //prevent middle part getting dmg
         if(getPartSize() > 1 && section.getID() != 1) {
             if(section.getDmg()) {
@@ -88,16 +85,16 @@ public class Uboot extends MultiPartActor {
     public void act(float delta) {
         super.act(delta);
 
-        if (getY() > worldHeight) {
+        if (getY() > moveArea.z) {
             moveAngle = 270;
         }
         else if (moveAngle == 270) {
             moveAngle = 0;
         }
-        else if (moveAngle == 0 && getX() > worldWidth) {
+        else if (moveAngle == 0 && getX() > moveArea.y) {
             moveAngle = 180;
         }
-        else if (moveAngle == 180 && getX() < 50) {
+        else if (moveAngle == 180 && getX() < moveArea.x) {
             moveAngle = 0;
         }
 

@@ -3,7 +3,6 @@
  */
 package com.github.lhrb.nemo.actors;
 
-import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.shots.Shots;
 
