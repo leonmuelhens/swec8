@@ -45,24 +45,23 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
         GameManager.get().addScore(scoreValue);
         SoundManager.getInstance().playSound("explosion");
 
-        //code below is bad
-        if (!(this instanceof Section)) {
-            new ActorPrefab(getX(), getY(), getStage())
-                    .setAnimation(AnimationLoader.get().animation(
-                            "explosion.png", 6, 6, 0.05f, false));
-        }
-        else {
-            new ActorPrefab(getParent().getX() + (getParent().getWidth() / 2), getParent().getY(), getStage())
-                    .setAnimation(AnimationLoader.get().animation(
-                            "explosion.png", 6, 6, 0.05f, false));
-        }
-        //end
+        perishExplosion();
+
         Random rand = new Random();
         if(rand.nextInt(10) <= 1) { // 20% chance to drop
             CollectibleFactory.spawnC(getX(), getY(), getStage());
         }
         addAction(Actions.removeActor());       
     }
+
+    protected void perishExplosion() {
+        //code below is bad
+        new ActorPrefab(getX(), getY(), getStage())
+                .setAnimation(AnimationLoader.get().animation(
+                        "explosion.png", 6, 6, 0.05f, false));
+        //end
+    }
+
 
     @Override
     public void collision(CollisionEvent col) {
