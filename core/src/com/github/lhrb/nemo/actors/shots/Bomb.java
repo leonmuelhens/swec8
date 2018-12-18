@@ -56,7 +56,7 @@ public class Bomb extends Shots {
     class Explosion extends Shots {
 
         public Explosion(float x, float y, Stage stage) {
-            super(x, y, 0, stage);
+            super(x, y, 270, stage);
 
             setAnimation(AnimationLoader.get().animation(
                     "big_explosion.png", 6, 6, 0.05f, false));
