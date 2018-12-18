@@ -181,6 +181,7 @@ public class Player extends PhysicalActor implements PropertyListener{
     }
 
     /* (non-Javadoc)
+
      * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
      */
     @Override

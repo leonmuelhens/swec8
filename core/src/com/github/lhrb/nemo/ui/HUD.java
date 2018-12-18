@@ -3,10 +3,12 @@
  */
 package com.github.lhrb.nemo.ui;
 
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -36,12 +38,15 @@ public class HUD implements PropertyChangeListener{
     private Image wpnIcon;
     private Image powerupIcon;
     private ImageButton hpBtn;
+    private RingCooldownTimer shotCooldown, powerupRemain;
+    private Image shotCooldownImg, powerupRemainImg;
 
-    
+
     private HashMap<CType, Drawable> collectibleIcons;
     
     public HUD() {
         powerupIcon = new Image();
+
         initLabels();
 
         collectibleIcons = new HashMap<CType, Drawable>();
@@ -67,10 +72,11 @@ public class HUD implements PropertyChangeListener{
         wpnIcon = new Image(collectibleIcons.get(CType.Normal));
         //hpIcon = new Image(new TextureRegionDrawable(AnimationLoader.get()
         //                            .texture("heart.png").getKeyFrame(0)));
+
         hpBtn = new ImageButton(new TextureRegionDrawable(AnimationLoader.get()
                                         .texture("heart.png").getKeyFrame(0)));
         hpBtn.add(hpLbl);
-        
+
         hud = new Table();
         hud.setFillParent(true);
         
@@ -86,7 +92,7 @@ public class HUD implements PropertyChangeListener{
         hud.row();
 
         // third row
-        hud.add().expandY().width(64).pad(10);
+        hud.add(shotCooldown).expandY().width(64).pad(10);
         hud.add(powerupIcon).expandX().pad(10).bottom().right();
         hud.row();
 
@@ -103,6 +109,18 @@ public class HUD implements PropertyChangeListener{
         scoreLbl = new Label("0", style);
         hpLbl = new Label("3", style);
         timeLbl = new Label("0", style);
+
+        powerupRemain = new RingCooldownTimer(false,64);
+        powerupRemain.setSize(64, 64);
+        powerupRemain.setColor(Color.GRAY);
+        powerupRemain.setAlpha(0.75f);
+
+
+        shotCooldown = new RingCooldownTimer(false,64);
+        shotCooldown.setSize(64, 64);
+        shotCooldown.setColor(Color.GRAY);
+        shotCooldown.setAlpha(0.75f);
+        shotCooldown.update(0.5f);
     }
     
     public Table getHUD() {
@@ -135,6 +153,15 @@ public class HUD implements PropertyChangeListener{
         }
         if(evt.getPropertyName().equals("powerup")) {
             powerupIcon.setDrawable(collectibleIcons.get(evt.getNewValue()));
+            return;
+        }
+        if(evt.getPropertyName().equals("shottimer")) {
+            System.out.println("i was here");
+            shotCooldownImg.setDrawable((Drawable) shotCooldown.getDrawable((float)evt.getNewValue()));
+            return;
+        }
+        if(evt.getPropertyName().equals("poweruptimer")) {
+            powerupRemain.update((float)evt.getNewValue());
             return;
         }
         
