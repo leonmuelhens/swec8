@@ -40,7 +40,7 @@ public class GameOverScreen extends AbstractScreen {
                 GuiManager.getInstance().getLabelStyleBig());
         //guiStage.addActor(gameOver);
 
-        TextButton backBtn = new TextButton("zum Hauptmenue", GuiManager.getInstance().getTxtBtnStyle());
+        TextButton backBtn = new TextButton("zum Hauptmenü", GuiManager.getInstance().getTxtBtnStyle());
         backBtn.addListener(
                 (Event e) ->{
                     if( !(e instanceof InputEvent)) {
