@@ -1,11 +1,8 @@
 package com.github.lhrb.nemo.actors.shots;
 
-import com.badlogic.gdx.math.Interpolation;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.ActorPrefab;
-import com.github.lhrb.nemo.actors.PhysicalActor;
-import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.weapons.Weapon;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -15,8 +12,8 @@ public class Bomb extends Shots {
 
     private float explodeY;
 
-    public Bomb(float x, float y, Stage stage, float angle) {
-        super(x, y, stage, angle);
+    public Bomb(float x, float y, float angle, Stage stage) {
+        super(x, y, angle, stage);
 
         setAnimation(AnimationLoader.get().texture("powerup_bombe.png"));
         setSpeedMax(100);
@@ -26,8 +23,8 @@ public class Bomb extends Shots {
         explodeY = new Random().nextInt((int)(getStage().getHeight()*0.7));
     }
 
-    public Bomb(float x, float y, Stage stage, float angle, float explodeY) {
-        super(x, y, stage, angle);
+    public Bomb(float x, float y, float angle, float explodeY, Stage stage) {
+        super(x, y, angle, stage);
 
         setAnimation(AnimationLoader.get().texture("powerup_bombe.png"));
         setSpeedMax(100);
@@ -45,13 +42,13 @@ public class Bomb extends Shots {
         if (getY() > explodeY-2 && getY() < explodeY+2) {
             SoundManager.getInstance().playSound("explosion");
 
-            new Explosion(getX(),getY(),getStage());
+            new Explosion(getX(),getY(), getStage());
             //code below is bad
             //new ActorPrefab(getX(), getY(), getStage())
             //        .setAnimation(AnimationLoader.get().animation(
             //                "big_explosion.png", 6, 6, 0.05f, false));
 
-            remove();
+            addAction(Actions.removeActor());
         }
     }
 
@@ -59,7 +56,7 @@ public class Bomb extends Shots {
     class Explosion extends Shots {
 
         public Explosion(float x, float y, Stage stage) {
-            super(x, y, stage, 0);
+            super(x, y, 0, stage);
 
             setAnimation(AnimationLoader.get().animation(
                     "big_explosion.png", 6, 6, 0.05f, false));
@@ -71,9 +68,20 @@ public class Bomb extends Shots {
         public void act(float delta) {
             super.act(delta);
             if (isAnimationFinished()) {
-                remove();
+                addAction(Actions.removeActor());
             }
         }
+
     }
+
+
+    /* (non-Javadoc)
+     * @see com.github.lhrb.nemo.actors.shots.Shots#perish()
+     */
+    @Override
+    public void perish() {
+        
+    }
+
 
 }

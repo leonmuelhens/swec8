@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.CollisionEvent;
+import com.github.lhrb.nemo.actors.Existence;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -11,7 +12,7 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  * @author exa
  *
  */
-public class CActor extends PhysicalActor{
+public class CActor extends PhysicalActor implements Existence{
     CType type;
 
     public CActor(float x, float y, Stage stage, CType type) {
@@ -43,5 +44,11 @@ public class CActor extends PhysicalActor{
         super.act(delta);
         accelerationAtAngle(270);
         applyObjectPhysics(delta);
+    }
+
+    @Override
+    public void perish() {
+        // TODO Auto-generated method stub
+        
     }
 }

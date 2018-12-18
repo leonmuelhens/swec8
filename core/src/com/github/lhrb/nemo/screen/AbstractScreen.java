@@ -9,6 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 
 /**
@@ -47,6 +48,8 @@ public abstract class AbstractScreen implements Screen, InputProcessor{
        for(Actor e : gameStage.getActors()) {
            if(e instanceof PhysicalActor) {
                list.add( (PhysicalActor)e );
+           }else if(e instanceof MultiPartActor) {
+               list.addAll(((MultiPartActor) e).getPartCollection());
            }
        }
        return list;
@@ -62,6 +65,7 @@ public abstract class AbstractScreen implements Screen, InputProcessor{
     }
     
     public Stage getGameStage() {
+        if(gameStage == null) System.out.println("STAGE IS NULL");
         return gameStage;
     }
     
