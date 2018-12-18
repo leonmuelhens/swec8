@@ -12,6 +12,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.AbstractGame;
@@ -43,6 +44,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     private boolean gotHit;
     private boolean invincible;
     private float hitDelta;
+    private Stack stack;
     private Image weaponLayer;
     private Image powerupLayer;
     
@@ -64,11 +66,12 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         invincible = false;
         setShapePolygon(8);
         gotHit = false;
-         
+        
         powerupLayer = new Image();
         weaponLayer = new Image();
-        addActor(powerupLayer);
-        addActor(weaponLayer);    
+        stack = new Stack(powerupLayer, weaponLayer);
+        stack.setSize(78f, 93f);
+        addActor(stack);
         /**
          * ATTENTION
          * this method does not provide any security mechanism
@@ -97,7 +100,6 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                                                           .getKeyFrame(0)));
             break;
         case Star:
-            System.out.println("Star");
             powerupLayer.setDrawable(new TextureRegionDrawable
                 (AnimationLoader.get().texture("active_powerup_star.png")
                                                           .getKeyFrame(0)));
@@ -108,17 +110,17 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                                                             .getKeyFrame(0)));
             break;
         case Normal:
-            powerupLayer.setDrawable(new TextureRegionDrawable
+            weaponLayer.setDrawable(new TextureRegionDrawable
                     (AnimationLoader.get().texture("active_weapon_normal.png")
                                                             .getKeyFrame(0)));
             break;
         case Laser:
-            powerupLayer.setDrawable(new TextureRegionDrawable
+            weaponLayer.setDrawable(new TextureRegionDrawable
                     (AnimationLoader.get().texture("active_weapon_laser.png")
                                                             .getKeyFrame(0)));
             break;
         case Spread:
-            powerupLayer.setDrawable(new TextureRegionDrawable
+            weaponLayer.setDrawable(new TextureRegionDrawable
                     (AnimationLoader.get().texture("active_weapon_spread.png")
                                                             .getKeyFrame(0)));
             break;
