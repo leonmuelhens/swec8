@@ -1,23 +1,22 @@
 package com.github.lhrb.nemo.actors.weapons;
 
-
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.shots.Laser;
 import com.github.lhrb.nemo.util.SoundManager;
 
 public class WeaponLaser extends Weapon {
     public WeaponLaser(Stage stage) {
-        super(stage, 2.0f);
+        super(2.0f, stage);
     }
 
-    public WeaponLaser(Stage stage, float cooldown) {
-        super(stage, cooldown);
+    public WeaponLaser(float cooldown, Stage stage) {
+        super(cooldown, stage);
     }
 
     @Override
     public void fire(float x, float y, float angle) {
         if (isReady()) {
-            new Laser(x, y, getStage(), angle);
+            new Laser(x, y, angle, stage);
             resetCooldownTimer();
 
             SoundManager.getInstance().playSound("laser");

@@ -28,7 +28,7 @@ public class SoundManager {
     private SoundManager() {
         songs = new HashMap<String, Music>();
         sounds = new HashMap<String, Sound>();
-        
+
         musicVolume = 0.25f;
         sfxVolume = 0.5f;
 
@@ -69,6 +69,10 @@ public class SoundManager {
     
     public void setMusicVolume(float f) {
         musicVolume = f;
+    }
+
+    public void setMusicStreamVolume(String name, float f) {
+        songs.get(name).setVolume(f);
     }
     
     public void setSfxVolume(float f) {

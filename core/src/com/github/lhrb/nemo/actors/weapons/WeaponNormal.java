@@ -6,17 +6,17 @@ import com.github.lhrb.nemo.util.SoundManager;
 
 public class WeaponNormal extends Weapon {
     public WeaponNormal(Stage stage) {
-        super(stage, 0.4f);
+        super(0.4f, stage);
     }
 
-    public WeaponNormal(Stage stage, float cooldown) {
-        super(stage, cooldown);
+    public WeaponNormal(float cooldown, Stage stage) {
+        super(cooldown, stage);
     }
 
     @Override
     public void fire(float x, float y, float angle) {
         if (isReady()) {
-            new SingleShot(x, y, getStage(), angle);
+            new SingleShot(x, y, angle, stage);
             resetCooldownTimer();
 
             SoundManager.getInstance().playSound("laser");

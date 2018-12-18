@@ -1,17 +1,15 @@
 package com.github.lhrb.nemo.actors.shots;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 public class Laser extends Shots {
 
-    public Laser(float x, float y, Stage stage, float angle) {
-        super(x, y, stage, angle);
+    public Laser(float x, float y, float angle, Stage stage) {
+        super(x, y, angle, stage);
 
-        setAnimation(AnimationLoader.get().texture("SchussLaser.png"));
+        setAnimation(AnimationLoader.get().texture("SchussLaser.png"));      
         setSpeedMax(1600);
         setAcceleration(30000);
         setShapePolygon(8);
@@ -22,8 +20,4 @@ public class Laser extends Shots {
         super.act(delta);
     }
 
-    @Override
-    public void collision() {
-        // Don't remove laser when enemy is hit
-    }
 }

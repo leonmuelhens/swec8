@@ -13,12 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.AbstractGame;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
-import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.*;
-import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
@@ -29,13 +26,13 @@ import com.github.lhrb.nemo.util.SoundManager;
  * @author exa
  * 
  */
-public class Player extends PhysicalActor implements PropertyListener{
+public class Player extends PhysicalActor implements PropertyListener, Existence{
 
     private PropertyChangeSupport changes = new PropertyChangeSupport(this);
     
     private Weapon weapon;
-    private PowerUP powerup;
     private float powerupTimer;
+    private CActor powerup;
     private int life;
     private int score;
     private int multiplier = 1;
@@ -53,11 +50,10 @@ public class Player extends PhysicalActor implements PropertyListener{
         life = 3;
         score = 0;
 
-        weapon = new WeaponNormal(getStage());
+        weapon = new WeaponNormal(stage);
         powerup = null;
         powerupTimer = 0;
         invincible = false;
-
         setShapePolygon(8);
         gotHit = false;
 
@@ -113,6 +109,9 @@ public class Player extends PhysicalActor implements PropertyListener{
      */
     @Override
     public void act(float delta) {
+        super.act(delta);
+        weapon.act(delta);
+        
         if (gotHit) hitAnimation(delta);
         if (powerup != null && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
@@ -122,7 +121,7 @@ public class Player extends PhysicalActor implements PropertyListener{
         }
 
 
-        super.act(delta);
+        
         
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
             accelerationAtAngle(180);
@@ -144,28 +143,25 @@ public class Player extends PhysicalActor implements PropertyListener{
         if (Gdx.input.isKeyPressed(Keys.B)) {
             if (powerup != null && powerup.getType() == CType.Bomb) {
                 // hier fehlt noch eine animation
-                for (Actor a : AbstractGame.getGameStage().getActors()) {
-                    if (a instanceof Enemy) {
-                        ((Enemy) a).enemyDied(true);
+                for (Actor a : getStage().getActors()) {
+                    if (a instanceof EnemyActor) {
+                        ((EnemyActor) a).perish();
                     }
                 }
                 changePowerup(null);
             }
         }
 
-        // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
+        // Zum Vereinfachen der Waffentests!
         if(Gdx.input.isKeyPressed(Keys.F1)) {
-            weapon.remove();
             weapon = new WeaponNormal(getStage());
             changes.firePropertyChange("wpn", null, CType.Normal);
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
-            weapon.remove();
             weapon = new WeaponSpread(getStage());
             changes.firePropertyChange("wpn", null, CType.Spread);
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
-            weapon.remove();
             weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
         }
@@ -175,33 +171,43 @@ public class Player extends PhysicalActor implements PropertyListener{
     
     }
 
-
-    public void playerDied() {
-        KillingNemo.setActiveScreen(new GameOverScreen());
+    
+    @Override
+    public void perish() {
+        KillingNemo.setActiveScreen(new GameOverScreen());        
     }
 
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
-     */
+    
     @Override
     public void collision(CollisionEvent col) {
         if (getStage() == null) System.out.println("stage null");
 
-        if (col.getDestiny() != null && col.getDestiny() instanceof PowerUP) {
-            if (((PowerUP) col.getDestiny()).getType() == CType.Heart){
+        if (col.getDestiny() != null && col.getDestiny() instanceof CActor) {
+            if (((CActor) col.getDestiny()).getType() == CType.Heart) {
                 changes.firePropertyChange("health", life, ++life);
             }
+            else if(((CActor) col.getDestiny()).getType() == CType.Normal) {
+                weapon = new WeaponNormal(getStage());
+                changes.firePropertyChange("wpn", null, CType.Normal);
+            }
+            else if(((CActor) col.getDestiny()).getType() == CType.Spread) {
+                weapon = new WeaponSpread(getStage());
+                changes.firePropertyChange("wpn", null, CType.Spread);
+            }
+            else if(((CActor) col.getDestiny()).getType() == CType.Laser) {
+                weapon = new WeaponLaser(getStage());
+                changes.firePropertyChange("wpn", null, CType.Laser);
+            }
             else {
-                changePowerup((PowerUP) col.getDestiny());
+                changePowerup((CActor) col.getDestiny());
             }
             return;
         }
-
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
             return;
         }
-
-        GameManager.get().removeEnemiesAndShots();
+        
+        GameManager.get().removeEnemiesAndShots(getStage());
 
         if (!gotHit) {
             gotHit = true;
@@ -209,15 +215,14 @@ public class Player extends PhysicalActor implements PropertyListener{
             SoundManager.getInstance().playSound("hit");
             changes.firePropertyChange("health", life, --life);
             if (life <= 0) {
-                playerDied();
+                perish();
             }
             changePowerup(null);
         }
     }
 
-    public void changePowerup(PowerUP changePu) {
+    public void changePowerup(CActor changePu) {
         invincible = false;
-
         // Fälle:
         // 1: changePu set - powerUp set -> Ersetze PowerUp
         // 2: changePu set - powerUp not set -> Setze PowerUp
@@ -252,14 +257,8 @@ public class Player extends PhysicalActor implements PropertyListener{
         }
     }
 
-    public void collision(PowerUP pu){
-
-
-    }
-
     public boolean multi() {
-        if (powerup != null)
-            return (powerup.getType() == CType.Multiplicator);
-        return false;
+        return powerup != null && powerup.getType() == CType.Multiplicator;
     }
+
 }

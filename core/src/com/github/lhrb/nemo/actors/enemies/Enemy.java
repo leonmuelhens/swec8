@@ -7,7 +7,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
-import com.github.lhrb.nemo.SpawnFactory.PowerUPFactory;
+import com.github.lhrb.nemo.SpawnFactory.CollectibleFactory;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.PhysicalActor;
@@ -44,7 +44,6 @@ public abstract class Enemy extends PhysicalActor{
 
     public void enemyHit(CollisionEvent col) {
         boolean isShot = col.getSource() instanceof Shots;
-
     }
 
     public void enemyDied(boolean countScore) {
@@ -59,12 +58,14 @@ public abstract class Enemy extends PhysicalActor{
                             "explosion.png", 6, 6, 0.05f, false));
             //end
             Random rand = new Random();
+
             if(rand.nextInt(10) <= 1) { // 20% chance to drop
-                PowerUPFactory.spawnPU(getX(), getY(), getStage());
+                CollectibleFactory.spawnC(getX(), getY(), getStage());
             }
-            remove();
         }
+        remove();
     }
+
 
     public void collision(CollisionEvent col) {
         boolean isShot = col.getSource() instanceof Shots;
