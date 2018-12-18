@@ -41,7 +41,7 @@ public class PauseScreen extends AbstractScreen{
         pauseMenu.setFillParent(true); // fill full screen
         //pauseMenu.setDebug(true);
         TextButton.TextButtonStyle style = GuiManager.getInstance().getTxtBtnStyle();
-        TextButton mainMenuBtn = new TextButton("Hauptmenu", style);
+        TextButton mainMenuBtn = new TextButton("Hauptmenü", style);
         TextButton keysBtn = new TextButton("Tastenbelegung", style);
         TextButton closeBtn = new TextButton("Beenden", style);
 
@@ -73,7 +73,7 @@ public class PauseScreen extends AbstractScreen{
                 });
 
 
-        TextButton backBtn = new TextButton("Back", GuiManager.getInstance().getTxtBtnStyleSmall());
+        TextButton backBtn = new TextButton("Zurück", GuiManager.getInstance().getTxtBtnStyleSmall());
         backBtn.setPosition(5, 530);
         backBtn.addListener(
                 (Event e) ->{
@@ -84,15 +84,19 @@ public class PauseScreen extends AbstractScreen{
                     KillingNemo.setActiveScreen(backScreen);
                     return true;
                 });
-        guiStage.addActor(backBtn);
+
+
         int size = 375;
 
-
-        pauseMenu.add(mainMenuBtn).width(size).spaceBottom(5);
+        pauseMenu.add(backBtn).colspan(3).left().top().pad(10).expandX().padBottom(120);
         pauseMenu.row();
-        pauseMenu.add(keysBtn).width(size).spaceBottom(5);
+        pauseMenu.add(mainMenuBtn).width(size).spaceBottom(5).colspan(3);
         pauseMenu.row();
-        pauseMenu.add(closeBtn).width(size);
+        pauseMenu.add(keysBtn).width(size).spaceBottom(5).colspan(3);
+        pauseMenu.row();
+        pauseMenu.add(closeBtn).width(size).colspan(3);
+        pauseMenu.row();
+        pauseMenu.add().expandY().colspan(3);
 
         guiStage.addActor(pauseMenu);
     }
