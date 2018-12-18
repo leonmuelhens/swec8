@@ -72,7 +72,7 @@ public class HighscoreScreen extends AbstractScreen {
 
         highscore.setDebug(true);
         guiStage.addActor(highscore);
-        highscore.debug();
+        //highscore.debug();
 
     }
 
