@@ -7,10 +7,7 @@ package com.github.lhrb.nemo.screen;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
@@ -55,19 +52,40 @@ public class LevelDoneScreen extends AbstractScreen {
 
         levelDone = new Label("Level Geschafft :)",
                 GuiManager.getInstance().getLabelStyleBig());
-        table.add(levelDone).spaceBottom(50);
+
+        table.add(levelDone).spaceBottom(50).width(Value.percentWidth(.75F,table)).center();
         table.row();
 
-        if(game.getScore()>score.get(9).getScore()){
+        if(/*game.getScore()>score.get(9).getScore()*/true){
 
             levelDone3 = new TextField("Username",GuiManager.getInstance().getTxtFldStyle());
             levelDone2 = new Label("Username:",
                     GuiManager.getInstance().getLabelStyle());
             levelDone3.setWidth(600);
-
-            table.add(levelDone2).spaceBottom(50).align(Align.center);
-            table.add(levelDone3).spaceBottom(50).align(Align.left);
+            table.add(levelDone2).spaceBottom(50).align(Align.left);
+            table.add(levelDone3).spaceBottom(50).align(Align.left).fillX();
             table.row();
+            TextButton subBtn = new TextButton("Save", GuiManager.getInstance().getTxtBtnStyle());
+            subBtn.addListener(
+                    (Event e) ->{
+                        if( !(e instanceof InputEvent)) {
+                            return false;
+                        }
+                        if( !((InputEvent)e).getType().equals(Type.touchDown) ) {
+                            return false;
+                        }
+                        //save
+                        score.add(new Highscore(levelDone3.getText(),game.getScore()));
+                        Collections.sort(score,Comparator.comparing(Highscore::getScore));
+                        Collections.reverse(score);
+                        score.remove(10);
+                        game.setHighscores(score);
+                        levelDone2.setText("Dein Highscore wurde gespeichert "+levelDone3.getText());
+                        table.removeActor(levelDone3);
+                        table.removeActor(subBtn);
+                        return true;
+                    });
+            table.add(subBtn);
         }
         else {
             levelDone2 = new Label("Sie haben " + game.getScore() + " Punkte erreicht!",
@@ -76,26 +94,7 @@ public class LevelDoneScreen extends AbstractScreen {
             table.row();
         }
 
-        TextButton subBtn = new TextButton("Save", GuiManager.getInstance().getTxtBtnStyle());
-        subBtn.addListener(
-                (Event e) ->{
-                    if( !(e instanceof InputEvent)) {
-                        return false;
-                    }
-                    if( !((InputEvent)e).getType().equals(Type.touchDown) ) {
-                        return false;
-                    }
-                    //save
-                    score.add(new Highscore(levelDone3.getText(),game.getScore()));
-                    Collections.sort(score,Comparator.comparing(Highscore::getScore));
-                    Collections.reverse(score);
-                    score.remove(10);
-                    game.setHighscores(score);
-                    levelDone2.setText("Dein Highscore wurde gespeichert "+levelDone3.getText());
-                    table.removeActor(levelDone3);
-                    table.removeActor(subBtn);
-                    return true;
-                });
+
         TextButton backBtn = new TextButton("Zum Hauptmenü", GuiManager.getInstance().getTxtBtnStyle());
         backBtn.addListener(
                 (Event e) ->{
@@ -111,9 +110,6 @@ public class LevelDoneScreen extends AbstractScreen {
                 });
 
 
-        //guiStage.addActor(backBtn);
-
-        table.add(subBtn);
         table.row();
         table.add(backBtn);
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
@@ -39,6 +40,8 @@ public class HighscoreScreen extends AbstractScreen {
         bg.setAnimation(AnimationLoader.get().texture("highscore.png"));
         highscore = new Table();
         highscore.setFillParent(true); // fill full screen
+
+
         TextButton backBtn = new TextButton("Back", GuiManager.getInstance().getTxtBtnStyleSmall());
         //backBtn.setPosition(5, 530);
         backBtn.addListener(
@@ -75,9 +78,9 @@ public class HighscoreScreen extends AbstractScreen {
             Label score = new Label(String.valueOf(stat.getScore()), GuiManager.getInstance().getLabelStyle());
             Label name = new Label(stat.getName(), GuiManager.getInstance().getLabelStyle());
 
-            highscore.add(place).width(50).align(Align.left);
-            highscore.add(score).width(100).align(Align.center);
-            highscore.add(name).width(200).align(Align.right);
+            highscore.add(place).width(100).align(Align.left);
+            highscore.add(score).align(Align.center);
+            highscore.add(name).align(Align.right);
             highscore.row();
             i++;
         }
