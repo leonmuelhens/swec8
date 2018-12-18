@@ -23,7 +23,7 @@ public class CActor extends PhysicalActor implements Existence{
         super(x,y,stage);
         this.type = type;
         setAnimation(AnimationLoader.get().texture(Collectibles.get().getPath(type)));
-        //setAcceleration(1000);
+        setAcceleration(1000);
         setSpeedMax(75);
         setShapePolygon(8);
     }
