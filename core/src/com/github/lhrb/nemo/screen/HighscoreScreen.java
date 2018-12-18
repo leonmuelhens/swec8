@@ -28,6 +28,8 @@ public class HighscoreScreen extends AbstractScreen {
 
     Table highscore;
     ArrayList<Highscore> stats;
+    private Label rank, points, name, titel;
+
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
@@ -41,6 +43,10 @@ public class HighscoreScreen extends AbstractScreen {
         highscore = new Table();
         highscore.setFillParent(true); // fill full screen
 
+        rank = new Label("Rang", GuiManager.getInstance().getLabelStyle());
+        points = new Label("Punkte", GuiManager.getInstance().getLabelStyle());
+        name = new Label("Name", GuiManager.getInstance().getLabelStyle());
+        titel = new Label("HIGHSCORE", GuiManager.getInstance().getLabelStyleBig());
 
         TextButton backBtn = new TextButton("Back", GuiManager.getInstance().getTxtBtnStyleSmall());
         //backBtn.setPosition(5, 530);
@@ -53,12 +59,20 @@ public class HighscoreScreen extends AbstractScreen {
                     return true;
                 });
         int size = 450;
+        highscore.add(titel).expandY().colspan(3).align(Align.center);
+        highscore.row();
+
+        highscore.add(rank).pad(10).align(Align.left).top().padBottom(0);
+        highscore.add(points).pad(10).align(Align.center).top().padBottom(0);
+        highscore.add(name).pad(10).align(Align.right).top().padBottom(0);
+        highscore.row();
 
         addScoreToTable();
-        highscore.add(backBtn).width(size).spaceBottom(5);
+        highscore.add(backBtn).colspan(3).spaceBottom(5).expandY().width(450);
 
         highscore.setDebug(true);
         guiStage.addActor(highscore);
+        highscore.debug();
 
     }
 
@@ -78,9 +92,9 @@ public class HighscoreScreen extends AbstractScreen {
             Label score = new Label(String.valueOf(stat.getScore()), GuiManager.getInstance().getLabelStyle());
             Label name = new Label(stat.getName(), GuiManager.getInstance().getLabelStyle());
 
-            highscore.add(place).width(100).align(Align.left);
-            highscore.add(score).align(Align.center);
-            highscore.add(name).align(Align.right);
+            highscore.add(place).align(Align.left).pad(5).padLeft(10).width(100);
+            highscore.add(score).align(Align.center).pad(5).expandX();
+            highscore.add(name).align(Align.right).pad(5).width(300);
             highscore.row();
             i++;
         }
