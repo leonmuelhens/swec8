@@ -43,7 +43,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
         GameManager.get().addScore(scoreValue);
         SoundManager.getInstance().playSound("explosion");
         //code below is bad
-        new ActorPrefab(getX(), getY(), getStage())
+        new ActorPrefab(getParent().getX()+(getParent().getWidth()/2), getParent().getY(), getStage())
                 .setAnimation(AnimationLoader.get().animation(
                         "explosion.png", 6, 6, 0.05f, false));
         //end
