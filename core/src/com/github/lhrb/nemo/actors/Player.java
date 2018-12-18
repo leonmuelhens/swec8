@@ -5,7 +5,6 @@ package com.github.lhrb.nemo.actors;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -13,9 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.github.lhrb.nemo.AbstractGame;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.powerups.*;
@@ -47,6 +44,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     private Stack stack;
     private Image weaponLayer;
     private Image powerupLayer;
+    private Image bombLayer;
     
     
     public Player(float x, float y, Stage stage) {
@@ -69,7 +67,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         
         powerupLayer = new Image();
         weaponLayer = new Image();
-        stack = new Stack(powerupLayer, weaponLayer);
+        bombLayer = new Image();
+        stack = new Stack(bombLayer, powerupLayer, weaponLayer);
         stack.setSize(78f, 93f);
         addActor(stack);
         /**
@@ -105,7 +104,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                                                           .getKeyFrame(0)));
             break;
         case Bomb:
-            powerupLayer.setDrawable(new TextureRegionDrawable
+            bombLayer.setDrawable(new TextureRegionDrawable
                     (AnimationLoader.get().texture("active_powerup_bomb.png")
                                                             .getKeyFrame(0)));
             break;
@@ -199,6 +198,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if (Gdx.input.isKeyPressed(Keys.B)) {
             if (powerup != null && powerup.getType() == CType.Bomb) {
                 // hier fehlt noch eine animation
+                bombLayer.setDrawable(null);
                 for (Actor a : getStage().getActors()) {
                     if (a instanceof EnemyActor) {
                         ((EnemyActor) a).perish();
