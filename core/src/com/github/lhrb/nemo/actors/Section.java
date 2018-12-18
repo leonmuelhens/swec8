@@ -62,7 +62,7 @@ public class Section extends EnemyActor {
      */
     public boolean getDmg() {
         decreaseHp();
-        setColor(255, 0, 0, getHp() * 0.4f);
+        updateVisualDamage();
         return (getHp() <= 0);
     }
 

@@ -18,6 +18,7 @@ import com.github.lhrb.nemo.util.SoundManager;
 public class EnemyActor extends PhysicalActor implements Existence, Removable{
     
     private int hp;
+    private int initialHp;
     private int scoreValue;
     
     public EnemyActor() {
@@ -68,7 +69,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
        if(col == null) return;
        if(col.getSource() instanceof Shots) {
            hp -= 1;
-           setColor(255, 0, 0, hp * 0.4f);
+           updateVisualDamage();
            if(hp <= 0) {
                perish();
            }
@@ -87,10 +88,20 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
      */
     protected void setHp(int hp) {
         this.hp = hp;
+        initialHp = hp;
     }
     
     protected void decreaseHp() {
         hp--;
+    }
+
+    public void updateVisualDamage() {
+        if (hp > 1) {
+            setColor(1,(float)hp/(float)initialHp,(float)hp/(float)initialHp,1);
+        }
+        else {
+            setColor(1,0,0,1);
+        }
     }
 
     /**
