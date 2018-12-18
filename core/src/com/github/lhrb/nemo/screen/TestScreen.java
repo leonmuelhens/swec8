@@ -13,6 +13,8 @@ import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.Section;
+import com.github.lhrb.nemo.actors.powerups.CActor;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
@@ -28,18 +30,14 @@ public class TestScreen extends AbstractScreen {
     public void init() {
         
         
-        MultiPartActor test = new MultiPartActor(0,200, gameStage);
-        Section back = new Section(test, 0, 0, 5, 5, AnimationLoader.get().texture("uboot_back.png"));
-        Section middle = new Section(test, 72, 0, 5, 5, AnimationLoader.get().texture("uboot_middle.png"));
-        Section front = new Section(test, 144, 0, 5, 5, AnimationLoader.get().texture("uboot_front.png"));
-        test.addPart(back);
-        test.addPart(middle);
-        test.addPart(front);
-        //back.setPosition(0, 200);
-        //middle.setPosition(72, 200);
-        //front.setPosition(144, 200);
-        //test.setPosition(200, 200);
-        //gameStage.addActor(test);
+        CActor a = new CActor(50,300,gameStage, CType.Laser);
+        CActor b = new CActor(150,300,gameStage, CType.Bomb);
+        CActor c = new CActor(250,300,gameStage, CType.Star);
+        CActor d = new CActor(350,300,gameStage, CType.Shield);
+        CActor e = new CActor(450,300,gameStage, CType.Spread);
+        CActor f = new CActor(550,300,gameStage, CType.Normal);
+        CActor g = new CActor(550,100,gameStage, CType.Multiplicator);
+        
         
         Player player = new Player(200,50, gameStage);
 

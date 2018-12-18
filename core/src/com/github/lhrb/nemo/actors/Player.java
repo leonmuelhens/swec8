@@ -5,11 +5,15 @@ package com.github.lhrb.nemo.actors;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.AbstractGame;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
@@ -39,6 +43,10 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     private boolean gotHit;
     private boolean invincible;
     private float hitDelta;
+    private Image weaponLayer;
+    private Image powerupLayer;
+    
+    
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
 
@@ -51,12 +59,16 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         score = 0;
 
         weapon = new WeaponNormal(stage);
-        powerup = null;
+        powerup = new CActor(CType.None);
         powerupTimer = 0;
         invincible = false;
         setShapePolygon(8);
         gotHit = false;
-
+         
+        powerupLayer = new Image();
+        weaponLayer = new Image();
+        addActor(powerupLayer);
+        addActor(weaponLayer);    
         /**
          * ATTENTION
          * this method does not provide any security mechanism
@@ -74,6 +86,47 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
+    }
+    
+    private void setVisuals(CType type) {
+        if(powerupLayer == null) return;
+        switch(type) {
+        case Shield: 
+            powerupLayer.setDrawable(new TextureRegionDrawable
+                (AnimationLoader.get().texture("active_powerup_shield.png")
+                                                          .getKeyFrame(0)));
+            break;
+        case Star:
+            System.out.println("Star");
+            powerupLayer.setDrawable(new TextureRegionDrawable
+                (AnimationLoader.get().texture("active_powerup_star.png")
+                                                          .getKeyFrame(0)));
+            break;
+        case Bomb:
+            powerupLayer.setDrawable(new TextureRegionDrawable
+                    (AnimationLoader.get().texture("active_powerup_bomb.png")
+                                                            .getKeyFrame(0)));
+            break;
+        case Normal:
+            powerupLayer.setDrawable(new TextureRegionDrawable
+                    (AnimationLoader.get().texture("active_weapon_normal.png")
+                                                            .getKeyFrame(0)));
+            break;
+        case Laser:
+            powerupLayer.setDrawable(new TextureRegionDrawable
+                    (AnimationLoader.get().texture("active_weapon_laser.png")
+                                                            .getKeyFrame(0)));
+            break;
+        case Spread:
+            powerupLayer.setDrawable(new TextureRegionDrawable
+                    (AnimationLoader.get().texture("active_weapon_spread.png")
+                                                            .getKeyFrame(0)));
+            break;
+        default: 
+            powerupLayer.setDrawable(null);
+            break;
+        }
+        
     }
 
     public boolean isInvincible() {
@@ -113,7 +166,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         weapon.act(delta);
         
         if (gotHit) hitAnimation(delta);
-        if (powerup != null && powerup.getType() != CType.Bomb) {
+        if (powerup != null && powerup.getType() != CType.None 
+                            && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
             if (powerupTimer <= 0 ) {
                 changePowerup(null);
@@ -188,14 +242,17 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
             else if(((CActor) col.getDestiny()).getType() == CType.Normal) {
                 weapon = new WeaponNormal(getStage());
+                setVisuals(CType.Normal);
                 changes.firePropertyChange("wpn", null, CType.Normal);
             }
             else if(((CActor) col.getDestiny()).getType() == CType.Spread) {
                 weapon = new WeaponSpread(getStage());
+                setVisuals(CType.Spread);
                 changes.firePropertyChange("wpn", null, CType.Spread);
             }
             else if(((CActor) col.getDestiny()).getType() == CType.Laser) {
                 weapon = new WeaponLaser(getStage());
+                setVisuals(CType.Laser);
                 changes.firePropertyChange("wpn", null, CType.Laser);
             }
             else {
@@ -249,12 +306,12 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
         } else {
             // Fall 3: Remove PowerUp
-            if (powerup != null) {
-                powerup.remove();
+            if (powerup != null) {                
                 changes.firePropertyChange("powerup",powerup.getType(),null);
-                powerup = null;
+                powerup.setType(CType.None);
             }
         }
+        setVisuals(powerup.getType());
     }
 
     public boolean multi() {
