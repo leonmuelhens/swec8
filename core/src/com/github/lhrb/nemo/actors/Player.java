@@ -35,6 +35,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     private Weapon weapon;
     private float powerupTimer;
     private CActor powerup;
+    private CActor bomb;
     private int life;
     private int score;
     private int multiplier = 1;
@@ -60,6 +61,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
 
         weapon = new WeaponNormal(stage);
         powerup = new CActor(CType.None);
+        bomb = new CActor(CType.None);
+
         powerupTimer = 0;
         invincible = false;
         setShapePolygon(8);
@@ -174,9 +177,6 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                 changePowerup(null);
             }
         }
-
-
-        
         
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
             accelerationAtAngle(180);
@@ -196,7 +196,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
 
         if (Gdx.input.isKeyPressed(Keys.B)) {
-            if (powerup != null && powerup.getType() == CType.Bomb) {
+            if (bomb != null && bomb.getType() == CType.Bomb) {
                 // hier fehlt noch eine animation
                 bombLayer.setDrawable(null);
                 for (Actor a : getStage().getActors()) {
@@ -204,7 +204,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                         ((EnemyActor) a).perish();
                     }
                 }
-                changePowerup(null);
+                changeBomb(null);
             }
         }
 
@@ -260,6 +260,9 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                 setVisuals(CType.Laser);
                 changes.firePropertyChange("wpn", null, CType.Laser);
             }
+            else if(((CActor) col.getDestiny()).getType() == CType.Bomb) {
+                changeBomb((CActor) col.getDestiny());
+            }
             else {
                 changePowerup((CActor) col.getDestiny());
             }
@@ -280,7 +283,19 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                 perish();
             }
             changePowerup(null);
+            changeBomb(null);
         }
+    }
+
+    public void changeBomb(CActor changeBomb) {
+        if (changeBomb != null) {
+            changes.firePropertyChange("bomb",bomb.getType(),changeBomb.getType());
+            bomb = changeBomb;
+        } else {
+            changes.firePropertyChange("bomb",bomb.getType(),CType.None);
+            bomb = new CActor(CType.None);
+        }
+        setVisuals(bomb.getType());
     }
 
     public void changePowerup(CActor changePu) {
@@ -306,13 +321,13 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
             // Fall 2: Setze PowerUp
             else {
-                changes.firePropertyChange("powerup",null,changePu.getType());
+                changes.firePropertyChange("powerup",CType.None,changePu.getType());
                 powerup = changePu;
             }
         } else {
             // Fall 3: Remove PowerUp
             if (powerup != null) {                
-                changes.firePropertyChange("powerup",powerup.getType(),null);
+                changes.firePropertyChange("powerup",powerup.getType(),CType.None);
                 powerup.setType(CType.None);
             }
         }
