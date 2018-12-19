@@ -283,6 +283,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                 perish();
             }
             changePowerup(CType.None);
+            bombLayer.setDrawable(null);
             changeBomb(CType.None);
         }
     }
