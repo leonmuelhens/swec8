@@ -167,7 +167,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                             && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
             if (powerupTimer <= 0 ) {
-                changePowerup(null);
+                changePowerup(CType.None);
             }
         }
         
@@ -282,7 +282,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             if (life <= 0) {
                 perish();
             }
-            changePowerup(null);
+            changePowerup(CType.None);
             changeBomb(CType.None);
         }
     }
@@ -295,38 +295,21 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     }
 
     public void changePowerup(CType changePu) {
+        if(changePu == null) return;
+        if(changePu == CType.Bomb) return;
         invincible = false;
-        // Fälle:
-        // 1: changePu set - powerUp set -> Ersetze PowerUp
-        // 2: changePu set - powerUp not set -> Setze PowerUp
-        // 3: changePu not set - powerUp set -> Remove PowerUp
-        // 4: changePu not set - powerUp not set -> nichts passiert
-
-        if(changePu != null) {
-            if (changePu!= CType.Bomb){
-                powerupTimer = 20;
-                if (changePu == CType.Star) {
-                    invincible = true;
-                }
-            }
-
-            // Fall 1: Ersetzen Powerup
-            if(powerup != null) {
-                changes.firePropertyChange("powerup",powerup.getType(),changePu);
-                powerup.setType(changePu);
-            }
-            // Fall 2: Setze PowerUp
-            else {
-                changes.firePropertyChange("powerup",CType.None,changePu);
-                powerup.setType(changePu);
-            }
-        } else {
-            // Fall 3: Remove PowerUp
-            if (powerup != null) {                
-                changes.firePropertyChange("powerup",powerup.getType(),CType.None);
-                powerup.setType(CType.None);
+        
+        if(changePu != CType.None) {
+            powerupTimer = 20;          
+            
+            if (changePu == CType.Star) {
+                invincible = true;
             }
         }
+
+        changes.firePropertyChange("powerup",powerup.getType(),changePu);
+        powerup.setType(changePu);
+        
         setVisuals(powerup.getType());
     }
 
