@@ -5,12 +5,13 @@ package com.github.lhrb.nemo.actors;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.AbstractGame;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.powerups.*;
@@ -20,6 +21,7 @@ import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
+
 
 /**
  * Simple player Implementation
@@ -33,14 +35,24 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     private Weapon weapon;
     private float powerupTimer;
     private CActor powerup;
+    private CActor bomb;
     private int life;
     private int score;
     private int multiplier = 1;
     private boolean gotHit;
     private boolean invincible;
     private float hitDelta;
+    
     private float weaponCooldown; // in percentage
     private float weaponCooldownDelta;
+
+    private Stack stack;
+    private Image weaponLayer;
+    private Image powerupLayer;
+    private Image bombLayer;
+    
+    
+
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
 
@@ -55,12 +67,20 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         weaponCooldown = 1.0f;
 
         weapon = new WeaponNormal(stage);
-        powerup = null;
+        powerup = new CActor(CType.None);
+        bomb = new CActor(CType.None);
+
         powerupTimer = 0;
         invincible = false;
         setShapePolygon(8);
         gotHit = false;
-
+        
+        powerupLayer = new Image();
+        weaponLayer = new Image();
+        bombLayer = new Image();
+        stack = new Stack(bombLayer, powerupLayer, weaponLayer);
+        stack.setSize(78f, 93f);
+        addActor(stack);
         /**
          * ATTENTION
          * this method does not provide any security mechanism
@@ -78,6 +98,39 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
+    }
+    
+    private void setVisuals(CType type) {
+        switch(type) {
+        case Shield: 
+            powerupLayer.setDrawable(AnimationLoader.get()
+                     .drawable("active_powerup_shield.png"));
+            break;
+        case Star:
+            powerupLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_powerup_star.png"));
+            break;
+        case Bomb:
+            bombLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_powerup_bomb.png"));
+            break;
+        case Normal:
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_normal.png"));
+            break;
+        case Laser:
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_laser.png"));
+            break;
+        case Spread:
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_spread.png"));
+            break;
+        default: 
+            powerupLayer.setDrawable(null);
+            break;
+        }
+        
     }
 
     public boolean isInvincible() {
@@ -117,12 +170,14 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         weapon.act(delta);
         
         if (gotHit) hitAnimation(delta);
-        if (powerup != null && powerup.getType() != CType.Bomb) {
+        if (powerup != null && powerup.getType() != CType.None 
+                            && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
             if (powerupTimer <= 0 ) {
-                changePowerup(null);
+                changePowerup(CType.None);
             }
         }
+
         if (weapon.isReady()) {
             changes.firePropertyChange("shottimer",weaponCooldown,1f);
             weaponCooldown = 1.0f;
@@ -131,7 +186,6 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             changes.firePropertyChange("shottimer",weaponCooldown,weaponCooldown-weaponCooldownDelta);
             weaponCooldown-=weaponCooldownDelta;
         }
-
 
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
             accelerationAtAngle(180);
@@ -151,16 +205,20 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
 
         if (Gdx.input.isKeyPressed(Keys.B)) {
-            if (powerup != null && powerup.getType() == CType.Bomb) {
+            if (bomb != null && bomb.getType() == CType.Bomb) {
                 // hier fehlt noch eine animation
+                bombLayer.setDrawable(null);
                 for (Actor a : getStage().getActors()) {
                     if (a instanceof EnemyActor) {
                         ((EnemyActor) a).perish();
                     }
                 }
-                changePowerup(null);
+                changeBomb(CType.None);
             }
         }
+
+
+        //TODO needs to be put somewhere else
 
         // Zum Vereinfachen der Waffentests!
         if(Gdx.input.isKeyPressed(Keys.F1)) {
@@ -175,7 +233,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
         }
-        
+
         applyPhysics(delta);
         setBoundToWorld();
     
@@ -189,29 +247,42 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
 
     @Override
     public void collision(CollisionEvent col) {
-        if (getStage() == null) System.out.println("stage null");
+        if (getStage() == null) {
+            System.out.println("stage null"); // debug flag
+            return;
+        }
 
         if (col.getDestiny() != null && col.getDestiny() instanceof CActor) {
-            if (((CActor) col.getDestiny()).getType() == CType.Heart) {
-                changes.firePropertyChange("health", life, ++life);
-            }
-            else if(((CActor) col.getDestiny()).getType() == CType.Normal) {
-                weapon = new WeaponNormal(getStage());
-                changes.firePropertyChange("wpn", null, CType.Normal);
-            }
-            else if(((CActor) col.getDestiny()).getType() == CType.Spread) {
-                weapon = new WeaponSpread(getStage());
-                changes.firePropertyChange("wpn", null, CType.Spread);
-            }
-            else if(((CActor) col.getDestiny()).getType() == CType.Laser) {
-                weapon = new WeaponLaser(getStage());
-                changes.firePropertyChange("wpn", null, CType.Laser);
-            }
-            else {
-                changePowerup((CActor) col.getDestiny());
+            CType type = ((CActor)col.getDestiny()).getType();
+            switch(type) {
+                case Heart:
+                    changes.firePropertyChange("health", life, ++life);
+                    break;
+                case Normal:
+                    weapon = new WeaponNormal(getStage());
+                    setVisuals(CType.Normal);
+                    changes.firePropertyChange("wpn", null, CType.Normal);
+                    break;
+                case Spread:
+                    weapon = new WeaponSpread(getStage());
+                    setVisuals(CType.Spread);
+                    changes.firePropertyChange("wpn", null, CType.Spread);
+                    break;
+                case Laser:
+                    weapon = new WeaponLaser(getStage());
+                    setVisuals(CType.Laser);
+                    changes.firePropertyChange("wpn", null, CType.Laser);
+                    break;
+                case Bomb:
+                    changeBomb(type);
+                    break;
+                default:
+                    changePowerup(type);
+                    break;                        
             }
             return;
         }
+
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
             return;
         }
@@ -226,44 +297,36 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             if (life <= 0) {
                 perish();
             }
-            changePowerup(null);
+            changePowerup(CType.None);
+            bombLayer.setDrawable(null);
+            changeBomb(CType.None);
         }
     }
 
-    public void changePowerup(CActor changePu) {
+    public void changeBomb(CType changeBomb) {
+        if (changeBomb == null) return;
+        changes.firePropertyChange("bomb",bomb.getType(),changeBomb);
+        bomb.setType(changeBomb);
+        setVisuals(bomb.getType());
+    }
+
+    public void changePowerup(CType changePu) {
+        if(changePu == null) return;
+        if(changePu == CType.Bomb) return;
         invincible = false;
-        // Fälle:
-        // 1: changePu set - powerUp set -> Ersetze PowerUp
-        // 2: changePu set - powerUp not set -> Setze PowerUp
-        // 3: changePu not set - powerUp set -> Remove PowerUp
-        // 4: changePu not set - powerUp not set -> nichts passiert
-
-        if(changePu != null) {
-            if (changePu.getType() != CType.Bomb){
-                powerupTimer = 20;
-                if (changePu.getType() == CType.Star) {
-                    invincible = true;
-                }
-            }
-
-            // Fall 1: Ersetzen Powerup
-            if(powerup != null) {
-                changes.firePropertyChange("powerup",powerup.getType(),changePu.getType());
-                powerup = changePu;
-            }
-            // Fall 2: Setze PowerUp
-            else {
-                changes.firePropertyChange("powerup",null,changePu.getType());
-                powerup = changePu;
-            }
-        } else {
-            // Fall 3: Remove PowerUp
-            if (powerup != null) {
-                powerup.remove();
-                changes.firePropertyChange("powerup",powerup.getType(),null);
-                powerup = null;
+        
+        if(changePu != CType.None) {
+            powerupTimer = 20;          
+            
+            if (changePu == CType.Star) {
+                invincible = true;
             }
         }
+
+        changes.firePropertyChange("powerup",powerup.getType(),changePu);
+        powerup.setType(changePu);
+        
+        setVisuals(powerup.getType());
     }
 
     public boolean multi() {

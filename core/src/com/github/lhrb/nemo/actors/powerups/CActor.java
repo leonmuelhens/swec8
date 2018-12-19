@@ -13,7 +13,11 @@ import com.github.lhrb.nemo.util.AnimationLoader;
  *
  */
 public class CActor extends PhysicalActor implements Existence{
-    CType type;
+    private CType type;
+    
+    public CActor(CType type) {
+        this.type = type;
+    }
 
     public CActor(float x, float y, Stage stage, CType type) {
         super(x,y,stage);
@@ -26,6 +30,10 @@ public class CActor extends PhysicalActor implements Existence{
     
     public CType getType() {
         return type;
+    }
+    
+    public void setType(CType type) {
+        this.type = type;
     }
 
     /* (non-Javadoc)
