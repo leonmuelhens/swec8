@@ -2,7 +2,7 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
@@ -12,7 +12,6 @@ import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.PropertyListener;
-import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -54,6 +53,20 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         // For testing
         if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
             gameTime += 3*60;
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            float timeSinceESC = GameManager.get().getTimeSinceESC();
+
+            if((gameTime-timeSinceESC) > 0.5f) {
+                KillingNemo.getActiveScreen().pause();
+                KillingNemo.setActiveScreen(new PauseScreen(KillingNemo.getActiveScreen()));
+                GameManager.get().setTimeSinceESC(timeSinceESC);
+
+            } else {
+                // ignore the collision
+            }
+
         }
 
         if (soundVolume < 0.25f) {

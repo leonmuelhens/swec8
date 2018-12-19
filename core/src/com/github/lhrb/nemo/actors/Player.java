@@ -5,12 +5,10 @@ package com.github.lhrb.nemo.actors;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.AbstractGame;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.powerups.*;
@@ -20,6 +18,7 @@ import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
+
 
 /**
  * Simple player Implementation
@@ -152,6 +151,9 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
         }
 
+
+        //TODO needs to be put somewhere else
+
         // Zum Vereinfachen der Waffentests!
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon = new WeaponNormal(getStage());
@@ -165,7 +167,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
         }
-        
+
         applyPhysics(delta);
         setBoundToWorld();
     

@@ -18,11 +18,20 @@ public class GameManager {
     private Player player; //needs to change for multiplayer
     
     private static GameManager gameMng;
+    private float timeSinceESC = 0;
     
     private GameManager() {
         
     }
-    
+
+    public float getTimeSinceESC() {
+        return timeSinceESC;
+    }
+
+    public void setTimeSinceESC(float timeSinceESC) {
+        this.timeSinceESC = timeSinceESC;
+    }
+
     public static GameManager get() {
         if(gameMng == null) {
             gameMng = new GameManager();
