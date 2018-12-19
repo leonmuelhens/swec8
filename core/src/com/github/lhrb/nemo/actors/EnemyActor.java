@@ -96,7 +96,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
 
     public void updateVisualDamage() {
         if (hp > 1) {
-            setColor(1,(float)hp/(float)initialHp,(float)hp/(float)initialHp,1);
+            setColor(1,(float)hp/initialHp,(float)hp/initialHp,1);
         }
         else {
             setColor(1,0,0,1);
