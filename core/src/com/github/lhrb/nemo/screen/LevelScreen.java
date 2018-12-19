@@ -20,6 +20,7 @@ import java.beans.PropertyChangeSupport;
 public abstract class LevelScreen extends AbstractScreen implements PropertyListener{
     protected int level;
     float gameTime;
+    String gameTimeString, gameTimeStringBefore;
     HUD hud;
     Player player;
     Background bg, bg2;
@@ -36,8 +37,13 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        changes.firePropertyChange("gametime",gameTime,(int)(gameTime+delta));
+        gameTimeStringBefore = String.format("%d:%02d",(int) gameTime / 60,(int) gameTime % 60);
+
         gameTime += delta;
+
+        gameTimeString = String.format("%d:%02d",(int) gameTime / 60,(int) gameTime % 60);
+
+        changes.firePropertyChange("gametime",gameTimeStringBefore,gameTimeString);
 
         /* Once we define an abstract class for gameScreens, we can define a variable
            for how long the level shall take and replace the hardcorded 3*6
