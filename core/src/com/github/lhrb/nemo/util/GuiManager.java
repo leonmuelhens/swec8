@@ -23,22 +23,23 @@ public class GuiManager {
     
     private static GuiManager guiMng;
     private LabelStyle labelStyle;
+    private LabelStyle labelStyleSmall;
     private LabelStyle labelStyleBig;
 
     private TextButtonStyle txtBtnStyle;
-    private TextButtonStyle txtBtnStyleLittle;
+    private TextButtonStyle txtBtnStyleSmall;
     private TextButtonStyle txtBtnStyleBig;
 
     private GuiManager() {
         // Create Label Styles
-        labelStyle = new LabelStyle(createFont(24),Color.WHITE);
+        labelStyleSmall = new LabelStyle(createFont(24),Color.WHITE);
+        labelStyle = new LabelStyle(createFont(36),Color.WHITE);
         labelStyleBig = new LabelStyle(createFont(48),Color.WHITE);
 
         // Create button Styles
-        txtBtnStyle = new TextButtonStyle(createTextButtonStyle(36));
-        txtBtnStyleLittle = new TextButtonStyle(createTextButtonStyle(24));
-        txtBtnStyleBig = new TextButtonStyle(createTextButtonStyle(48));
-
+        txtBtnStyleSmall = new TextButtonStyle(createTextButtonStyle(20));
+        txtBtnStyle = new TextButtonStyle(createTextButtonStyle(25));
+        txtBtnStyleBig = new TextButtonStyle(createTextButtonStyle(30));
     }
 
 
@@ -83,13 +84,21 @@ public class GuiManager {
         }
         return guiMng;
     }
-    
+
+    public LabelStyle getLabelStyleSmall() {
+        return labelStyleSmall;
+    }
+
     public LabelStyle getLabelStyle() {
         return labelStyle;
     }
 
     public LabelStyle getLabelStyleBig() {
         return labelStyleBig;
+    }
+
+    public TextButtonStyle getTxtBtnStyleSmall() {
+        return txtBtnStyleSmall;
     }
 
     public TextButtonStyle getTxtBtnStyle() {
@@ -100,8 +109,5 @@ public class GuiManager {
         return txtBtnStyleBig;
     }
     
-    public TextButtonStyle getTxtBtnStyleSmall() {
-        return txtBtnStyleLittle;
-    }
-    
+
 }
