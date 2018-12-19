@@ -1,14 +1,18 @@
 package com.github.lhrb.nemo.actors.enemies;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
-public class EnemyTwo extends Enemy {
+public class EnemyTwo extends EnemyActor {
+
     public EnemyTwo(Stage stage) {
         super(stage);
+        // TODO Auto-generated constructor stub
     }
+
     /**
      * Simple Enemie Implementation
      * @author Thorsten Rösler
@@ -16,8 +20,9 @@ public class EnemyTwo extends Enemy {
      */
 
     private Weapon weapon;
+    private float fireRate;
 
-    public void setCharacteristics(Stage stage) {
+    public void setCharacteristics() {
         
         setAnimation(AnimationLoader.get().texture("gegner2.png"));
         //setRotation(180);
@@ -26,10 +31,10 @@ public class EnemyTwo extends Enemy {
         setDeceleration(1000000);
         setShapePolygon(8);
 
-        hp = 4;
-        scoreValue = 3;
-
-        weapon = new WeaponSpread(stage,2.8f, 32f);
+        setHp(4);
+        setScoreValue(3);
+        fireRate = 3f;  
+        weapon = new WeaponSpread(fireRate, 45f, getStage());
     }
 
     /**
@@ -38,12 +43,14 @@ public class EnemyTwo extends Enemy {
     @Override
     public void act(float delta) {
         super.act(delta);
+        weapon.act(delta);
+        
         accelerationAtAngle(270);
-
         applyObjectPhysics(delta);
-
-        if (getStage() != null && getY()+20 < getStage().getHeight()) {
+        
+        if(getElapsedTime() > 4f) {
             weapon.fire(getX() + (getWidth() / 2), getY() - 40, 270);
         }
+        
     }
 }

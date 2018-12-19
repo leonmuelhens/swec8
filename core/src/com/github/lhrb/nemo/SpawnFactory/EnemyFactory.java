@@ -1,7 +1,7 @@
 package com.github.lhrb.nemo.SpawnFactory;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.ActorPrefab;
+import com.github.lhrb.nemo.actors.EnemyActor;
 import com.github.lhrb.nemo.actors.enemies.EnemyOne;
 import com.github.lhrb.nemo.actors.enemies.EnemyThree;
 import com.github.lhrb.nemo.actors.enemies.EnemyTwo;
@@ -10,14 +10,20 @@ import java.util.Random;
 
 public class EnemyFactory {
 
-    private int level;
+    // alles friendly
     private float gameTime, timeLastSpawn;
     private Stage gameStage;
-
     private float spawnRate;
+    private int randSpawnPossibilityStart = 1;
+    private int randSpawnPossibility;
+    
+    private int level = 0;
+    
+    private byte spawnB[][] = {{50,80},
+                               {40,75},
+                               {30,70}};
 
-    public EnemyFactory(int level, Stage gameStage) {
-        this.level = level;
+    public EnemyFactory(Stage gameStage) {
         gameTime = 0;
         this.gameStage = gameStage;
 
@@ -25,99 +31,94 @@ public class EnemyFactory {
         timeLastSpawn = 1;
     }
 
-    public void spawnEnemy(ActorPrefab actor) {
-        if (spawnRate - (gameTime - timeLastSpawn) < 0) {
-            Random rand = new Random();
-            float x = rand.nextInt((int) gameStage.getWidth()- (int) actor.getWidth() ) + 1;
-            float y = gameStage.getHeight();
+    private void spawnEnemy() {
+        Random unitRand = new Random();
+        int randomInt = unitRand.nextInt(100);
 
-            actor.setPosition(x,y);
-            gameStage.addActor(actor);
+        EnemyActor newEnemy;
 
-            timeLastSpawn = gameTime;
+        if(randomInt <= spawnB[level][0]) {
+            newEnemy = new EnemyOne(gameStage);
+        } else if (randomInt <= spawnB[level][1]) {
+            newEnemy = new EnemyTwo(gameStage);
+        } else {
+            newEnemy = new EnemyThree(gameStage);
         }
+
+        Random xCoord = new Random();
+        float x = xCoord.nextInt((int) gameStage.getWidth()- (int) newEnemy.getWidth() ) + 1;
+        float y = gameStage.getHeight();
+
+        newEnemy.setPosition(x,y);
+        gameStage.addActor(newEnemy);
     }
 
-    public void levelOneSpawner() {
-        Random rand = new Random();
-
-        switch (rand.nextInt(3) + 1) {
-            case 1:
-                EnemyOne enemy = new EnemyOne(gameStage);
-                spawnEnemy(enemy);
-                break;
-            case 2:
-                EnemyTwo enemy2 = new EnemyTwo(gameStage);
-                spawnEnemy(enemy2);
-                break;
-            case 3:
-                EnemyThree enemy3 = new EnemyThree(gameStage);
-                spawnEnemy(enemy3);
-                break;
-            default:
-                EnemyOne enemyy = new EnemyOne(gameStage);
-                spawnEnemy(enemyy);
-                break;
-        }
-    }
-
-    public void levelTwoSpawner() {
-        EnemyTwo enemy = new EnemyTwo(gameStage);
-        spawnEnemy(enemy);
-    }
-    public void levelThreeSpawner() {
-        EnemyOne enemy = new EnemyOne(gameStage);
-        spawnEnemy(enemy);
-    }
-
-    public void spawnLevel() {
-        switch(level) {
-            case 1:
-                levelOneSpawner();
-                break;
-            case 2:
-                levelTwoSpawner();
-                break;
-            case 3:
-                levelThreeSpawner();
-                break;
-            default:
-                levelOneSpawner();
-                break;
-        }
-    }
-
-    private void updatePossibleEnemies() {
-
-    }
-
-
-    public void modifySpawnRate() {
+    
+    private void modifySpawnRate() {
         //-(atan(0.8x-3))+1.9
         // x = 9 equals 3 min of game
         // x = 0.05 equals 1 second
 
         //here we get the x value for atan function for time passed
         float x = (gameTime /2 / 10);
-        //System.out.println("X: " + x);
 
         // here we get the y value which will modify the spawn rate!
         // we can just modify this function to change the spawnrate
         double y = -Math.atan((0.8F * x) -3)+1.9;
-        //System.out.println("Y: " + y);
         spawnRate = (float)y;
-        //System.out.println("Spawnrate:" + spawnRate);
-        //System.out.println("spawnrate: " + y * spawnRate);
+
+        // SpawnPossibility is calculated with gametime. As x = 9 is 3 min, ever min the
+        // random spawnPossibility is incremented. As we do this with int, this is not exactly
+        // every min, but more or less if we find a better function, go ahead
+        randSpawnPossibility = ((int) x/3) +randSpawnPossibilityStart;
+    }
+    
+
+    private void spawnAdditionalRandom() {
+        // Random Spawn minimum: every 0.5 seconds
+        // Random Calculated: every 0.5 seconds
+        // Possibility to spawn if both values fit: Possibility:1000
+        // Possibility starts at value X and is calculated in modifySpawnRate on Levelbase
+        if ( gameTime % 1 >= 0.5 && 0.5 - (gameTime - timeLastSpawn) < 0) {
+            Random rand = new Random();
+            int randomInt = rand.nextInt(1000);
+
+            if(randomInt <= randSpawnPossibility) {
+                spawn(true);
+                //System.out.println("Spawned a random Unit");
+            }
+        }
+    }
+
+    private void spawn(boolean randomUnit) {
+        // Spawns if time since last spwan is higher than the actual spawnrate
+        // Or if the spawn is called due to random Unit Spawn
+        if (spawnRate - (gameTime - timeLastSpawn) < 0 || randomUnit) {
+            spawnEnemy();
+
+            if (!randomUnit) {
+                timeLastSpawn = gameTime;
+                //System.out.println("Spawned a unit");
+            }
+        }
     }
 
     // This is the method called by level screens to spawn enemies
     public void continueManufacture(float delta) {
-        spawnLevel();
+        spawn(false);
         gameTime +=delta;
         modifySpawnRate();
-        updatePossibleEnemies();
+        spawnAdditionalRandom();
     }
-
-
-
+    
+    public void setLevel(int lvl) {
+        if(lvl > 2) return;
+        this.level = lvl;
+        //code to set randSpawnPossibility -/Start
+    }
+    
+    public void setStage(Stage stage) {
+        this.gameStage = stage;
+    }
+    
 }

@@ -6,6 +6,7 @@ package com.github.lhrb.nemo;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.screen.AbstractScreen;
 
@@ -43,7 +44,9 @@ public abstract class AbstractGame extends Game {
     public static Stage getGameStage() {
         return ((AbstractScreen)game.getScreen()).getGameStage();
     }
-    
+
+    public static Screen getActiveScreen(){return game.getScreen();}
+
     public static void setActiveScreen(AbstractScreen screen) {
         if(screen == null) return;
         if(game.getScreen() != null) {

@@ -3,7 +3,10 @@
  */
 package com.github.lhrb.nemo;
 
-
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.Removable;
 
 /**
  * @author exa
@@ -12,57 +15,58 @@ package com.github.lhrb.nemo;
  */
 public class GameManager {
     
+    private Player player; //needs to change for multiplayer
+    
     private static GameManager gameMng;
+    private float timeSinceESC = 0;
     
-    private int score;
-    private String scoreTxt;
-        
     private GameManager() {
-        score = 0;
-        scoreToString();
+        
     }
-    
-    public static GameManager getInstance() {
+
+    public float getTimeSinceESC() {
+        return timeSinceESC;
+    }
+
+    public void setTimeSinceESC(float timeSinceESC) {
+        this.timeSinceESC = timeSinceESC;
+    }
+
+    public static GameManager get() {
         if(gameMng == null) {
             gameMng = new GameManager();
         }
         return gameMng;
     }
     
-    public Integer getScore() {
-        return score;
+    public void registerPlayer(Player player) {
+        this.player = player;
     }
+              
     
-    public String getScoreAsString() {
-        return scoreTxt;
-    }
-           
-    
-    /**
-     * increase score by 1
-     */
-    public synchronized void addScore() {
-        addScore(1);
-        scoreToString();
+    // In future we need to check that no boss will be removed here
+    public void removeEnemiesAndShots(Stage stage) {
+        if(stage == null) return;
+        for (Actor a : stage.getActors()) {
+            if(a instanceof Removable) {
+                ((Removable) a).destroy();
+            }
+        }
     }
 
     /**
      * increase score by i
-     * @param i
+     * @param p
      */
-    public synchronized void addScore(int i) {
-        score += i;
-        scoreToString();
+    public void addScore(int p) {
+        player.addScore(p);
     }
     
-    public synchronized void resetScore() {
-        score = 0;
-        scoreToString();
+    public float getPlayerX() {
+        if(player == null) return 0;
+        return player.getX();
     }
-    
-    private void scoreToString() {
-        scoreTxt = String.valueOf(score);
-    }
+
     
 
     

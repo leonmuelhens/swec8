@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class PhysicalActor extends ActorPrefab{
     
-    private Polygon shape;
+    protected Polygon shape;
     
     public PhysicalActor() {
         super();
@@ -85,11 +85,4 @@ public class PhysicalActor extends ActorPrefab{
         return Intersector.overlapConvexPolygons(p1, p2);
     }
     
-    /**
-     * do something specifc
-     */
-    public void collision() {
-                
-    }
-
 }

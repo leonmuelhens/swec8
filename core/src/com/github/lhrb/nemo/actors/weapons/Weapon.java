@@ -1,18 +1,23 @@
 package com.github.lhrb.nemo.actors.weapons;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.ActorPrefab;
 
-public abstract class Weapon extends ActorPrefab {
+public abstract class Weapon {
 
-    private final float cooldown;
-    private float cooldownTimer;
+    protected float cooldown;
+    protected float cooldownTimer;
+    protected Stage stage;
 
-    public Weapon(Stage stage, float cooldown) {
-        super(0, 0, stage); // TODO: Waffenslot Grafik
-
+    public Weapon(float cooldown, Stage stage) {        
         this.cooldown = cooldown;
         this.cooldownTimer = cooldown;
+        this.stage = stage;
+    }
+
+    public Weapon(float cooldown, float initialCooldownTime, Stage stage)
+    {
+        this(cooldown, stage);
+        this.cooldownTimer = initialCooldownTime;
     }
 
     public boolean isReady() {
@@ -31,10 +36,8 @@ public abstract class Weapon extends ActorPrefab {
      */
     public abstract void fire(float x, float y, float angle);
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
 
+    public void act(float delta) {
         cooldownTimer += delta;
     }
 }
