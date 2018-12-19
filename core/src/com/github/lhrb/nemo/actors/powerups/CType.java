@@ -9,7 +9,7 @@ package com.github.lhrb.nemo.actors.powerups;
  */
 public enum CType {
     //powerups
-    Bomb, Heart, Multiplicator, Shield, Star, 
+    Bomb, Heart, Multiplicator, Shield, Star, None,
     //weapons
     Laser, Spread, Normal
 }
