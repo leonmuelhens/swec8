@@ -30,13 +30,13 @@ public class TestScreen extends AbstractScreen {
     public void init() {
         
         
-        CActor a = new CActor(50,300,gameStage, CType.Laser);
-        CActor b = new CActor(150,300,gameStage, CType.Bomb);
-        CActor c = new CActor(250,300,gameStage, CType.Star);
-        CActor d = new CActor(350,300,gameStage, CType.Shield);
-        CActor e = new CActor(450,300,gameStage, CType.Spread);
-        CActor f = new CActor(550,300,gameStage, CType.Normal);
-        CActor g = new CActor(550,100,gameStage, CType.Multiplicator);
+        CActor a = new CActor(50,500,gameStage, CType.Laser);
+        CActor b = new CActor(150,500,gameStage, CType.Bomb);
+        CActor c = new CActor(250,500,gameStage, CType.Star);
+        CActor d = new CActor(350,500,gameStage, CType.Shield);
+        CActor e = new CActor(450,500,gameStage, CType.Spread);
+        CActor f = new CActor(550,500,gameStage, CType.Normal);
+        CActor g = new CActor(550,400,gameStage, CType.Multiplicator);
         
         
         Player player = new Player(200,50, gameStage);

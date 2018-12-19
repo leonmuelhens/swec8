@@ -94,37 +94,30 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     }
     
     private void setVisuals(CType type) {
-        if(powerupLayer == null) return;
         switch(type) {
         case Shield: 
-            powerupLayer.setDrawable(new TextureRegionDrawable
-                (AnimationLoader.get().texture("active_powerup_shield.png")
-                                                          .getKeyFrame(0)));
+            powerupLayer.setDrawable(AnimationLoader.get()
+                     .drawable("active_powerup_shield.png"));
             break;
         case Star:
-            powerupLayer.setDrawable(new TextureRegionDrawable
-                (AnimationLoader.get().texture("active_powerup_star.png")
-                                                          .getKeyFrame(0)));
+            powerupLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_powerup_star.png"));
             break;
         case Bomb:
-            bombLayer.setDrawable(new TextureRegionDrawable
-                    (AnimationLoader.get().texture("active_powerup_bomb.png")
-                                                            .getKeyFrame(0)));
+            bombLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_powerup_bomb.png"));
             break;
         case Normal:
-            weaponLayer.setDrawable(new TextureRegionDrawable
-                    (AnimationLoader.get().texture("active_weapon_normal.png")
-                                                            .getKeyFrame(0)));
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_normal.png"));
             break;
         case Laser:
-            weaponLayer.setDrawable(new TextureRegionDrawable
-                    (AnimationLoader.get().texture("active_weapon_laser.png")
-                                                            .getKeyFrame(0)));
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_laser.png"));
             break;
         case Spread:
-            weaponLayer.setDrawable(new TextureRegionDrawable
-                    (AnimationLoader.get().texture("active_weapon_spread.png")
-                                                            .getKeyFrame(0)));
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_spread.png"));
             break;
         default: 
             powerupLayer.setDrawable(null);
@@ -204,7 +197,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                         ((EnemyActor) a).perish();
                     }
                 }
-                changeBomb(null);
+                changeBomb(CType.None);
             }
         }
 
@@ -239,35 +232,42 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     
     @Override
     public void collision(CollisionEvent col) {
-        if (getStage() == null) System.out.println("stage null");
+        if (getStage() == null) {
+            System.out.println("stage null"); // debug flag
+            return;
+        }
 
         if (col.getDestiny() != null && col.getDestiny() instanceof CActor) {
-            if (((CActor) col.getDestiny()).getType() == CType.Heart) {
-                changes.firePropertyChange("health", life, ++life);
-            }
-            else if(((CActor) col.getDestiny()).getType() == CType.Normal) {
-                weapon = new WeaponNormal(getStage());
-                setVisuals(CType.Normal);
-                changes.firePropertyChange("wpn", null, CType.Normal);
-            }
-            else if(((CActor) col.getDestiny()).getType() == CType.Spread) {
-                weapon = new WeaponSpread(getStage());
-                setVisuals(CType.Spread);
-                changes.firePropertyChange("wpn", null, CType.Spread);
-            }
-            else if(((CActor) col.getDestiny()).getType() == CType.Laser) {
-                weapon = new WeaponLaser(getStage());
-                setVisuals(CType.Laser);
-                changes.firePropertyChange("wpn", null, CType.Laser);
-            }
-            else if(((CActor) col.getDestiny()).getType() == CType.Bomb) {
-                changeBomb((CActor) col.getDestiny());
-            }
-            else {
-                changePowerup((CActor) col.getDestiny());
+            CType type = ((CActor)col.getDestiny()).getType();
+            switch(type) {
+                case Heart:
+                    changes.firePropertyChange("health", life, ++life);
+                    break;
+                case Normal:
+                    weapon = new WeaponNormal(getStage());
+                    setVisuals(CType.Normal);
+                    changes.firePropertyChange("wpn", null, CType.Normal);
+                    break;
+                case Spread:
+                    weapon = new WeaponSpread(getStage());
+                    setVisuals(CType.Spread);
+                    changes.firePropertyChange("wpn", null, CType.Spread);
+                    break;
+                case Laser:
+                    weapon = new WeaponLaser(getStage());
+                    setVisuals(CType.Laser);
+                    changes.firePropertyChange("wpn", null, CType.Laser);
+                    break;
+                case Bomb:
+                    changeBomb(type);
+                    break;
+                default:
+                    changePowerup(type);
+                    break;                        
             }
             return;
         }
+
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
             return;
         }
@@ -283,22 +283,18 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                 perish();
             }
             changePowerup(null);
-            changeBomb(null);
+            changeBomb(CType.None);
         }
     }
 
-    public void changeBomb(CActor changeBomb) {
-        if (changeBomb != null) {
-            changes.firePropertyChange("bomb",bomb.getType(),changeBomb.getType());
-            bomb = changeBomb;
-        } else {
-            changes.firePropertyChange("bomb",bomb.getType(),CType.None);
-            bomb = new CActor(CType.None);
-        }
+    public void changeBomb(CType changeBomb) {
+        if (changeBomb == null) return;
+        changes.firePropertyChange("bomb",bomb.getType(),changeBomb);
+        bomb.setType(changeBomb);
         setVisuals(bomb.getType());
     }
 
-    public void changePowerup(CActor changePu) {
+    public void changePowerup(CType changePu) {
         invincible = false;
         // Fälle:
         // 1: changePu set - powerUp set -> Ersetze PowerUp
@@ -307,22 +303,22 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         // 4: changePu not set - powerUp not set -> nichts passiert
 
         if(changePu != null) {
-            if (changePu.getType() != CType.Bomb){
+            if (changePu!= CType.Bomb){
                 powerupTimer = 20;
-                if (changePu.getType() == CType.Star) {
+                if (changePu == CType.Star) {
                     invincible = true;
                 }
             }
 
             // Fall 1: Ersetzen Powerup
             if(powerup != null) {
-                changes.firePropertyChange("powerup",powerup.getType(),changePu.getType());
-                powerup = changePu;
+                changes.firePropertyChange("powerup",powerup.getType(),changePu);
+                powerup.setType(changePu);
             }
             // Fall 2: Setze PowerUp
             else {
-                changes.firePropertyChange("powerup",CType.None,changePu.getType());
-                powerup = changePu;
+                changes.firePropertyChange("powerup",CType.None,changePu);
+                powerup.setType(changePu);
             }
         } else {
             // Fall 3: Remove PowerUp
