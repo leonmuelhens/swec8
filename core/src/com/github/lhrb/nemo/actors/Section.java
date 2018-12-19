@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.github.lhrb.nemo.actors.shots.Shots;
+import com.github.lhrb.nemo.util.AnimationLoader;
 
 /**
  * @author exa
@@ -62,6 +63,7 @@ public class Section extends EnemyActor {
      */
     public boolean getDmg() {
         decreaseHp();
+        updateVisualDamage();
         return (getHp() <= 0);
     }
 
@@ -72,6 +74,13 @@ public class Section extends EnemyActor {
     public void perish() {
         // TODO Auto-generated method stub
         super.perish();
+    }
+
+    @Override
+    protected void perishExplosion() {
+        new ActorPrefab(getParent().getX() + (getParent().getWidth() / 2), getParent().getY(), getStage())
+                .setAnimation(AnimationLoader.get().animation(
+                        "explosion.png", 6, 6, 0.05f, false));
     }
 
     /* (non-Javadoc)
