@@ -53,12 +53,12 @@ public class RingCooldownTimer extends Table {
         cooldownDisplay.addActor(cooldownTimer);
     }
 
-    public Image getDrawable(float remainingPercentage) {
+    public Drawable getDrawable(float remainingPercentage) {
         cooldownDisplay.clear();
 
         Image cooldownTimer = new Image(cooldownTimer(remainingPercentage));
         cooldownTimer.setColor(1.0f, 1.0f, 1.0f, alpha);
-        return cooldownTimer;
+        return cooldownTimer.getDrawable();
     }
 
     public float getAlpha() {

@@ -9,11 +9,11 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.actors.Player;
@@ -46,7 +46,7 @@ public class HUD implements PropertyChangeListener{
     
     public HUD() {
         powerupIcon = new Image();
-
+        shotCooldownImg = new Image();
         initLabels();
 
         collectibleIcons = new HashMap<CType, Drawable>();
@@ -69,7 +69,16 @@ public class HUD implements PropertyChangeListener{
                 .texture("powerup_star.png").getKeyFrame(0)));
 
         //TextureRegionDrawable test = new TextureRegionDrawable(AnimationLoader.get().texture("IconNormal.png").getKeyFrame(0));
+
+        // Weapon Overlay
         wpnIcon = new Image(collectibleIcons.get(CType.Normal));
+        Stack weapon = new Stack();
+        weapon.add(wpnIcon);
+
+        Table weapOverlay = new Table();
+        weapOverlay.add(shotCooldownImg);
+        weapon.add(weapOverlay);
+
         //hpIcon = new Image(new TextureRegionDrawable(AnimationLoader.get()
         //                            .texture("heart.png").getKeyFrame(0)));
 
@@ -92,14 +101,14 @@ public class HUD implements PropertyChangeListener{
         hud.row();
 
         // third row
-        hud.add(shotCooldown).expandY().width(64).pad(10);
+        hud.add().expandY().width(64).pad(10);
         hud.add(powerupIcon).expandX().pad(10).bottom().right();
         hud.row();
 
         // fourth:
         // left: weapon
         // right: life + heart
-        hud.add(wpnIcon).height(64).width(64).bottom().pad(10);
+        hud.add(weapon).height(64).width(64).bottom().pad(10);
         hud.add(hpBtn).expandX().pad(10).bottom().right();
         //hud.debug();
     }
@@ -116,10 +125,10 @@ public class HUD implements PropertyChangeListener{
         powerupRemain.setAlpha(0.75f);
 
 
-        shotCooldown = new RingCooldownTimer(false,64);
+        shotCooldown = new RingCooldownTimer(false,3);
         shotCooldown.setSize(64, 64);
-        shotCooldown.setColor(Color.GRAY);
-        shotCooldown.setAlpha(0.75f);
+        shotCooldown.setColor(Color.RED);
+        shotCooldown.setAlpha(0.1f);
         shotCooldown.update(0.5f);
     }
     
@@ -156,8 +165,13 @@ public class HUD implements PropertyChangeListener{
             return;
         }
         if(evt.getPropertyName().equals("shottimer")) {
-            System.out.println("i was here");
-            shotCooldownImg.setDrawable((Drawable) shotCooldown.getDrawable((float)evt.getNewValue()));
+            if ((float)evt.getNewValue() == 1f || (float)evt.getNewValue() == 0f) {
+                shotCooldownImg.setDrawable(shotCooldown.getDrawable(1));
+            } else {
+                shotCooldownImg.setDrawable(shotCooldown.getDrawable((float)evt.getNewValue()));
+
+            }
+
             return;
         }
         if(evt.getPropertyName().equals("poweruptimer")) {

@@ -3,7 +3,6 @@
  */
 package com.github.lhrb.nemo.actors;
 
-import com.github.lhrb.nemo.actors.enemies.Enemy;
 import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.shots.Shots;
 
@@ -18,9 +17,8 @@ public class CollisionManager {
     public static void checkCollision(ArrayList<PhysicalActor> list) {
         ArrayList<Player> player = new ArrayList<Player>();
         ArrayList<Shots> shots = new ArrayList<Shots>();
-        ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
-
+        ArrayList<EnemyActor> enemies = new ArrayList<EnemyActor>();
         ArrayList<CActor> collectibles = new ArrayList<CActor>();
         for(PhysicalActor e : list) {
             if(e instanceof Player) {
@@ -29,8 +27,8 @@ public class CollisionManager {
             if (e instanceof Shots) {
                 shots.add((Shots) e);
             }
-            if (e instanceof Enemy) {
-                enemies.add((Enemy) e);
+            if (e instanceof EnemyActor) {
+                enemies.add((EnemyActor) e);
             }
             if(e instanceof CActor) {
                 collectibles.add( (CActor)e );
@@ -50,7 +48,7 @@ public class CollisionManager {
 
         // Collision Source sollte immer der Schuss oder der Gegner sein
         for (Player p : player) {
-            for (Enemy e : enemies) {
+            for (EnemyActor e : enemies) {
                 if (!p.isInvincible()) {
                     // Enemy collosion with player
                     if (e.overlap(p)) {
@@ -68,7 +66,7 @@ public class CollisionManager {
                         if (e != null) {
                             e.collision(new CollisionEvent(s, e));
                         }
-                        s.collision();
+                        s.collision(null);
                     }
                 }
             }
@@ -78,7 +76,7 @@ public class CollisionManager {
                     if (s.overlap(p) && !s.isPlayerShot()) {
                         if (p != null) {
                             p.collision(new CollisionEvent(s, p));
-                            s.collision();
+                            s.collision(null);
                         }
                     }
                 }

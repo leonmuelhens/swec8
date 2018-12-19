@@ -7,9 +7,9 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
+import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
-import com.github.lhrb.nemo.actors.enemies.endboss.Uboot;
+import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.ui.RingCooldownTimer;
 import com.github.lhrb.nemo.util.PropertyListener;
@@ -25,9 +25,10 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     Player player;
     Background bg, bg2;
     EnemyFactory factory;
-    EndBoss endBoss;
+    MultiPartActor endBoss;
     float afterDeathTime;
     float soundVolume;
+
 
     PropertyChangeSupport changes;
 
@@ -60,17 +61,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         else if (gameTime >= 3*60 && endBoss == null) {
             if (this instanceof FirstLevelScreen) {
-                endBoss = new Uboot(gameStage);
-                endBoss.setPosition(gameStage.getWidth()/2,gameStage.getHeight());
-                gameStage.addActor(endBoss);
-            }
-        }
-        else {
-            if (endBoss.isDestroyed()) {
-                afterDeathTime -= delta;
-                if (afterDeathTime <= 0) {
-                    KillingNemo.setActiveScreen(new LevelDoneScreen());
-                }
+                endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
             }
         }
     }

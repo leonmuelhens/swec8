@@ -1,32 +1,29 @@
 package com.github.lhrb.nemo.actors.weapons;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.PropertyListener;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class Weapon extends ActorPrefab implements PropertyListener  {
+public abstract class Weapon implements PropertyListener {
 
     protected float cooldown;
-    private float cooldownTimer;
-    private float remainingPercentage = 1.0f;
+    protected float cooldownTimer;
+    protected Stage stage;
     public PropertyChangeSupport changes;
 
-    public Weapon(Stage stage, float cooldown) {
-        super(0, 0, stage); // TODO: Waffenslot Grafik
 
+    public Weapon(float cooldown, Stage stage) {        
         this.cooldown = cooldown;
         this.cooldownTimer = cooldown;
         changes = new PropertyChangeSupport(this);
-
+        this.stage = stage;
     }
 
-    public Weapon(Stage stage, float cooldown, float initialCooldownTime)
+    public Weapon(float cooldown, float initialCooldownTime, Stage stage)
     {
-        this(stage,cooldown);
-
+        this(cooldown, stage);
         this.cooldownTimer = initialCooldownTime;
         changes = new PropertyChangeSupport(this);
 
@@ -48,17 +45,21 @@ public abstract class Weapon extends ActorPrefab implements PropertyListener  {
      */
     public abstract void fire(float x, float y, float angle);
 
-    @Override
+    public float getCooldown() {
+        return cooldown;
+    }
+
+
     public void act(float delta) {
-        super.act(delta);
         /*
         if(cooldownTimer != 0) {
             changes.firePropertyChange("shottimer",cooldownTimer,(cooldownTimer+delta));
         } else {
             changes.firePropertyChange("shottimer",cooldownTimer,cooldown);
         }*/
+
         cooldownTimer += delta;
-        changes.firePropertyChange("shottimer",remainingPercentage,cooldownTimer);
+        //changes.firePropertyChange("shottimer",remainingPercentage,cooldownTimer);
 
         /*if (System.currentTimeMillis() - lastUpdate > 25L) {
 
