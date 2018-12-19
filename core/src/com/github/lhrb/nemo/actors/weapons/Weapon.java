@@ -1,23 +1,17 @@
 package com.github.lhrb.nemo.actors.weapons;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.util.PropertyListener;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
-public abstract class Weapon implements PropertyListener {
+public abstract class Weapon{
 
     protected float cooldown;
     protected float cooldownTimer;
     protected Stage stage;
-    public PropertyChangeSupport changes;
-
 
     public Weapon(float cooldown, Stage stage) {        
         this.cooldown = cooldown;
         this.cooldownTimer = cooldown;
-        changes = new PropertyChangeSupport(this);
         this.stage = stage;
     }
 
@@ -25,8 +19,6 @@ public abstract class Weapon implements PropertyListener {
     {
         this(cooldown, stage);
         this.cooldownTimer = initialCooldownTime;
-        changes = new PropertyChangeSupport(this);
-
     }
 
     public boolean isReady() {
@@ -49,38 +41,10 @@ public abstract class Weapon implements PropertyListener {
         return cooldown;
     }
 
-
     public void act(float delta) {
-        /*
-        if(cooldownTimer != 0) {
-            changes.firePropertyChange("shottimer",cooldownTimer,(cooldownTimer+delta));
-        } else {
-            changes.firePropertyChange("shottimer",cooldownTimer,cooldown);
-        }*/
 
         cooldownTimer += delta;
-        //changes.firePropertyChange("shottimer",remainingPercentage,cooldownTimer);
-
-        /*if (System.currentTimeMillis() - lastUpdate > 25L) {
-
-            remainingPercentage -= 0.01f;
-            lastUpdate = System.currentTimeMillis();
-
-            if (remainingPercentage <= 0.0f) {
-                remainingPercentage = 1.0f;
-            }
-        }*/
 
     }
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener(l);
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener l) {
-        changes.removePropertyChangeListener(l);
-    }
-
 
 }

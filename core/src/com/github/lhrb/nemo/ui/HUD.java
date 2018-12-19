@@ -3,13 +3,11 @@
  */
 package com.github.lhrb.nemo.ui;
 
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -126,8 +124,13 @@ public class HUD implements PropertyChangeListener{
     
     private void initLabels() {
         LabelStyle style = GuiManager.getInstance().getLabelStyleSmall();
-
-
+        
+        scoreLbl = new Label("0", style);
+        hpLbl = new Label("3", style);
+        timeLbl = new Label("0:00", style);
+        scoreTextLbl = new Label("Score",style);
+        timeTextLbl = new Label("Zeit",style);
+        
         powerupRemain = new RingCooldownTimer(false,64);
         powerupRemain.setSize(64, 64);
         powerupRemain.setColor(Color.GRAY);
@@ -139,10 +142,6 @@ public class HUD implements PropertyChangeListener{
         shotCooldown.setColor(Color.RED);
         shotCooldown.setAlpha(0.1f);
         shotCooldown.update(0.5f);
-
-        timeLbl = new Label("0:00", style);
-        scoreTextLbl = new Label("Score",style);
-        timeTextLbl = new Label("Zeit",style);
 
     }
     
@@ -157,6 +156,7 @@ public class HUD implements PropertyChangeListener{
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if(evt == null) return;
         if(evt.getPropertyName().equals("health")) {
             hpLbl.setText(evt.getNewValue().toString());
             return;
