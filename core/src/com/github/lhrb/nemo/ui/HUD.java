@@ -32,9 +32,11 @@ public class HUD implements PropertyChangeListener{
     
     private Table hud;
     
-    private Label scoreLbl, hpLbl, timeLbl;
+    private Label scoreLbl, hpLbl, timeLbl, scoreTextLbl, timeTextLbl;
     private Image wpnIcon;
     private Image powerupIcon;
+    private Image bombIcon;
+
     private ImageButton hpBtn;
 
     
@@ -42,6 +44,7 @@ public class HUD implements PropertyChangeListener{
     
     public HUD() {
         powerupIcon = new Image();
+        bombIcon = new Image();
         initLabels();
 
         collectibleIcons = new HashMap<CType, Drawable>();
@@ -75,34 +78,41 @@ public class HUD implements PropertyChangeListener{
         hud.setFillParent(true);
         
         // first Row: Level Indicator
-        hud.add(timeLbl).width(64).pad(10).padTop(0).height(50);
+        hud.add(timeTextLbl).width(64).padLeft(10).padRight(10);
         //hud.add(timeLbl).expandX().height(50).right().pad(10); // middle
-        hud.add().expandX().pad(10).padTop(0).height(50).right(); // für das Level, in welcher Form bilden wir es?
+        hud.add(scoreTextLbl).expandX().padLeft(10).padRight(10).right(); // für das Level, in welcher Form bilden wir es?
         hud.row();
 
         // second row:Highscore indicatro
-        hud.add().width(64).pad(10);
-        hud.add(scoreLbl).expandX().height(50).right().pad(10);
+        hud.add(timeLbl).width(64).pad(10).padTop(0);
+        hud.add(scoreLbl).expandX().right().pad(10).padTop(0);
         hud.row();
 
         // third row
         hud.add().expandY().width(64).pad(10);
+        hud.add(bombIcon).expandX().pad(10).bottom().right();
+        hud.row();
+
+        // fourth row
+        hud.add().width(64).pad(10).height(64);
         hud.add(powerupIcon).expandX().pad(10).bottom().right();
         hud.row();
 
-        // fourth:
+        // fifth:
         // left: weapon
         // right: life + heart
         hud.add(wpnIcon).height(64).width(64).bottom().pad(10);
         hud.add(hpBtn).expandX().pad(10).bottom().right();
-        //hud.debug();
+
     }
     
     private void initLabels() {
-        LabelStyle style = GuiManager.getInstance().getLabelStyle();
+        LabelStyle style = GuiManager.getInstance().getLabelStyleSmall();
         scoreLbl = new Label("0", style);
         hpLbl = new Label("3", style);
-        timeLbl = new Label("0", style);
+        timeLbl = new Label("0:00", style);
+        scoreTextLbl = new Label("Score",style);
+        timeTextLbl = new Label("Zeit",style);
     }
     
     public Table getHUD() {
@@ -116,7 +126,6 @@ public class HUD implements PropertyChangeListener{
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //System.out.println("anything?");
         if(evt.getPropertyName().equals("health")) {
             hpLbl.setText(evt.getNewValue().toString());
             return;
@@ -135,6 +144,10 @@ public class HUD implements PropertyChangeListener{
         }
         if(evt.getPropertyName().equals("powerup")) {
             powerupIcon.setDrawable(collectibleIcons.get(evt.getNewValue()));
+            return;
+        }
+        if(evt.getPropertyName().equals("bomb")) {
+            bombIcon.setDrawable(collectibleIcons.get(evt.getNewValue()));
             return;
         }
         
