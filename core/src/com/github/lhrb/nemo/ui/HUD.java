@@ -35,6 +35,8 @@ public class HUD implements PropertyChangeListener{
     private Label scoreLbl, hpLbl, timeLbl;
     private Image wpnIcon;
     private Image powerupIcon;
+    private Image bombIcon;
+
     private ImageButton hpBtn;
 
     
@@ -42,6 +44,7 @@ public class HUD implements PropertyChangeListener{
     
     public HUD() {
         powerupIcon = new Image();
+        bombIcon = new Image();
         initLabels();
 
         collectibleIcons = new HashMap<CType, Drawable>();
@@ -87,15 +90,20 @@ public class HUD implements PropertyChangeListener{
 
         // third row
         hud.add().expandY().width(64).pad(10);
+        hud.add(bombIcon).expandX().pad(10).bottom().right();
+        hud.row();
+
+        // fourth row
+        hud.add().width(64).pad(10).height(64);
         hud.add(powerupIcon).expandX().pad(10).bottom().right();
         hud.row();
 
-        // fourth:
+        // fifth:
         // left: weapon
         // right: life + heart
         hud.add(wpnIcon).height(64).width(64).bottom().pad(10);
         hud.add(hpBtn).expandX().pad(10).bottom().right();
-        //hud.debug();
+        hud.debug();
     }
     
     private void initLabels() {
@@ -116,7 +124,6 @@ public class HUD implements PropertyChangeListener{
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //System.out.println("anything?");
         if(evt.getPropertyName().equals("health")) {
             hpLbl.setText(evt.getNewValue().toString());
             return;
@@ -135,6 +142,10 @@ public class HUD implements PropertyChangeListener{
         }
         if(evt.getPropertyName().equals("powerup")) {
             powerupIcon.setDrawable(collectibleIcons.get(evt.getNewValue()));
+            return;
+        }
+        if(evt.getPropertyName().equals("bomb")) {
+            bombIcon.setDrawable(collectibleIcons.get(evt.getNewValue()));
             return;
         }
         

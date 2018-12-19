@@ -2,6 +2,8 @@ package com.github.lhrb.nemo.screen;
 
 
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.powerups.CActor;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
@@ -42,7 +44,6 @@ public class FirstLevelScreen extends LevelScreen {
         if (gameTime / 10 > 0.25f) soundVolume = 0.25f;
         else soundVolume = gameTime / 10;
 
-        System.out.println(soundVolume);
         SoundManager.getInstance().setMusicStreamVolume("firstlevel",soundVolume);
     }
 }
