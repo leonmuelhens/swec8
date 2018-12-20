@@ -5,43 +5,49 @@ package com.github.lhrb.nemo.actors;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.AbstractGame;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
-import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
 import com.github.lhrb.nemo.actors.powerups.*;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.*;
-import com.github.lhrb.nemo.screen.FirstLevelScreen;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
+
 
 /**
  * Simple player Implementation
  * @author exa
  * 
  */
-public class Player extends PhysicalActor implements PropertyListener{
+public class Player extends PhysicalActor implements PropertyListener, Existence{
 
     private PropertyChangeSupport changes = new PropertyChangeSupport(this);
     
     private Weapon weapon;
-    private PowerUP powerup;
     private float powerupTimer;
+    private CActor powerup;
+    private CActor bomb;
     private int life;
     private int score;
     private int multiplier = 1;
     private boolean gotHit;
     private boolean invincible;
     private float hitDelta;
+    private Stack stack;
+    private Image weaponLayer;
+    private Image powerupLayer;
+    private Image bombLayer;
+    
+    
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
 
@@ -53,14 +59,21 @@ public class Player extends PhysicalActor implements PropertyListener{
         life = 3;
         score = 0;
 
-        weapon = new WeaponNormal(getStage());
-        powerup = null;
+        weapon = new WeaponNormal(stage);
+        powerup = new CActor(CType.None);
+        bomb = new CActor(CType.None);
+
         powerupTimer = 0;
         invincible = false;
-
         setShapePolygon(8);
         gotHit = false;
-
+        
+        powerupLayer = new Image();
+        weaponLayer = new Image();
+        bombLayer = new Image();
+        stack = new Stack(bombLayer, powerupLayer, weaponLayer);
+        stack.setSize(78f, 93f);
+        addActor(stack);
         /**
          * ATTENTION
          * this method does not provide any security mechanism
@@ -78,6 +91,39 @@ public class Player extends PhysicalActor implements PropertyListener{
     @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
+    }
+    
+    private void setVisuals(CType type) {
+        switch(type) {
+        case Shield: 
+            powerupLayer.setDrawable(AnimationLoader.get()
+                     .drawable("active_powerup_shield.png"));
+            break;
+        case Star:
+            powerupLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_powerup_star.png"));
+            break;
+        case Bomb:
+            bombLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_powerup_bomb.png"));
+            break;
+        case Normal:
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_normal.png"));
+            break;
+        case Laser:
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_laser.png"));
+            break;
+        case Spread:
+            weaponLayer.setDrawable(AnimationLoader.get()
+                    .drawable("active_weapon_spread.png"));
+            break;
+        default: 
+            powerupLayer.setDrawable(null);
+            break;
+        }
+        
     }
 
     public boolean isInvincible() {
@@ -113,16 +159,17 @@ public class Player extends PhysicalActor implements PropertyListener{
      */
     @Override
     public void act(float delta) {
+        super.act(delta);
+        weapon.act(delta);
+        
         if (gotHit) hitAnimation(delta);
-        if (powerup != null && powerup.getType() != CType.Bomb) {
+        if (powerup != null && powerup.getType() != CType.None 
+                            && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
             if (powerupTimer <= 0 ) {
-                changePowerup(null);
+                changePowerup(CType.None);
             }
         }
-
-
-        super.act(delta);
         
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
             accelerationAtAngle(180);
@@ -142,57 +189,81 @@ public class Player extends PhysicalActor implements PropertyListener{
         }
 
         if (Gdx.input.isKeyPressed(Keys.B)) {
-            if (powerup != null && powerup.getType() == CType.Bomb) {
+            if (bomb != null && bomb.getType() == CType.Bomb) {
                 // hier fehlt noch eine animation
-                for (Actor a : AbstractGame.getGameStage().getActors()) {
-                    if (a instanceof Enemy) {
-                        ((Enemy) a).enemyDied(true);
+                bombLayer.setDrawable(null);
+                for (Actor a : getStage().getActors()) {
+                    if (a instanceof EnemyActor) {
+                        ((EnemyActor) a).perish();
                     }
                 }
-                changePowerup(null);
+                changeBomb(CType.None);
             }
         }
 
-        // Zum Testen der Waffen! Sollte später über das gleiche System wie Power-Ups geregelt werden können
+
+        //TODO needs to be put somewhere else
+
+        // Zum Vereinfachen der Waffentests!
         if(Gdx.input.isKeyPressed(Keys.F1)) {
-            weapon.remove();
             weapon = new WeaponNormal(getStage());
             changes.firePropertyChange("wpn", null, CType.Normal);
         }
         if(Gdx.input.isKeyPressed(Keys.F2)) {
-            weapon.remove();
             weapon = new WeaponSpread(getStage());
             changes.firePropertyChange("wpn", null, CType.Spread);
         }
         if(Gdx.input.isKeyPressed(Keys.F3)) {
-            weapon.remove();
             weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
         }
-        
+
         applyPhysics(delta);
         setBoundToWorld();
     
     }
 
-
-    public void playerDied() {
-        KillingNemo.setActiveScreen(new GameOverScreen());
+    
+    @Override
+    public void perish() {
+        KillingNemo.setActiveScreen(new GameOverScreen());        
     }
 
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.actors.PhysicalActor#collision()
-     */
+    
     @Override
     public void collision(CollisionEvent col) {
-        if (getStage() == null) System.out.println("stage null");
+        if (getStage() == null) {
+            System.out.println("stage null"); // debug flag
+            return;
+        }
 
-        if (col.getDestiny() != null && col.getDestiny() instanceof PowerUP) {
-            if (((PowerUP) col.getDestiny()).getType() == CType.Heart){
-                changes.firePropertyChange("health", life, ++life);
-            }
-            else {
-                changePowerup((PowerUP) col.getDestiny());
+        if (col.getDestiny() != null && col.getDestiny() instanceof CActor) {
+            CType type = ((CActor)col.getDestiny()).getType();
+            switch(type) {
+                case Heart:
+                    changes.firePropertyChange("health", life, ++life);
+                    break;
+                case Normal:
+                    weapon = new WeaponNormal(getStage());
+                    setVisuals(CType.Normal);
+                    changes.firePropertyChange("wpn", null, CType.Normal);
+                    break;
+                case Spread:
+                    weapon = new WeaponSpread(getStage());
+                    setVisuals(CType.Spread);
+                    changes.firePropertyChange("wpn", null, CType.Spread);
+                    break;
+                case Laser:
+                    weapon = new WeaponLaser(getStage());
+                    setVisuals(CType.Laser);
+                    changes.firePropertyChange("wpn", null, CType.Laser);
+                    break;
+                case Bomb:
+                    changeBomb(type);
+                    break;
+                default:
+                    changePowerup(type);
+                    break;                        
             }
             return;
         }
@@ -200,8 +271,8 @@ public class Player extends PhysicalActor implements PropertyListener{
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
             return;
         }
-
-        GameManager.get().removeEnemiesAndShots();
+        
+        GameManager.get().removeEnemiesAndShots(getStage());
 
         if (!gotHit) {
             gotHit = true;
@@ -209,62 +280,46 @@ public class Player extends PhysicalActor implements PropertyListener{
             SoundManager.getInstance().playSound("hit");
             changes.firePropertyChange("health", life, --life);
             if (life <= 0) {
-                playerDied();
+                perish();
             }
-            changePowerup(null);
+            changePowerup(CType.None);
+            bombLayer.setDrawable(null);
+            changeBomb(CType.None);
         }
     }
 
-    public void changePowerup(PowerUP changePu) {
+    public void changeBomb(CType changeBomb) {
+        if (changeBomb == null) return;
+        changes.firePropertyChange("bomb",bomb.getType(),changeBomb);
+        bomb.setType(changeBomb);
+        setVisuals(bomb.getType());
+    }
+
+    public void changePowerup(CType changePu) {
+        if(changePu == null) return;
+        if(changePu == CType.Bomb) return;
         invincible = false;
-
-        // Fälle:
-        // 1: changePu set - powerUp set -> Ersetze PowerUp
-        // 2: changePu set - powerUp not set -> Setze PowerUp
-        // 3: changePu not set - powerUp set -> Remove PowerUp
-        // 4: changePu not set - powerUp not set -> nichts passiert
-
-        if(changePu != null) {
-            if (changePu.getType() != CType.Bomb){
-                powerupTimer = 20;
-                if (changePu.getType() == CType.Star) {
-                    invincible = true;
-                }
-            }
-
-            // Fall 1: Ersetzen Powerup
-            if(powerup != null) {
-                changes.firePropertyChange("powerup",powerup.getType(),changePu.getType());
-                powerup = changePu;
-            }
-            // Fall 2: Setze PowerUp
-            else {
-                changes.firePropertyChange("powerup",null,changePu.getType());
-                powerup = changePu;
-            }
-        } else {
-            // Fall 3: Remove PowerUp
-            if (powerup != null) {
-                powerup.remove();
-                changes.firePropertyChange("powerup",powerup.getType(),null);
-                powerup = null;
+        
+        if(changePu != CType.None) {
+            powerupTimer = 20;          
+            
+            if (changePu == CType.Star) {
+                invincible = true;
             }
         }
-    }
 
-    public void collision(PowerUP pu){
-
-
+        changes.firePropertyChange("powerup",powerup.getType(),changePu);
+        powerup.setType(changePu);
+        
+        setVisuals(powerup.getType());
     }
 
     public boolean multi() {
-        if (powerup != null)
-            return (powerup.getType() == CType.Multiplicator);
-        return false;
+        return powerup != null && powerup.getType() == CType.Multiplicator;
     }
-
 
     public int getScore() {
         return score;
     }
+
 }

@@ -22,39 +22,44 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
  *
  */
 public class GuiManager {
-    
+
     private static GuiManager guiMng;
     private LabelStyle labelStyle;
+    private LabelStyle labelStyleSmall;
     private LabelStyle labelStyleBig;
 
     private TextButtonStyle txtBtnStyle;
-    private TextButtonStyle txtBtnStyleLittle;
+    private TextButtonStyle txtBtnStyleSmall;
     private TextButtonStyle txtBtnStyleBig;
 
     private TextFieldStyle txtFldStyle;
 
     private GuiManager() {
         // Create Label Styles
-        labelStyle = new LabelStyle(createFont(24),Color.WHITE);
-        labelStyleBig = new LabelStyle(createFont(48),Color.WHITE);
+        labelStyleSmall = new LabelStyle(createFont(24), Color.WHITE);
+        labelStyle = new LabelStyle(createFont(36), Color.WHITE);
+        labelStyleBig = new LabelStyle(createFont(48), Color.WHITE);
 
         // Create button Styles
+
         txtBtnStyle = new TextButtonStyle(createTextButtonStyle(36));
-        txtBtnStyleLittle = new TextButtonStyle(createTextButtonStyle(24));
+        txtBtnStyleSmall = new TextButtonStyle(createTextButtonStyle(24));
         txtBtnStyleBig = new TextButtonStyle(createTextButtonStyle(48));
 
         //Create TextField Style
-        txtFldStyle =new TextFieldStyle(createTextFieldStyle(36,Color.BLACK));
-        /*txtFldStyle.font = new BitmapFont();
-        txtFldStyle.fontColor = Color.WHITE;*/
+        txtFldStyle = new TextFieldStyle(createTextFieldStyle(36, Color.BLACK));
+
+        txtBtnStyleSmall = new TextButtonStyle(createTextButtonStyle(20));
+        txtBtnStyle = new TextButtonStyle(createTextButtonStyle(25));
+        txtBtnStyleBig = new TextButtonStyle(createTextButtonStyle(30));
 
     }
 
 
-    private TextFieldStyle createTextFieldStyle(int fontSize,Color color){
+    private TextFieldStyle createTextFieldStyle(int fontSize, Color color) {
         Skin skin = new Skin();
         //TODO replace with textfield backgound
-        Texture   backgoundTex   = new Texture( Gdx.files.internal("button.png") );
+        Texture backgoundTex = new Texture(Gdx.files.internal("button.png"));
 
         skin.add(
                 "background",
@@ -75,15 +80,15 @@ public class GuiManager {
     }
 
     private TextButtonStyle createTextButtonStyle(int fontSize) {
-        return createTextButtonStyle(fontSize,Color.BLACK);
+        return createTextButtonStyle(fontSize, Color.BLACK);
     }
 
     private TextButtonStyle createTextButtonStyle(int fontSize, Color color) {
         TextButtonStyle tmp = new TextButtonStyle();
-        Texture   buttonTex   = new Texture( Gdx.files.internal("button.png") );
-        NinePatch buttonPatch = new NinePatch(buttonTex, 10,10,8,8);
-        tmp.up    = new NinePatchDrawable( buttonPatch );
-        tmp.font      = createFont(fontSize);
+        Texture buttonTex = new Texture(Gdx.files.internal("button.png"));
+        NinePatch buttonPatch = new NinePatch(buttonTex, 10, 10, 8, 8);
+        tmp.up = new NinePatchDrawable(buttonPatch);
+        tmp.font = createFont(fontSize);
         tmp.fontColor = Color.BLACK;
         return tmp;
     }
@@ -110,18 +115,26 @@ public class GuiManager {
     }
 
     public static GuiManager getInstance() {
-        if(guiMng == null) {
+        if (guiMng == null) {
             guiMng = new GuiManager();
         }
         return guiMng;
     }
-    
+
+    public LabelStyle getLabelStyleSmall() {
+        return labelStyleSmall;
+    }
+
     public LabelStyle getLabelStyle() {
         return labelStyle;
     }
 
     public LabelStyle getLabelStyleBig() {
         return labelStyleBig;
+    }
+
+    public TextButtonStyle getTxtBtnStyleSmall() {
+        return txtBtnStyleSmall;
     }
 
     public TextButtonStyle getTxtBtnStyle() {
@@ -131,11 +144,10 @@ public class GuiManager {
     public TextButtonStyle getTxtBtnStyleBig() {
         return txtBtnStyleBig;
     }
-    
-    public TextButtonStyle getTxtBtnStyleSmall() {
-        return txtBtnStyleLittle;
+
+
+    public TextFieldStyle getTxtFldStyle() {
+        return txtFldStyle;
     }
 
-    public TextFieldStyle getTxtFldStyle(){return txtFldStyle;}
-    
 }

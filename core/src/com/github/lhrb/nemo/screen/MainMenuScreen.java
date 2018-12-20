@@ -40,17 +40,12 @@ public class MainMenuScreen extends AbstractScreen {
         
         mainMenu = new Table();
         mainMenu.setFillParent(true); // fill full screen
-        //table.setDebug(true);
-        TextButtonStyle style = GuiManager.getInstance().getTxtBtnStyle();
-        
-        TextButton startBtn = new TextButton("Neues Spiel", style);
-        //startBtn.setFillParent(true);
-        //startBtn.setPosition(200, 300);
-        
-        TextButton lvlBtn = new TextButton("Level", style);
-        TextButton hsBtn = new TextButton("High Score", style);
-        TextButton keysBtn = new TextButton("Tastenbelegung", style);
-        TextButton closeBtn = new TextButton("Beenden", style);
+
+        TextButton startBtn = new TextButton("Neues Spiel", GuiManager.getInstance().getTxtBtnStyleBig());
+        TextButton lvlBtn = new TextButton("Level auswählen", GuiManager.getInstance().getTxtBtnStyleBig());
+        TextButton hsBtn = new TextButton("High Score", GuiManager.getInstance().getTxtBtnStyleBig());
+        TextButton keysBtn = new TextButton("Tastenbelegung", GuiManager.getInstance().getTxtBtnStyleBig());
+        TextButton closeBtn = new TextButton("Beenden", GuiManager.getInstance().getTxtBtnStyleBig());
 
         Label gameName = new Label("Killing Nemo", GuiManager.getInstance().getLabelStyleBig());
         
@@ -112,13 +107,10 @@ public class MainMenuScreen extends AbstractScreen {
         mainMenu.row();
         mainMenu.add(closeBtn).width( (size - 100) );
 
-        //guiStage.addActor(startBtn);
         guiStage.addActor(mainMenu);
         mainMenu.setVisible(false);
         mainMenu.setTransform(true);
         mainMenu.addAction(Actions.fadeOut(0f));
-        
-        
     }
 
     /* (non-Javadoc)

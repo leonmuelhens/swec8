@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import java.io.FileNotFoundException;
@@ -91,6 +93,11 @@ public class AnimationLoader {
         
         ret = animStorage.get(fileName);
         return ret;
+    }
+    
+    public Drawable drawable(String fileName) {
+        return new TextureRegionDrawable
+                   (texture(fileName).getKeyFrame(0));
     }
     
     /**

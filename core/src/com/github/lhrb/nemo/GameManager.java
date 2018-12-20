@@ -4,16 +4,12 @@
 package com.github.lhrb.nemo;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.enemies.endboss.EndBoss;
-import com.github.lhrb.nemo.actors.powerups.PowerUP;
-import com.github.lhrb.nemo.actors.shots.Shots;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.util.Highscore;
 import com.github.lhrb.nemo.util.Serialization;
-
 import java.util.ArrayList;
-
+import com.github.lhrb.nemo.actors.Removable;
 /**
  * @author exa
  * 
@@ -25,12 +21,23 @@ public class GameManager {
     
     private static GameManager gameMng;
 
+
     private ArrayList<Highscore> highscores= new ArrayList<Highscore>();
+
+    private float timeSinceESC = 0;
 
     private GameManager() {
         
     }
-    
+
+    public float getTimeSinceESC() {
+        return timeSinceESC;
+    }
+
+    public void setTimeSinceESC(float timeSinceESC) {
+        this.timeSinceESC = timeSinceESC;
+    }
+
     public static GameManager get() {
         if(gameMng == null) {
             gameMng = new GameManager();
@@ -44,12 +51,11 @@ public class GameManager {
               
     
     // In future we need to check that no boss will be removed here
-    public void removeEnemiesAndShots() {
-        for (Actor a : AbstractGame.getGameStage().getActors()) {
-            if (a instanceof Enemy && !(a instanceof EndBoss)) {
-                ((Enemy) a).enemyDied(false);
-            } else if (a instanceof Shots) {
-                a.remove();
+    public void removeEnemiesAndShots(Stage stage) {
+        if(stage == null) return;
+        for (Actor a : stage.getActors()) {
+            if(a instanceof Removable) {
+                ((Removable) a).destroy();
             }
         }
     }
@@ -60,6 +66,11 @@ public class GameManager {
      */
     public void addScore(int p) {
         player.addScore(p);
+    }
+    
+    public float getPlayerX() {
+        if(player == null) return 0;
+        return player.getX();
     }
 
 

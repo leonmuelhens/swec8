@@ -1,8 +1,5 @@
 package com.github.lhrb.nemo.actors;
 
-import com.github.lhrb.nemo.actors.enemies.Enemy;
-import com.github.lhrb.nemo.actors.shots.Shots;
-
 public class CollisionEvent {
 
     private PhysicalActor source, destiny;

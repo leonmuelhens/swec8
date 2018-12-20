@@ -42,7 +42,6 @@ public class FirstLevelScreen extends LevelScreen {
         if (gameTime / 10 > 0.25f) soundVolume = 0.25f;
         else soundVolume = gameTime / 10;
 
-        System.out.println(soundVolume);
         SoundManager.getInstance().setMusicStreamVolume("firstlevel",soundVolume);
     }
 }

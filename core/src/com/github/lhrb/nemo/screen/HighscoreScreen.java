@@ -40,6 +40,7 @@ public class HighscoreScreen extends AbstractScreen {
         stats= GameManager.get().getHighscores();
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("highscore.png"));
+
         highscore = new Table();
         highscore.setFillParent(true); // fill full screen
 
@@ -48,8 +49,9 @@ public class HighscoreScreen extends AbstractScreen {
         name = new Label("Name", GuiManager.getInstance().getLabelStyle());
         titel = new Label("HIGHSCORE", GuiManager.getInstance().getLabelStyleBig());
 
-        TextButton backBtn = new TextButton("Back", GuiManager.getInstance().getTxtBtnStyleSmall());
-        //backBtn.setPosition(5, 530);
+
+        TextButton backBtn = new TextButton("Zurück", GuiManager.getInstance().getTxtBtnStyleSmall());
+        backBtn.setPosition(5, 530);
         backBtn.addListener(
                 (Event e) ->{
                     if( !(e instanceof InputEvent)) { return false; }
