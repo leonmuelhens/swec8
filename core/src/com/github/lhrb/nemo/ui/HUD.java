@@ -66,13 +66,13 @@ public class HUD implements PropertyChangeListener{
 
         // Powerups
         collectibleIcons.put(CType.Bomb, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("powerup_bombe.png").getKeyFrame(0)));
+                .texture("iconBomb.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Multiplicator, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("powerup_multiplicator.png").getKeyFrame(0)));
+                .texture("iconMultiplikator.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Shield, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("powerup_shield.png").getKeyFrame(0)));
+                .texture("iconShield.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Star, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("powerup_star.png").getKeyFrame(0)));
+                .texture("iconStar.png").getKeyFrame(0)));
         collectibleIcons.put(CType.None, new Image().getDrawable());
 
         //TextureRegionDrawable test = new TextureRegionDrawable(AnimationLoader.get().texture("IconNormal.png").getKeyFrame(0));
@@ -99,32 +99,31 @@ public class HUD implements PropertyChangeListener{
         hud.setFillParent(true);
         
         // first Row: Level Indicator
-        hud.add(timeTextLbl).width(64).padLeft(10).padRight(10);
+        hud.add(timeTextLbl).width(64).padLeft(10).padTop(3);
         //hud.add(timeLbl).expandX().height(50).right().pad(10); // middle
-        hud.add(scoreTextLbl).expandX().padLeft(10).padRight(10).right(); // für das Level, in welcher Form bilden wir es?
+        hud.add(scoreTextLbl).expandX().padRight(10).padTop(3).right(); // für das Level, in welcher Form bilden wir es?
         hud.row();
 
         // second row:Highscore indicatro
-        hud.add(timeLbl).width(64).pad(10).padTop(0);
-        hud.add(scoreLbl).expandX().right().pad(10).padTop(0);
+        hud.add(timeLbl).width(64).padLeft(10).padTop(0);
+        hud.add(scoreLbl).expandX().right().padRight(10);
         hud.row();
 
         // third row
-        hud.add().expandY().width(64).pad(10);
-        hud.add(bombIcon).expandX().pad(10).bottom().right();
+        hud.add(bombIcon).colspan(2).expand().padRight(10).padLeft(10).bottom().right().height(55).width(55);
         hud.row();
 
         // fourth row
-        hud.add().width(64).pad(10).height(64);
-        hud.add(powerupStack).expandX().pad(10).bottom().right();
+        hud.add(powerupStack).expandX().colspan(2).padRight(10).padLeft(10).bottom().right().maxHeight(55).maxWidth(55);
         hud.row();
 
         // fifth:
         // left: weaponStack
         // right: life + heart
-        hud.add(weaponStack).height(64).width(64).bottom().pad(10);
-        hud.add(hpBtn).expandX().pad(10).bottom().right();
+        hud.add(weaponStack).height(55).width(55).bottom().padLeft(10).padBottom(3);
+        hud.add(hpBtn).expandX().padRight(10).padBottom(3).bottom().right();
 
+        //hud.debug();
     }
     
     private void initLabels() {
