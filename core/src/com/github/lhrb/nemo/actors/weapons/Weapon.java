@@ -38,13 +38,16 @@ public abstract class Weapon{
     public abstract void fire(float x, float y, float angle);
 
     public float getCooldown() {
-        return cooldown;
+        return cooldownTimer/cooldown;
     }
 
     public void act(float delta) {
-
-        cooldownTimer += delta;
-
+        if(!isReady()) {
+            cooldownTimer += delta;
+            if(cooldownTimer > cooldown) {
+                cooldownTimer = cooldown;
+            }
+        }
     }
 
 }

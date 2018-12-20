@@ -175,14 +175,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     }
 
     private void calculateTimer(float delta) {
-        if (weapon.isReady()) {
-            changes.firePropertyChange("shottimer",weaponCooldown,1f);
-            weaponCooldown = 1.0f;
-        } else {
-            weaponCooldownDelta = (1.0f / weapon.getCooldown())* delta;
-            changes.firePropertyChange("shottimer",weaponCooldown,weaponCooldown-weaponCooldownDelta);
-            weaponCooldown-=weaponCooldownDelta;
-        }
+        changes.firePropertyChange( "shottimer", -1f, (1f-weapon.getCooldown()) );
 
         if(powerupTimer == 0 || powerupTimer == 20) {
             changes.firePropertyChange("shottimer",powerupRemain,1f);
@@ -192,6 +185,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             changes.firePropertyChange("poweruptimer",powerupRemain,powerupRemain-powerupRemainDelta);
             powerupRemain-=powerupRemainDelta;
         }
+        
     }
 
     private void manageInputs() {
