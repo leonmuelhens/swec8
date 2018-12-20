@@ -56,7 +56,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         setAcceleration(100000);
         setSpeedMax(500);
         setDeceleration(100000);
-        life = 300;
+        life = 3;
         score = 0;
 
         weapon = new WeaponNormal(stage);
