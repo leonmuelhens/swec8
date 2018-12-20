@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.powerups.*;
@@ -34,13 +33,9 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
 
     // Weapon Vars
     private Weapon weapon;
-    private float weaponCooldown; // in percentage
-    private float weaponCooldownDelta; // delta to be decremented in percentage
 
     // PowerUp Vars
     private float powerupTimer; // in seconds
-    private float powerupRemain; // in percentage
-    private float powerupRemainDelta; // delta to be decremented in percentage
     private CActor bomb;
     private CActor powerup;
 
@@ -73,13 +68,11 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         score = 0;
 
         // Weapon Initialization
-        weaponCooldown = 1.0f;
         weapon = new WeaponNormal(stage);
 
         // Powerup Initialization
         powerup = new CActor(CType.None);
         bomb = new CActor(CType.None);
-        powerupRemain = 1.0f;
         powerupTimer = 0;
         invincible = false;
 
@@ -175,17 +168,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     }
 
     private void calculateTimer(float delta) {
-        changes.firePropertyChange( "shottimer", -1f, (1f-weapon.getCooldown()) );
-
-        if(powerupTimer == 0 || powerupTimer == 20) {
-            changes.firePropertyChange("shottimer",powerupRemain,1f);
-            powerupRemain = 1.0f;
-        } else {
-            powerupRemainDelta = (1.0f / 20)* delta;
-            changes.firePropertyChange("poweruptimer",powerupRemain,powerupRemain-powerupRemainDelta);
-            powerupRemain-=powerupRemainDelta;
-        }
         
+               
     }
 
     private void manageInputs() {
@@ -243,6 +227,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         super.act(delta);
         weapon.act(delta);
         
+        changes.firePropertyChange( "shottimer", -1f, (1f-weapon.getCooldown()) );
+        
         if (gotHit) hitAnimation(delta);
 
         calculateTimer(delta);
@@ -250,6 +236,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if (powerup != null && powerup.getType() != CType.None
                 && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
+            changes.firePropertyChange("poweruptimer", -1f, (1f-powerupTimer/20f) );
             if (powerupTimer <= 0 ) {
                 changePowerup(CType.None);
             }
