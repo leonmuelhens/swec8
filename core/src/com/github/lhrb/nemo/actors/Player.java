@@ -18,6 +18,7 @@ import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.*;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.CollisionEvent;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
 

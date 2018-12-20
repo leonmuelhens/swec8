@@ -2,11 +2,10 @@ package com.github.lhrb.nemo.actors.shots;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.github.lhrb.nemo.KillingNemo;
-import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.Existence;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Removable;
+import com.github.lhrb.nemo.util.CollisionEvent;
 
 public abstract class Shots extends PhysicalActor implements Existence, Removable{
 

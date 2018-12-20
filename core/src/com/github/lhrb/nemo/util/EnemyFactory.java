@@ -1,4 +1,4 @@
-package com.github.lhrb.nemo.SpawnFactory;
+package com.github.lhrb.nemo.util;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.EnemyActor;

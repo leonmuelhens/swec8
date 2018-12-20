@@ -7,14 +7,12 @@ import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
-import com.github.lhrb.nemo.SpawnFactory.CollectibleFactory;
 import com.github.lhrb.nemo.actors.ActorPrefab;
-import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.PhysicalActor;
-import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.CollectibleFactory;
+import com.github.lhrb.nemo.util.CollisionEvent;
 import com.github.lhrb.nemo.util.SoundManager;
 
 /**

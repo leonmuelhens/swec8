@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.github.lhrb.nemo.GameManager;
-import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
@@ -16,6 +15,7 @@ import com.github.lhrb.nemo.actors.Section;
 import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.CollisionManager;
 
 /**
  * @author exa

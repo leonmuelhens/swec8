@@ -14,9 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.powerups.CType;
-import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.util.PropertyListener;
@@ -26,9 +24,6 @@ import com.github.lhrb.nemo.util.PropertyListener;
  *
  */
 public class HUD implements PropertyChangeListener{
-    
-    private Player player;
-    private LevelScreen level;
     
     private Table hud;
     

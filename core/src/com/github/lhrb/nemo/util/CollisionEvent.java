@@ -1,4 +1,6 @@
-package com.github.lhrb.nemo.actors;
+package com.github.lhrb.nemo.util;
+
+import com.github.lhrb.nemo.actors.PhysicalActor;
 
 public class CollisionEvent {
 

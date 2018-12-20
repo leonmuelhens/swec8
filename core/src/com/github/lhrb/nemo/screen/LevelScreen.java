@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
-import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
-import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
-import com.github.lhrb.nemo.ui.RingCooldownTimer;
+import com.github.lhrb.nemo.util.CollisionManager;
+import com.github.lhrb.nemo.util.EnemyFactory;
 import com.github.lhrb.nemo.util.PropertyListener;
 
 import java.beans.PropertyChangeListener;

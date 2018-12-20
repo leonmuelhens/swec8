@@ -1,8 +1,11 @@
 /**
  * 
  */
-package com.github.lhrb.nemo.actors;
+package com.github.lhrb.nemo.util;
 
+import com.github.lhrb.nemo.actors.EnemyActor;
+import com.github.lhrb.nemo.actors.PhysicalActor;
+import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.shots.Shots;
 

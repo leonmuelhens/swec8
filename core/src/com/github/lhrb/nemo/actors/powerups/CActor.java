@@ -1,12 +1,10 @@
 package com.github.lhrb.nemo.actors.powerups;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.GameManager;
-import com.github.lhrb.nemo.actors.ActorPrefab;
-import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.Existence;
 import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.CollisionEvent;
 
 /**
  * @author exa
