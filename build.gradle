@@ -65,6 +65,8 @@ project(":core") {
 
         // Use JUnit test framework
         testCompile 'junit:junit:4.12'
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile 'junit:junit:4.12'
 
     }
 }
