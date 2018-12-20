@@ -236,7 +236,9 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if (powerup != null && powerup.getType() != CType.None
                 && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
-            changes.firePropertyChange("poweruptimer", -1f, (1f-powerupTimer/20f) );
+            
+            changes.firePropertyChange("poweruptimer", -1f, powerupTimer/20f );
+            
             if (powerupTimer <= 0 ) {
                 changePowerup(CType.None);
             }
