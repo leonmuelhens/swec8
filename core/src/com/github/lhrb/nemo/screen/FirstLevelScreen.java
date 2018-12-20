@@ -1,12 +1,10 @@
 package com.github.lhrb.nemo.screen;
 
 
-import com.badlogic.gdx.graphics.Color;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
-import com.github.lhrb.nemo.ui.RingCooldownTimer;
 import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeSupport;
