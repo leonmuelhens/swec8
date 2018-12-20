@@ -21,7 +21,7 @@ public class TestScreen extends AbstractScreen {
     public void init() {
         
         
-        Kraken krake = new Kraken(300,300, gameStage);
+        Kraken krake = new Kraken(300,600, gameStage);
         
         Player player = new Player(200,50, gameStage);
 
