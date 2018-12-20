@@ -66,13 +66,13 @@ public class HUD implements PropertyChangeListener{
 
         // Powerups
         collectibleIcons.put(CType.Bomb, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("iconBomb.png").getKeyFrame(0)));
+                .texture("IconBomb.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Multiplicator, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("iconMultiplikator.png").getKeyFrame(0)));
+                .texture("IconMultiplikator.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Shield, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("iconShield.png").getKeyFrame(0)));
+                .texture("IconShield.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Star, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("iconStar.png").getKeyFrame(0)));
+                .texture("IconStar.png").getKeyFrame(0)));
         collectibleIcons.put(CType.None, new Image().getDrawable());
 
         //TextureRegionDrawable test = new TextureRegionDrawable(AnimationLoader.get().texture("IconNormal.png").getKeyFrame(0));
