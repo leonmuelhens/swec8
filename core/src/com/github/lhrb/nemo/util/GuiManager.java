@@ -59,13 +59,13 @@ public class GuiManager {
     private TextFieldStyle createTextFieldStyle(int fontSize, Color color) {
         Skin skin = new Skin();
         //TODO replace with textfield backgound
-        Texture backgoundTex = new Texture(Gdx.files.internal("button.png"));
+        Texture backgoundTex = new Texture(Gdx.files.internal("Highscore_field.png"));
 
         skin.add(
                 "background",
                 new NinePatch(backgoundTex, 5, 5, 5, 5));
         //TODO replace with cursor file
-        skin.add("cursor", Gdx.files.internal("button.png"));
+        skin.add("cursor", Gdx.files.internal("Highscore_cursor.png"));
 
         TextFieldStyle tStyle = new TextFieldStyle();
         tStyle.font = createFont(fontSize);

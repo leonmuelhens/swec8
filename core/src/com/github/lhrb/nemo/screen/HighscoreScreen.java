@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
@@ -48,7 +47,7 @@ public class HighscoreScreen extends AbstractScreen {
         points = new Label("Punkte", GuiManager.getInstance().getLabelStyle());
         name = new Label("Name", GuiManager.getInstance().getLabelStyle());
         titel = new Label("HIGHSCORE", GuiManager.getInstance().getLabelStyleBig());
-
+        titel.setColor((254/ 255.0f),(245/ 255.0f),(86/ 255.0f),1);
 
         TextButton backBtn = new TextButton("Zurück", GuiManager.getInstance().getTxtBtnStyleSmall());
         backBtn.setPosition(5, 530);
@@ -60,7 +59,6 @@ public class HighscoreScreen extends AbstractScreen {
                     KillingNemo.setActiveScreen(new MainMenuScreen());
                     return true;
                 });
-        int size = 450;
         highscore.add(titel).expandY().colspan(3).align(Align.center);
         highscore.row();
 
@@ -74,7 +72,6 @@ public class HighscoreScreen extends AbstractScreen {
 
         //highscore.setDebug(true);
         guiStage.addActor(highscore);
-        //highscore.debug();
 
     }
 
@@ -87,16 +84,20 @@ public class HighscoreScreen extends AbstractScreen {
 
     }
 
+
     public  void addScoreToTable(){
         int i =1;
         for (Highscore stat :stats) {
-            Label place = new Label(String.valueOf(i), GuiManager.getInstance().getLabelStyle());
-            Label score = new Label(String.valueOf(stat.getScore()), GuiManager.getInstance().getLabelStyle());
-            Label name = new Label(stat.getName(), GuiManager.getInstance().getLabelStyle());
-
+            Label place = new Label(String.valueOf(i), GuiManager.getInstance().getLabelStyleSmall());
+            Label score = new Label(String.valueOf(stat.getScore()), GuiManager.getInstance().getLabelStyleSmall());
+            Label name = new Label(String.valueOf(stat.getName()), GuiManager.getInstance().getLabelStyleSmall());
+            place.setColor((242/ 255.0f),(241/ 255.0f),(147/ 255.0f),1);
+            score.setColor((242/ 255.0f),(241/ 255.0f),(147/ 255.0f),1);
+            name.setColor((242/ 255.0f),(241/ 255.0f),(147/ 255.0f),1);
+            name.setAlignment(Align.right);
             highscore.add(place).align(Align.left).pad(5).padLeft(10).width(100);
             highscore.add(score).align(Align.center).pad(5).expandX();
-            highscore.add(name).align(Align.right).pad(5).width(300);
+            highscore.add(name).align(Align.right).pad(5).width(300).right();
             highscore.row();
             i++;
         }
