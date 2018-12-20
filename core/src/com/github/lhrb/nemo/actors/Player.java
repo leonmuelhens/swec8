@@ -309,6 +309,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             if (life <= 0) {
                 perish();
             }
+            changes.firePropertyChange("poweruptimer", powerupTimer, 0f );
             changePowerup(CType.None);
             bombLayer.setDrawable(null);
             changeBomb(CType.None);
