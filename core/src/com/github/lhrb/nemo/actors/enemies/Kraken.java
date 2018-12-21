@@ -151,6 +151,7 @@ public class Kraken extends MultiPartActor {
         
         private Kraken parent;
         private float elapsedTime = 0f;
+        private float playerX;
         
         public TentacleAttack(Stage stage, Kraken parent) {
             super(8f, stage);
@@ -184,17 +185,18 @@ public class Kraken extends MultiPartActor {
                 else if(elapsedTime > 0.7f) {
                     parent.getPartCollection().get(6).setVisible(true);
                     parent.getPartCollection().get(6)
-                    .setPos(GameManager.get().getPlayerX(), 50f);
+                    .setPos(playerX, 50f);
                 }
                 else if(elapsedTime > 0.6f) {
                     parent.getPartCollection().get(5).setVisible(true);
                     parent.getPartCollection().get(5)
-                    .setPos(GameManager.get().getPlayerX(), 125f);
+                    .setPos(playerX, 125f);
                 }
                 else if(elapsedTime > 0.5f) {
                     parent.getPartCollection().get(4).setVisible(true);
+                    playerX = GameManager.get().getPlayerX();
                     parent.getPartCollection().get(4)
-                    .setPos(GameManager.get().getPlayerX(), 200f);
+                    .setPos(playerX, 200f);
                 }
                 else if(elapsedTime > 0.4f) {
                     parent.getPartCollection().get(3).setVisible(true);
