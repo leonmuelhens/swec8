@@ -7,6 +7,7 @@ package com.github.lhrb.nemo.screen;
 import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.Kraken;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -19,7 +20,7 @@ public class TestScreen extends AbstractScreen {
      */
     @Override
     public void init() {
-        
+        SoundManager.getInstance().playTrack("boss");
         
         Kraken krake = new Kraken(300,600, gameStage);
         
