@@ -4,10 +4,13 @@
 package com.github.lhrb.nemo.actors.enemies;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.utils.Array;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.MultiPartActor;
@@ -145,13 +148,11 @@ public class Kraken extends MultiPartActor {
     }
     
     
-    
-    
     private class TentacleAttack extends Weapon{
         
         private Kraken parent;
         private float elapsedTime = 0f;
-        private float playerX;
+        private boolean action = true;
         
         public TentacleAttack(Stage stage, Kraken parent) {
             super(8f, stage);
@@ -170,55 +171,33 @@ public class Kraken extends MultiPartActor {
                 cooldownTimer += delta;
             }else {
                 elapsedTime += delta;
-                if(elapsedTime > 2f) {
+                if(elapsedTime > 1.4f) {
                     parent.resetPosition();
                     resetCooldownTimer();
                     elapsedTime = 0f;
+                    action = true;
                 }
-                else if(elapsedTime > 1f){
+                else if(elapsedTime > 1.2f){
                     for(Section s : parent.getPartCollection()) {
                         if(s.getID() != 0) {
-                            s.setVisible(true);
+                            s.setPosition(1000, 1000);
                         }
                     }
                 }
-                else if(elapsedTime > 0.7f) {
-                    parent.getPartCollection().get(6).setVisible(true);
-                    parent.getPartCollection().get(6)
-                    .setPos(playerX, 50f);
-                }
-                else if(elapsedTime > 0.6f) {
-                    parent.getPartCollection().get(5).setVisible(true);
-                    parent.getPartCollection().get(5)
-                    .setPos(playerX, 125f);
-                }
-                else if(elapsedTime > 0.5f) {
-                    parent.getPartCollection().get(4).setVisible(true);
-                    playerX = GameManager.get().getPlayerX();
-                    parent.getPartCollection().get(4)
-                    .setPos(playerX, 200f);
-                }
-                else if(elapsedTime > 0.4f) {
-                    parent.getPartCollection().get(3).setVisible(true);
-                    parent.getPartCollection().get(3)
-                    .setPos(GameManager.get().getPlayerX(), 275f);
-                }
-                else if(elapsedTime > 0.3f) {
-                    parent.getPartCollection().get(2).setVisible(true);
-                    parent.getPartCollection().get(2)
-                    .setPos(GameManager.get().getPlayerX(), 350f);
-                }
-                else if(elapsedTime > 0.2f) {
-                    parent.getPartCollection().get(1).setVisible(true);
-                    parent.getPartCollection().get(1)
-                          .setPos(GameManager.get().getPlayerX(), 400f);
-                    
-                }
-                else {
-                    for(Section s : parent.getPartCollection()) {
-                        if(s.getID() != 0) {
-                            s.setVisible(false);
-                        }
+                
+                else if(action){                  
+                    int size = parent.getPartSize();
+                    if(size > 1) {
+                        float distance = (float)400/(size-1);
+                        List<Section> sl = parent.getPartCollection().subList(1, size);
+                        for(int i = 0; i < sl.size(); i++) {
+                            Section s = sl.get(i);
+                            s.setPosition(1000, 1000);
+                            float time = (float)(1f-(0.15*i));
+                            float y = 50f + (distance*i);
+                            addAction(new TentacleAction(time, y, s));                            
+                        }                 
+                    action = false;
                     }
                 }
                 
