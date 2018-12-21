@@ -15,7 +15,8 @@ public class TentacleAction extends Action {
     
     private float elapsedTime, x, y, time;
     private Section s;
-
+    private boolean setX;
+    
     public TentacleAction(float time, float y, Section s) {
         super();
         this.time = time;
@@ -23,6 +24,7 @@ public class TentacleAction extends Action {
         this.s = s;
         elapsedTime = 0f;
         x = -1f;
+        setX = true;
     }
     
     /* (non-Javadoc)
@@ -31,8 +33,9 @@ public class TentacleAction extends Action {
     @Override
     public boolean act(float delta) {
         elapsedTime += delta;
-        if(elapsedTime >= 0.5f) {
+        if(setX && elapsedTime >= 0.5f) {
             x = GameManager.get().getPlayerX();
+            setX = false;
         }
         if(elapsedTime >= time) {
             if(x == -1f) {
