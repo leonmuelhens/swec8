@@ -24,7 +24,6 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     protected Player player;
     protected Background bg, bg2;
     protected EnemyFactory factory;
-    protected MultiPartActor endBoss;
     protected float afterDeathTime;
     protected float soundVolume;
 
@@ -60,11 +59,9 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             } else {
                 // ignore the collision
             }
-
         }
 
         if (soundVolume < 0.25f) {
-            changes.firePropertyChange("gametime",gameTime,(int)(gameTime+delta));
             increaseVolume();
         }
 
@@ -72,12 +69,12 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         }
-        else if (gameTime >= 3*60 && endBoss == null) {
-            if (this instanceof FirstLevelScreen) {
-                endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
-            }
+        else {
+            spawnEndboss();
         }
     }
+    
+    protected abstract void spawnEndboss();
     
     @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
