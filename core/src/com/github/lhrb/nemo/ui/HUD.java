@@ -174,7 +174,8 @@ public class HUD implements PropertyChangeListener{
             return;
         }
         if(evt.getPropertyName().equals("gametime")) {
-            timeLbl.setText(evt.getNewValue().toString());
+            Integer gameTime = (Integer) evt.getNewValue();
+            timeLbl.setText(String.format("%d:%02d",gameTime / 60,gameTime % 60));
             return;
         }
         if(evt.getPropertyName().equals("powerup")) {
