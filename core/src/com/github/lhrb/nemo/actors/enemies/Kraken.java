@@ -153,6 +153,7 @@ public class Kraken extends MultiPartActor {
         private Kraken parent;
         private float elapsedTime = 0f;
         private boolean action = true;
+        private float distance, time, y;
         
         public TentacleAttack(Stage stage, Kraken parent) {
             super(8f, stage);
@@ -188,13 +189,13 @@ public class Kraken extends MultiPartActor {
                 else if(action){                  
                     int size = parent.getPartSize();
                     if(size > 1) {
-                        float distance = (float)400/(size-1);
+                        distance = (float)400/(size-1);
                         List<Section> sl = parent.getPartCollection().subList(1, size);
                         for(int i = 0; i < sl.size(); i++) {
                             Section s = sl.get(i);
                             s.setPosition(1000, 1000);
-                            float time = (float)(1f-(0.15*i));
-                            float y = 50f + (distance*i);
+                            time = (float)(1f-(0.15*i));
+                            y = 50f + (distance*i);
                             addAction(new TentacleAction(time, y, s));                            
                         }                 
                     action = false;
