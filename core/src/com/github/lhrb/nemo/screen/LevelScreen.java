@@ -9,9 +9,7 @@ import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
-import com.github.lhrb.nemo.ui.RingCooldownTimer;
 import com.github.lhrb.nemo.util.PropertyListener;
 
 import java.beans.PropertyChangeListener;
@@ -23,6 +21,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     protected HUD hud;
     protected Player player;
     protected Background bg, bg2;
+    protected MultiPartActor boss;
     protected EnemyFactory factory;
     protected float afterDeathTime;
     protected float soundVolume;
@@ -51,13 +50,10 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             float timeSinceESC = GameManager.get().getTimeSinceESC();
 
-            if((gameTime-timeSinceESC) > 0.5f) {
-                KillingNemo.getActiveScreen().pause();
-                KillingNemo.setActiveScreen(new PauseScreen(KillingNemo.getActiveScreen()));
+            if((gameTime-timeSinceESC) > 0) {
+                this.pause();
+                KillingNemo.setActiveScreen(new PauseScreen(this));
                 GameManager.get().setTimeSinceESC(timeSinceESC);
-
-            } else {
-                // ignore the collision
             }
         }
 
