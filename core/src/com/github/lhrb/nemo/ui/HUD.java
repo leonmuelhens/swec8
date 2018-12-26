@@ -157,6 +157,10 @@ public class HUD implements PropertyChangeListener{
         pL.addPropertyChangeListener(this);
     }
     
+    public void removePropertyListener(PropertyListener pL) {
+    	pL.removePropertyChangeListener(this);
+    }
+    
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
