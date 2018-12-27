@@ -14,9 +14,7 @@ import java.beans.PropertyChangeSupport;
 
 
 public class FirstLevelScreen extends LevelScreen {
-   
-    private MultiPartActor endBoss;
-    
+
     @Override
     public void init() {
         gameTime = 0F;
