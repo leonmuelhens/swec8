@@ -12,6 +12,7 @@ import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.CollisionManager;
 import com.github.lhrb.nemo.util.EnemyFactory;
 import com.github.lhrb.nemo.util.PropertyListener;
+import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -81,6 +82,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         else if (gameTime >= 3*60 && endBoss == null) {
             if (this instanceof FirstLevelScreen) {
+                SoundManager.getInstance().playTrack("boss");
                 endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
             }
         }
