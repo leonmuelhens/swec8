@@ -13,19 +13,22 @@ import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.ui.RingCooldownTimer;
 import com.github.lhrb.nemo.util.PropertyListener;
+import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public abstract class LevelScreen extends AbstractScreen implements PropertyListener{
     protected int level;
-    protected float gameTime;
-    protected HUD hud;
-    protected Player player;
-    protected Background bg, bg2;
-    protected EnemyFactory factory;
-    protected float afterDeathTime;
-    protected float soundVolume;
+    float gameTime;
+    String gameTimeString, gameTimeStringBefore;
+    HUD hud;
+    Player player;
+    Background bg, bg2;
+    EnemyFactory factory;
+    MultiPartActor endBoss;
+    float afterDeathTime;
+    float soundVolume;
 
 
     PropertyChangeSupport changes;
@@ -35,7 +38,14 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        changes.firePropertyChange("gametime",(int)gameTime, (int)(gameTime += delta));
+
+        gameTimeStringBefore = String.format("%d:%02d",(int) gameTime / 60,(int) gameTime % 60);
+
+        gameTime += delta;
+
+        gameTimeString = String.format("%d:%02d",(int) gameTime / 60,(int) gameTime % 60);
+
+        changes.firePropertyChange("gametime",gameTimeStringBefore,gameTimeString);
 
         /* Once we define an abstract class for gameScreens, we can define a variable
            for how long the level shall take and replace the hardcorded 3*6
@@ -59,9 +69,11 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             } else {
                 // ignore the collision
             }
+
         }
 
         if (soundVolume < 0.25f) {
+            changes.firePropertyChange("gametime",gameTime,(int)(gameTime+delta));
             increaseVolume();
         }
 
@@ -69,18 +81,19 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         }
-        else {
-            spawnEndboss();
+        else if (gameTime >= 3*60 && endBoss == null) {
+            if (this instanceof FirstLevelScreen) {
+                SoundManager.getInstance().playTrack("boss");
+                endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
+            }
         }
     }
-    
-    protected abstract void spawnEndboss();
-    
+
     @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
         changes.addPropertyChangeListener(l);
     }
-    
+
     @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);

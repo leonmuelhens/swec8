@@ -57,6 +57,11 @@ public class Section extends EnemyActor {
     }
     
     
+    public void setPos(float x, float y) {
+        Vector2 t = parent.stageToLocalCoordinates(new Vector2(x,y));
+        setPosition(t.x,t.y);
+        
+    }
     /**
      * 
      * @return true if hp is zero or less

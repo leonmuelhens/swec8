@@ -3,19 +3,11 @@
  */
 package com.github.lhrb.nemo.screen;
 
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.github.lhrb.nemo.GameManager;
+
 import com.github.lhrb.nemo.actors.CollisionManager;
-import com.github.lhrb.nemo.actors.MultiPartActor;
-import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.Section;
-import com.github.lhrb.nemo.actors.powerups.CActor;
-import com.github.lhrb.nemo.actors.powerups.CType;
-import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.actors.enemies.Kraken;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -28,16 +20,9 @@ public class TestScreen extends AbstractScreen {
      */
     @Override
     public void init() {
+        SoundManager.getInstance().playTrack("boss");
         
-        
-        CActor a = new CActor(50,500,gameStage, CType.Laser);
-        CActor b = new CActor(150,500,gameStage, CType.Bomb);
-        CActor c = new CActor(250,500,gameStage, CType.Star);
-        CActor d = new CActor(350,500,gameStage, CType.Shield);
-        CActor e = new CActor(450,500,gameStage, CType.Spread);
-        CActor f = new CActor(550,500,gameStage, CType.Normal);
-        CActor g = new CActor(550,400,gameStage, CType.Multiplicator);
-        
+        Kraken krake = new Kraken(300,600, gameStage);
         
         Player player = new Player(200,50, gameStage);
 

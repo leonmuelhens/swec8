@@ -2,10 +2,8 @@ package com.github.lhrb.nemo.screen;
 
 
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.actors.Background;
-import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -45,13 +43,5 @@ public class FirstLevelScreen extends LevelScreen {
         else soundVolume = gameTime / 10;
 
         SoundManager.getInstance().setMusicStreamVolume("firstlevel",soundVolume);
-    }
-
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.screen.LevelScreen#spawnEndboss()
-     */
-    @Override
-    protected void spawnEndboss() {
-        endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);        
     }
 }

@@ -17,14 +17,4 @@ public class SecondLevelScreen extends LevelScreen {
         // TODO Auto-generated method stub
 
     }
-
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.screen.LevelScreen#spawnEndboss()
-     */
-    @Override
-    protected void spawnEndboss() {
-        // TODO Auto-generated method stub
-        
-    }
-
 }
