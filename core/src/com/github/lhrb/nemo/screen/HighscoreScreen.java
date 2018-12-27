@@ -95,9 +95,9 @@ public class HighscoreScreen extends AbstractScreen {
             score.setColor((242/ 255.0f),(241/ 255.0f),(147/ 255.0f),1);
             name.setColor((242/ 255.0f),(241/ 255.0f),(147/ 255.0f),1);
             name.setAlignment(Align.right);
-            highscore.add(place).align(Align.left).pad(5).padLeft(10).width(100);
-            highscore.add(score).align(Align.center).pad(5).expandX();
-            highscore.add(name).align(Align.right).pad(5).width(300).right();
+            highscore.add(place).align(Align.left).pad(5).padLeft(10).width(100).padBottom(3);
+            highscore.add(score).align(Align.center).pad(5).expandX().padBottom(3);
+            highscore.add(name).align(Align.right).pad(5).width(300).right().padBottom(3);
             highscore.row();
             i++;
         }
