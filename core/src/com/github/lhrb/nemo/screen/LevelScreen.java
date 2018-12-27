@@ -2,16 +2,13 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
-import com.github.lhrb.nemo.actors.Background;
-import com.github.lhrb.nemo.actors.CollisionManager;
-import com.github.lhrb.nemo.actors.MultiPartActor;
-import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.*;
 import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
-import com.github.lhrb.nemo.ui.RingCooldownTimer;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -29,6 +26,27 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     MultiPartActor endBoss;
     float afterDeathTime;
     float soundVolume;
+
+    //Normal Constructor
+    public LevelScreen(){
+        super();
+    }
+
+    //Constructor with Player
+    public LevelScreen(Player oldPlayer){
+        gameStage = new Stage();
+        guiStage = new Stage();
+        player=new Player(20,20,gameStage);
+        player.addScore(oldPlayer.getScore());
+        player.collision(new CollisionEvent(player, oldPlayer.getPowerUP()));
+        init();
+    }
+
+    //Preparation for Coop
+    public LevelScreen(Player player1,Player player2){
+        player=player1;
+        //player2=player2;
+    }
 
 
     PropertyChangeSupport changes;
@@ -56,6 +74,11 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         // For testing
         if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
             gameTime += 3*60;
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
+            KillingNemo.setActiveScreen(new LevelTransitionScreen(GameManager.get().getPlayer() ,1));
+
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -98,5 +121,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
     }
+
+
 
 }

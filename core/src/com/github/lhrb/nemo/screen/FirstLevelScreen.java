@@ -1,10 +1,10 @@
 package com.github.lhrb.nemo.screen;
 
 
+import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
+import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.ui.HUD;
-import com.github.lhrb.nemo.actors.Background;
-import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeSupport;
@@ -13,6 +13,13 @@ import java.beans.PropertyChangeSupport;
 
 public class FirstLevelScreen extends LevelScreen {
 
+    public FirstLevelScreen(){
+        super();
+    }
+
+    public FirstLevelScreen(Player player){
+        super(player);
+    }
     @Override
     public void init() {
         gameTime = 0F;
@@ -24,8 +31,11 @@ public class FirstLevelScreen extends LevelScreen {
 
         bg = new Background(0, 0, gameStage, 1);
         bg2 = new Background(0, 1200, gameStage, 1);
+        //checks if player was given by constructor
+        if(player == null)
+            player = new Player(20, 20, gameStage);
 
-        player = new Player(20, 20, gameStage);
+
         hud = new HUD();
         hud.registerPropertyListener(this);
         hud.registerPropertyListener(player);
