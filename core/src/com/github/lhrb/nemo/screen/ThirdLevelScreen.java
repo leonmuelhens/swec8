@@ -36,7 +36,7 @@ public class ThirdLevelScreen extends LevelScreen {
         hud.registerPropertyListener(player);
         guiStage.addActor(hud.getHUD());
 
-        SoundManager.getInstance().playTrack("firstlevel");
+        SoundManager.getInstance().playTrack("thirdlevel");
 
         factory = new EnemyFactory(gameStage);
     }
@@ -47,12 +47,12 @@ public class ThirdLevelScreen extends LevelScreen {
         if (gameTime / 10 > 0.25f) soundVolume = 0.25f;
         else soundVolume = gameTime / 10;
 
-        SoundManager.getInstance().setMusicStreamVolume("firstlevel",soundVolume);
+        SoundManager.getInstance().setMusicStreamVolume("thirdlevel",soundVolume);
     }
 
     @Override
     protected void startBossFight() {
-        SoundManager.getInstance().playTrack("boss");
+        SoundManager.getInstance().playTrack("boss3");
         // we need the shark!
         endBoss = new Kraken(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
     }

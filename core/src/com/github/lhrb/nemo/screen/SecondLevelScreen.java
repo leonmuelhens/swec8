@@ -36,7 +36,7 @@ public class SecondLevelScreen extends LevelScreen {
         hud.registerPropertyListener(player);
         guiStage.addActor(hud.getHUD());
 
-        SoundManager.getInstance().playTrack("firstlevel");
+        SoundManager.getInstance().playTrack("secondlevel");
 
         factory = new EnemyFactory(gameStage);
     }
@@ -47,12 +47,12 @@ public class SecondLevelScreen extends LevelScreen {
         if (gameTime / 10 > 0.25f) soundVolume = 0.25f;
         else soundVolume = gameTime / 10;
 
-        SoundManager.getInstance().setMusicStreamVolume("firstlevel",soundVolume);
+        SoundManager.getInstance().setMusicStreamVolume("secondlevel",soundVolume);
     }
 
     @Override
     protected void startBossFight() {
-        SoundManager.getInstance().playTrack("boss");
+        SoundManager.getInstance().playTrack("boss2");
         endBoss = new Kraken(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
     }
 
