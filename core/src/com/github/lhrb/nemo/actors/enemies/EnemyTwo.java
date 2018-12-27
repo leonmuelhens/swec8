@@ -24,7 +24,7 @@ public class EnemyTwo extends EnemyActor {
 
     public void setCharacteristics() {
         
-        setAnimation(AnimationLoader.get().texture("gegner2.png"));
+        setAnimation(AnimationLoader.get().texture("enemies/gegner2.png"));
         //setRotation(180);
         setAcceleration(30);
         setSpeedMax(30);

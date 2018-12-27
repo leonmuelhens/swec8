@@ -23,7 +23,7 @@ public class EnemyThree extends EnemyActor {
     private float fireRate;
 
     public void setCharacteristics() {
-        setAnimation(AnimationLoader.get().texture("gegner3.png"));
+        setAnimation(AnimationLoader.get().texture("enemies/gegner3.png"));
         //setRotation(180);
         setAcceleration(1000);
         setSpeedMax(100);

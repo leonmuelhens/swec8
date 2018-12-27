@@ -24,7 +24,7 @@ public class ChooseLvlScreen extends AbstractScreen {
     @Override
     public void init() {
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.get().texture("levelauswahl.png"));
+        bg.setAnimation(AnimationLoader.get().texture("ui/levelauswahl.png"));
         TextButton backBtn = new TextButton("Zurück", GuiManager.getInstance().getTxtBtnStyleSmall());
         backBtn.setPosition(5, 530);
         backBtn.addListener(

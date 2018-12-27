@@ -15,16 +15,16 @@ public class Background extends ActorPrefab {
 
         switch (level) {
             case 1:
-                fileName = "bg1.png";
+                fileName = "backgrounds/bg1.png";
                 break;
             case 2:
-                fileName = "bg2.png";
+                fileName = "backgrounds/bg2.png";
                 break;
             case 3:
-                fileName = "bg3.png";
+                fileName = "backgrounds/bg3.png";
                 break;
             default:
-                fileName = "bg1.png";
+                fileName = "backgrounds/bg1.png";
                 break;
         }
         setAnimation(AnimationLoader.get().texture(fileName));

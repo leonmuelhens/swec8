@@ -42,11 +42,11 @@ public class Uboot extends MultiPartActor {
         weapons.add( new WeaponBombdrop(getStage()) );
         
         addPart(new Section(0, this, 0, 0, 10, 100, 
-                AnimationLoader.get().texture("uboot_back.png")));
+                AnimationLoader.get().texture("boss/uboot_back.png")));
         addPart(new Section(1, this, 72, 0, 10, 100,
-                AnimationLoader.get().texture("uboot_middle.png")));
+                AnimationLoader.get().texture("boss/uboot_middle.png")));
         addPart(new Section(2, this, 144, 0, 10, 100,
-                AnimationLoader.get().texture("uboot_front.png")));
+                AnimationLoader.get().texture("boss/uboot_front.png")));
         
         setRotation(0);
         setAcceleration(1000);

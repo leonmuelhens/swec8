@@ -15,7 +15,7 @@ public class Bomb extends Shots {
     public Bomb(float x, float y, float angle, Stage stage) {
         super(x, y, angle, stage);
 
-        setAnimation(AnimationLoader.get().texture("bombe.png"));
+        setAnimation(AnimationLoader.get().texture("shots/bombe.png"));
         setSpeedMax(100);
         setAcceleration(30000);
         setShapePolygon(8);

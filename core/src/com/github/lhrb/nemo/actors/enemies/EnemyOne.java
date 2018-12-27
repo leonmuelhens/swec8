@@ -24,7 +24,7 @@ public class EnemyOne extends EnemyActor {
     private float fireRate;
     
     public void setCharacteristics() {
-        setAnimation(AnimationLoader.get().texture("gegner1.png"));
+        setAnimation(AnimationLoader.get().texture("enemies/gegner1.png"));
         setRotation(180);
         setAcceleration(1000);
         setSpeedMax(75);

@@ -30,7 +30,7 @@ public class LevelDoneScreen extends AbstractScreen {
         SoundManager.getInstance().playTrack("menu");
 
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.get().texture("bg1.png"));
+        bg.setAnimation(AnimationLoader.get().texture("backgrounds/bg1.png"));
 
         Table table = new Table();
         table.setFillParent(true);

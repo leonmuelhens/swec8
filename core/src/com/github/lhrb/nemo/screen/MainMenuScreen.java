@@ -33,7 +33,7 @@ public class MainMenuScreen extends AbstractScreen {
         //GameInterface gui = new GameInterface(guiStage);
         menuDelay = 0;
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.get().texture("mainmenu_background.png"));
+        bg.setAnimation(AnimationLoader.get().texture("ui/mainmenu_background.png"));
         
         mainMenu = new Table();
         mainMenu.setFillParent(true); // fill full screen

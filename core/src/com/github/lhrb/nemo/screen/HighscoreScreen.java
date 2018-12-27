@@ -24,7 +24,7 @@ public class HighscoreScreen extends AbstractScreen {
     @Override
     public void init() {
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.get().texture("highscore.png"));
+        bg.setAnimation(AnimationLoader.get().texture("ui/highscore.png"));
         TextButton backBtn = new TextButton("Zurück", GuiManager.getInstance().getTxtBtnStyleSmall());
         backBtn.setPosition(5, 530);
         backBtn.addListener(

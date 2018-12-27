@@ -38,7 +38,7 @@ public class OptionScreen extends AbstractScreen {
     @Override
     public void init() {
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.get().texture("setting.png"));
+        bg.setAnimation(AnimationLoader.get().texture("ui/setting.png"));
         TextButton backBtn = new TextButton("Zurück", GuiManager.getInstance().getTxtBtnStyleSmall());
         backBtn.setPosition(5, 530);
         backBtn.addListener(

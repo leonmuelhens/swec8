@@ -53,21 +53,21 @@ public class HUD implements PropertyChangeListener{
         collectibleIcons = new HashMap<CType, Drawable>();
         // Weapons
         collectibleIcons.put(CType.Normal, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("IconNormal.png").getKeyFrame(0)));
+                .texture("hud/IconNormal.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Spread, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("IconSpread.png").getKeyFrame(0)));
+                .texture("hud/IconSpread.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Laser, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("IconLaser.png").getKeyFrame(0)));
+                .texture("hud/IconLaser.png").getKeyFrame(0)));
 
         // Powerups
         collectibleIcons.put(CType.Bomb, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("IconBomb.png").getKeyFrame(0)));
+                .texture("hud/IconBomb.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Multiplicator, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("IconMultiplikator.png").getKeyFrame(0)));
+                .texture("hud/IconMultiplikator.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Shield, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("IconShield.png").getKeyFrame(0)));
+                .texture("hud/IconShield.png").getKeyFrame(0)));
         collectibleIcons.put(CType.Star, new TextureRegionDrawable(AnimationLoader.get()
-                .texture("IconStar.png").getKeyFrame(0)));
+                .texture("hud/IconStar.png").getKeyFrame(0)));
         collectibleIcons.put(CType.None, new Image().getDrawable());
 
         //TextureRegionDrawable test = new TextureRegionDrawable(AnimationLoader.get().texture("IconNormal.png").getKeyFrame(0));
@@ -87,7 +87,7 @@ public class HUD implements PropertyChangeListener{
         powerupStack.add(puOverlay);
 
         hpBtn = new ImageButton(new TextureRegionDrawable(AnimationLoader.get()
-                                        .texture("heart.png").getKeyFrame(0)));
+                                        .texture("hud/heart.png").getKeyFrame(0)));
         hpBtn.add(hpLbl);
 
         hud = new Table();

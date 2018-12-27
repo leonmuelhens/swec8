@@ -61,7 +61,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         super(x,y,stage);
 
         // Characteristics
-        setAnimation(AnimationLoader.get().animation("player_animation_feuer.png", 1, 3, 0.1f, true));
+        setAnimation(AnimationLoader.get().animation("player/player_animation_feuer.png", 1, 3, 0.1f, true));
         setAcceleration(100000);
         setSpeedMax(500);
         setDeceleration(100000);
@@ -112,27 +112,27 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         switch(type) {
         case Shield: 
             powerupLayer.setDrawable(AnimationLoader.get()
-                     .drawable("active_powerup_shield.png"));
+                     .drawable("player/active_powerup_shield.png"));
             break;
         case Star:
             powerupLayer.setDrawable(AnimationLoader.get()
-                    .drawable("active_powerup_star.png"));
+                    .drawable("player/active_powerup_star.png"));
             break;
         case Bomb:
             bombLayer.setDrawable(AnimationLoader.get()
-                    .drawable("active_powerup_bomb.png"));
+                    .drawable("player/active_powerup_bomb.png"));
             break;
         case Normal:
             weaponLayer.setDrawable(AnimationLoader.get()
-                    .drawable("active_weapon_normal.png"));
+                    .drawable("player/active_weapon_normal.png"));
             break;
         case Laser:
             weaponLayer.setDrawable(AnimationLoader.get()
-                    .drawable("active_weapon_laser.png"));
+                    .drawable("player/active_weapon_laser.png"));
             break;
         case Spread:
             weaponLayer.setDrawable(AnimationLoader.get()
-                    .drawable("active_weapon_spread.png"));
+                    .drawable("player/active_weapon_spread.png"));
             break;
         default: 
             powerupLayer.setDrawable(null);

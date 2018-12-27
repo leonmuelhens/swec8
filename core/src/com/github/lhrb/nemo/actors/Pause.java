@@ -15,7 +15,7 @@ public class Pause extends Window {
     static {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("windows.pack"));
 
-        windowStyle = new WindowStyle(new BitmapFont(), Color.BLACK, new TextureRegionDrawable(textureAtlas.findRegion("bg1.png")));
+        windowStyle = new WindowStyle(new BitmapFont(), Color.BLACK, new TextureRegionDrawable(textureAtlas.findRegion("backgrounds/bg1.png")));
 
     }
 }

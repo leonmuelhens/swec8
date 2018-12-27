@@ -35,7 +35,7 @@ public class PauseScreen extends AbstractScreen{
         //GameInterface gui = new GameInterface(guiStage);
 
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
-        bg.setAnimation(AnimationLoader.get().texture("pausemenue_background.png"));
+        bg.setAnimation(AnimationLoader.get().texture("ui/pausemenu_background.png"));
 
         pauseMenu = new Table();
         pauseMenu.setFillParent(true); // fill full screen
