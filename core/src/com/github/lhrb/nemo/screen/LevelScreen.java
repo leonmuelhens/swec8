@@ -11,7 +11,9 @@ import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
+import com.github.lhrb.nemo.ui.RingCooldownTimer;
 import com.github.lhrb.nemo.util.PropertyListener;
+import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -36,6 +38,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
+
         gameTimeStringBefore = String.format("%d:%02d",(int) gameTime / 60,(int) gameTime % 60);
 
         gameTime += delta;
@@ -70,6 +73,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
 
         if (soundVolume < 0.25f) {
+            changes.firePropertyChange("gametime",gameTime,(int)(gameTime+delta));
             increaseVolume();
         }
 
@@ -83,6 +87,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         else if (gameTime >= 3*60 && endBoss == null) {
             if (this instanceof FirstLevelScreen) {
+                SoundManager.getInstance().playTrack("boss");
                 endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
             }
         }

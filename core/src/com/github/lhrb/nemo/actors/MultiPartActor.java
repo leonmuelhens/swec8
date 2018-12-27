@@ -35,24 +35,24 @@ public class MultiPartActor extends ActorPrefab {
      * 
      * @param pA
      */
-    public void addPart(Section e) {
+    protected void addPart(Section e) {
         if(parts == null) return;
         parts.add(e);
     }
     
-    public void removePart(Section e) {
+    protected void removePart(Section e) {
         if(parts != null) {
             parts.remove(e);
         }
     }
     
-    public int getPartSize() {
+    protected int getPartSize() {
         if(parts == null) return 0;
         return parts.size();
     }
     
     
-    public void handleCollision(Section section) {
+    protected void handleCollision(Section section) {
         if(section.getDmg()) {
             parts.remove(section);
             section.perish();
