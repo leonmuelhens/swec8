@@ -3,8 +3,6 @@
  */
 package com.github.lhrb.nemo.actors;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,14 +11,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
-import com.github.lhrb.nemo.actors.powerups.*;
+import com.github.lhrb.nemo.actors.powerups.CActor;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Shots;
-import com.github.lhrb.nemo.actors.weapons.*;
+import com.github.lhrb.nemo.actors.weapons.Weapon;
+import com.github.lhrb.nemo.actors.weapons.WeaponLaser;
+import com.github.lhrb.nemo.actors.weapons.WeaponNormal;
+import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
 import com.github.lhrb.nemo.screen.GameOverScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * Simple player Implementation
@@ -346,4 +350,15 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         return powerup != null && powerup.getType() == CType.Multiplicator;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public Weapon getWeapon(){
+        return weapon;
+    }
+
+    public CActor getPowerUP(){
+        return powerup;
+    }
 }
