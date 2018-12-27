@@ -149,21 +149,25 @@ public class EnemyFactory {
     }
 
     // This is the method called by level screens to spawn enemies
-    public void continueManufacture(float delta) {
+    public void continueManufacture(float delta, boolean bossfight) {
         gameTime +=delta;
         // Die ganzen Konditionen sind hier da, um nicht die verschiedene SpawnVarianten
         // Gleichzeitig spawnen zu lassen z.b. Scenario + randomSpawn
-        if (spawnPause > 0) {
-            spawnPause -= delta;
+        if (bossfight) {
+            spawnAdditionalRandom();
         } else {
-            if (!spawn(false)) {
-                if (!spawnAdditionalRandom()) {
-                    spawnScenarios();
+            if (spawnPause > 0) {
+                spawnPause -= delta;
+            } else {
+                if (!spawn(false)) {
+                    if (!spawnAdditionalRandom()) {
+                        spawnScenarios();
+                    }
                 }
             }
-        }
 
-        modifySpawnRate();
+            modifySpawnRate();
+        }
     }
     
     public void setLevel(int lvl) {
