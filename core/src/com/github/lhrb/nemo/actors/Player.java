@@ -237,7 +237,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
                 && powerup.getType() != CType.Bomb) {
             powerupTimer -= delta;
             
-            changes.firePropertyChange("poweruptimer", -1f, powerupTimer/20f );
+            changes.firePropertyChange("poweruptimer", -1f, powerupTimer/Collectibles.get().getPowerupTime(powerup.getType()) );
             
             if (powerupTimer <= 0 ) {
                 changePowerup(CType.None);
@@ -329,7 +329,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         invincible = false;
         
         if(changePu != CType.None) {
-            powerupTimer = 20;          
+            powerupTimer = Collectibles.get().getPowerupTime(changePu);
             
             if (changePu == CType.Star) {
                 invincible = true;
