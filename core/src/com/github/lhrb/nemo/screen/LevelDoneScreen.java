@@ -53,7 +53,7 @@ public class LevelDoneScreen extends AbstractScreen {
         game = GameManager.get();
         score = game.getHighscores();
 
-        levelDone = new Label("Level Geschafft :)",
+        levelDone = new Label("Level Beendet",
                 GuiManager.getInstance().getLabelStyleBig());
 
         table.add(levelDone).colspan(3).align(Align.center).padBottom(20);
