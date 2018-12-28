@@ -2,7 +2,6 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
@@ -34,18 +33,24 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
 
     //Constructor with Player
     public LevelScreen(Player oldPlayer){
-        gameStage = new Stage();
-        guiStage = new Stage();
-        player=new Player(20,20,gameStage);
+        super();
+        //Updates Score, PowerUp, Weapon and Life if it was over the minimum
         player.addScore(oldPlayer.getScore());
         player.collision(new CollisionEvent(player, oldPlayer.getPowerUP()));
-        init();
+        player.collision(new CollisionEvent(player,oldPlayer.getWeapon()));
+        player.collision(new CollisionEvent(player,oldPlayer.getBomb()));
+        if(oldPlayer.getLife()>player.getLife())
+            for(int i = 0; i<oldPlayer.getLife()-3;i++)
+                oldPlayer.addLife();
+
     }
 
     //Preparation for Coop
     public LevelScreen(Player player1,Player player2){
-        player=player1;
-        //player2=player2;
+        player.addScore(player1.getScore());
+        player.collision(new CollisionEvent(player, player1.getPowerUP()));
+        player.collision(new CollisionEvent(player,player1.getWeapon()));
+        player2=player2;
     }
 
 

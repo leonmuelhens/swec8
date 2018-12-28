@@ -17,6 +17,7 @@ public class FirstLevelScreen extends LevelScreen {
         super();
     }
 
+    //Constructor for Level Transition
     public FirstLevelScreen(Player player){
         super(player);
     }
