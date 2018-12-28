@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.powerups.*;
@@ -31,56 +30,71 @@ import com.github.lhrb.nemo.util.SoundManager;
 public class Player extends PhysicalActor implements PropertyListener, Existence{
 
     private PropertyChangeSupport changes = new PropertyChangeSupport(this);
-    
+
+    // Weapon Vars
     private Weapon weapon;
-    private float powerupTimer;
-    private CActor powerup;
+
+    // PowerUp Vars
+    private float powerupTimer; // in seconds
     private CActor bomb;
+    private CActor powerup;
+
+
+    // Label Vars
     private int life;
     private int score;
-    private int multiplier = 1;
-    private boolean gotHit;
-    private boolean invincible;
-    private float hitDelta;
+
+    // Drawables
     private Stack stack;
     private Image weaponLayer;
     private Image powerupLayer;
     private Image bombLayer;
-    
-    
+
+    // Other Vars
+    private int multiplier = 1;
+    private boolean gotHit;
+    private boolean invincible;
+    private float hitDelta;
+
     public Player(float x, float y, Stage stage) {
         super(x,y,stage);
 
+        // Characteristics
         setAnimation(AnimationLoader.get().animation("player_animation_feuer.png", 1, 3, 0.1f, true));
-
         setAcceleration(100000);
         setSpeedMax(500);
         setDeceleration(100000);
         life = 3;
         score = 0;
 
+        // Weapon Initialization
         weapon = new WeaponNormal(stage);
+
+        // Powerup Initialization
         powerup = new CActor(CType.None);
         bomb = new CActor(CType.None);
-
         powerupTimer = 0;
         invincible = false;
+
+        // Collision managers
         setShapePolygon(8);
         gotHit = false;
-        
+
+        // Drawables Initialization
         powerupLayer = new Image();
         weaponLayer = new Image();
         bombLayer = new Image();
         stack = new Stack(bombLayer, powerupLayer, weaponLayer);
         stack.setSize(78f, 93f);
         addActor(stack);
+
         /**
          * ATTENTION
          * this method does not provide any security mechanism
          */
+
         setWorldDimension(stage.getWidth(), stage.getHeight());
         GameManager.get().registerPlayer(this);
-        
     }
     
     @Override
@@ -152,25 +166,13 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
         changes.firePropertyChange("score", score, (score += (multiplier * enemyScore)));
     }
- 
-    
-    /**
-     * input handling
-     */
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        weapon.act(delta);
+
+    private void calculateTimer(float delta) {
         
-        if (gotHit) hitAnimation(delta);
-        if (powerup != null && powerup.getType() != CType.None 
-                            && powerup.getType() != CType.Bomb) {
-            powerupTimer -= delta;
-            if (powerupTimer <= 0 ) {
-                changePowerup(CType.None);
-            }
-        }
-        
+               
+    }
+
+    private void manageInputs() {
         if(Gdx.input.isKeyPressed(Keys.LEFT)) {
             accelerationAtAngle(180);
         }
@@ -201,10 +203,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
         }
 
-
-        //TODO needs to be put somewhere else
-
-        // Zum Vereinfachen der Waffentests!
+        /* Zum Vereinfachen der Waffentests!
         if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon = new WeaponNormal(getStage());
             changes.firePropertyChange("wpn", null, CType.Normal);
@@ -216,7 +215,36 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if(Gdx.input.isKeyPressed(Keys.F3)) {
             weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
+        }*/
+    }
+ 
+    
+    /**
+     * input handling
+     */
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        weapon.act(delta);
+        
+        changes.firePropertyChange( "shottimer", -1f, (1f-weapon.getCooldown()) );
+        
+        if (gotHit) hitAnimation(delta);
+
+        calculateTimer(delta);
+
+        if (powerup != null && powerup.getType() != CType.None
+                && powerup.getType() != CType.Bomb) {
+            powerupTimer -= delta;
+            
+            changes.firePropertyChange("poweruptimer", -1f, powerupTimer/20f );
+            
+            if (powerupTimer <= 0 ) {
+                changePowerup(CType.None);
+            }
         }
+
+        manageInputs();
 
         applyPhysics(delta);
         setBoundToWorld();
@@ -229,7 +257,6 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         KillingNemo.setActiveScreen(new GameOverScreen());        
     }
 
-    
     @Override
     public void collision(CollisionEvent col) {
         if (getStage() == null) {
@@ -282,20 +309,21 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             if (life <= 0) {
                 perish();
             }
+            changes.firePropertyChange("poweruptimer", powerupTimer, 0f );
             changePowerup(CType.None);
             bombLayer.setDrawable(null);
             changeBomb(CType.None);
         }
     }
 
-    public void changeBomb(CType changeBomb) {
+    private void changeBomb(CType changeBomb) {
         if (changeBomb == null) return;
         changes.firePropertyChange("bomb",bomb.getType(),changeBomb);
         bomb.setType(changeBomb);
         setVisuals(bomb.getType());
     }
 
-    public void changePowerup(CType changePu) {
+    private void changePowerup(CType changePu) {
         if(changePu == null) return;
         if(changePu == CType.Bomb) return;
         invincible = false;
