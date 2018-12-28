@@ -346,19 +346,21 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         setVisuals(powerup.getType());
     }
 
-    public boolean multi() {
-        return powerup != null && powerup.getType() == CType.Multiplicator;
-    }
 
+    //Getter Statements for Level Transition
     public int getScore() {
         return score;
     }
 
-    public Weapon getWeapon(){
-        return weapon;
-    }
+    public CActor getWeapon(){return new CActor(0,0,getStage(),weapon.getType());}
 
     public CActor getPowerUP(){
         return powerup;
     }
+
+    public CActor getBomb(){return bomb;}
+
+    public int getLife(){return life; }
+
+    public void addLife(){ changes.firePropertyChange("health", life, ++life);}
 }

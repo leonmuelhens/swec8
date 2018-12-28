@@ -10,6 +10,7 @@ import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Section;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
@@ -154,6 +155,11 @@ public class Uboot extends MultiPartActor {
                 resetCooldownTimer();
             }
         }
+
+        @Override
+        public CType getType() {
+            return null;
+        }
     }
 
     private class WeaponBombdrop extends Weapon {
@@ -168,6 +174,11 @@ public class Uboot extends MultiPartActor {
                 new Bomb(x,y,angle, stage);
                 resetCooldownTimer();
             }
+        }
+
+        @Override
+        public CType getType() {
+            return null;
         }
     }
 

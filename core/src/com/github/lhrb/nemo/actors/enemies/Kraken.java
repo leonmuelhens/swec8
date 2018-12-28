@@ -3,22 +3,20 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.utils.Array;
-import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Section;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.screen.LevelDoneScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author exa
@@ -205,8 +203,13 @@ public class Kraken extends MultiPartActor {
             }
             
         }
-        
-        
+
+        @Override
+        public CType getType() {
+            return null;
+        }
+
+
     }
     
     private class KrakenAttack extends Weapon{
@@ -227,7 +230,12 @@ public class Kraken extends MultiPartActor {
                 new KrakenShotS(x+125,y-10,angle,stage);
                 resetCooldownTimer();
             }            
-        }        
+        }
+
+        @Override
+        public CType getType() {
+            return null;
+        }
     }
     
     
