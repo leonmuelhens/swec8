@@ -25,12 +25,11 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     protected MultiPartActor endBoss;
     protected EnemyFactory factory;
     protected float afterDeathTime;
-    protected float soundVolume;
 
 
     PropertyChangeSupport changes;
 
-    public void increaseVolume () {  
+    protected void increaseVolume () {  
     	// after 2.5seconds we reached the volume we want
         if (gameTime  <= 2.5f) {
         	SoundManager.getInstance()
@@ -66,12 +65,8 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             }
 
         }
-
-        if (soundVolume < 0.25f) {
-            increaseVolume();
-        }
-
-
+        increaseVolume();
+        
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         }

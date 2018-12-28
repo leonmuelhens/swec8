@@ -22,7 +22,6 @@ public class ThirdLevelScreen extends LevelScreen {
     public void init() {
         gameTime = 0F;
         level = 3;
-        soundVolume = 0f;
         afterDeathTime = 5f;
 
         changes = new PropertyChangeSupport(this);
