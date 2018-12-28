@@ -11,6 +11,7 @@ import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.PropertyListener;
+import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -29,7 +30,14 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
 
     PropertyChangeSupport changes;
 
-    public void increaseVolume () {    }
+    public void increaseVolume () {  
+    	// after 2.5seconds we reached the volume we want
+        if (gameTime  <= 2.5f) {
+        	SoundManager.getInstance()
+        	            .setMusicStreamVolume(gameTime/10);
+        }
+        
+    }
 
     @Override
     public void update(float delta) {

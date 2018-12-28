@@ -76,8 +76,8 @@ public class SoundManager {
         musicVolume = f;
     }
 
-    public void setMusicStreamVolume(String name, float f) {
-        songs.get(name).setVolume(f);
+    public void setMusicStreamVolume(float f) {
+        current.setVolume(f);
     }
     
     public void setSfxVolume(float f) {

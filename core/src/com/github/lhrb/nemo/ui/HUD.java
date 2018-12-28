@@ -38,6 +38,8 @@ public class HUD implements PropertyChangeListener{
     private ImageButton hpBtn;
     private RingCooldownTimer shotCooldown, powerupRemain;
     private Image shotCooldownImg, powerupRemainImg;
+    
+    private int gametime;
 
 
     private HashMap<CType, Drawable> collectibleIcons;
@@ -173,7 +175,8 @@ public class HUD implements PropertyChangeListener{
             return;
         }
         if(evt.getPropertyName().equals("gametime")) {
-            timeLbl.setText(evt.getNewValue().toString());
+        	gametime = (int)evt.getNewValue();
+            timeLbl.setText(String.format("%d:%02d",gametime / 60, gametime% 60));
             return;
         }
         if(evt.getPropertyName().equals("powerup")) {
