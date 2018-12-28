@@ -2,7 +2,8 @@ package com.github.lhrb.nemo.actors.weapons;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public abstract class Weapon {
+
+public abstract class Weapon{
 
     protected float cooldown;
     protected float cooldownTimer;
@@ -36,8 +37,17 @@ public abstract class Weapon {
      */
     public abstract void fire(float x, float y, float angle);
 
+    public float getCooldown() {
+        return cooldownTimer/cooldown;
+    }
 
     public void act(float delta) {
-        cooldownTimer += delta;
+        if(!isReady()) {
+            cooldownTimer += delta;
+            if(cooldownTimer > cooldown) {
+                cooldownTimer = cooldown;
+            }
+        }
     }
+
 }

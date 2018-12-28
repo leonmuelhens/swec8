@@ -3,20 +3,10 @@
  */
 package com.github.lhrb.nemo.screen;
 
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.CollisionManager;
-import com.github.lhrb.nemo.actors.MultiPartActor;
-import com.github.lhrb.nemo.actors.PhysicalActor;
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.Section;
-import com.github.lhrb.nemo.actors.powerups.CActor;
-import com.github.lhrb.nemo.actors.powerups.CType;
-import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.actors.enemies.Kraken;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -28,7 +18,14 @@ public abstract class TestScreen extends AbstractScreen {
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
     @Override
-    public abstract void init();
+    public void init() {
+        SoundManager.getInstance().playTrack("boss");
+        
+        Kraken krake = new Kraken(300,600, gameStage);
+        
+        Player player = new Player(200,50, gameStage);
+
+    }
 
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#update(float)

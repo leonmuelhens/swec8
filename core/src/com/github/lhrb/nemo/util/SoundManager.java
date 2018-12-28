@@ -40,6 +40,7 @@ public class SoundManager {
         // Add Songs
         addSong("firstlevel", "sound/soundTrack_1.ogg", musicVolume);
         addSong("menu", "sound/menu.ogg", musicVolume);
+        addSong("boss", "sound/boss.ogg", musicVolume);
     }
 
 
