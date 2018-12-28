@@ -21,7 +21,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     protected HUD hud;
     protected Player player;
     protected Background bg, bg2;
-    protected MultiPartActor boss;
+    protected MultiPartActor endBoss;
     protected EnemyFactory factory;
     protected float afterDeathTime;
     protected float soundVolume;
@@ -34,7 +34,8 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        changes.firePropertyChange("gametime",(int)gameTime, (int)(gameTime += delta));
+
+        changes.firePropertyChange("gametime",(int)gameTime,(int)(gameTime+=delta));
 
         /* Once we define an abstract class for gameScreens, we can define a variable
            for how long the level shall take and replace the hardcorded 3*6
@@ -55,6 +56,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
                 KillingNemo.setActiveScreen(new PauseScreen(this));
                 GameManager.get().setTimeSinceESC(timeSinceESC);
             }
+
         }
 
         if (soundVolume < 0.25f) {
@@ -65,21 +67,20 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         }
-        else if(boss == null){
-            spawnEndboss();
+        else if(endBoss == null){
+            startBossFight();
         }
     }
-    
-    protected abstract void spawnEndboss();
-    
+
     @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
         changes.addPropertyChangeListener(l);
     }
-    
+
     @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
     }
 
+    protected abstract void startBossFight();
 }

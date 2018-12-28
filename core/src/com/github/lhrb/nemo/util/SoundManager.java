@@ -30,7 +30,7 @@ public class SoundManager {
         sounds = new HashMap<String, Sound>();
 
         musicVolume = 0.25f;
-        sfxVolume = 0.5f;
+        sfxVolume = 0.35f;
 
         // Add sounds
         addSound("explosion","sound/explosion1.ogg");
@@ -38,9 +38,13 @@ public class SoundManager {
         addSound("hit", "sound/hit.ogg");
 
         // Add Songs
-        addSong("firstlevel", "sound/soundTrack_1.ogg", musicVolume);
+        addSong("firstlevel", "sound/level1.ogg", musicVolume);
+        addSong("secondlevel", "sound/level2.ogg", musicVolume);
+        addSong("thirdlevel", "sound/level3.ogg", musicVolume);
         addSong("menu", "sound/menu.ogg", musicVolume);
         addSong("boss", "sound/boss.ogg", musicVolume);
+        addSong("boss2", "sound/boss2.ogg", musicVolume);
+        addSong("boss3", "sound/boss3.ogg", musicVolume);
     }
 
 

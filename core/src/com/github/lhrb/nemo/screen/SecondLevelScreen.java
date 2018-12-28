@@ -25,27 +25,43 @@ public class SecondLevelScreen extends LevelScreen {
 	public SecondLevelScreen(Player player, HUD hud) {
 		
 	}
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
-     */
-    @Override
+ 
+	@Override
     public void init() {
-    	
-    	changes = new PropertyChangeSupport(this);
-    	factory = new EnemyFactory(gameStage);
-    	bg = new Background(0, 0, gameStage, 2);
+        gameTime = 0F;
+        level = 2;
+        soundVolume = 0f;
+        afterDeathTime = 5f;
+
+        changes = new PropertyChangeSupport(this);
+
+        bg = new Background(0, 0, gameStage, 2);
         bg2 = new Background(0, 1200, gameStage, 2);
+
+        player = new Player(20, 20, gameStage);
+        hud = new HUD();
+        hud.registerPropertyListener(this);
+        hud.registerPropertyListener(player);
+        guiStage.addActor(hud.getHUD());
+
+        SoundManager.getInstance().playTrack("secondlevel");
+
+        factory = new EnemyFactory(gameStage);
     }
 
-    /* (non-Javadoc)
-     * @see com.github.lhrb.nemo.screen.LevelScreen#spawnEndboss()
-     */
     @Override
-    protected void spawnEndboss() {
-        // TODO Auto-generated method stub
-    	SoundManager.getInstance().playTrack("boss");
-    	boss = new Kraken(gameStage.getWidth()/2, gameStage.getHeight(), gameStage);
-        
+    public void increaseVolume () {
+        // after 2.5seconds we reached the volume we want
+        if (gameTime / 10 > 0.25f) soundVolume = 0.25f;
+        else soundVolume = gameTime / 10;
+
+        SoundManager.getInstance().setMusicStreamVolume("secondlevel",soundVolume);
+    }
+
+    @Override
+    protected void startBossFight() {
+        SoundManager.getInstance().playTrack("boss2");
+        endBoss = new Kraken(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
     }
 
 }
