@@ -6,7 +6,7 @@ import com.github.lhrb.nemo.util.SoundManager;
 
 public class WeaponLaser extends Weapon {
     public WeaponLaser(Stage stage) {
-        super(2.0f, stage);
+        super(1.0f, stage);
     }
 
     public WeaponLaser(float cooldown, Stage stage) {

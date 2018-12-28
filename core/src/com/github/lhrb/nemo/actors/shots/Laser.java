@@ -1,6 +1,7 @@
 package com.github.lhrb.nemo.actors.shots;
 
 
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.util.AnimationLoader;
@@ -22,7 +23,13 @@ public class Laser extends Shots {
     }
 
     @Override
-    public void collision(CollisionEvent col){
-        // nothing
+    public void destroy() {
+        addAction(new Action() {
+            @Override
+            public boolean act(float delta) {
+                ((Shots)target).setPlayerShot(false);
+                return true;
+            }
+        });
     }
 }
