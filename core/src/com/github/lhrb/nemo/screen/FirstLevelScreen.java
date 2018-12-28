@@ -14,8 +14,6 @@ import java.beans.PropertyChangeSupport;
 
 
 public class FirstLevelScreen extends LevelScreen {
-   
-    private MultiPartActor endBoss;
     
     @Override
     public void init() {
@@ -54,6 +52,7 @@ public class FirstLevelScreen extends LevelScreen {
      */
     @Override
     protected void spawnEndboss() {
-        endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);        
+    	SoundManager.getInstance().playTrack("boss");
+        boss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);        
     }
 }

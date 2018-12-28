@@ -11,7 +11,6 @@ import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.PropertyListener;
-import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -66,7 +65,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);
         }
-        else {
+        else if(boss == null){
             spawnEndboss();
         }
     }

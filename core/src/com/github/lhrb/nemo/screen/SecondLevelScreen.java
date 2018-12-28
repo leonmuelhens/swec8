@@ -8,7 +8,9 @@ import java.beans.PropertyChangeSupport;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.enemies.Kraken;
 import com.github.lhrb.nemo.ui.HUD;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -41,6 +43,8 @@ public class SecondLevelScreen extends LevelScreen {
     @Override
     protected void spawnEndboss() {
         // TODO Auto-generated method stub
+    	SoundManager.getInstance().playTrack("boss");
+    	boss = new Kraken(gameStage.getWidth()/2, gameStage.getHeight(), gameStage);
         
     }
 
