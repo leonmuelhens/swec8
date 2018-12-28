@@ -1,6 +1,7 @@
 package com.github.lhrb.nemo.actors.weapons;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.SingleShot;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -21,5 +22,10 @@ public class WeaponNormal extends Weapon {
 
             SoundManager.getInstance().playSound("laser");
         }
+    }
+
+    @Override
+    public CType getType() {
+        return CType.Normal;
     }
 }
