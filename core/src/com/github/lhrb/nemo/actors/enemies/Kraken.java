@@ -19,6 +19,7 @@ import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.screen.LevelDoneScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.screen.LevelScreen;
 
 /**
  * @author exa
@@ -83,7 +84,12 @@ public class Kraken extends MultiPartActor {
                 section.perish();
                 addAction(Actions.removeActor());
                 //level over
-                KillingNemo.setActiveScreen(new LevelDoneScreen());
+                // bad practice just for testing
+                try {
+                    ((LevelScreen)KillingNemo.getActiveScreen()).removeScreen();
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

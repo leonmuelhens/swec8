@@ -5,6 +5,7 @@ import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.actors.Background;
+import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -41,5 +42,12 @@ public class FirstLevelScreen extends LevelScreen {
     protected void startBossFight() {
         SoundManager.getInstance().playTrack("boss");
         endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
+    }
+
+
+    @Override
+    public void removeScreen() {
+        hud.removePropertyListener(this);
+        KillingNemo.setActiveScreen(new SecondLevelScreen(player, hud, gameTime));
     }
 }

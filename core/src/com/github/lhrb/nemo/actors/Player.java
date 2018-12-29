@@ -345,5 +345,9 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     public boolean multi() {
         return powerup != null && powerup.getType() == CType.Multiplicator;
     }
+    
+    public void setChildStage(Stage stage) {
+        weapon.setStage(stage);
+    }
 
 }

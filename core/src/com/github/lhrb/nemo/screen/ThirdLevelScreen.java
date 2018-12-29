@@ -3,6 +3,7 @@
  */
 package com.github.lhrb.nemo.screen;
 
+import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.Player;
@@ -17,10 +18,33 @@ import java.beans.PropertyChangeSupport;
  *
  */
 public class ThirdLevelScreen extends LevelScreen {
+    
+    public ThirdLevelScreen() {
+        super();
+        
+        gameTime = 0f;
+        player = new Player(20, 20, gameStage); 
+        hud = new HUD();
+        hud.registerPropertyListener(this);
+        hud.registerPropertyListener(player);
+        guiStage.addActor(hud.getHUD());
+    }
 
+    public ThirdLevelScreen(Player player, HUD hud, float time) {
+        super();
+        gameTime = time;
+        timeForLevel += time;
+        this.player = player;
+        this.hud = hud;
+        hud.registerPropertyListener(this);
+        guiStage.addActor(hud.getHUD());
+        //player.setPosition(x, y);
+        player.setChildStage(gameStage);
+        gameStage.addActor(player);
+    }
+    
     @Override
     public void init() {
-        gameTime = 0F;
         level = 3;
         afterDeathTime = 5f;
 
@@ -28,12 +52,6 @@ public class ThirdLevelScreen extends LevelScreen {
 
         bg = new Background(0, 0, gameStage, 3);
         bg2 = new Background(0, 1200, gameStage, 3);
-
-        player = new Player(20, 20, gameStage);
-        hud = new HUD();
-        hud.registerPropertyListener(this);
-        hud.registerPropertyListener(player);
-        guiStage.addActor(hud.getHUD());
 
         SoundManager.getInstance().playTrack("thirdlevel");
 
@@ -46,6 +64,11 @@ public class ThirdLevelScreen extends LevelScreen {
         SoundManager.getInstance().playTrack("boss3");
         // we need the shark!
         endBoss = new Kraken(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
+    }
+
+    @Override
+    public void removeScreen() {
+        KillingNemo.setActiveScreen(new LevelDoneScreen());        
     }
 
 }

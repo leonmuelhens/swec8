@@ -19,6 +19,7 @@ import java.beans.PropertyChangeSupport;
 public abstract class LevelScreen extends AbstractScreen implements PropertyListener{
     protected int level;
     protected float gameTime;
+    protected float timeForLevel = 120f;
     protected HUD hud;
     protected Player player;
     protected Background bg, bg2;
@@ -67,7 +68,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         increaseVolume();
         
-        if (gameTime < 3 * 60) {
+        if (gameTime < timeForLevel) {
             factory.continueManufacture(delta);
         }
         else if(endBoss == null){
@@ -86,4 +87,6 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     }
 
     protected abstract void startBossFight();
+    
+    public abstract void removeScreen();
 }
