@@ -84,9 +84,7 @@ public class GameManager {
     }
     
     public void setHighscores(ArrayList<Highscore> scores){
-        for (Highscore highscore : highscores = scores) {
-            
-        }
+        highscores = scores;
         Serialization.serialise(highscores);
     }
 
