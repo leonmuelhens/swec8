@@ -55,6 +55,10 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
             gameTime += 3*60;
         }
+        
+        if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
+            KillingNemo.setActiveScreen(new LevelDoneScreen());
+        }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             float timeSinceESC = GameManager.get().getTimeSinceESC();
@@ -66,6 +70,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             }
 
         }
+
         increaseVolume();
         
         if (gameTime < timeForLevel) {

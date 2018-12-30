@@ -350,4 +350,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         weapon.setStage(stage);
     }
 
+    public int getScore() {
+        return score;
+    }
+
 }
