@@ -6,12 +6,15 @@ package com.github.lhrb.nemo.screen;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -25,21 +28,27 @@ public class LevelTransitionScreen extends AbstractScreen {
     Label levelDone;
     Player player1;
     Player player2;
+    HUD hud;
+    float time;
     int level;
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
 
-    public LevelTransitionScreen(Player player,int lvl){
-        player1 =player;
-        level =lvl;
-    }
 
     public LevelTransitionScreen(Player player1,Player player2,int lvl){
         this.player1=player1;
         this.player2=player2;
         level =lvl;
     }
+
+    public LevelTransitionScreen(Player player, HUD hud, float gameTime, int lvl) {
+        player1 = player;
+        level = lvl;
+        this.hud=hud;
+        time =gameTime;
+    }
+
 
     @Override
     public void init() {
@@ -67,14 +76,21 @@ public class LevelTransitionScreen extends AbstractScreen {
                     switch (level) {
                         //First Level
                         case (1):
-                            KillingNemo.setActiveScreen(new FirstLevelScreen(player1));
+                            SequenceAction sqA = new SequenceAction();
+                            sqA.addAction(Actions.fadeOut(2f));
+                            sqA.addAction(Actions.run(() -> {
+                                KillingNemo.setActiveScreen(new SecondLevelScreen(player1,hud,time));
+                            }));
+                            gameStage.getRoot().addAction(sqA);
                             break;
                             //Second Level
                         case(2):
-                            //KillingNemo.setActiveScreen(new SecondLevelScreen(player1));
-                            break;
-                        case(3):
-                            //KillingNemo.setActiveScreen(new ThirdLevelScreen(player1));
+                            SequenceAction sqB = new SequenceAction();
+                            sqB.addAction(Actions.fadeOut(2f));
+                            sqB.addAction(Actions.run(() -> {
+                                KillingNemo.setActiveScreen(new ThirdLevelScreen(player1,hud,time));
+                            }));
+                            gameStage.getRoot().addAction(sqB);
                             break;
                         default:
                             return false;
@@ -120,5 +136,7 @@ public class LevelTransitionScreen extends AbstractScreen {
         // TODO Auto-generated method stub
 
     }
+
+
 
 }
