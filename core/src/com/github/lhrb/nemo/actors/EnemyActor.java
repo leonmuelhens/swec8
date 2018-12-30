@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.SpawnFactory.CollectibleFactory;
 import com.github.lhrb.nemo.actors.enemies.Uboot;
+import com.github.lhrb.nemo.actors.particles.Explosion;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -55,11 +56,17 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
     }
 
     protected void perishExplosion() {
+        /*
         //code below is bad
         new ActorPrefab(getX(), getY(), getStage())
                 .setAnimation(AnimationLoader.get().animation(
                         "explosion.png", 6, 6, 0.05f, false));
         //end
+         * 
+         */
+        Explosion test = new Explosion(this);
+        test.centerAtActor(this);
+        test.start();
     }
 
 
