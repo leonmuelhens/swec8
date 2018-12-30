@@ -346,4 +346,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         return powerup != null && powerup.getType() == CType.Multiplicator;
     }
 
+    public int getScore() {
+        return score;
+    }
+
 }
