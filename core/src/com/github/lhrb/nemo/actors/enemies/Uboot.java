@@ -15,7 +15,6 @@ import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
-import com.github.lhrb.nemo.screen.LevelDoneScreen;
 import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 

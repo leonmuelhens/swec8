@@ -5,7 +5,6 @@ package com.github.lhrb.nemo.screen;
 
 import java.beans.PropertyChangeSupport;
 
-import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.Player;
@@ -68,7 +67,7 @@ public class SecondLevelScreen extends LevelScreen {
     @Override
     public void removeScreen() {
         hud.removePropertyListener(this);
-        KillingNemo.setActiveScreen(new ThirdLevelScreen(player, hud, gameTime));        
+        switchScreen(new ThirdLevelScreen(player, hud, gameTime));
     }
 
 }

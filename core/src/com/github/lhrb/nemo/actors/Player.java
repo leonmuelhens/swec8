@@ -21,6 +21,8 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
 
+import com.github.lhrb.nemo.screen.LevelScreen;
+
 
 /**
  * Simple player Implementation
@@ -254,7 +256,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     
     @Override
     public void perish() {
-        KillingNemo.setActiveScreen(new GameOverScreen());        
+        ((LevelScreen)KillingNemo.getActiveScreen()).switchScreen(new GameOverScreen());;        
     }
 
     @Override
