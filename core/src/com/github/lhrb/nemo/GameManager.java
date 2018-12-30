@@ -6,8 +6,10 @@ package com.github.lhrb.nemo;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.util.Highscore;
+import com.github.lhrb.nemo.util.Serialization;
+import java.util.ArrayList;
 import com.github.lhrb.nemo.actors.Removable;
-
 /**
  * @author exa
  * 
@@ -18,8 +20,12 @@ public class GameManager {
     private Player player; //needs to change for multiplayer
     
     private static GameManager gameMng;
+
+
+    private ArrayList<Highscore> highscores= new ArrayList<Highscore>();
+
     private float timeSinceESC = 0;
-    
+
     private GameManager() {
         
     }
@@ -71,7 +77,20 @@ public class GameManager {
 
 
 
+
+    public int getScore() {
+        return player.getScore();
+    }
+
+    public ArrayList<Highscore> getHighscores(){
+        highscores = Serialization.deserialise();
+        return highscores;
+    }
     
+    public void setHighscores(ArrayList<Highscore> scores){
+        highscores = scores;
+        Serialization.serialise(highscores);
+    }
 
     
 }

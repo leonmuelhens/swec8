@@ -105,6 +105,10 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             increaseVolume();
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
+            KillingNemo.setActiveScreen(new LevelDoneScreen());
+        }
+
 
         if (gameTime < 3 * 60) {
             factory.continueManufacture(delta);

@@ -4,6 +4,7 @@
 package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
@@ -125,6 +126,8 @@ public class MainMenuScreen extends AbstractScreen {
             mainMenu.setVisible(true);
             mainMenu.addAction(Actions.fadeIn(5f));
         }
+
+
     }
 
 }

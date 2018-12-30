@@ -363,4 +363,5 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     public int getLife(){return life; }
 
     public void addLife(){ changes.firePropertyChange("health", life, ++life);}
+
 }
