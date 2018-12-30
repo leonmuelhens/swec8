@@ -49,5 +49,9 @@ public abstract class Weapon{
             }
         }
     }
+    
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
 }

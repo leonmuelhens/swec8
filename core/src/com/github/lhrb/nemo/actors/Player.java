@@ -21,6 +21,8 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
 
+import com.github.lhrb.nemo.screen.LevelScreen;
+
 
 /**
  * Simple player Implementation
@@ -254,7 +256,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     
     @Override
     public void perish() {
-        KillingNemo.setActiveScreen(new GameOverScreen());        
+        ((LevelScreen)KillingNemo.getActiveScreen()).switchScreen(new GameOverScreen());;        
     }
 
     @Override
@@ -344,6 +346,10 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
 
     public boolean multi() {
         return powerup != null && powerup.getType() == CType.Multiplicator;
+    }
+    
+    public void setChildStage(Stage stage) {
+        weapon.setStage(stage);
     }
 
     public int getScore() {

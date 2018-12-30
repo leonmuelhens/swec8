@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.github.lhrb.nemo.ui;
 
@@ -14,9 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.powerups.CType;
-import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.util.PropertyListener;
@@ -26,12 +24,9 @@ import com.github.lhrb.nemo.util.PropertyListener;
  *
  */
 public class HUD implements PropertyChangeListener{
-    
-    private Player player;
-    private LevelScreen level;
-    
+
     private Table hud;
-    
+
     private Label scoreLbl, hpLbl, timeLbl, scoreTextLbl, timeTextLbl;
     private Image wpnIcon;
     private Image powerupIcon;
@@ -43,10 +38,12 @@ public class HUD implements PropertyChangeListener{
     private ImageButton hpBtn;
     private RingCooldownTimer shotCooldown, powerupRemain;
     private Image shotCooldownImg, powerupRemainImg;
+    
+    private int gametime;
 
 
     private HashMap<CType, Drawable> collectibleIcons;
-    
+
     public HUD() {
         // Define starting images -> empty drawables
         shotCooldownImg = new Image();
@@ -92,12 +89,12 @@ public class HUD implements PropertyChangeListener{
         powerupStack.add(puOverlay);
 
         hpBtn = new ImageButton(new TextureRegionDrawable(AnimationLoader.get()
-                                        .texture("heart.png").getKeyFrame(0)));
+                .texture("heart.png").getKeyFrame(0)));
         hpBtn.add(hpLbl);
 
         hud = new Table();
         hud.setFillParent(true);
-        
+
         // first Row: Level Indicator
         hud.add(timeTextLbl).width(64).padLeft(10).padTop(3);
         //hud.add(timeLbl).expandX().height(50).right().pad(10); // middle
@@ -125,16 +122,16 @@ public class HUD implements PropertyChangeListener{
 
         //hud.debug();
     }
-    
+
     private void initLabels() {
         LabelStyle style = GuiManager.getInstance().getLabelStyleSmall();
-        
+
         scoreLbl = new Label("0", style);
         hpLbl = new Label("3", style);
         timeLbl = new Label("0:00", style);
         scoreTextLbl = new Label("Score",style);
         timeTextLbl = new Label("Zeit",style);
-        
+
         powerupRemain = new RingCooldownTimer(true,3);
         powerupRemain.setSize(64, 64);
         powerupRemain.setColor(Color.RED);
@@ -148,15 +145,19 @@ public class HUD implements PropertyChangeListener{
         shotCooldown.update(0.5f);
 
     }
-    
+
     public Table getHUD() {
         return hud;
     }
-    
+
     public void registerPropertyListener(PropertyListener pL) {
         pL.addPropertyChangeListener(this);
     }
     
+    public void removePropertyListener(PropertyListener pL) {
+    	pL.removePropertyChangeListener(this);
+    }
+
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -174,7 +175,8 @@ public class HUD implements PropertyChangeListener{
             return;
         }
         if(evt.getPropertyName().equals("gametime")) {
-            timeLbl.setText(evt.getNewValue().toString());
+        	gametime = (int)evt.getNewValue();
+            timeLbl.setText(String.format("%d:%02d",gametime / 60, gametime% 60));
             return;
         }
         if(evt.getPropertyName().equals("powerup")) {
@@ -204,8 +206,8 @@ public class HUD implements PropertyChangeListener{
 
             return;
         }
-        
+
     }
-    
+
 
 }
