@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class Serialization {
     public static void serialise(ArrayList<Highscore> toSave){
-        try {
-            FileOutputStream fs = new FileOutputStream("Highscore.s");
-            ObjectOutputStream os = new ObjectOutputStream(fs);
+        try(FileOutputStream fs = new FileOutputStream("Highscore.s");
+            ObjectOutputStream os = new ObjectOutputStream(fs);) {
             os.writeObject(toSave);
             os.close();
+            fs.close();
         }catch (IOException e) {
             //TODO optimise exception handling
             e.printStackTrace();
@@ -20,9 +20,9 @@ public class Serialization {
         File test = new File("Highscore.s");
         try {
             if (test.exists()) {
-                FileInputStream fs = new FileInputStream("Highscore.s");
-                try (ObjectInputStream objectInputStream = new ObjectInputStream(fs)) {
-                    return (ArrayList<Highscore> ) objectInputStream.readObject();
+                try (FileInputStream fs = new FileInputStream("Highscore.s");
+                     ObjectInputStream objectInputStream = new ObjectInputStream(fs)) {
+                         return (ArrayList<Highscore> ) objectInputStream.readObject();
                 }
             }
         }catch (IOException|ClassNotFoundException e){
