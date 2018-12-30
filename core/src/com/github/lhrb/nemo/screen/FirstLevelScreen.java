@@ -58,6 +58,6 @@ public class FirstLevelScreen extends LevelScreen {
     @Override
     public void removeScreen() {
         hud.removePropertyListener(this);
-        switchScreen(new SecondLevelScreen(player, hud, gameTime));
+        switchScreen(new LevelTransitionScreen(player, hud, gameTime,1));
     }
 }
