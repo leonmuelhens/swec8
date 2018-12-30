@@ -2,6 +2,8 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
@@ -94,4 +96,14 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     protected abstract void startBossFight();
     
     public abstract void removeScreen();
+    
+    protected void switchScreen(AbstractScreen screen) {
+        SequenceAction sqA = new SequenceAction();
+        sqA.addAction(Actions.fadeOut(1f));
+        sqA.addAction(Actions.run(() -> {
+            KillingNemo.setActiveScreen(screen);
+            }));
+        guiStage.getRoot().addAction(sqA);
+    }
+        
 }

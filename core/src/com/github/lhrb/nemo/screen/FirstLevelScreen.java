@@ -48,6 +48,7 @@ public class FirstLevelScreen extends LevelScreen {
     @Override
     public void removeScreen() {
         hud.removePropertyListener(this);
-        KillingNemo.setActiveScreen(new SecondLevelScreen(player, hud, gameTime));
+        switchScreen(new SecondLevelScreen(player, hud, gameTime));
+        //KillingNemo.setActiveScreen(new SecondLevelScreen(player, hud, gameTime));
     }
 }
