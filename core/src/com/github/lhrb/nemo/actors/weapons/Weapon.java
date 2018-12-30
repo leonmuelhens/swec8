@@ -50,7 +50,12 @@ public abstract class Weapon{
             }
         }
     }
+
     //returns the type of weapon for levelTransition
     public abstract CType getType();
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
 }

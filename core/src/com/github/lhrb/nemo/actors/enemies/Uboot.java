@@ -6,7 +6,6 @@ package com.github.lhrb.nemo.actors.enemies;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Section;
@@ -15,7 +14,7 @@ import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
-import com.github.lhrb.nemo.screen.LevelTransitionScreen;
+import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 import java.util.ArrayList;
@@ -76,8 +75,13 @@ public class Uboot extends MultiPartActor {
                 section.perish();
                 addAction(Actions.removeActor());
                 // first level over
-                //return player and current lvl as integer
-                KillingNemo.setActiveScreen(new LevelTransitionScreen(GameManager.get().getPlayer() ,1));
+
+                // bad practice just for testing
+                try {
+                    ((LevelScreen)KillingNemo.getActiveScreen()).removeScreen();
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

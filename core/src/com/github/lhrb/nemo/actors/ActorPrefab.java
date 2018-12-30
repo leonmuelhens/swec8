@@ -236,7 +236,7 @@ public class ActorPrefab extends Group {
     public void draw(Batch batch, float parentAlpha) {
         
         Color c = getColor();
-        batch.setColor(c.r, c.g, c.b, c.a);
+        batch.setColor(c.r, c.g, c.b, c.a * parentAlpha);
         if( animation != null && isVisible() ) {
             
             batch.draw(animation.getKeyFrame(elapsedTime), 

@@ -25,6 +25,8 @@ import com.github.lhrb.nemo.util.SoundManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import com.github.lhrb.nemo.screen.LevelScreen;
+
 
 /**
  * Simple player Implementation
@@ -258,7 +260,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     
     @Override
     public void perish() {
-        KillingNemo.setActiveScreen(new GameOverScreen());        
+        ((LevelScreen)KillingNemo.getActiveScreen()).switchScreen(new GameOverScreen());;        
     }
 
     @Override
@@ -346,6 +348,11 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         setVisuals(powerup.getType());
     }
 
+
+    
+    public void setChildStage(Stage stage) {
+        weapon.setStage(stage);
+    }
 
     //Getter Statements for Level Transition
     public int getScore() {
