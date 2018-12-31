@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.particles.Explosion;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
@@ -16,7 +18,8 @@ import com.github.lhrb.nemo.util.AnimationLoader;
 public class Section extends EnemyActor {
     
     private MultiPartActor parent;
-    private int ID;    
+    private int ID;
+    private Explosion explosion;
     
     /**
      * 
@@ -83,9 +86,15 @@ public class Section extends EnemyActor {
 
     @Override
     protected void perishExplosion() {
-        new ActorPrefab(getParent().getX() + (getParent().getWidth() / 2), getParent().getY(), getStage())
-                .setAnimation(AnimationLoader.get().animation(
-                        "explosion.png", 6, 6, 0.05f, false));
+        explosion = new Explosion();
+        Vector2 pos = parent.localToStageCoordinates( new Vector2(getX(), getY()) );
+        explosion.setPosition(pos.x + getWidth()/2, pos.y + getHeight()/2);;
+        Stage s = getStage();
+        if(s != null) {
+            getStage().addActor(explosion);
+        }
+        explosion.start();
+        
     }
 
     /* (non-Javadoc)

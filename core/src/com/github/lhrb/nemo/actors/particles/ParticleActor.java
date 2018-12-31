@@ -32,16 +32,12 @@ public class ParticleActor extends Group {
         
     }
 
-    public ParticleActor(String file, String dir, Actor actor) {
+    public ParticleActor(String file, String dir) {
         super();
         effect = new ParticleEffect();
         effect.load(Gdx.files.internal(file), Gdx.files.internal(dir));
         renderer = new ParticleRenderer(effect);
         this.addActor( renderer );
-        
-        centerAtActor(actor);
-        actor.getStage().addActor(this);
-        start();
     }
 
     public void start(){  
