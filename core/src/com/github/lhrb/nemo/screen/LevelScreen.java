@@ -7,7 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
-import com.github.lhrb.nemo.actors.*;
+import com.github.lhrb.nemo.actors.Background;
+import com.github.lhrb.nemo.actors.CollisionManager;
+import com.github.lhrb.nemo.actors.MultiPartActor;
+import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -55,7 +58,7 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         
         if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
-            KillingNemo.setActiveScreen(new LevelDoneScreen());
+            KillingNemo.setActiveScreen(new LevelTransitionScreen(player,hud,gameTime,1));
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.F11)) {

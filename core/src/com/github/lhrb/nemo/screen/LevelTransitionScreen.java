@@ -25,12 +25,12 @@ import com.github.lhrb.nemo.util.SoundManager;
  */
 public class LevelTransitionScreen extends AbstractScreen {
 
-    Label levelDone;
-    Player player1;
-    Player player2;
-    HUD hud;
-    float time;
-    int level;
+    private Label levelDone;
+    private Player player1;
+    private Player player2;
+    private HUD hud;
+    private float time;
+    private int level;
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
@@ -119,7 +119,7 @@ public class LevelTransitionScreen extends AbstractScreen {
 
         table.add(levelDone).spaceBottom(50);
         table.row();
-        table.add(continueBtn);
+        table.add(continueBtn).spaceBottom(25);
         table.row();
         table.add(backBtn);
 
