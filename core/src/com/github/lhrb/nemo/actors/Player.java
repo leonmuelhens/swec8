@@ -354,21 +354,10 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         weapon.setStage(stage);
     }
 
-    //Getter Statements for Level Transition
+    //Getter Statements for Highscore
     public int getScore() {
         return score;
     }
 
-    public CActor getWeapon(){return new CActor(0,0,getStage(),weapon.getType());}
-
-    public CActor getPowerUP(){
-        return powerup;
-    }
-
-    public CActor getBomb(){return bomb;}
-
-    public int getLife(){return life; }
-
-    public void addLife(){ changes.firePropertyChange("health", life, ++life);}
 
 }

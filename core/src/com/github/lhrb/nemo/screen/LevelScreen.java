@@ -26,34 +26,6 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     protected EnemyFactory factory;
     protected float afterDeathTime;
 
-    //Normal Constructor
-    public LevelScreen(){
-        super();
-    }
-
-    //Constructor with Player
-    public LevelScreen(Player oldPlayer){
-        super();
-        //Updates Score, PowerUp, Weapon and Life if it was over the minimum
-        player.addScore(oldPlayer.getScore());
-        player.collision(new CollisionEvent(player, oldPlayer.getPowerUP()));
-        player.collision(new CollisionEvent(player,oldPlayer.getWeapon()));
-        player.collision(new CollisionEvent(player,oldPlayer.getBomb()));
-        if(oldPlayer.getLife()>player.getLife())
-            for(int i = 0; i<oldPlayer.getLife()-3;i++)
-                oldPlayer.addLife();
-
-    }
-
-    //Preparation for Coop
-    public LevelScreen(Player player1,Player player2){
-        player.addScore(player1.getScore());
-        player.collision(new CollisionEvent(player, player1.getPowerUP()));
-        player.collision(new CollisionEvent(player,player1.getWeapon()));
-        player2=player2;
-    }
-
-
     PropertyChangeSupport changes;
 
     protected void increaseVolume () {  
