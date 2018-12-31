@@ -160,10 +160,6 @@ public class Uboot extends MultiPartActor {
             }
         }
 
-        @Override
-        public CType getType() {
-            return null;
-        }
     }
 
     private class WeaponBombdrop extends Weapon {
@@ -180,10 +176,6 @@ public class Uboot extends MultiPartActor {
             }
         }
 
-        @Override
-        public CType getType() {
-            return null;
-        }
     }
 
 

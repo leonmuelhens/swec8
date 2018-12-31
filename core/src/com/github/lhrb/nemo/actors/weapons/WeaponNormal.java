@@ -24,8 +24,5 @@ public class WeaponNormal extends Weapon {
         }
     }
 
-    @Override
-    public CType getType() {
-        return CType.Normal;
-    }
+
 }

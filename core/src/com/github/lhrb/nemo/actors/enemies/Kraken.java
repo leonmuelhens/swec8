@@ -209,13 +209,6 @@ public class Kraken extends MultiPartActor {
             }
             
         }
-
-        @Override
-        public CType getType() {
-            return null;
-        }
-
-
     }
     
     private class KrakenAttack extends Weapon{
@@ -238,10 +231,6 @@ public class Kraken extends MultiPartActor {
             }            
         }
 
-        @Override
-        public CType getType() {
-            return null;
-        }
     }
     
     

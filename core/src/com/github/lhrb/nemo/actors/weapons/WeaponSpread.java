@@ -34,8 +34,4 @@ public class WeaponSpread extends Weapon {
         }
     }
 
-    @Override
-    public CType getType() {
-        return CType.Spread;
-    }
 }

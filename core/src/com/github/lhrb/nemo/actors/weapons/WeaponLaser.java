@@ -24,8 +24,5 @@ public class WeaponLaser extends Weapon {
         }
     }
 
-    @Override
-    public CType getType() {
-        return CType.Laser;
-    }
+
 }
