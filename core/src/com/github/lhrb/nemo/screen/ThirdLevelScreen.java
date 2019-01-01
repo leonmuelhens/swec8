@@ -3,7 +3,6 @@
  */
 package com.github.lhrb.nemo.screen;
 
-import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.Player;
@@ -67,8 +66,7 @@ public class ThirdLevelScreen extends LevelScreen {
     }
 
     @Override
-    public void removeScreen() {
-        KillingNemo.setActiveScreen(new LevelDoneScreen());        
+    public void removeScreen(){switchScreen(new LevelDoneScreen());
     }
 
 }

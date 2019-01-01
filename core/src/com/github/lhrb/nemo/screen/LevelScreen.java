@@ -2,8 +2,6 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.github.lhrb.nemo.GameManager;
@@ -30,7 +28,6 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
     protected MultiPartActor endBoss;
     protected EnemyFactory factory;
     protected float afterDeathTime;
-
 
     PropertyChangeSupport changes;
 
@@ -61,7 +58,12 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         
         if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
-            KillingNemo.setActiveScreen(new LevelDoneScreen());
+            KillingNemo.setActiveScreen(new LevelTransitionScreen(player,hud,gameTime,1));
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
+            switchScreen(new LevelTransitionScreen(player,hud,gameTime,1));
+
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {

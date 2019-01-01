@@ -3,20 +3,21 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Section;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
 import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+
+import java.util.ArrayList;
 
 
 public class Uboot extends MultiPartActor {
@@ -74,6 +75,7 @@ public class Uboot extends MultiPartActor {
                 section.perish();
                 addAction(Actions.removeActor());
                 // first level over
+
                 // bad practice just for testing
                 try {
                     ((LevelScreen)KillingNemo.getActiveScreen()).removeScreen();
@@ -157,6 +159,7 @@ public class Uboot extends MultiPartActor {
                 resetCooldownTimer();
             }
         }
+
     }
 
     private class WeaponBombdrop extends Weapon {
@@ -172,6 +175,7 @@ public class Uboot extends MultiPartActor {
                 resetCooldownTimer();
             }
         }
+
     }
 
 

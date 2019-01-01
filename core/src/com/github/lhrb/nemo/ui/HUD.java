@@ -3,21 +3,20 @@
  */
 package com.github.lhrb.nemo.ui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashMap;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
 import com.github.lhrb.nemo.util.PropertyListener;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
 
 /**
  * @author exa
@@ -119,7 +118,7 @@ public class HUD implements PropertyChangeListener{
         // right: life + heart
         hud.add(weaponStack).height(55).width(55).bottom().padLeft(10).padBottom(3);
         hud.add(hpBtn).expandX().padRight(10).padBottom(3).bottom().right();
-
+        scoreLbl.setText(""+ GameManager.get().getPlayer().getScore());
         //hud.debug();
     }
 
