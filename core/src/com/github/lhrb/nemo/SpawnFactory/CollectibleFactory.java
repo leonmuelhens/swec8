@@ -1,8 +1,8 @@
 package com.github.lhrb.nemo.SpawnFactory;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.powerups.CActor;
+import com.github.lhrb.nemo.actors.powerups.CType;
 
 import java.util.Random;
 
@@ -51,6 +51,6 @@ public class CollectibleFactory {
             }
             CActor pu = new CActor(x, y, stage, type);
             //stage.addActor(pu);;
-      
+
     }
 }
