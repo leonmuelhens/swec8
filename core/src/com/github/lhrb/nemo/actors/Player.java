@@ -13,6 +13,7 @@ import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.powerups.CType;
+import com.github.lhrb.nemo.actors.powerups.Collectibles;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponLaser;
