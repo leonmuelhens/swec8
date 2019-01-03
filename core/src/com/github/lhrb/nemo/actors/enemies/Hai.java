@@ -5,6 +5,7 @@ package com.github.lhrb.nemo.actors.enemies;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
@@ -122,7 +123,9 @@ public class Hai extends MultiPartActor {
 
                 setAcceleration(5000);
                 setSpeedMax(800);
-                moveAngle = 270;
+                float dx = getX() - GameManager.get().getPlayer().getX();
+                float dy = getY()+350 - GameManager.get().getPlayer().getY();
+                moveAngle = 270 - (float)((Math.atan(dx/dy) * (180/Math.PI)) * (0.1 + Math.random() * (1 - 0.1)));
             }
         }
 
