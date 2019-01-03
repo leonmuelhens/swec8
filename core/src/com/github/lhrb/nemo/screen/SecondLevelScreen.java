@@ -3,14 +3,14 @@
  */
 package com.github.lhrb.nemo.screen;
 
-import java.beans.PropertyChangeSupport;
-
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.Player;
 import com.github.lhrb.nemo.actors.enemies.Kraken;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.SoundManager;
+
+import java.beans.PropertyChangeSupport;
 
 /**
  * @author exa
@@ -67,7 +67,7 @@ public class SecondLevelScreen extends LevelScreen {
     @Override
     public void removeScreen() {
         hud.removePropertyListener(this);
-        switchScreen(new ThirdLevelScreen(player, hud, gameTime));
+        switchScreen(new LevelTransitionScreen(player, hud, gameTime,2));
     }
 
 }

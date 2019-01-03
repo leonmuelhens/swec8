@@ -1,6 +1,7 @@
 package com.github.lhrb.nemo.actors.weapons;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.lhrb.nemo.actors.powerups.CType;
 
 
 public abstract class Weapon{
@@ -49,7 +50,8 @@ public abstract class Weapon{
             }
         }
     }
-    
+
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
