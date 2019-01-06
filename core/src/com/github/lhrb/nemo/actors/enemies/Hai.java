@@ -125,7 +125,7 @@ public class Hai extends MultiPartActor {
                 setSpeedMax(800);
                 float dx = getX() - GameManager.get().getPlayer().getX();
                 float dy = getY()+350 - GameManager.get().getPlayer().getY();
-                moveAngle = 270 - (float)((Math.atan(dx/dy) * (180/Math.PI)) * (0.1 + Math.random() * (1 - 0.1)));
+                moveAngle = 270 - (float)((Math.atan(dx/dy) * (180/Math.PI)) * (0.1 + Math.random() * (1 - 0.8)));
             }
         }
 
@@ -136,6 +136,7 @@ public class Hai extends MultiPartActor {
     }
 
     private void chargeBigShot(float cooldown) {
+        cooldown = (cooldown - 0.8f) * 5;
         for (Section s:
              getPartCollection()) {
             s.setColor(1-cooldown,1,1-cooldown,1);
