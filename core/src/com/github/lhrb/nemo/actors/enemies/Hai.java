@@ -150,7 +150,7 @@ public class Hai extends MultiPartActor {
 
         private Hai parentHai;
         WeaponBigLaser(Stage stage, Hai hai) {
-            super(11,0, stage);
+            super(11,8, stage);
             parentHai = hai;
         }
 
@@ -160,16 +160,28 @@ public class Hai extends MultiPartActor {
                 parentHai.chargeBigShot(getCooldown());
 
             if (isReady()) {
-                new Laser(x,y,angle, stage);
-                new Laser(x,y,angle+2, stage);
-                new Laser(x,y,angle-2, stage);
-                new Laser(x,y,angle+4, stage);
-                new Laser(x,y,angle-4, stage);
-                new Laser(x,y,angle+8, stage);
-                new Laser(x,y,angle-8, stage);
+                parentHai.stop(1);
+                new BigLaser(x-82,y-100,angle, stage);
 
                 resetCooldownTimer();
                 parentHai.chargeBigShot(0);
+            }
+        }
+
+        private class BigLaser extends Shots {
+
+            BigLaser(float x, float y, float angle, Stage stage) {
+                super(x, y, angle, stage);
+
+                setAnimation(AnimationLoader.get().texture("SchussLaserBig.png"));
+                setSpeedMax(0);
+                //setAcceleration(30000);
+                setShapePolygon(8);
+            }
+
+            @Override
+            public void act(float delta) {
+                super.act(delta);
             }
         }
 
