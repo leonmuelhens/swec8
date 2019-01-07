@@ -15,9 +15,11 @@ import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.screen.LevelDoneScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.screen.LevelScreen;
+import com.github.lhrb.nemo.actors.shots.InkBall;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author exa
@@ -221,12 +223,27 @@ public class Kraken extends MultiPartActor {
         @Override
         public void fire(float x, float y, float angle) {
             if(isReady()) {
-                new KrakenShotB(x,y,angle,stage);
-                new KrakenShotS(x-125,y-30,angle,stage);
-                new KrakenShotS(x-50,y,angle,stage);
-                new KrakenShotS(x-25,y-50,angle,stage);
-                new KrakenShotS(x+50,y-60,angle,stage);
-                new KrakenShotS(x+125,y-10,angle,stage);
+                Random ran = new Random();
+                int r = ran.nextInt(4);
+
+                switch(r){
+                    case(1):
+                        new KrakenShotB(x,y,angle,stage);
+                        break;
+                    case(2):
+                        new InkBall(x,y,angle,stage);
+                        break;
+                    default:
+                        new KrakenShotS(x-125,y-30,angle,stage);
+                        new KrakenShotS(x-50,y,angle,stage);
+                        new KrakenShotS(x-25,y-50,angle,stage);
+                        new KrakenShotS(x+50,y-60,angle,stage);
+                        new KrakenShotS(x+125,y-10,angle,stage);
+                        break;
+                }
+
+
+
                 resetCooldownTimer();
             }            
         }
@@ -252,7 +269,10 @@ public class Kraken extends MultiPartActor {
         }
         
     }
-    
+
+
+
+
     /**
      * Small projectiles
      * @author exa
