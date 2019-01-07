@@ -238,17 +238,16 @@ public class Hai extends MultiPartActor {
         }
     }
 
-    private class WeaponTorpedo extends Weapon {
+    private class WeaponTorpedo extends WeaponSalve {
 
         WeaponTorpedo(Stage stage) {
-            super(4,0, stage);
+            super(3.5f,0,1,1, stage);
         }
 
         @Override
         public void fire(float x, float y, float angle) {
             if (isReady()) {
-                new Torpedo(x-10,y+350,angle, stage);
-                new Torpedo(x+10,y+350,angle, stage);
+                new Torpedo(x,y+350,angle, stage);
                 resetCooldownTimer();
             }
         }
