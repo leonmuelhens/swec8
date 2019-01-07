@@ -13,6 +13,7 @@ import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
+import com.github.lhrb.nemo.actors.weapons.WeaponSalve;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
 import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
@@ -38,7 +39,7 @@ public class Uboot extends MultiPartActor {
     
     private void init() {
         weapons = new ArrayList<Weapon>(); 
-        weapons.add( new WeaponSalve(getStage()) );
+        weapons.add( new WeaponSpreadSalve(getStage()) );
         weapons.add( new WeaponTorpedo(getStage()) );
         weapons.add( new WeaponBombdrop(getStage()) );
         
@@ -117,31 +118,28 @@ public class Uboot extends MultiPartActor {
         }
     }
     
-    private class WeaponSalve extends WeaponSpread {
+    private class WeaponSpreadSalve extends WeaponSalve {
 
         private int salveRepetition = 10;
-
         private int shotsFiredinSalve = 0;
 
-        public WeaponSalve(float cooldown, Stage stage) {
-            super(cooldown, stage);
+        private WeaponSpread weapon;
+
+        public WeaponSpreadSalve(float cooldown, Stage stage) {
+            super(cooldown, 0.1f, 10, stage);
+            weapon = new WeaponSpread(0,45,stage);
         }
 
-        public WeaponSalve(Stage stage) {
-            super(12, 45, stage);
+        public WeaponSpreadSalve(Stage stage) {
+            super(12, 0.1f, 10, stage);
+            weapon = new WeaponSpread(0,45,stage);
         }
 
         @Override
-        public void resetCooldownTimer() {
-            if (shotsFiredinSalve < salveRepetition) {
-                shotsFiredinSalve++;
-                cooldown = 0.1f;
-                super.resetCooldownTimer();
-            }
-            else {
-                shotsFiredinSalve = 0;
-                cooldown = 12;
-                super.resetCooldownTimer();
+        public void fire(float x, float y, float angle) {
+            if (isReady()) {
+                weapon.fire(x,y,angle);
+                resetCooldownTimer();
             }
         }
     }

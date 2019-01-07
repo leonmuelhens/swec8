@@ -19,6 +19,7 @@ import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponLaser;
+import com.github.lhrb.nemo.actors.weapons.WeaponSalve;
 import com.github.lhrb.nemo.util.AnimationLoader;
 
 
@@ -254,13 +255,10 @@ public class Hai extends MultiPartActor {
 
     }
 
-    private class WeaponSmallLaser extends Weapon {
-
-        private int salveRepetition = 2;
-        private int shotsFiredinSalve = 0;
+    private class WeaponSmallLaser extends WeaponSalve {
 
         WeaponSmallLaser(Stage stage) {
-            super(13, 0, stage);
+            super(13, 0, 0.3f, 2, stage);
         }
 
         @Override
@@ -270,19 +268,6 @@ public class Hai extends MultiPartActor {
                 float dy = y+350 - GameManager.get().getPlayer().getY();
                 new LaserSmall(x,y+350,angle - (float) (Math.atan(dx/dy) * (180/Math.PI)),stage);
                 resetCooldownTimer();
-            }
-        }
-
-        @Override
-        public void resetCooldownTimer() {
-            if (shotsFiredinSalve < salveRepetition) {
-                shotsFiredinSalve++;
-                cooldown = 0.3f;
-                super.resetCooldownTimer();
-            } else {
-                shotsFiredinSalve = 0;
-                cooldown = 12;
-                super.resetCooldownTimer();
             }
         }
 
