@@ -136,10 +136,18 @@ public class Hai extends MultiPartActor {
     }
 
     private void chargeBigShot(float cooldown) {
-        cooldown = (cooldown - 0.8f) * 5;
-        for (Section s:
-             getPartCollection()) {
-            s.setColor(1-cooldown,1,1-cooldown,1);
+        if (cooldown > 0) {
+            cooldown = (cooldown - 0.8f) * 5;
+            for (Section s:
+                    getPartCollection()) {
+                s.setColor(1-cooldown,1,1-cooldown,1);
+            }
+        }
+        else {
+            for (Section s:
+                    getPartCollection()) {
+                s.updateVisualDamage();
+            }
         }
     }
     private void stop(float time) {
