@@ -209,9 +209,8 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
         }
 
-        // TODO Remove before merge
         // Zum Vereinfachen der Waffentests!
-        if(Gdx.input.isKeyPressed(Keys.F1)) {
+        /* if(Gdx.input.isKeyPressed(Keys.F1)) {
             weapon = new WeaponNormal(getStage());
             changes.firePropertyChange("wpn", null, CType.Normal);
         }
@@ -222,7 +221,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if(Gdx.input.isKeyPressed(Keys.F3)) {
             weapon = new WeaponLaser(getStage());
             changes.firePropertyChange("wpn", null, CType.Laser);
-        }
+        } */
     }
  
     
