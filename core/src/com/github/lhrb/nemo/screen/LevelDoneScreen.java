@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
@@ -79,6 +80,13 @@ public class LevelDoneScreen extends AbstractScreen {
                     GuiManager.getInstance().getLabelStyle());
             levelDone3.setWidth(600);
             levelDone2.setAlignment(Align.right);
+            levelDone3.addListener(new ClickListener(){
+               @Override
+               public void clicked(InputEvent event, float x,float y){
+                   super.clicked(event,x,y);
+                   levelDone3.setText("");
+               }
+            });
             table.add(levelDone2).spaceBottom(50).align(Align.right).width(400);
             table.add(levelDone3).spaceBottom(50).align(Align.left).width(300);
             table.row();
