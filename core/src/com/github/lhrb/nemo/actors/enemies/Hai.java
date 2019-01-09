@@ -42,17 +42,17 @@ public class Hai extends MultiPartActor {
     }
 
     private void init() {
-        addPart(new Section(0, this, -3, 60, 10, 100,
+        addPart(new Section(0, this, -3, 60, 10, 300,
                 AnimationLoader.get().texture("hai_mitte.png")));
-        addPart(new Section(0, this, -4, 36, 10, 100,
+        addPart(new Section(0, this, -4, 36, 10, 300,
                 AnimationLoader.get().texture("hai_finne.png")));
-        addPart(new Section(0, this, 0, 0, 10, 100,
+        addPart(new Section(0, this, 0, 0, 10, 300,
                 AnimationLoader.get().texture("hai_kopf.png")));
-        addPart(new Section(0, this, 16, 153, 10, 100,
+        addPart(new Section(0, this, 16, 153, 10, 300,
                 AnimationLoader.get().texture("hai_schwanzflosse.png")));
-        addPart(new Section(0, this, -36, 24, 10, 100,
+        addPart(new Section(0, this, -36, 24, 10, 300,
                 AnimationLoader.get().texture("hai_flosse_links.png")));
-        addPart(new Section(0, this, 49, 30, 10, 100,
+        addPart(new Section(0, this, 49, 30, 10, 300,
                 AnimationLoader.get().texture("hai_flosse_rechts.png")));
 
         setRotation(0);
