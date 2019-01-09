@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Section;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Laser;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
@@ -30,6 +31,7 @@ public class Hai extends MultiPartActor {
     private Vector3 moveArea;
     private boolean chargeFront, chargeBack;
     private float stoptime;
+    private float maxSpeed = 90; // make it easier as this is set at multiple locations
 
     public Hai(Stage stage){
         super(stage);
@@ -57,7 +59,7 @@ public class Hai extends MultiPartActor {
 
         setRotation(0);
         setAcceleration(1000);
-        setSpeedMax(75);
+        setSpeedMax(maxSpeed);
         setDeceleration(4000);
 
         weapons = new ArrayList<Weapon>();
@@ -66,7 +68,7 @@ public class Hai extends MultiPartActor {
         weapons.add(new WeaponSmallLaser(this.getStage()));
         weapons.add(new WeaponTorpedo(this.getStage()));
 
-        moveArea = new Vector3(50f, 550f, 410f);
+        moveArea = new Vector3(50f, 750f, 410f);
         chargeFront = false;
         chargeBack = false;
 
@@ -88,14 +90,14 @@ public class Hai extends MultiPartActor {
             if (getY() > moveArea.z) {
                 chargeBack = false;
                 setAcceleration(1000);
-                setSpeedMax(75);
+                setSpeedMax(maxSpeed);
             }
         }
         else if (stoptime > 0) {
             setSpeedMax(0);
             stoptime -= delta;
             if (stoptime < 0) {
-                setSpeedMax(75);
+                setSpeedMax(maxSpeed);
             }
         }
         else {
@@ -103,7 +105,16 @@ public class Hai extends MultiPartActor {
                 moveAngle = 270;
             }
             else if (moveAngle == 270) {
-                moveAngle = 0;
+                Random rand = new Random();
+
+                switch (rand.nextInt(1)+1) {
+                    case 1:
+                        moveAngle = 180;
+                        break;
+                    case 2:
+                        moveAngle = 0;
+                        break;
+                }
             }
             else if (moveAngle == 0 && getX() > moveArea.y) {
                 moveAngle = 180;
