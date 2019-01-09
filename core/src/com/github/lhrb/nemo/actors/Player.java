@@ -307,7 +307,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
 
         if(col.getSource() instanceof InkBall) {
-            setAnimation(AnimationLoader.get().texture("tinte.png"));
+            //setAnimation(AnimationLoader.get().texture("tinte.png"));
             return;
         }
 
