@@ -33,7 +33,7 @@ public class FirstLevelScreen extends LevelScreen {
 
         SoundManager.getInstance().playTrack("firstlevel");
 
-        factory = new EnemyFactory(gameStage);
+        factory = new EnemyFactory(gameStage, level);
     }
 
 
