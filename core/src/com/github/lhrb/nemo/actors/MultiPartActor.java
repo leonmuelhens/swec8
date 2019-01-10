@@ -5,6 +5,7 @@ package com.github.lhrb.nemo.actors;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
@@ -54,8 +55,11 @@ public class MultiPartActor extends ActorPrefab {
     
     protected void handleCollision(Section section) {
         if(section.getDmg()) {
+            //section.setColor(Color.WHITE.cpy().lerp(Color.BLACK,0.8f));
             parts.remove(section);
-            section.perish();
+            section.perishExplosion();
+            //section.perish();
+            section.removeShapePolygon();
         }
     }
     

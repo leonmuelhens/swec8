@@ -47,7 +47,10 @@ public class PhysicalActor extends ActorPrefab{
         }
         shape = new Polygon(vertices);
     }
-    
+
+    public void removeShapePolygon() {
+        shape = null;
+    }
     
     /**
      * ATTENTION
