@@ -6,6 +6,7 @@ package com.github.lhrb.nemo.screen;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
 import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.Player;
+import com.github.lhrb.nemo.actors.enemies.Hai;
 import com.github.lhrb.nemo.actors.enemies.Kraken;
 import com.github.lhrb.nemo.ui.HUD;
 import com.github.lhrb.nemo.util.SoundManager;
@@ -62,7 +63,7 @@ public class ThirdLevelScreen extends LevelScreen {
     protected void startBossFight() {
         SoundManager.getInstance().playTrack("boss3");
         // we need the shark!
-        endBoss = new Kraken(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
+        endBoss = new Hai(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
     }
 
     @Override
