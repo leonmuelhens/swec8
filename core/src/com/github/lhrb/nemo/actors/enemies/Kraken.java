@@ -125,8 +125,8 @@ public class Kraken extends MultiPartActor {
 
     @Override
     public void removePart(Section e) {
-        super.removePart(e);
         resetPosition();
+        super.removePart(e);
     }
     
     @Override
