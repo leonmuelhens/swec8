@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.ui.ActionButton;
@@ -79,6 +80,22 @@ public class ChooseLvlScreen extends AbstractScreen {
 
                     return true;
                 });
+
+        Code1.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x,float y){
+                super.clicked(event,x,y);
+                Code1.setText("");
+            }
+        });
+
+        Code2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x,float y){
+                super.clicked(event,x,y);
+                Code2.setText("");
+            }
+        });
 
         int size = 126;
         int sizeText = 250;
