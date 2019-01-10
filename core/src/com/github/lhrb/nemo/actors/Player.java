@@ -304,7 +304,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
             return;
         }
-        
+
         GameManager.get().removeEnemiesAndShots(getStage());
 
         if (!gotHit) {
