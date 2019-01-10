@@ -209,19 +209,6 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             }
         }
 
-        /* Zum Vereinfachen der Waffentests!
-        if(Gdx.input.isKeyPressed(Keys.F1)) {
-            weapon = new WeaponNormal(getStage());
-            changes.firePropertyChange("wpn", null, CType.Normal);
-        }
-        if(Gdx.input.isKeyPressed(Keys.F2)) {
-            weapon = new WeaponSpread(getStage());
-            changes.firePropertyChange("wpn", null, CType.Spread);
-        }
-        if(Gdx.input.isKeyPressed(Keys.F3)) {
-            weapon = new WeaponLaser(getStage());
-            changes.firePropertyChange("wpn", null, CType.Laser);
-        }*/
     }
  
     
