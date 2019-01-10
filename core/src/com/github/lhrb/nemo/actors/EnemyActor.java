@@ -49,7 +49,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
 
         Random rand = new Random();
         if(rand.nextInt(10) <= 1) { // 20% chance to drop
-            CollectibleFactory.spawnC(GameManager.get().getPlayerX(), GameManager.get().getPlayerX(), getStage());
+            CollectibleFactory.spawnC(getX(), getY(), getStage());
         }
         addAction(Actions.removeActor());       
     }
