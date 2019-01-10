@@ -40,19 +40,19 @@ public class Kraken extends MultiPartActor {
     }
     
     private void init() {
-        addPart(new Section(0, this, 75,50, 5, 500,
+        addPart(new Section(0, this, 75,50, 15, 500,
                     AnimationLoader.get().texture("krake_kopf.png")) );
-        addPart(new Section(1, this, 30,100, 1, 50,
+        addPart(new Section(1, this, 30,100, 5, 50,
                 AnimationLoader.get().texture("krake_flosse1.png")) );
-        addPart(new Section(2, this, 0,50, 1, 50,
+        addPart(new Section(2, this, 0,50, 5, 50,
                 AnimationLoader.get().texture("krake_flosse2.png")) );
-        addPart(new Section(3, this, 60,0, 1, 50,
+        addPart(new Section(3, this, 60,0, 5, 50,
                 AnimationLoader.get().texture("krake_flosse3.png")) );
-        addPart(new Section(4, this, 140,0, 1, 50,
+        addPart(new Section(4, this, 140,0, 5, 50,
                 AnimationLoader.get().texture("krake_flosse4.png")) );
-        addPart(new Section(5, this, 170,50, 1, 50,
+        addPart(new Section(5, this, 170,50, 5, 50,
                 AnimationLoader.get().texture("krake_flosse5.png")) );
-        addPart(new Section(6, this, 170,100, 1, 50,
+        addPart(new Section(6, this, 170,100, 5, 50,
                 AnimationLoader.get().texture("krake_flosse6.png")) );
         
         setRotation(0);
@@ -311,6 +311,7 @@ public class Kraken extends MultiPartActor {
             super.act(delta);
             setWidth(getWidth() * 1.02f);
             setHeight(getHeight() * 1.02f);
+            setShapePolygon(8);
         }
 
         @Override
