@@ -81,6 +81,11 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         else if(endBoss == null){
             startBossFight();
         }
+        else {
+            if (endBoss != null && endBoss.getPartCollection().size() <= 0) {
+                removeScreen();
+            }
+        }
     }
 
     @Override
