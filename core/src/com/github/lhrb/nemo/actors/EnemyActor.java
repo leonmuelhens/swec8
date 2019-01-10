@@ -41,9 +41,8 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
     protected void setCharacteristics() {}
 
     @Override
-    public void perish() {        
-        
-        GameManager.get().addScore(scoreValue);
+    public void perish() {
+        addScoreValue();
         SoundManager.getInstance().playSound("explosion");
 
         perishExplosion();
@@ -53,6 +52,10 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
             CollectibleFactory.spawnC(getX(), getY(), getStage());
         }
         addAction(Actions.removeActor());       
+    }
+
+    public void addScoreValue() {
+        GameManager.get().addScore(scoreValue);
     }
 
     protected void perishExplosion() {
