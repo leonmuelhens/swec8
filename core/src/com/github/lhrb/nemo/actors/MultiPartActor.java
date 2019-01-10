@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.github.lhrb.nemo.KillingNemo;
+import com.github.lhrb.nemo.actors.enemies.Kraken;
+import com.github.lhrb.nemo.screen.LevelScreen;
 
 /**
  * @author exa
@@ -44,6 +48,8 @@ public class MultiPartActor extends ActorPrefab {
     protected void removePart(Section e) {
         if(parts != null) {
             parts.remove(e);
+            e.perishExplosion();
+            e.removeShapePolygon();
         }
     }
     
@@ -55,11 +61,11 @@ public class MultiPartActor extends ActorPrefab {
     
     protected void handleCollision(Section section) {
         if(section.getDmg()) {
-            //section.setColor(Color.WHITE.cpy().lerp(Color.BLACK,0.8f));
-            parts.remove(section);
-            section.perishExplosion();
-            //section.perish();
-            section.removeShapePolygon();
+            removePart(section);
+
+            if (getPartSize() == 0) {
+                addAction(Actions.removeActor());
+            }
         }
     }
     

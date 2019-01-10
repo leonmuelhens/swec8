@@ -70,7 +70,6 @@ public class Uboot extends MultiPartActor {
         if(getPartSize() > 1 && section.getID() != 1) {
             if(section.getDmg()) {
                 removePart(section);
-                section.perish();
             }
         }else if(getPartSize() == 1) {
             if(section.getDmg()) {
