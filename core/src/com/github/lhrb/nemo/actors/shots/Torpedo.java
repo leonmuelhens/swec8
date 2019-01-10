@@ -12,10 +12,11 @@ public class Torpedo extends Shots {
     public Torpedo(float x, float y, float angle, Stage stage) {
         super(x, y, angle, stage);
 
-        setAnimation(AnimationLoader.get().texture("SchussStandart.png"));
+        setAnimation(AnimationLoader.get().texture("torpedo.png"));
         setSpeedMax(100);
         setAcceleration(30000);
         setShapePolygon(8);
+        rotateBy(90);
 
         initialAngle = angle;
     }
@@ -24,14 +25,18 @@ public class Torpedo extends Shots {
     public void act(float delta) {
         super.act(delta);
 
-        
-                if (GameManager.get().getPlayerX() > getX()) {
-                    accelerationAtAngle(initialAngle+45);
-                }
-                else{
-                    accelerationAtAngle(initialAngle-45);
-                }
-
+        if (GameManager.get().getPlayerX() > getX()) {
+            accelerationAtAngle(initialAngle+45);
+            if (getRotation() < 315) {
+                rotateBy(45);
+            }
+        }
+        else{
+            accelerationAtAngle(initialAngle-45);
+            if (getRotation() > 225) {
+                rotateBy(-45);
+            }
+        }
     }
 
     /* (non-Javadoc)
