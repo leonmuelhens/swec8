@@ -43,13 +43,15 @@ public class Uboot extends MultiPartActor {
         weapons.add( new WeaponSpreadSalve(getStage()) );
         weapons.add( new WeaponTorpedo(getStage()) );
         weapons.add( new WeaponBombdrop(getStage()) );
-        
-        addPart(new Section(0, this, 0, 0, 15, 100,
-                AnimationLoader.get().texture("uboot_back.png")));
-        addPart(new Section(1, this, 72, 0, 15, 100,
-                AnimationLoader.get().texture("uboot_middle.png")));
-        addPart(new Section(2, this, 144, 0, 15, 100,
-                AnimationLoader.get().texture("uboot_front.png")));
+
+        addPart(new Section(0, this, 0, 0, 15, 75,
+                AnimationLoader.get().texture("uboot_part1.png")));
+        addPart(new Section(1, this, 37, 0, 15, 75,
+                AnimationLoader.get().texture("uboot_part2.png")));
+        addPart(new Section(2, this, 70, 0, 15, 75,
+                AnimationLoader.get().texture("uboot_part3.png")));
+        addPart(new Section(3, this, 142, 0, 15, 75,
+                AnimationLoader.get().texture("uboot_part4.png")));
         
         setRotation(0);
         setAcceleration(1000);
@@ -58,7 +60,6 @@ public class Uboot extends MultiPartActor {
         
         moveArea = new Vector3(50f, 550f, 500f);
 
-        
     }
     
     /* (non-Javadoc)
