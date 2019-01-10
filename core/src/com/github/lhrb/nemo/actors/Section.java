@@ -2,14 +2,20 @@
  * 
  */
 package com.github.lhrb.nemo.actors;
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.github.lhrb.nemo.GameManager;
+import com.github.lhrb.nemo.SpawnFactory.CollectibleFactory;
 import com.github.lhrb.nemo.actors.particles.Explosion;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -80,8 +86,17 @@ public class Section extends EnemyActor {
      */
     @Override
     public void perish() {
-        // TODO Auto-generated method stub
-        super.perish();
+        GameManager.get().addScore(getScoreValue());
+        SoundManager.getInstance().playSound("explosion");
+
+        perishExplosion();
+
+        Random rand = new Random();
+        if(rand.nextInt(10) <= 1) { // 20% chance to drop
+            Vector2 pos = parent.localToStageCoordinates( new Vector2(getX(), getY()) );
+            CollectibleFactory.spawnC(pos.x + getWidth()/2, pos.y + getHeight()/2, getStage());
+        }
+        addAction(Actions.removeActor());      
     }
 
     @Override
