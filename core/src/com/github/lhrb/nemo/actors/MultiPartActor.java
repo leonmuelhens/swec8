@@ -5,12 +5,8 @@ package com.github.lhrb.nemo.actors;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.github.lhrb.nemo.KillingNemo;
-import com.github.lhrb.nemo.actors.enemies.Kraken;
-import com.github.lhrb.nemo.screen.LevelScreen;
 
 /**
  * @author exa
@@ -19,7 +15,7 @@ import com.github.lhrb.nemo.screen.LevelScreen;
 public class MultiPartActor extends ActorPrefab {
     
     private ArrayList<Section> parts;
-    
+
     public MultiPartActor(Stage stage) {
         super();
         setStage(stage);
@@ -62,6 +58,7 @@ public class MultiPartActor extends ActorPrefab {
     protected void handleCollision(Section section) {
         if(section.getDmg()) {
             removePart(section);
+            section.addScoreValue();
 
             if (getPartSize() == 0) {
                 addAction(Actions.removeActor());
