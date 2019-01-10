@@ -53,7 +53,7 @@ public class SecondLevelScreen extends LevelScreen {
         
         SoundManager.getInstance().playTrack("secondlevel");
 
-        factory = new EnemyFactory(gameStage);
+        factory = new EnemyFactory(gameStage,level);
     }
 
 

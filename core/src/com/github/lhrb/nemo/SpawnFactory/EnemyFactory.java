@@ -30,10 +30,11 @@ public class EnemyFactory {
                                {40,75,2,5,20},
                                {30,70,3,6,15}};
 
-    public EnemyFactory(Stage gameStage) {
+    public EnemyFactory(Stage gameStage, int level) {
         gameTime = 0;
         spawnPause = 0f;
         this.gameStage = gameStage;
+        this.level = level;
 
         // first spawn is delayed + 1 second
         timeLastSpawn = 1;
