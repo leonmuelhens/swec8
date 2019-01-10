@@ -14,7 +14,6 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.powerups.CActor;
 import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Shots;
-import com.github.lhrb.nemo.actors.shots.InkBall;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
 import com.github.lhrb.nemo.actors.weapons.WeaponLaser;
 import com.github.lhrb.nemo.actors.weapons.WeaponNormal;
@@ -303,11 +302,6 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         }
 
         if (col.getSource() instanceof Shots && powerup != null && powerup.getType() == CType.Shield) {
-            return;
-        }
-
-        if(col.getSource() instanceof InkBall) {
-            //setAnimation(AnimationLoader.get().texture("tinte.png"));
             return;
         }
 

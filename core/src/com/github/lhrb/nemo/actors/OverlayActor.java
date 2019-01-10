@@ -32,7 +32,7 @@ public class OverlayActor extends ActorPrefab {
 
             if (passedTime <= overlayTime) {
 
-                this.setColor(1.0f,1.0f,1.0f, (overlayTime - passedTime)/overlayTime);
+                this.setColor(1.0f,1.0f,1.0f, 2*(overlayTime - passedTime)/overlayTime);
             } else {
                 addAction(Actions.removeActor());
             }
