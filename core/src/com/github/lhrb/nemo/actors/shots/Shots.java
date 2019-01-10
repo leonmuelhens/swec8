@@ -54,6 +54,11 @@ public abstract class Shots extends PhysicalActor implements Existence, Removabl
         addAction(Actions.removeActor());
     }
 
-    public boolean isPlayerShot() { return isPlayerShot; }
+    public boolean isPlayerShot() {
+        return isPlayerShot;
+    }
+    protected void setPlayerShot(boolean isPlayerShot) {
+        this.isPlayerShot = isPlayerShot;
+    }
 
 }

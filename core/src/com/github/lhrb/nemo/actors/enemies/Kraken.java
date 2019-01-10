@@ -3,22 +3,21 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.utils.Array;
-import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
+import com.github.lhrb.nemo.actors.CollisionEvent;
 import com.github.lhrb.nemo.actors.MultiPartActor;
+import com.github.lhrb.nemo.actors.OverlayActor;
 import com.github.lhrb.nemo.actors.Section;
 import com.github.lhrb.nemo.actors.shots.Shots;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
-import com.github.lhrb.nemo.screen.LevelDoneScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+import com.github.lhrb.nemo.screen.LevelScreen;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author exa
@@ -64,6 +63,7 @@ public class Kraken extends MultiPartActor {
         weapons = new ArrayList<Weapon>();
         weapons.add(new KrakenAttack(getStage()));
         weapons.add(new TentacleAttack(getStage(), this));
+        weapons.add(new InkAttack(getStage()));
         moveArea = new Vector3(50f, 550f, 425f);
     }
 
@@ -83,7 +83,12 @@ public class Kraken extends MultiPartActor {
                 section.perish();
                 addAction(Actions.removeActor());
                 //level over
-                KillingNemo.setActiveScreen(new LevelDoneScreen());
+                // bad practice just for testing
+                try {
+                    ((LevelScreen)KillingNemo.getActiveScreen()).removeScreen();
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -205,8 +210,6 @@ public class Kraken extends MultiPartActor {
             }
             
         }
-        
-        
     }
     
     private class KrakenAttack extends Weapon{
@@ -226,8 +229,24 @@ public class Kraken extends MultiPartActor {
                 new KrakenShotS(x+50,y-60,angle,stage);
                 new KrakenShotS(x+125,y-10,angle,stage);
                 resetCooldownTimer();
-            }            
-        }        
+            }
+        }
+    }
+
+    private class InkAttack extends Weapon {
+
+        public InkAttack(Stage stage) {
+            super(9f, stage);
+        }
+
+        @Override
+        public void fire(float x, float y, float angle) {
+            // TODO Auto-generated method stub
+            if (isReady() && getElapsedTime() > 6) {
+                new InkBall(x,y,angle,stage);
+                resetCooldownTimer();
+            }
+        }
     }
     
     
@@ -249,7 +268,8 @@ public class Kraken extends MultiPartActor {
         }
         
     }
-    
+
+
     /**
      * Small projectiles
      * @author exa
@@ -267,6 +287,30 @@ public class Kraken extends MultiPartActor {
             
         }
         
+    }
+
+    private class InkBall extends Shots {
+
+        public InkBall(float x, float y, float angle, Stage stage) {
+            super(x, y, angle, stage);
+
+            this.setAnimation(AnimationLoader.get().texture("tinte_small.png"));
+            setSpeedMax(1200);
+            setAcceleration(800);
+            setShapePolygon(8);
+        }
+
+        @Override
+        public void act(float delta) {
+            super.act(delta);
+            setWidth(getWidth() * 1.02f);
+            setHeight(getHeight() * 1.02f);
+        }
+
+        @Override
+        public void collision(CollisionEvent col) {
+            OverlayActor inked = new OverlayActor("tinte.png",getStage(),5f);
+        }
     }
 
 }

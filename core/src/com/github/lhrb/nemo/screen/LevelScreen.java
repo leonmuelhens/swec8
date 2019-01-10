@@ -2,6 +2,8 @@ package com.github.lhrb.nemo.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.github.lhrb.nemo.GameManager;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.SpawnFactory.EnemyFactory;
@@ -9,9 +11,7 @@ import com.github.lhrb.nemo.actors.Background;
 import com.github.lhrb.nemo.actors.CollisionManager;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Player;
-import com.github.lhrb.nemo.actors.enemies.Uboot;
 import com.github.lhrb.nemo.ui.HUD;
-import com.github.lhrb.nemo.ui.RingCooldownTimer;
 import com.github.lhrb.nemo.util.PropertyListener;
 import com.github.lhrb.nemo.util.SoundManager;
 
@@ -20,32 +20,31 @@ import java.beans.PropertyChangeSupport;
 
 public abstract class LevelScreen extends AbstractScreen implements PropertyListener{
     protected int level;
-    float gameTime;
-    String gameTimeString, gameTimeStringBefore;
-    HUD hud;
-    Player player;
-    Background bg, bg2;
-    EnemyFactory factory;
-    MultiPartActor endBoss;
-    float afterDeathTime;
-    float soundVolume;
-
+    protected float gameTime;
+    protected float timeForLevel = 120f;
+    protected HUD hud;
+    protected Player player;
+    protected Background bg, bg2;
+    protected MultiPartActor endBoss;
+    protected EnemyFactory factory;
+    protected float afterDeathTime;
 
     PropertyChangeSupport changes;
 
-    public void increaseVolume () {    }
+    protected void increaseVolume () {  
+    	// after 2.5seconds we reached the volume we want
+        if (gameTime  <= 2.5f) {
+        	SoundManager.getInstance()
+        	            .setMusicStreamVolume(gameTime/10);
+        }
+        
+    }
 
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
 
-        gameTimeStringBefore = String.format("%d:%02d",(int) gameTime / 60,(int) gameTime % 60);
-
-        gameTime += delta;
-
-        gameTimeString = String.format("%d:%02d",(int) gameTime / 60,(int) gameTime % 60);
-
-        changes.firePropertyChange("gametime",gameTimeStringBefore,gameTimeString);
+        changes.firePropertyChange("gametime",(int)gameTime,(int)(gameTime+=delta));
 
         /* Once we define an abstract class for gameScreens, we can define a variable
            for how long the level shall take and replace the hardcorded 3*6
@@ -58,49 +57,58 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
             gameTime += 3*60;
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
+            switchScreen(new LevelTransitionScreen(player,hud,gameTime,1));
+
+        }
+
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             float timeSinceESC = GameManager.get().getTimeSinceESC();
 
-            if((gameTime-timeSinceESC) > 0.5f) {
-                KillingNemo.getActiveScreen().pause();
-                KillingNemo.setActiveScreen(new PauseScreen(KillingNemo.getActiveScreen()));
+            if((gameTime-timeSinceESC) > 0) {
+                this.pause();
+                KillingNemo.setActiveScreen(new PauseScreen(this));
                 GameManager.get().setTimeSinceESC(timeSinceESC);
-
-            } else {
-                // ignore the collision
             }
 
         }
 
-        if (soundVolume < 0.25f) {
-            changes.firePropertyChange("gametime",gameTime,(int)(gameTime+delta));
-            increaseVolume();
-        }
 
-
-        if (gameTime < 3 * 60) {
+        increaseVolume();
+        
+        if (gameTime < timeForLevel) {
             factory.continueManufacture(delta, false);
         }
-        else if (gameTime >= 3*60 && endBoss == null) {
-            if (this instanceof FirstLevelScreen) {
-                SoundManager.getInstance().playTrack("boss");
-                endBoss = new Uboot(gameStage.getWidth()/2,gameStage.getHeight(),gameStage);
-            }
+        else if(endBoss == null){
+            startBossFight();
         }
         // in bossfight
         else {
             factory.continueManufacture(delta, true);
         }
     }
-    
+
     @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
         changes.addPropertyChangeListener(l);
     }
-    
+
     @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
     }
 
+    protected abstract void startBossFight();
+    
+    public abstract void removeScreen();
+    
+    public void switchScreen(AbstractScreen screen) {
+        SequenceAction sqA = new SequenceAction();
+        sqA.addAction(Actions.fadeOut(2f));
+        sqA.addAction(Actions.run(() -> {
+            KillingNemo.setActiveScreen(screen);
+            }));
+        gameStage.getRoot().addAction(sqA);
+    }
+        
 }

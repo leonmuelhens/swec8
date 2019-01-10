@@ -76,7 +76,7 @@ public class EnemyFactory {
 
         // here we get the y value which will modify the spawn rate!
         // we can just modify this function to change the spawnrate
-        double y = -Math.atan((0.8F * x) -3)+1.9;
+        double y = 0.5*(-Math.atan((0.3*x)-1.5)+3.6);
         spawnRate = (float)y;
 
         // SpawnPossibility is calculated with gametime. As x = 9 is 3 min, ever min the

@@ -3,20 +3,22 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.MultiPartActor;
 import com.github.lhrb.nemo.actors.Section;
+import com.github.lhrb.nemo.actors.powerups.CType;
 import com.github.lhrb.nemo.actors.shots.Bomb;
 import com.github.lhrb.nemo.actors.shots.Torpedo;
 import com.github.lhrb.nemo.actors.weapons.Weapon;
+import com.github.lhrb.nemo.actors.weapons.WeaponSalve;
 import com.github.lhrb.nemo.actors.weapons.WeaponSpread;
-import com.github.lhrb.nemo.screen.LevelDoneScreen;
+import com.github.lhrb.nemo.screen.LevelScreen;
 import com.github.lhrb.nemo.util.AnimationLoader;
+
+import java.util.ArrayList;
 
 
 public class Uboot extends MultiPartActor {
@@ -37,15 +39,15 @@ public class Uboot extends MultiPartActor {
     
     private void init() {
         weapons = new ArrayList<Weapon>(); 
-        weapons.add( new WeaponSalve(getStage()) );
+        weapons.add( new WeaponSpreadSalve(getStage()) );
         weapons.add( new WeaponTorpedo(getStage()) );
         weapons.add( new WeaponBombdrop(getStage()) );
         
-        addPart(new Section(0, this, 0, 0, 10, 100, 
+        addPart(new Section(0, this, 0, 0, 15, 100,
                 AnimationLoader.get().texture("uboot_back.png")));
-        addPart(new Section(1, this, 72, 0, 10, 100,
+        addPart(new Section(1, this, 72, 0, 15, 100,
                 AnimationLoader.get().texture("uboot_middle.png")));
-        addPart(new Section(2, this, 144, 0, 10, 100,
+        addPart(new Section(2, this, 144, 0, 15, 100,
                 AnimationLoader.get().texture("uboot_front.png")));
         
         setRotation(0);
@@ -74,7 +76,13 @@ public class Uboot extends MultiPartActor {
                 section.perish();
                 addAction(Actions.removeActor());
                 // first level over
-                KillingNemo.setActiveScreen(new LevelDoneScreen());
+
+                // bad practice just for testing
+                try {
+                    ((LevelScreen)KillingNemo.getActiveScreen()).removeScreen();
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -110,31 +118,28 @@ public class Uboot extends MultiPartActor {
         }
     }
     
-    private class WeaponSalve extends WeaponSpread {
+    private class WeaponSpreadSalve extends WeaponSalve {
 
         private int salveRepetition = 10;
-
         private int shotsFiredinSalve = 0;
 
-        public WeaponSalve(float cooldown, Stage stage) {
-            super(cooldown, stage);
+        private WeaponSpread weapon;
+
+        public WeaponSpreadSalve(float cooldown, Stage stage) {
+            super(cooldown, 0.1f, 10, stage);
+            weapon = new WeaponSpread(0,45,stage);
         }
 
-        public WeaponSalve(Stage stage) {
-            super(12, 45, stage);
+        public WeaponSpreadSalve(Stage stage) {
+            super(12, 0.1f, 10, stage);
+            weapon = new WeaponSpread(0,45,stage);
         }
 
         @Override
-        public void resetCooldownTimer() {
-            if (shotsFiredinSalve < salveRepetition) {
-                shotsFiredinSalve++;
-                cooldown = 0.1f;
-                super.resetCooldownTimer();
-            }
-            else {
-                shotsFiredinSalve = 0;
-                cooldown = 12;
-                super.resetCooldownTimer();
+        public void fire(float x, float y, float angle) {
+            if (isReady()) {
+                weapon.fire(x,y,angle);
+                resetCooldownTimer();
             }
         }
     }
@@ -152,6 +157,7 @@ public class Uboot extends MultiPartActor {
                 resetCooldownTimer();
             }
         }
+
     }
 
     private class WeaponBombdrop extends Weapon {
@@ -167,6 +173,7 @@ public class Uboot extends MultiPartActor {
                 resetCooldownTimer();
             }
         }
+
     }
 
 

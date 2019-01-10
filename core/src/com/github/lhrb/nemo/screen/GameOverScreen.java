@@ -40,7 +40,7 @@ public class GameOverScreen extends AbstractScreen {
                 GuiManager.getInstance().getLabelStyleBig());
         //guiStage.addActor(gameOver);
 
-        TextButton backBtn = new TextButton("zum Hauptmenü", GuiManager.getInstance().getTxtBtnStyle());
+        TextButton backBtn = new TextButton("Weiter", GuiManager.getInstance().getTxtBtnStyle());
         backBtn.addListener(
                 (Event e) ->{
                     if( !(e instanceof InputEvent)) {
@@ -50,7 +50,7 @@ public class GameOverScreen extends AbstractScreen {
                         return false;
                     }
                     //set next screen
-                    KillingNemo.setActiveScreen(new MainMenuScreen());
+                    KillingNemo.setActiveScreen(new LevelDoneScreen());
                     return true;
                 });
 
