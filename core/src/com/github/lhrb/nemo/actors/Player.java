@@ -333,12 +333,14 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
         if(changePu == null) return;
         if(changePu == CType.Bomb) return;
         invincible = false;
-        
+        setSpeedMax(500);
+
         if(changePu != CType.None) {
             powerupTimer = 20;          
             
             if (changePu == CType.Star) {
                 invincible = true;
+                setSpeedMax(650);
             }
         }
 
