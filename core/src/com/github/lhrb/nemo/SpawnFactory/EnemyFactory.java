@@ -12,46 +12,59 @@ public class EnemyFactory {
 
     // alles friendly
     private float gameTime, timeLastSpawn;
+    private float spawnPause;
     private Stage gameStage;
     private float spawnRate;
-    private int randSpawnPossibilityStart = 1;
     private int randSpawnPossibility;
     
     private int level = 0;
-    
-    private byte spawnB[][] = {{50,80},
-                               {40,75},
-                               {30,70}};
 
-    public EnemyFactory(Stage gameStage) {
+    // spawnB[X] -> Level
+    // spawnB[X][Y] -> LevelSpawn Specification
+    // spawnB[X][0] -> Possibility Enemy One to spawn
+    // spawnB[X][1] -> Possibility Enemy One to spawn
+    // spawnB[X][2] -> randSpawnPossibilityStart
+    // spawnB[X][3] -> ScenarioWall MaxEnemyOne spawn + enable (0 is disabled)
+    // spawnB[X][4] -> ScenarioWall delta between spawns
+    private byte spawnB[][] = {{50,80,1,4,25},
+                               {40,75,2,5,20},
+                               {30,70,3,6,15}};
+
+    public EnemyFactory(Stage gameStage, int level) {
         gameTime = 0;
+        spawnPause = 0f;
         this.gameStage = gameStage;
+        this.level = level;
 
         // first spawn is delayed + 1 second
         timeLastSpawn = 1;
     }
 
     private void spawnEnemy() {
-        Random unitRand = new Random();
-        int randomInt = unitRand.nextInt(100);
+        if (spawnPause <= 0) {
+            Random unitRand = new Random();
+            int randomInt = unitRand.nextInt(100);
 
-        EnemyActor newEnemy;
+            EnemyActor newEnemy;
 
-        if(randomInt <= spawnB[level][0]) {
-            newEnemy = new EnemyOne(gameStage);
-        } else if (randomInt <= spawnB[level][1]) {
-            newEnemy = new EnemyTwo(gameStage);
-        } else {
-            newEnemy = new EnemyThree(gameStage);
+            if(randomInt <= spawnB[level][0]) {
+                newEnemy = new EnemyOne(gameStage);
+            } else if (randomInt <= spawnB[level][1]) {
+                newEnemy = new EnemyTwo(gameStage);
+            } else {
+                newEnemy = new EnemyThree(gameStage);
+            }
+
+            Random xCoord = new Random();
+            float x = xCoord.nextInt((int) gameStage.getWidth()- (int) newEnemy.getWidth() ) + 1;
+            float y = gameStage.getHeight();
+
+            newEnemy.setPosition(x,y);
+            gameStage.addActor(newEnemy);
         }
-
-        Random xCoord = new Random();
-        float x = xCoord.nextInt((int) gameStage.getWidth()- (int) newEnemy.getWidth() ) + 1;
-        float y = gameStage.getHeight();
-
-        newEnemy.setPosition(x,y);
-        gameStage.addActor(newEnemy);
     }
+
+
 
     
     private void modifySpawnRate() {
@@ -70,11 +83,40 @@ public class EnemyFactory {
         // SpawnPossibility is calculated with gametime. As x = 9 is 3 min, ever min the
         // random spawnPossibility is incremented. As we do this with int, this is not exactly
         // every min, but more or less if we find a better function, go ahead
-        randSpawnPossibility = ((int) x/3) +randSpawnPossibilityStart;
+        randSpawnPossibility = ((int) x/3) + spawnB[level][2];
+    }
+
+    // 7 units EnemyOne next to each other
+    private void spawnWall(int maxEnemy) {
+        spawnPause = 3f;
+        Random unitRand = new Random();
+
+        EnemyActor newEnemy;
+
+        int min = 2;
+        // unit spawned (random to maxenemy -1 + 1 to have minimum of 2 enemies)
+        int unitCount = min + unitRand.nextInt(maxEnemy - min) ;
+        // Distance between enemies spawned in wall
+        int eDelta = 80;
+        // Startposition of wall (GameWidth - UnitWidth - Relative width of wall)
+        int xStart = unitRand.nextInt((int)gameStage.getWidth() - 62 - (unitCount * eDelta));
+
+        for (int z = 0; z < unitCount; z++) {
+            newEnemy = new EnemyOne(gameStage);
+            newEnemy.setPosition(xStart+(z*eDelta),gameStage.getHeight());
+            gameStage.addActor(newEnemy);
+        }
+    }
+
+    private void spawnScenarios() {
+        if (spawnB[level][3] != 0 && gameTime > 1 && (int)gameTime % spawnB[level][4] == 0) {
+            spawnWall(spawnB[level][3]);
+        }
+        // we could have more scenarios defined here, thats the reason there is this function
     }
     
 
-    private void spawnAdditionalRandom() {
+    private boolean spawnAdditionalRandom() {
         // Random Spawn minimum: every 0.5 seconds
         // Random Calculated: every 0.5 seconds
         // Possibility to spawn if both values fit: Possibility:1000
@@ -86,11 +128,13 @@ public class EnemyFactory {
             if(randomInt <= randSpawnPossibility) {
                 spawn(true);
                 //System.out.println("Spawned a random Unit");
+                return true;
             }
         }
+        return false;
     }
 
-    private void spawn(boolean randomUnit) {
+    private boolean spawn(boolean randomUnit) {
         // Spawns if time since last spwan is higher than the actual spawnrate
         // Or if the spawn is called due to random Unit Spawn
         if (spawnRate - (gameTime - timeLastSpawn) < 0 || randomUnit) {
@@ -100,15 +144,31 @@ public class EnemyFactory {
                 timeLastSpawn = gameTime;
                 //System.out.println("Spawned a unit");
             }
+            return true;
         }
+        return false;
     }
 
     // This is the method called by level screens to spawn enemies
-    public void continueManufacture(float delta) {
-        spawn(false);
+    public void continueManufacture(float delta, boolean bossfight) {
         gameTime +=delta;
-        modifySpawnRate();
-        spawnAdditionalRandom();
+        // Die ganzen Konditionen sind hier da, um nicht die verschiedene SpawnVarianten
+        // Gleichzeitig spawnen zu lassen z.b. Scenario + randomSpawn
+        if (bossfight) {
+            spawnAdditionalRandom();
+        } else {
+            if (spawnPause > 0) {
+                spawnPause -= delta;
+            } else {
+                if (!spawn(false)) {
+                    if (!spawnAdditionalRandom()) {
+                        spawnScenarios();
+                    }
+                }
+            }
+
+            modifySpawnRate();
+        }
     }
     
     public void setLevel(int lvl) {
