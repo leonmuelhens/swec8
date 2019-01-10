@@ -25,7 +25,7 @@ import com.github.lhrb.nemo.util.SoundManager;
  */
 public class LevelTransitionScreen extends AbstractScreen {
 
-    private Label levelDone;
+    private Label levelDone,levelCode;
     private Player player1;
     private Player player2;
     private HUD hud;
@@ -47,6 +47,22 @@ public class LevelTransitionScreen extends AbstractScreen {
         level = lvl;
         this.hud=hud;
         time =gameTime;
+        this.setCode();
+
+    }
+    private void setCode(){
+        switch(level){
+            case 1:
+                levelCode.setText("Freischaltcode für Level 2: korall20");
+
+                break;
+            case 2:
+                levelCode.setText("Freischaltcode für Level 3: tiefSee330");
+
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -63,6 +79,7 @@ public class LevelTransitionScreen extends AbstractScreen {
         levelDone = new Label("Level Geschafft :)",
                 GuiManager.getInstance().getLabelStyleBig());
 
+        levelCode= new Label("test",GuiManager.getInstance().getLabelStyleSmall());
         TextButton continueBtn = new TextButton("Weiter Spielen", GuiManager.getInstance().getTxtBtnStyle());
         continueBtn.addListener(
                 (Event e) ->{
@@ -116,8 +133,9 @@ public class LevelTransitionScreen extends AbstractScreen {
 
 
         //guiStage.addActor(backBtn);
-
         table.add(levelDone).spaceBottom(50);
+        table.row();
+        table.add(levelCode).spaceBottom(50);
         table.row();
         table.add(continueBtn).spaceBottom(25);
         table.row();

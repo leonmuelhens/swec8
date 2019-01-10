@@ -32,7 +32,7 @@ public class EnemyTwo extends EnemyActor {
         setShapePolygon(8);
 
         setHp(4);
-        setScoreValue(3);
+        setScoreValue(20);
         fireRate = 3f;  
         weapon = new WeaponSpread(fireRate, 45f, getStage());
     }

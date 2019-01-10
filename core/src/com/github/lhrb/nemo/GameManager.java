@@ -72,6 +72,10 @@ public class GameManager {
         if(player == null) return 0;
         return player.getX();
     }
+    public float getPlayerY() {
+        if(player == null) return 0;
+        return player.getY();
+    }
     // return the Player
     public Player getPlayer(){return player;}
 

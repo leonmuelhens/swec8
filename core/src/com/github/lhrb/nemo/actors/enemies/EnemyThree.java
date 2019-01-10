@@ -31,7 +31,7 @@ public class EnemyThree extends EnemyActor {
         setShapePolygon(8);
 
         setHp(3);
-        setScoreValue(2);
+        setScoreValue(30);
         fireRate = 3f;  
         weapon = new WeaponNormal(fireRate, getStage());
     }
