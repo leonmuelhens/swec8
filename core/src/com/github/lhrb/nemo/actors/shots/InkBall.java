@@ -22,6 +22,6 @@ public class InkBall extends Shots {
 
     @Override
     public void collision(CollisionEvent col) {
-        OverlayActor inked = new OverlayActor("tinte2.png",getStage(),5f);
+        OverlayActor inked = new OverlayActor("tinte.png",getStage(),5f);
     }
 }

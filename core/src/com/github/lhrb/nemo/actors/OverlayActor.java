@@ -17,6 +17,8 @@ public class OverlayActor extends ActorPrefab {
         setAcceleration(0);
         if (overlayTime == 0) {
             infinite = true;
+        } else {
+            infinite = false;
         }
         this.overlayTime = overlayTime;
     }
