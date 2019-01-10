@@ -3,6 +3,7 @@
  */
 package com.github.lhrb.nemo.actors.enemies;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -42,13 +43,15 @@ public class Uboot extends MultiPartActor {
         weapons.add( new WeaponSpreadSalve(getStage()) );
         weapons.add( new WeaponTorpedo(getStage()) );
         weapons.add( new WeaponBombdrop(getStage()) );
-        
+
         addPart(new Section(0, this, 0, 0, 15, 100,
-                AnimationLoader.get().texture("uboot_back.png")));
-        addPart(new Section(1, this, 72, 0, 15, 100,
-                AnimationLoader.get().texture("uboot_middle.png")));
-        addPart(new Section(2, this, 144, 0, 15, 100,
-                AnimationLoader.get().texture("uboot_front.png")));
+                AnimationLoader.get().texture("uboot_part1.png")));
+        addPart(new Section(1, this, 37, 0, 15, 100,
+                AnimationLoader.get().texture("uboot_part2.png")));
+        addPart(new Section(2, this, 70, 0, 15, 100,
+                AnimationLoader.get().texture("uboot_part3.png")));
+        addPart(new Section(3, this, 142, 0, 15, 100,
+                AnimationLoader.get().texture("uboot_part4.png")));
         
         setRotation(0);
         setAcceleration(1000);
@@ -56,19 +59,18 @@ public class Uboot extends MultiPartActor {
         setDeceleration(0);
         
         moveArea = new Vector3(50f, 550f, 500f);
-        
+
     }
     
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.actors.MultiPartActor#handleCollision(com.github.lhrb.nemo.actors.Section)
      */
-    @Override
+    /*@Override
     public void handleCollision(Section section) {
         //prevent middle part getting dmg
         if(getPartSize() > 1 && section.getID() != 1) {
             if(section.getDmg()) {
                 removePart(section);
-                section.perish();
             }
         }else if(getPartSize() == 1) {
             if(section.getDmg()) {
@@ -85,7 +87,7 @@ public class Uboot extends MultiPartActor {
                 }
             }
         }
-    }
+    }*/
     
     
     

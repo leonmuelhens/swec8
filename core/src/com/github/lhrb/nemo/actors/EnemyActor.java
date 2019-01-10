@@ -5,6 +5,7 @@ package com.github.lhrb.nemo.actors;
 
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.lhrb.nemo.GameManager;
@@ -40,9 +41,8 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
     protected void setCharacteristics() {}
 
     @Override
-    public void perish() {        
-        
-        GameManager.get().addScore(scoreValue);
+    public void perish() {
+        addScoreValue();
         SoundManager.getInstance().playSound("explosion");
 
         perishExplosion();
@@ -52,6 +52,10 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
             CollectibleFactory.spawnC(getX(), getY(), getStage());
         }
         addAction(Actions.removeActor());       
+    }
+
+    public void addScoreValue() {
+        GameManager.get().addScore(scoreValue);
     }
 
     protected void perishExplosion() {
@@ -100,8 +104,10 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
         if (hp > 1) {
             setColor(1,(float)hp/initialHp,(float)hp/initialHp,1);
         }
-        else {
+        else if (hp == 1){
             setColor(1,0,0,1);
+        } else {
+            setColor(Color.WHITE.cpy().lerp(Color.BLACK,0.8f));
         }
     }
 

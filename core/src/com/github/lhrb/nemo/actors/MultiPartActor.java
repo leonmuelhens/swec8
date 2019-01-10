@@ -6,6 +6,7 @@ package com.github.lhrb.nemo.actors;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 /**
  * @author exa
@@ -14,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class MultiPartActor extends ActorPrefab {
     
     private ArrayList<Section> parts;
-    
+
     public MultiPartActor(Stage stage) {
         super();
         setStage(stage);
@@ -43,6 +44,8 @@ public class MultiPartActor extends ActorPrefab {
     protected void removePart(Section e) {
         if(parts != null) {
             parts.remove(e);
+            e.perishExplosion();
+            e.removeShapePolygon();
         }
     }
     
@@ -54,8 +57,12 @@ public class MultiPartActor extends ActorPrefab {
     
     protected void handleCollision(Section section) {
         if(section.getDmg()) {
-            parts.remove(section);
-            section.perish();
+            removePart(section);
+            section.addScoreValue();
+
+            if (getPartSize() == 0) {
+                addAction(Actions.removeActor());
+            }
         }
     }
     
