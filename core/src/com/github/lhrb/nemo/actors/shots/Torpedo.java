@@ -24,7 +24,6 @@ public class Torpedo extends Shots {
     @Override
     public void act(float delta) {
         super.act(delta);
-        System.out.println("rotation: " + getRotation());
 
         if (GameManager.get().getPlayerX() > getX()) {
             accelerationAtAngle(initialAngle+45);
