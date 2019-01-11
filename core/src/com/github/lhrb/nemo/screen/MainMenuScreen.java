@@ -18,6 +18,7 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -34,6 +35,7 @@ public class MainMenuScreen extends AbstractScreen {
     @Override
     public void init() {
         //GameInterface gui = new GameInterface(guiStage);
+        SoundManager.getInstance().playTrack("menu");
         menuDelay = 0;
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("mainmenu_background.png"));

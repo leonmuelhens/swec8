@@ -13,6 +13,7 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
+import com.github.lhrb.nemo.util.SoundManager;
 
 public class PauseScreen extends AbstractScreen{
     AbstractScreen backScreen;
@@ -50,6 +51,7 @@ public class PauseScreen extends AbstractScreen{
                     if( !(e instanceof InputEvent)) { return false; }
                     if( !((InputEvent)e).getType().equals(InputEvent.Type.touchDown) ) { return false; }
                     //set next screen
+                    backScreen.dispose();
                     KillingNemo.setActiveScreen(new MainMenuScreen());
                     return true;
                 });
@@ -68,7 +70,7 @@ public class PauseScreen extends AbstractScreen{
                 (Event e) ->{
                     if( !(e instanceof InputEvent)) { return false; }
                     if( !((InputEvent)e).getType().equals(InputEvent.Type.touchDown) ) { return false; }
-                    Gdx.app.exit();;
+                    Gdx.app.exit();
                     return true;
                 });
 
