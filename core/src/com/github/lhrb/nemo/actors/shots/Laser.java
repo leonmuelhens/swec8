@@ -24,11 +24,19 @@ public class Laser extends Shots {
 
     @Override
     public void destroy() {
+
         addAction(new Action() {
+            private int damage = 2;
             @Override
             public boolean act(float delta) {
-                ((Shots)target).setPlayerShot(false);
-                return true;
+                if (damage < 1) {
+                    ((Shots)target).setPlayerShot(false);
+                    return true;
+                }
+                else {
+                    damage--;
+                    return false;
+                }
             }
         });
     }
