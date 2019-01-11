@@ -55,7 +55,7 @@ public class ThirdLevelScreen extends LevelScreen {
 
         SoundManager.getInstance().playTrack("thirdlevel");
 
-        factory = new EnemyFactory(gameStage,level);
+        factory = new EnemyFactory(gameStage,2);
     }
 
 
