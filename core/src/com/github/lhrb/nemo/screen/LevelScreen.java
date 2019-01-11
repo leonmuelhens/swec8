@@ -58,15 +58,9 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         }
         */
 
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            float timeSinceESC = GameManager.get().getTimeSinceESC();
-
-            if((gameTime-timeSinceESC) > 0) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 this.pause();
                 KillingNemo.setActiveScreen(new PauseScreen(this));
-                GameManager.get().setTimeSinceESC(timeSinceESC);
-            }
-
         }
 
 
