@@ -11,7 +11,7 @@ public class KillingNemo extends AbstractGame {
 	public void create () {
 	    super.create();
 	    SoundManager.getInstance().playTrack("menu");
-	    setActiveScreen(new MainMenuScreen());
+	    setActiveScreen(new MainMenuScreen(true));
 	    //setActiveScreen(new TestScreen());
 	    //setActiveScreen(new SecondLevelScreen());
 	}

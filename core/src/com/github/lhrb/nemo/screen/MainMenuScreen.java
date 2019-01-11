@@ -18,6 +18,7 @@ import com.github.lhrb.nemo.KillingNemo;
 import com.github.lhrb.nemo.actors.ActorPrefab;
 import com.github.lhrb.nemo.util.AnimationLoader;
 import com.github.lhrb.nemo.util.GuiManager;
+import com.github.lhrb.nemo.util.SoundManager;
 
 /**
  * @author exa
@@ -27,13 +28,21 @@ public class MainMenuScreen extends AbstractScreen {
 
     private float menuDelay;
     private Table mainMenu;
+    private boolean firstStart = true;
 
     /* (non-Javadoc)
      * @see com.github.lhrb.nemo.screen.AbstractScreen#init()
      */
+    public MainMenuScreen(){
+        firstStart = false;
+    }
+    public MainMenuScreen(boolean start){
+        firstStart=start;
+    }
     @Override
     public void init() {
         //GameInterface gui = new GameInterface(guiStage);
+        SoundManager.getInstance().playTrack("menu");
         menuDelay = 0;
         ActorPrefab bg = new ActorPrefab(0,0, gameStage);
         bg.setAnimation(AnimationLoader.get().texture("mainmenu_background.png"));
@@ -119,12 +128,19 @@ public class MainMenuScreen extends AbstractScreen {
     @Override
     public void update(float delta) {
         // TODO Auto-generated method stub
-        if (menuDelay <=1) {
-            menuDelay += delta;
-        } else {
+        if(firstStart) {
+            if (menuDelay <= 1) {
+                menuDelay += delta;
+            } else {
+                mainMenu.setTransform(true);
+                mainMenu.setVisible(true);
+                mainMenu.addAction(Actions.fadeIn(5f));
+            }
+        }
+        else {
             mainMenu.setTransform(true);
             mainMenu.setVisible(true);
-            mainMenu.addAction(Actions.fadeIn(5f));
+            mainMenu.addAction(Actions.fadeIn(0f));
         }
 
 
