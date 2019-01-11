@@ -247,7 +247,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
     
     @Override
     public void perish() {
-        ((LevelScreen)KillingNemo.getActiveScreen()).switchScreen(new GameOverScreen());;        
+        ((LevelScreen)KillingNemo.getActiveScreen()).switchScreen(new GameOverScreen());
     }
 
     @Override
@@ -300,6 +300,7 @@ public class Player extends PhysicalActor implements PropertyListener, Existence
             SoundManager.getInstance().playSound("hit");
             changes.firePropertyChange("health", life, --life);
             if (life <= 0) {
+                this.remove();
                 perish();
             }
             changes.firePropertyChange("poweruptimer", powerupTimer, 0f );
