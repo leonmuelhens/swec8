@@ -48,7 +48,7 @@ public class EnemyActor extends PhysicalActor implements Existence, Removable{
         perishExplosion();
 
         Random rand = new Random();
-        if(rand.nextInt(10) <= 1) { // 20% chance to drop
+        if(rand.nextInt(10) <= 2) { // 30% chance to drop
             CollectibleFactory.spawnC(getX(), getY(), getStage());
         }
         addAction(Actions.removeActor());       
