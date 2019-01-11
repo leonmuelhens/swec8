@@ -23,7 +23,7 @@ public class ThirdLevelScreen extends LevelScreen {
         super();
         
         gameTime = 0f;
-        player = new Player(20, 20, gameStage); 
+        player = new Player(20, 350, gameStage);
         hud = new HUD();
         hud.registerPropertyListener(this);
         hud.registerPropertyListener(player);

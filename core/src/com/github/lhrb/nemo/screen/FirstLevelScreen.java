@@ -23,7 +23,7 @@ public class FirstLevelScreen extends LevelScreen {
 
         bg = new Background(0, 0, gameStage, 1);
         bg2 = new Background(0, 1200, gameStage, 1);
-        player = new Player(20, 20, gameStage);
+        player = new Player(350, 20, gameStage);
 
 
         hud = new HUD();
