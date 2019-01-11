@@ -19,8 +19,7 @@ public class CollectibleFactory {
         Random rand = new Random();
         //if ((rand.nextInt(10)+1) < 9) {
         CType type;
-
-            switch (rand.nextInt(8) + 1) {
+            switch (rand.nextInt(7) + 1) {
                 case 1:
                     type = CType.Bomb;
                     break;
@@ -37,14 +36,15 @@ public class CollectibleFactory {
                     type = CType.Star;
                     break;
                 case 6:
-                    type = CType.Normal;
-                    break;
-                case 7:
                     type = CType.Spread;
                     break;
-                case 8:
+                case 7:
                     type = CType.Laser;
                     break;
+                //Auf anfrage des Kunden rausgenommen
+                //case 8:
+                    //type = CType.Normal;
+                    //break;
                 default:
                     type = CType.Bomb;
                     break;
