@@ -52,11 +52,11 @@ public abstract class LevelScreen extends AbstractScreen implements PropertyList
         CollisionManager.checkCollision(getPhysicalActors());
 
 
-        /*
+
         if (Gdx.input.isKeyPressed(Input.Keys.F10)) {
             gameTime += 3*60;
         }
-        */
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             float timeSinceESC = GameManager.get().getTimeSinceESC();
