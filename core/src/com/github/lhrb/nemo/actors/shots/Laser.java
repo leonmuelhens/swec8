@@ -26,7 +26,7 @@ public class Laser extends Shots {
     public void destroy() {
 
         addAction(new Action() {
-            private int damage = 3;
+            private int damage = 2;
             @Override
             public boolean act(float delta) {
                 if (damage < 1) {
